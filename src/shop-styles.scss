@@ -1,0 +1,30 @@
+.main-container {
+  background-color: #FFF;  
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+
+.products-container {
+  text-align: left;
+  border-radius: 4px;
+  min-height: 50vh;
+  padding: 40px 40px;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  background: #F4F7F8;
+  width: 80%;
+}
+
+.banner {
+  h1 {
+    font-size: 1.6rem;
+    color: #546068;
+  }
+}
+
+@media (max-width: 768px) {
+  .products-container {
+    width: 100%;
+  }
+}

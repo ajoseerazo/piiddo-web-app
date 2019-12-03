@@ -1,0 +1,35 @@
+.currency-selector {
+  margin-top: 3px;
+
+  .dropdown-toggle {
+    background-color: transparent !important;
+    border: none !important;
+    width: 90px;
+    font-size: 12px;
+
+    &:focus, &:active {
+      border: none !important;
+      box-shadow: none !important;
+      background-color: #f7389a !important;
+    }
+  }
+
+  .dropdown-menu {
+    width: 90px;
+    min-width: 70px;
+    background-color: #f7389a;
+    border: none;
+    margin-top: -3px;
+  } 
+
+  .dropdown-item {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+    color: white;
+
+    &:hover {
+      border-radius: 0px;
+      background: #fa81bf;
+    }
+  }
+}

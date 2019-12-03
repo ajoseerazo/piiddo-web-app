@@ -1,0 +1,220 @@
+.ShoppingBoxContainer {
+  display: block;
+  width: 400px;
+  min-width: 400px;
+  max-width: 400px;
+  border: none;
+  background: #ffffff;
+  padding: 15px;
+  margin: 60px 0px 0px 30px;
+  box-shadow: 0 7px 13px 0 rgba(0, 0, 0, 0.09);
+  position: fixed;
+  z-index: 6;
+  bottom: 15px;
+  transform: translateY(120%);
+  right: 15px;
+  background: #f7f7f7;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease;
+  animation-duration: 0.25s;
+  animation-name: ShoppingBoxContainer-active;
+  will-change: transform;
+  border-radius: 12px;
+}
+
+@keyframes ShoppingBoxContainer-active {
+  0% {
+    transform: translateY(120%)
+  }
+  100% {
+    transform: translateY(0%)
+  }
+}
+
+.itemsShoppingContainer{
+  height: auto;
+  position: relative;
+  transition: all 0.25s ease-out; 
+  overflow: hidden;
+  transition: all 0.25s ease-out;
+  margin: -15px -15px 0px -15px;
+  background: #fff;
+  cursor: pointer;
+  padding: 0px;
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.minimizeShoppingBox .itemsShoppingContainer {
+  height: 50px;
+}
+
+.minimizeShoppingBox .shoppingItem
+{
+  margin-bottom: 0px;
+  transition: all 0.25s ease-out;
+  height: 0%;
+}
+
+.shoppingItem {
+  transition: all 0s ease-out;
+  padding: 0px 10px;
+  min-height: 62px;
+  overflow: hidden;
+}
+
+.articles-shoppingBox:first-child {
+  margin-top: 10px;
+}
+
+.itemsShoppingContainer {
+  height: 100%;
+  transition: all 0.3s ease-out;
+}
+
+.boxShoppingTextUp {
+  line-height: 1;
+  font-size: 16px;
+  position: relative;
+  padding: 20px 15px !important;
+  transition: all 3s ease-out;
+  left: 0;
+  z-index: 2;
+  border-bottom: 1px solid #eee;
+  font-weight: bolder;
+  background: #f969b3;
+  color: white;
+}
+
+.minimizeShoppingBox .boxShoppingTextUp {
+  display: block;
+}
+.minimizeShoppingBox .articles-shoppingBox {
+  margin-top: 5px;
+  transition: all 0.25s ease;
+}
+
+.articles-shoppingBox {
+  transition: all 0s linear;
+  max-height: calc(100vh - 280px);
+  min-height: 100%;
+  line-height: 1;
+}
+
+.minimizeShoppingBox .shopping-BigClose {
+  display: none;
+}
+
+.shopping-BigCloseUp {
+  display: none;
+}
+
+.minimizeShoppingBox .shopping-BigCloseUp:hover {
+  color: #777777;
+}
+
+.minimizeShoppingBox .shopping-BigCloseUp {
+  right: 17px;
+  top: 17px;
+  position: absolute;
+  cursor: pointer;
+  z-index: 5;
+  line-height: 1;
+  display: block;
+  font-size: 16px;
+  padding: 1em;
+  margin: -1em;
+  color: #434343;
+}
+
+.shopping-BigClose {
+  transition: all 0.25s linear;
+  position: absolute;
+  color: transparent;
+  cursor: pointer;
+  right: 20px;
+  line-height: 1;
+  top: 20px;
+  display: block;
+  z-index: 5;
+  font-size: 16px;
+}
+
+.ShoppingBoxContainer:hover > .shopping-BigClose {
+  color: #dddddd;
+}
+
+.shopping-BigClose:hover {
+  color: #666666 !important;
+}
+
+.shopping-details {
+  background: #f7f7f6;
+  padding-top: 15px;
+  button {
+    font-family: 'Poppins';
+    border-radius: 12px;
+  }
+}
+
+.shopping-amount {
+  padding-bottom: 0.85em;
+  font-size: 13px;
+  color: #888;
+  font-weight: 600;
+}
+
+.shopping-amount-right { 
+  float: right;
+  color: black;
+}
+
+.shopping-action {
+  padding: 0px;
+  margin: 0px;
+}
+
+
+.move {
+  color: black;
+}
+
+.mymove {
+  animation-duration: 0.55s;
+  animation-name: slidein;
+  position: relative;
+}
+
+.gallery-img {
+  height: 40px;
+  width: 40px;
+  border-radius: 4px 0px 0px 4px;
+  padding: 1px;
+  float: left;
+  min-width: 40px;
+  min-height: 40px;
+  margin: 0px;
+  background-size: cover;
+  background-position: center;
+  margin-right: 10px;
+} 
+
+@keyframes slidein {
+  from {
+    left: -13px;
+    font-size: 14px;
+    color: red;
+  }
+
+  to {
+    left: 0px;
+    font-size: 13px;
+    color: black;
+  }
+}
+
+@media screen and (max-width: 768px)  {
+  .ShoppingBoxContainer {
+    display: none;
+  }
+}

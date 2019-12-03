@@ -1,0 +1,47 @@
+@import '../../variables';
+
+.feature {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  .feature-title {
+    font-family: 'Lato';
+    font-size: 26px;
+    font-weight: 700;
+    color: $primary-color;
+    margin-bottom: 20px;
+  }
+
+  .feature-description {
+    font-size: 16px;
+    color: #4f4f4f;
+  }
+
+  .feature-icon {
+    .fa {
+      font-size: 50px;
+      margin-bottom: 30px;
+    }
+  }
+}
+
+@media (max-width: $sm-screen-width) {
+  .feature {
+    .feature-title {
+      font-size: 20px;
+    }
+    
+    .feature-description {
+      font-size: 14px;
+    }
+
+    .feature-icon {
+      .fa {
+        font-size: 40px;
+        margin-bottom: 20px;
+      }
+    }
+  }
+}

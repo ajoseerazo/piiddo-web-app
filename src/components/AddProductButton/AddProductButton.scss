@@ -1,0 +1,17 @@
+button {
+  opacity: 1;
+  color: #fff;
+  transition: .3s;
+  line-height: 36px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  margin: 0;
+  width: 100%;
+  transition: .3s;
+  z-index: 1;
+
+  &:hover {
+    box-shadow: 0 10px 20px -5px #fa81bf;
+  }
+}

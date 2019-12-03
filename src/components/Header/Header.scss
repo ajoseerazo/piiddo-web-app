@@ -1,0 +1,12 @@
+@import '../../variables';
+
+nav {
+  &.lp-header {
+    height: $header-height;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 5px;
+  }
+}
+
+a.navbar-brand {
+  color: $primary-color;
+}

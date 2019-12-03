@@ -1,0 +1,44 @@
+.sidebar {
+  background-color: white;
+  font-family: 'Poppins';
+  padding: 15px;
+  overflow-y: auto;
+  animation: height 1s ease-in-out;
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 20px;
+
+    li {
+      padding: 10px 15px;
+      font-size: 13px;
+      cursor: pointer;
+
+      &:hover, .active {
+        background: #fcb3d8;
+        color: white;
+        border-radius: 12px;
+      }
+    }
+  }
+}
+
+.sidebar-wrapper {
+  background-color: #FFF;
+  width: 20%;
+
+  &.is-sticky {
+    position: fixed;
+    top: 57px;
+    left: 0px;
+    z-index: 10;
+  }
+}
+
+.category-name {
+  color: #546067;
+  font-size: 16px;
+  margin-bottom: 10px;
+}

@@ -1,0 +1,336 @@
+@import './variables';
+@import './overrides';
+
+.section-name {
+  font-size: 22px;
+  font-weight: bold;
+  color: #242424;
+  font-family: 'Poppins';
+  padding: 0px 15px;
+  font-weight: 700;
+}
+
+.section-top {
+  width: 100%;
+  height: 495px;
+  background: black;
+  padding: 120px;
+  margin: 0px;
+  border-radius: 0px;
+  margin-top: $header-height + $whatsapp-height;
+  display: flex;
+  align-items: center;
+  /*background: url(https://cdn.shopify.com/s/files/1/1832/5233/files/Llamanos_8_-min_2048x.png?v=1513347691);*/
+  background: url('https://www.rd.com/wp-content/uploads/2016/10/01-gag-gifts-send-wrong-message-80459669-chaiyon021.jpg');
+  /*background: url('https://birthdayinspire.com/wp-content/uploads/2016/07/birthday-return-gift-ideas.jpg');*/
+  background-repeat: repeat;
+  background-size: auto auto;
+  background-size: cover;
+  background-repeat: no-repeat;
+  position: relative;
+  background-position: center;
+
+  .section-hero {
+    width: 600px;
+    z-index: 1;
+    h1 {
+      font-family: 'Lato';
+      font-weight: 700;
+      color: white;
+      font-size: 40px;
+    }
+
+    .section-hero-actions {
+      display: flex;
+    }
+  }
+}
+
+.section-overlay {
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  background: rgba(0, 0, 0, 0.55);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.section-explanation {
+  padding: 110px 88px;
+}
+
+.section-call-to-action {
+  width: 100%;
+  height: 350px;
+  background-size: cover;
+  background-position: 50%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 0 118px;
+  position: relative;
+  background: $primary-color;
+
+  .hero-call-to-action {
+    h2 {
+      color: white;
+      font-family: 'Lato';
+      font-weight: 700;
+      font-size: 40px;
+    }
+  }
+
+  .hero-call-to-action {
+    width: 450px;
+  }
+
+  .section-hero-actions {
+    margin-top: 40px;
+    display: flex;
+
+    .btn {
+      font-weight: bold;
+    }
+  }
+}
+
+.section-restaurants {
+  padding: 80px 0px;
+
+  .hero-shops {
+    width: 600px;
+    text-align: center;
+    margin: 0 auto;
+  }
+
+  &.owner {
+    /*background: url(https://mcbadcreative.com/wp-content/uploads/featured-image-5.jpg);*/
+    color: white;
+    position: relative;
+    display: flex;
+
+    &:after {
+      content: "";
+      background-image: url(https://birthdayinspire.com/wp-content/uploads/2016/07/birthday-return-gift-ideas.jpg);
+      background-repeat: repeat;
+      background-size: auto auto;
+      background-size: cover;
+      background-repeat: no-repeat;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      position: absolute;
+      z-index: -1; 
+    }
+  }
+}
+
+.whatsapp-header {
+  height: $whatsapp-height;
+  position: fixed;
+  top: $header-height;
+  width: 100%;
+  z-index: 10;
+  background: #25D366;
+  color: white;
+  font-size: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    text-decoration: none;
+    color: white;
+  }
+}
+
+@media (max-width: $md-screen-width) {
+  .whatsapp-header {
+    top: $header-height-sm;
+    height: $whatsapp-height-sm;
+    font-size: 15px;
+    padding: 0px 15px;
+  }
+  .navbar {
+    height: $header-height-sm !important;
+
+    .navbar-brand {
+      font-size: 15px !important;
+    }
+  }
+  .section-top {
+    padding: 30px !important;
+    height: 350px !important;
+    margin-top: $header-height-sm + $whatsapp-height-sm !important;
+  }
+  .section-hero {
+    width: 100% !important;
+    text-align: center;
+
+    h1 {
+      font-size: 20px !important;
+      line-height: 35px !important;
+    }
+    
+    .section-hero-actions {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      height: 80px;
+      margin-top: 20px;
+
+      .btn {
+        width: 150px !important;
+        font-size: 12px;
+        margin: 0px !important;
+      }
+    }
+  }
+
+  .section-explanation {
+    padding: 30px !important;
+  }
+
+  .section-call-to-action {
+    padding: 30px !important;
+
+    .hero-call-to-action {
+      h2 {
+        font-size: 30px !important;
+      }
+    }
+  }
+
+  .section-restaurants {
+    padding: 30px !important;
+
+    .btn {
+      width: 100%;
+    }
+
+    input, .mb-2 {
+      width: 100%;
+    }
+
+    .form-control {
+      margin-bottom: 10px;
+    }
+
+    .hero-shops {
+      width: 100% !important;
+
+      h2 {
+        font-size: 28px !important;
+      }
+    }
+
+    .mb-2 {
+      margin-bottom: 0px !important;
+    }
+  }
+
+  .footer {
+    padding: 30px !important;
+
+    .links-container {
+      width: 100% !important;
+      flex-direction: column !important;
+      justify-content: center !important;
+      align-items: center !important;
+
+      a {
+        font-size: 12px !important;
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+.conversational-form {
+  &:before {
+    display: none;
+  }
+}
+
+.conversational-form-inner {
+  padding: 0 10px;
+  background-image: linear-gradient(to right top, #f969b3, #d8008a, #cb00a6, #b000c7, #7812eb);
+
+  textarea {
+    border-radius: 30px;
+    height: 60px !important;
+    font-size: 14px;
+    color: black; 
+    padding-left: 27px;
+    padding-top: 21px;
+    background: rgba(255, 255, 255, 0.7);
+    border: 2px solid #ee0076;
+  }
+
+  .cf-input-button {
+    width: 40px;
+    height: 40px;
+    top: 10px;
+    background: $primary-color;
+    border: none;
+
+    &:hover {
+      background: rgba(219, 40, 116, 0.7);
+      border: none;
+    }
+  }
+
+  .show {
+    font-size: 16px;
+    color: rgb(69, 33, 98);
+  }
+
+  .user.peak-thumb {
+    padding-right: 0px;
+    .show {
+      background: #C8D0E9;
+    }
+    thumb {
+      display: none;
+    }
+  }
+
+  .robot.peak-thumb {
+    padding-left: 40px;
+
+    .show {
+      background: white;
+      color: rgb(69, 33, 98);
+    }
+    thumb {
+      width: 35px;
+      height: 35px;
+      background-image: url(/static/images/women-avatar.png) !important;
+    }
+  }
+
+  .cf-chat-response.user {
+    padding-right: 0px;
+  }
+}
+
+.modal-dialog {
+  margin: 0px;
+  width: 100%;
+  position: absolute;
+  right: 0px;
+  top: 0px;
+  height: 100%;
+
+  .modal-content {
+    height: 100%;
+
+    .form-chat {
+      height: 100%;
+    }
+  }
+}

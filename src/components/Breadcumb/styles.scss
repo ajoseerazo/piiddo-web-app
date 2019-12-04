@@ -1,0 +1,27 @@
+.breadcumb {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-left: 20px;
+
+  .list-group-item {
+    border: none;
+    position: relative;
+
+    a {
+      color: #555 !important;
+      font-size: 14px;
+    }
+
+    &:after {
+      content: '>';
+      position: absolute;
+      right: 0px;
+    }
+
+    &:last-child {
+      &:after {
+        display: none;
+      }
+    }
+  }
+}

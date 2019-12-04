@@ -13,6 +13,15 @@ class Products {
 
     return products;
   }
+
+  static get = async (id) => {
+    const productRef = await db.collection("products").doc(id).get();
+
+    return {
+      id: productRef.id,
+      ...productRef.data()
+    }
+  }
 }
 
 export default {

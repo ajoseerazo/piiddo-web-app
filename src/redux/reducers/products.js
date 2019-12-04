@@ -3,7 +3,9 @@ import actions from '../actions/products'
 
 const initialState = new Map({
   products: null, 
-  isLoading: false
+  isLoading: false, 
+  product: null,
+  isLoadingProduct: false
 });
 
 export default function productsReducer (state = initialState, action) {
@@ -14,6 +16,14 @@ export default function productsReducer (state = initialState, action) {
       return state.set('isLoading', false);
     case actions.GET_ALL_SUCCESS:
       return state.set('products', action.products).set('isLoading', true);
+    case actions.SELECT_PRODUCT:
+      return state.set('product', action.product)
+    case actions.GET_PRODUCT_REQUEST:
+      return state.set('isLoadingProduct', true);
+    case actions.GET_PRODUCT_SUCCESS:
+      return state.set('isLoadingProduct', false).set("product", action.product);
+    case actions.GET_PRODUCT_FAIL:
+      return state.set('isLoadingProduct', false);
     default:
       return state;
   }

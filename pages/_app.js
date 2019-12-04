@@ -6,11 +6,12 @@ import App from "next/app";
 import withRedux from "next-redux-wrapper";
 import rootReducer from "../src/redux";
 import thunk from "redux-thunk"
+import { fromJS } from "immutable"
 
 const makeStore = (initialState, options) => {
   return createStore(
     rootReducer,
-    initialState,
+    fromJS(initialState),
     applyMiddleware(...[
       thunk
     ])

@@ -9,11 +9,13 @@ import { InView } from 'react-intersection-observer'
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux";
 import productsActions from "../src/redux/actions/products"
+import ProductModal from "../src/components/ProductModal"
 import "../src/styles.scss";
 import "../src/shop-styles.scss";
 
 const {
-  fetchProducts
+  fetchProducts,
+  selectProduct
 } = productsActions
 
 /*const products = [
@@ -177,7 +179,13 @@ class Shop extends Component {
   }
 
   openProduct = (product) => {
-    console.log(product);
+    const { actions: { selectProduct } } = this.props
+
+    selectProduct(product);
+
+    /*this.setState({
+      isModalOpen: true
+    })*/
   }
 
   setSidebarHeight = (isVisible) => {
@@ -234,8 +242,14 @@ class Shop extends Component {
     }
   }
 
+  onCloseModal = () => {
+    this.setState({
+      isModalOpen: false
+    })
+  }
+
   render() {
-    const { itemsInCart, isSticky, sidebarHeight } = this.state;
+    const { itemsInCart, isSticky, sidebarHeight, isModalOpen } = this.state;
     const { products } = this.props
 
     return (
@@ -257,7 +271,7 @@ class Shop extends Component {
           <Sidebar isSticky={isSticky} height={sidebarHeight} />
           
           <div className="products-container">
-            <h1 className="section-name">Mercados</h1>
+            <h1 className="section-name">Todos</h1>
 
             <ProductsGallery
               products={products}
@@ -286,6 +300,8 @@ class Shop extends Component {
         }}>
           <Footer onVisibilityChange={this.onFooterVisibiltyChange} />
         </InView>
+
+        <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
       </>
     );
   }
@@ -300,7 +316,7 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ fetchProducts }, dispatch) }
+  return { actions: bindActionCreators({ fetchProducts, selectProduct }, dispatch) }
 }
 
 

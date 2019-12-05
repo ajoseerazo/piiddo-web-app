@@ -1,8 +1,8 @@
 export const getCategoryName = (category) => {
   switch (category) {
-    case "cakes":
+    case "tortas":
       return "Tortas";
-    case "plush":
+    case "peluches":
       return "Peluches";
     default:
       return "Todos";

@@ -5,6 +5,11 @@
   overflow-y: auto;
   animation: height 1s ease-in-out;
 
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
   ul {
     list-style: none;
     padding: 0;
@@ -20,6 +25,10 @@
         background: #fcb3d8;
         color: white;
         border-radius: 12px;
+
+        a {
+          color: white;
+        }
       }
     }
   }

@@ -7,6 +7,7 @@ import {
   NavItem,
   NavLink
 } from 'reactstrap'
+import Link from "next/link"
 
 import './Header.scss'
 
@@ -31,7 +32,9 @@ export default class Header extends Component {
       <Navbar light expand="md" fixed="top" className="lp-header" style={{
         backgroundColor: "#f969b3"
       }}>
-        <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 700, color: '#FFF'}}>Veket</NavbarBrand>
+        <Link href="/">
+          <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 700, color: '#FFF'}}>Veket</NavbarBrand>
+        </Link>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>
             <NavItem className="btn btn-primary" onClick={() => {

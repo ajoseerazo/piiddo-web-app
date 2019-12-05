@@ -25,13 +25,12 @@ const productsActions = {
       error
     }
   },
-  fetchProducts: () => {
-    console.log("ENTRA")
+  fetchProducts: (category) => {
     return async (dispatch) => {
       try {
         dispatch(productsActions.fetchingProducts())
 
-        const products = await API.Products.getAll();
+        const products = await API.Products.getAll(category);
 
         dispatch(productsActions.fetchProductsSuccess(products))
 

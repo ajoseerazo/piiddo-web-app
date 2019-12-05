@@ -17,12 +17,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faShoppingBasket } from '@fortawesome/free-solid-svg-icons'
 import CurrencySelector from '../CurrencySelector'
 import FontAwesome from 'react-fontawesome'
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import appActions from "../../redux/actions/app"
+
+const {
+  selectCurrency
+} = appActions
 
 library.add([faSearch, faShoppingBasket])
 
 import './ShopHeader.scss'
 
-export default class ShopHeader extends Component {
+class ShopHeader extends Component {
   constructor(props) {
     super(props);
 
@@ -39,7 +46,9 @@ export default class ShopHeader extends Component {
   }
 
   changeCurrency = (currency) => {
-    console.log(currency);
+    const { actions: { selectCurrency } } = this.props
+
+    selectCurrency(currency);
   }
 
   render() {
@@ -75,3 +84,18 @@ export default class ShopHeader extends Component {
     )
   }
 }
+
+function mapStateToProps(state, props) {
+  const { cop_rate } = state.App.toJS();
+
+  return {
+    rate: cop_rate,
+    currency_code: "COP"
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators({ selectCurrency }, dispatch) };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ShopHeader);

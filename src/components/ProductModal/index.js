@@ -38,8 +38,6 @@ const ProductModal = (props) => {
 function mapStateToProps(state, props) {
   const { product } = state.Products.toJS()
 
-  console.log("PRODUCT", product);
-
   return {
     product: product
   }

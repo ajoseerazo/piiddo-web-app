@@ -20,7 +20,7 @@ const CurrencyItem = (props) => {
       case 'colombia':
         return 'COP';
       case 'usa':
-        return 'USA';
+        return 'USD';
       case 'europa':
         return 'EUR';
       default:

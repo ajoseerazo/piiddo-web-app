@@ -8,7 +8,7 @@ const Breadcumb = (props) => {
         (props.items || []).map(it => (
           <li className="list-group-item" key={it.url}>
             <Link href={it.url}>
-              <a>{it.name}</a>
+              <a className="link">{it.name}</a>
             </Link>
           </li>
         ))

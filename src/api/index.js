@@ -1,8 +1,14 @@
 import firebase, { db } from '../config/firebase';
 
 class Products {
-  static getAll = async () => {
-    const productsRef = await db.collection("products").get();
+  static getAll = async (category) => {
+    let productsRef 
+
+    if (category) {
+      productsRef = await db.collection("products").where("category", "==", category).get();
+    } else {
+      productsRef = await db.collection("products").get();
+    }
 
     const products = productsRef.docs.map(product => {
       return {

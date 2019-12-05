@@ -10,6 +10,7 @@ import { bindActionCreators } from "redux"
 import { connect } from "react-redux";
 import productsActions from "../src/redux/actions/products"
 import ProductModal from "../src/components/ProductModal"
+import { getCategoryName } from "../src/utils"
 import "../src/styles.scss";
 import "../src/shop-styles.scss";
 
@@ -250,7 +251,7 @@ class Shop extends Component {
 
   render() {
     const { itemsInCart, isSticky, sidebarHeight, isModalOpen } = this.state;
-    const { products } = this.props
+    const { products, category } = this.props
 
     return (
       <>
@@ -271,7 +272,7 @@ class Shop extends Component {
           <Sidebar isSticky={isSticky} height={sidebarHeight} />
           
           <div className="products-container">
-            <h1 className="section-name">Todos</h1>
+            <h1 className="section-name">{getCategoryName(category)}</h1>
 
             <ProductsGallery
               products={products}

@@ -1,11 +1,15 @@
 import firebase, { db } from '../config/firebase';
 
 class Products {
-  static getAll = async (category) => {
+  static getAll = async (category, isOcassion) => {
     let productsRef 
 
     if (category) {
-      productsRef = await db.collection("products").where("category", "==", category).get();
+      if (isOcassion) {
+        productsRef = await db.collection("products").where("ocassion", "array-contains", category).get();
+      } else {
+        productsRef = await db.collection("products").where("category", "==", category).get();
+      }
     } else {
       productsRef = await db.collection("products").get();
     }

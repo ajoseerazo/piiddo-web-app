@@ -57,7 +57,7 @@ class ShopHeader extends Component {
         backgroundColor: "#f969b3",
         borderBottom: 'none'
       }}>
-        <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 700, color: '#FFF'}}>
+        <NavbarBrand href="/" style={{fontWeight: 300, color: '#FFF'}}>
           <FontAwesome name='gift' />
           <span style={{marginLeft: 8}}>Veket</span>
         </NavbarBrand>

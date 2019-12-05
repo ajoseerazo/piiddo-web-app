@@ -4,8 +4,40 @@
   z-index: 100;
   background-color: white;
   position: relative;
-}
+  display: flex;
+  align-items: center;
+  border-top: 1px solid #F4F7F8;
 
+  ul {
+    list-style: none;
+    padding: 0px;
+    margin: 0px;
+
+    li {
+      font-size: 14px;
+      margin-bottom: 10px;
+      color: rgb(84, 96, 104);
+
+      a {
+        color: rgb(84, 96, 104);
+      }
+    }
+  }
+
+  .col-md-4.center {
+    display: flex;
+    justify-content: center;
+  }
+
+  .v-center {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    font-size: 40px;
+  }
+}
 /*.footer {
   padding: 80px 0px;
   a {

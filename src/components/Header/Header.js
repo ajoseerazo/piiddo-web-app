@@ -33,7 +33,7 @@ export default class Header extends Component {
         backgroundColor: "#f969b3"
       }}>
         <Link href="/">
-          <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 700, color: '#FFF'}}>Veket</NavbarBrand>
+          <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 100, color: '#FFF'}}>Veket</NavbarBrand>
         </Link>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>

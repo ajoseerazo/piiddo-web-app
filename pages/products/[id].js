@@ -3,12 +3,13 @@ import Sidebar from "../../src/components/Sidebar";
 import { useRouter } from "next/router";
 import productsActions from "../../src/redux/actions/products";
 import { getCategoryName } from "../../src/utils";
-import { Row, Col, Button } from "reactstrap";
+import { Row, Col } from "reactstrap";
 import Footer from '../../src/components/Footer'
 import Breadcumb from "../../src/components/Breadcumb"
 import { bindActionCreators } from "redux"
 import { connect } from "react-redux";
 import "./styles.scss";
+import BuyButton from "../../src/components/BuyButton";
 
 const { fetchProduct } = productsActions;
 
@@ -56,7 +57,7 @@ const Product = props => {
 
                   <div className="description">{product.description}</div>
 
-                  <Button color="primary" block className="buy-button">Comprar</Button>
+                  <BuyButton product={product} />
                 </Col>
               </Row>
             </div>

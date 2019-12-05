@@ -3,6 +3,7 @@ import AddProductButton from "../AddProductButton/AddProductButton";
 import Link from "next/link";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import BuyButton from "../BuyButton";
 
 import "./ProductSummary.scss";
 
@@ -46,13 +47,14 @@ class ProductSummary extends Component {
         </Link>
 
         <div className="add-product-button-wrapper">
-          <AddProductButton
+          {/*<AddProductButton
             onClick={() => {
               onAdd(product);
             }}
           >
-            Comprar
-          </AddProductButton>
+            Lo quiero comprar
+          </AddProductButton>*/}
+          <BuyButton product={product} />
         </div>
       </div>
     );

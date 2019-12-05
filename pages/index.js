@@ -13,6 +13,7 @@ import ProductModal from "../src/components/ProductModal";
 import { getCategoryName } from "../src/utils";
 import "../src/styles.scss";
 import "../src/shop-styles.scss";
+import Banner from "../src/components/Banner";
 
 const { fetchProducts, selectProduct } = productsActions;
 
@@ -258,33 +259,8 @@ class Shop extends Component {
       <>
         <ShopHeader />
 
-        <div
-          className="banner"
-          style={{
-            marginTop: 60,
-            padding: 40,
-            textAlign: "center",
-            fontFamily: "Poppins"
-          }}
-        >
-          <h1
-            style={{
-              fontSize: "1.6rem",
-              color: "#546068"
-            }}
-          >
-            Haz regalos a tus seres queridos en{" "}
-            <span style={{ color: "#f969b3" }}>Mérida</span>, estés donde estés
-          </h1>
-          <h1
-            style={{
-              fontSize: "1.6rem",
-              color: "#546068"
-            }}
-          >
-            y pagando en tu{" "}
-            <span style={{ color: "#f969b3" }}>moneda local</span>
-          </h1>
+        <div style={{marginTop: 57}}>
+          <Banner />
         </div>
 
         <div className="main-container">

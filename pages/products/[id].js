@@ -6,12 +6,14 @@ import { getCategoryName } from "../../src/utils";
 import { Row, Col, Button } from "reactstrap";
 import Footer from '../../src/components/Footer'
 import Breadcumb from "../../src/components/Breadcumb"
+import { bindActionCreators } from "redux"
+import { connect } from "react-redux";
 import "./styles.scss";
 
 const { fetchProduct } = productsActions;
 
 const Product = props => {
-  const { product } = props;
+  const { product, rate, currency_code } = props;
 
   const router = useRouter();
   const { id } = router.query;
@@ -50,7 +52,7 @@ const Product = props => {
                 <Col md="6" className="product-container-right">
                   <h1>{product.name}</h1>
 
-                  <div className="price">{product.price} COP</div>
+                  <div className="price">{`${new Intl.NumberFormat("es").format(product.price * rate)} ${currency_code}`}</div>
 
                   <div className="description">{product.description}</div>
 
@@ -75,4 +77,18 @@ Product.getInitialProps = async ({ store, query }) => {
   };
 };
 
-export default Product;
+function mapStateToProps(state, props) {
+  const { rate, currency_code } = state.App.toJS();
+
+  return {
+    rate,
+    currency_code
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return { actions: bindActionCreators({ }, dispatch) }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Product);

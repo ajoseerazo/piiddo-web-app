@@ -1,12 +1,5 @@
 export const getCategoryName = (category) => {
-  switch (category) {
-    case "tortas":
-      return "Tortas";
-    case "peluches":
-      return "Peluches";
-    default:
-      return "Todos";
-  }
+  return category
 }
 
 export const getCurrencyCode = (currency) => {

@@ -268,7 +268,9 @@ class Shop extends Component {
           }}>y pagando en tu <span style={{color: '#f969b3'}}>moneda local</span></h1>
         </div>
 
-        <div className="main-container">
+        <div className="main-container" style={{
+          minHeight: typeof window !== "undefined" ? window.innerHeight - 57 : "auto"
+        }}>
           <Sidebar isSticky={isSticky} height={sidebarHeight} />
           
           <div className="products-container">

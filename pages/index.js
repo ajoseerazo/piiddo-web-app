@@ -3,21 +3,18 @@ import ShopHeader from "../src/components/ShopHeader/ShopHeader";
 import ProductsGallery from "../src/components/ProductsGallery/ProductsGallery";
 import ShoppingCart from "../src/components/ShoppingCart/ShoppingCart";
 import ShoppingCartList from "../src/components/ShoppingCart/ShoppingCartList";
-import Sidebar from '../src/components/Sidebar'
-import Footer from '../src/components/Footer'
-import { InView } from 'react-intersection-observer'
-import { bindActionCreators } from "redux"
+import Sidebar from "../src/components/Sidebar";
+import Footer from "../src/components/Footer";
+import { InView } from "react-intersection-observer";
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import productsActions from "../src/redux/actions/products"
-import ProductModal from "../src/components/ProductModal"
-import { getCategoryName } from "../src/utils"
+import productsActions from "../src/redux/actions/products";
+import ProductModal from "../src/components/ProductModal";
+import { getCategoryName } from "../src/utils";
 import "../src/styles.scss";
 import "../src/shop-styles.scss";
 
-const {
-  fetchProducts,
-  selectProduct
-} = productsActions
+const { fetchProducts, selectProduct } = productsActions;
 
 /*const products = [
   {
@@ -151,14 +148,14 @@ class Shop extends Component {
     sidebarHeight: "auto"
   };
 
-  constructor (props) {
+  constructor(props) {
     super(props);
     this.footer = React.createRef();
   }
 
-  static async getInitialProps({store, isServer, pathname, query}) {
-    const products = await store.dispatch(fetchProducts()); 
-    
+  static async getInitialProps({ store, isServer, pathname, query }) {
+    const products = await store.dispatch(fetchProducts());
+
     return { products };
   }
 
@@ -179,101 +176,127 @@ class Shop extends Component {
     });
   }
 
-  openProduct = (product) => {
-    const { actions: { selectProduct } } = this.props
+  openProduct = product => {
+    const {
+      actions: { selectProduct }
+    } = this.props;
 
     selectProduct(product);
 
     /*this.setState({
       isModalOpen: true
     })*/
-  }
+  };
 
-  setSidebarHeight = (isVisible) => {
+  setSidebarHeight = isVisible => {
     if (isVisible) {
-      let height = window.innerHeight - this.footer.current.node.getBoundingClientRect().top
-          
+      let height =
+        window.innerHeight -
+        this.footer.current.node.getBoundingClientRect().top;
+
       if (height > 0) {
         this.setState({
           sidebarHeight: window.innerHeight - 54 - height
-        })
+        });
       } else {
         this.setState({
           sidebarHeight: window.innerHeight - 54
-        })
+        });
       }
     } else {
       this.setState({
         sidebarHeight: window.innerHeight - 54
-      })
+      });
     }
-  }
+  };
 
-  onFooterVisibiltyChange = (isVisible) => {
-    this.setSidebarHeight(isVisible)
-  }
+  onFooterVisibiltyChange = isVisible => {
+    this.setSidebarHeight(isVisible);
+  };
 
   componentDidMount = () => {
     if (window.scrollY > 160) {
       this.setState({
         isSticky: true
-      })
+      });
     }
 
     window.onscroll = () => {
       if (window.scrollY > 160) {
         this.setState({
           isSticky: true
-        })
+        });
       }
 
       window.onscroll = () => {
         if (window.scrollY > 160) {
           this.setState({
             isSticky: true
-          })
+          });
         } else {
           this.setState({
             isSticky: false
-          })
+          });
         }
 
         this.setSidebarHeight(this.state.footerIsVisible);
-      }
-    }
-  }
+      };
+    };
+  };
 
   onCloseModal = () => {
     this.setState({
       isModalOpen: false
-    })
-  }
+    });
+  };
 
   render() {
     const { itemsInCart, isSticky, sidebarHeight, isModalOpen } = this.state;
-    const { products, category } = this.props
+    const { products, category } = this.props;
 
     return (
       <>
         <ShopHeader />
 
-        <div className="banner" style={{marginTop: 60, padding: 40, textAlign: "center", fontFamily: "Poppins"}}>
-          <h1 style={{
-            fontSize: '1.6rem',
-            color: '#546068'
-          }}>Haz regalos a tus seres queridos en <span style={{color: '#f969b3'}}>Mérida</span>, estés donde estés</h1>
-          <h1 style={{
-            fontSize: '1.6rem',
-            color: '#546068'
-          }}>y pagando en tu <span style={{color: '#f969b3'}}>moneda local</span></h1>
+        <div
+          className="banner"
+          style={{
+            marginTop: 60,
+            padding: 40,
+            textAlign: "center",
+            fontFamily: "Poppins"
+          }}
+        >
+          <h1
+            style={{
+              fontSize: "1.6rem",
+              color: "#546068"
+            }}
+          >
+            Haz regalos a tus seres queridos en{" "}
+            <span style={{ color: "#f969b3" }}>Mérida</span>, estés donde estés
+          </h1>
+          <h1
+            style={{
+              fontSize: "1.6rem",
+              color: "#546068"
+            }}
+          >
+            y pagando en tu{" "}
+            <span style={{ color: "#f969b3" }}>moneda local</span>
+          </h1>
         </div>
 
-        <div className="main-container" style={{
-          minHeight: typeof window !== "undefined" ? window.innerHeight - 57 : "auto"
-        }}>
+        <div className="main-container">
           <Sidebar isSticky={isSticky} height={sidebarHeight} />
-          
-          <div className="products-container">
+
+          <div
+            className="products-container"
+            style={{
+              minHeight:
+                typeof window !== "undefined" ? window.innerHeight - 57 : "auto"
+            }}
+          >
             <h1 className="section-name">{getCategoryName(category)}</h1>
 
             <ProductsGallery
@@ -294,13 +317,17 @@ class Shop extends Component {
           </div>
         </div>
 
-        <InView as="div" ref={this.footer} onChange={(inView, entry) => {
-          this.setState({
-            footerIsVisible: inView
-          })
+        <InView
+          as="div"
+          ref={this.footer}
+          onChange={(inView, entry) => {
+            this.setState({
+              footerIsVisible: inView
+            });
 
-          this.onFooterVisibiltyChange(inView);
-        }}>
+            this.onFooterVisibiltyChange(inView);
+          }}
+        >
           <Footer onVisibilityChange={this.onFooterVisibiltyChange} />
         </InView>
 
@@ -311,16 +338,17 @@ class Shop extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { products } = props
+  const { products } = props;
 
   return {
     products
-  }
+  };
 }
 
 function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ fetchProducts, selectProduct }, dispatch) }
+  return {
+    actions: bindActionCreators({ fetchProducts, selectProduct }, dispatch)
+  };
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

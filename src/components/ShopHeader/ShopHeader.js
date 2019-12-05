@@ -73,9 +73,9 @@ class ShopHeader extends Component {
           <NavItem style={{marginRight: 10}}>
             <NavLink className="ingresar-link" href="/ingresar">Ingresar</NavLink>
           </NavItem>
-          <NavItem style={{marginRight: 10}}>
+          {/*<NavItem style={{marginRight: 10}}>
             <NavLink className="cart-icon" href="/cart"><FontAwesomeIcon icon="shopping-basket" /></NavLink>
-          </NavItem>
+    </NavItem>*/}
           <NavItem>
             <CurrencySelector onChangeCurrency={this.changeCurrency} />
           </NavItem>

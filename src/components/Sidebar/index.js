@@ -63,24 +63,7 @@ const Sidebar = (props) => {
         maxHeight: props.height ? props.height : "auto"
       }}>
         <div>
-          <div className="category-name">Motivos</div>
-          <ul>
-            {
-              motives.map(motive => (
-                <li>
-                  <Link href={motive.url} key={motive.url}>
-                    <a>
-                      {motive.name}
-                    </a>
-                  </Link>
-                </li>
-              ))
-            }
-          </ul>
-        </div>
-
-        <div>
-          <div className="category-name">Tipos</div>
+          <div className="category-name">Categorías</div>
           <ul>
             {
               categories.map(category => (

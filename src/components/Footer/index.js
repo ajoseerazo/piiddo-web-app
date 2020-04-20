@@ -9,15 +9,16 @@ const Footer = props => {
       <Row style={{ width: "100%" }}>
         <Col md="4" className="v-center">
           <div className="logo">
-            <FontAwesome name="gift" />
-            <span style={{ marginLeft: 8, fontWeight: 100 }}>Veket</span>
+            <img src="https://piiddo.com/piddo-color.png" style={{
+              width: 150
+            }}/>
           </div>
         </Col>
 
         <Col md="4" className="center">
           <ul>
             <li>
-              <a href="/">¿Porqué Veket?</a>
+              <a href="/">¿Porqué Piiddo?</a>
             </li>
             <li>
               <a href="/">¿Quiénes somos?</a>

@@ -41,7 +41,7 @@ export default class ConversationalForm extends Component {
         <Conversation
             onSubmit={this.sendData}
             chatOptions={{
-              introText: 'Hola, Bienvenido a Veket. Te ayudaremos con el regalo perfecto para tu ser querido',
+              introText: 'Hola, Bienvenido a Piiddo. Te ayudaremos con el regalo perfecto para tu ser querido',
               submittedResponseText: 'Gracias, en minutos te contactáremos'
             }}
             onStep={this.setValue}

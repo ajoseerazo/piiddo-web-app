@@ -1,15 +1,13 @@
 body {
-  font-family: 'Poppins';
+  font-family: "Poppins";
 }
-
 .main-container {
-  background-color: #FFF;  
+  background-color: #fff;
   display: flex;
   align-items: flex-start;
   justify-content: flex-end;
   margin-top: 70px;
 }
-
 .products-container {
   text-align: left;
   border-radius: 4px;
@@ -18,7 +16,6 @@ body {
   background: #fafaf8;
   width: 100%;
 }
-
 @media (max-width: 768px) {
   .products-container {
     width: 100%;

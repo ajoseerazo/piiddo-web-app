@@ -30,10 +30,10 @@ export default class Header extends Component {
   render() {
     return (
       <Navbar light expand="md" fixed="top" className="lp-header" style={{
-        backgroundColor: "#f969b3"
+        backgroundColor: "#F74342"
       }}>
         <Link href="/">
-          <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 100, color: '#FFF'}}>Veket</NavbarBrand>
+          <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 100, color: '#FFF'}}>Piiddo</NavbarBrand>
         </Link>
         <Collapse isOpen={this.state.isOpen} navbar>
           <Nav className="ml-auto" navbar>

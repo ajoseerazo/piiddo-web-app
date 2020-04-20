@@ -10,7 +10,7 @@ nav {
   }
 
   .input-group-text {
-    background: #f5f5f5;
+    background: #fafaf8;
     border-color: #ebebeb !important;
 
     &:hover {
@@ -41,12 +41,12 @@ nav {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: white;
+  color: #F74342;
 }
 
 .ingresar-link {
-  background: white;
-  color: #f969b3 !important;
+  background: #f74342;
+  color: white !important;
   border-radius: 12px;
   padding-left: 15px !important;
   padding-right: 15px !important;
@@ -54,7 +54,7 @@ nav {
   margin-top: 2px;
 
   &:hover {
-    box-shadow: 0 10px 20px -5px #c00867;
+    box-shadow: 0 10px 10px -5px #F74342;
   }
 }
 
@@ -82,13 +82,13 @@ nav {
 }
 
 .search-input {
-  background-color: white !important;
+  background-color: #fafaf8 !important;
   border: none !important;
 }
 
 .search-button {
   .input-group-text {
-    background-color: white !important;
+    background-color: #fafaf8 !important;
     border: none !important;
   }
 }

@@ -2,13 +2,13 @@ import * as firebase from 'firebase'
 import 'firebase/firestore'
 
 var config = {
-  apiKey: "AIzaSyBCYN-bBQE2lEaZmk36ySxa2dSd6yeEgm4",
-  authDomain: "veket-3eaee.firebaseapp.com",
-  databaseURL: "https://veket-3eaee.firebaseio.com",
-  projectId: "veket-3eaee",
-  storageBucket: "veket-3eaee.appspot.com",
-  messagingSenderId: "117314345909",
-  appId: "1:117314345909:web:cc0a31412a2099a4f797fc"
+  apiKey: "AIzaSyD53LSQgZaTGd7n_g5UxM1j3Gw_K4cpNAw",
+  authDomain: "genial-core-212201.firebaseapp.com",
+  databaseURL: "https://genial-core-212201.firebaseio.com",
+  projectId: "genial-core-212201",
+  storageBucket: "genial-core-212201.appspot.com",
+  messagingSenderId: "981763353916",
+  appId: "1:981763353916:web:7e2e2e626040c2bf2b8239"
 };
 
 if (!firebase.apps.length) {

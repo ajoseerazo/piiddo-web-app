@@ -12,7 +12,7 @@ const FirstItem = () => (
       }}
     >
       Haz regalos a tus seres queridos en{" "}
-      <span style={{ color: "#f969b3" }}>Mérida</span>, estés donde estés
+      <span style={{ color: "#F74342" }}>Mérida</span>, estés donde estés
     </h1>
     <h1
       style={{
@@ -20,7 +20,7 @@ const FirstItem = () => (
         color: "#546068"
       }}
     >
-      y pagando en tu <span style={{ color: "#f969b3" }}>moneda local</span>
+      y pagando en tu <span style={{ color: "#F74342" }}>moneda local</span>
     </h1>
   </div>
 );
@@ -34,7 +34,7 @@ const SecondItem = () => (
         marginBottom: 10
       }}
     >
-      Elige lo que quieras <span style={{ color: "#f969b3" }}>regalar</span>
+      Elige lo que quieras <span style={{ color: "#F74342" }}>regalar</span>
     </h1>
     <h1
       style={{
@@ -43,7 +43,7 @@ const SecondItem = () => (
       }}
     >
       y nosotros nos encargamos de llevárselo a{" "}
-      <span style={{ color: "#f969b3" }}>tu ser querido</span>
+      <span style={{ color: "#F74342" }}>tu ser querido</span>
     </h1>
   </div>
 );
@@ -57,7 +57,7 @@ const ThirdItem = () => (
         marginBottom: 10
       }}
     >
-      Si deseas atención <span style={{ color: "#f969b3" }}>personalizada</span>
+      Si deseas atención <span style={{ color: "#F74342" }}>personalizada</span>
     </h1>
     <h1
       style={{

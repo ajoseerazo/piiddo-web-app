@@ -2,14 +2,12 @@
 @import './overrides';
 
 .section-name {
-  font-size: 22px;
-  font-weight: bold;
+  font-size: 28px;
   color: #242424;
   font-family: 'Poppins';
   padding: 0px 15px;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: 20px;
-  text-transform: capitalize;
 }
 
 .section-top {
@@ -260,7 +258,7 @@
 
 .conversational-form-inner {
   padding: 0 10px;
-  background-image: linear-gradient(to right top, #f969b3, #d8008a, #cb00a6, #b000c7, #7812eb);
+  background-image: linear-gradient(to right top, #F74342, #d8008a, #cb00a6, #b000c7, #7812eb);
 
   textarea {
     border-radius: 30px;

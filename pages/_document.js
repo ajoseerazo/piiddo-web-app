@@ -9,21 +9,21 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
           <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
-          <link href="https://fonts.googleapis.com/css?family=Roboto|Poppins|Cardo|Lato|Montserrat:400,700|Open+Sans+Condensed:300,700|Open+Sans:300,400,600|Raleway:800,700,600,500,400,300,200,100|Lato:800,700,600,500,400,300,200,100" rel="stylesheet" />
+          <link href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900|Open+Sans+Condensed:300,700|Open+Sans:300,400,600|Raleway:800,700,600,500,400,300,200,100|Lato:800,700,600,500,400,300,200,100" rel="stylesheet" />
           <link rel="stylesheet" id="font-awesome-css" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css?ver=4.9.4" type="text/css" media="all" />
           <link rel="stylesheet" href="/_next/static/style.css" />
           <meta charset="utf-8" />
-          <title> Veket | Hazle regalos a tu familia en Venezuela, estés donde estés y pagando con tu moneda local</title>
-          <meta name="description" content="Envia tortas, flores, chocolates y regalos personalizados a tus amigos y familiares. Puedes hacerlo incluso desde el exterior!" />
+          <title> Piiddo | Compra lo que quieras y te lo llevamos en minutos</title>
+          <meta name="description" content="Compra lo que quieras y te lo llevamos en minutos" />
           <meta itemProp="name" content="" />
-          <meta itemProp="description" content="Envia tortas, flores, chocolates y regalos personalizados a tus amigos y familiares. Puedes hacerlo incluso desde el exterior!" />
+          <meta itemProp="description" content="Compra lo que quieras y te lo llevamos en minutos" />
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:title" content="" />
-          <meta name="twitter:description" content="Envia tortas, flores, chocolates y regalos personalizados a tus amigos y familiares. Puedes hacerlo incluso desde el exterior!" />
+          <meta name="twitter:description" content="Compra lo que quieras y te lo llevamos en minutos" />
           <meta name="twitter:image" content="https://regaloenvenezuela.com/static/images/sharing2.png" />
           
           <meta name="og:title" content="" />
-          <meta name="og:description" content="Envia tortas, flores, chocolates y regalos personalizados a tus amigos y familiares. Puedes hacerlo incluso desde el exterior!" />
+          <meta name="og:description" content="Compra lo que quieras y te lo llevamos en minutos" />
           <meta name="og:url" content="www.regaloenvenezuela.com" />
           <meta name="og:site_name" content="" />
           <meta name="og:locale" content="es_VE" />
@@ -40,20 +40,6 @@ export default class MyDocument extends Document {
            }} />
 
            <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/space10-community/conversational-form@0.9.83/dist/conversational-form.min.js" crossorigin></script>
-           <script src="https://www.gstatic.com/firebasejs/5.5.0/firebase.js"></script>
-
-           <script dangerouslySetInnerHTML={{__html: `
-            // Initialize Firebase
-            var config = {
-              apiKey: "AIzaSyAHDVaye0JeWsF1ZASXgbCqT8vTJMSEdFc",
-              authDomain: "regalo-en-venezuela.firebaseapp.com",
-              databaseURL: "https://regalo-en-venezuela.firebaseio.com",
-              projectId: "regalo-en-venezuela",
-              storageBucket: "",
-              messagingSenderId: "603482897484"
-            };
-            firebase.initializeApp(config);
-            `}} />
 
           <script type="text/javascript" dangerouslySetInnerHTML={{__html: `
           (function() {

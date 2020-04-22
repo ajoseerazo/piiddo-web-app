@@ -18,6 +18,7 @@ import "../src/shop-styles.scss";
 import Banner from "../src/components/Banner";
 import GlobalSearch from "../src/components/GlobalSearch";
 import Category from "../src/components/Category";
+import Categories from "../src/components/Categories";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchPartners } = partnersActions;
@@ -146,7 +147,7 @@ class Shop extends Component {
     const { itemsInCart, isSticky, sidebarHeight, isModalOpen } = this.state;
     const { products, category, partners, categories } = this.props;
 
-    console.log("P", partners.length);
+    console.log("P", categories.length);
 
     return (
       <>
@@ -168,33 +169,35 @@ class Shop extends Component {
                   : "auto",
             }}
           >
-            <GlobalSearch
-              style={{
-                marginBottom: 40,
-              }}
-            />
-
-            <h1 className="section-name">¿Qué deseas comprar hoy?</h1>
+            <GlobalSearch />
 
             {/*<ProductsGallery
               products={products}
               onAddProduct={this.onAddProduct.bind(this)}
               onClickProduct={this.openProduct}
             />*/}
-            {categories.map((cat) => (
-              <Category name={cat.name} image={cat.image} />
-            ))}
+            <div
+              style={{
+                paddingLeft: 20,
+                paddingRight: 20,
+                marginTop: 40,
+              }}
+            >
+              <h1 className="section-name">¿Qué tipo de producto deseas comprar?</h1>
 
-            {process.browser && itemsInCart.length !== 0 && (
-              <ShoppingCart
-                amount={itemsInCart.reduce(
-                  (sum, item) => (sum = sum + item.price * item.length),
-                  0
-                )}
-              >
-                <ShoppingCartList items={itemsInCart} />
-              </ShoppingCart>
-            )}
+              <Categories categories={categories} />
+
+              {process.browser && itemsInCart.length !== 0 && (
+                <ShoppingCart
+                  amount={itemsInCart.reduce(
+                    (sum, item) => (sum = sum + item.price * item.length),
+                    0
+                  )}
+                >
+                  <ShoppingCartList items={itemsInCart} />
+                </ShoppingCart>
+              )}
+            </div>
           </div>
         </div>
 

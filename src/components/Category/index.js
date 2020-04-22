@@ -2,12 +2,12 @@ import React from "react";
 import { CategoryWrapper, ImageWrapper } from "./styled";
 import Link from "next/link";
 
-const Category = ({ name, image }) => {
+const Category = ({ name, image, slug }) => {
   return (
     <CategoryWrapper>
-      <Link href={`/category/${name}`}>
+      <Link href={`/category/${slug}`}>
         <>
-          <ImageWrapper>
+          <ImageWrapper category={name}>
             <img src={image} alt={name} />
           </ImageWrapper>
           <p>{name}</p>

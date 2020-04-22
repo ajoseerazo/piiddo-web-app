@@ -17,6 +17,7 @@ import "../src/styles.scss";
 import "../src/shop-styles.scss";
 import Banner from "../src/components/Banner";
 import GlobalSearch from "../src/components/GlobalSearch";
+import Category from "../src/components/Category";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchPartners } = partnersActions;
@@ -167,9 +168,11 @@ class Shop extends Component {
                   : "auto",
             }}
           >
-            <GlobalSearch style={{
-              marginBottom: 40
-            }} />
+            <GlobalSearch
+              style={{
+                marginBottom: 40,
+              }}
+            />
 
             <h1 className="section-name">¿Qué deseas comprar hoy?</h1>
 
@@ -178,9 +181,9 @@ class Shop extends Component {
               onAddProduct={this.onAddProduct.bind(this)}
               onClickProduct={this.openProduct}
             />*/}
-            {categories.map((cat) => {
-              return <div>{cat.name}</div>;
-            })}
+            {categories.map((cat) => (
+              <Category name={cat.name} image={cat.image} />
+            ))}
 
             {process.browser && itemsInCart.length !== 0 && (
               <ShoppingCart

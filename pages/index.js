@@ -81,7 +81,7 @@ class Shop extends Component {
     })*/
   };
 
-  setSidebarHeight = (isVisible) => {
+  /*setSidebarHeight = (isVisible) => {
     if (isVisible) {
       let height =
         window.innerHeight -
@@ -101,13 +101,13 @@ class Shop extends Component {
         sidebarHeight: window.innerHeight - 54,
       });
     }
-  };
+  };*/
 
   onFooterVisibiltyChange = (isVisible) => {
-    this.setSidebarHeight(isVisible);
+    // this.setSidebarHeight(isVisible);
   };
 
-  componentDidMount = () => {
+  /*componentDidMount = () => {
     if (window.scrollY > 160) {
       this.setState({
         isSticky: true,
@@ -135,7 +135,7 @@ class Shop extends Component {
         this.setSidebarHeight(this.state.footerIsVisible);
       };
     };
-  };
+  };*/
 
   onCloseModal = () => {
     this.setState({

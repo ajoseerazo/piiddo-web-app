@@ -37,7 +37,7 @@ export const CategoryWrapper = styled.div`
   padding: 20px;
   box-shadow: 0 7px 15px 0 rgba(0,0,0,.05);
   border-radius: 15px;
-  width: 190px;
+  width: 100%;
   margin-bottom: 20px;
   background-color: #FFF;
 

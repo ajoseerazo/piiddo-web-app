@@ -52,21 +52,24 @@ const Sidebar = ({ categories, categorySlug, currentUrl }) => {
               </Link>
             </li>
             {categories.map((category) => (
-              <li
+              <Link
                 key={category.slug}
-                className={
-                  `/category/${categorySlug}/${category.slug}` === currentUrl
-                    ? "active"
-                    : undefined
-                }
+                href="/category/[category]/[subcategory]"
+                as={`/category/${categorySlug}/${category.slug}`}
               >
-                <Link
-                  href="/category/[category]/[subcategory]"
-                  as={`/category/${categorySlug}/${category.slug}`}
-                >
-                  <a>{category.name}</a>
-                </Link>
-              </li>
+                <a>
+                  <li
+                    className={
+                      `/category/${categorySlug}/${category.slug}` ===
+                      currentUrl
+                        ? "active"
+                        : undefined
+                    }
+                  >
+                    {category.name}
+                  </li>
+                </a>
+              </Link>
             ))}
           </ul>
         </div>

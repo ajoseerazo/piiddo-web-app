@@ -24,11 +24,8 @@
       border-left: 2px solid white;
 
       &:hover,
-      .active {
+      &.active {
         border-left: 2px solid #F74342;
-
-        a {
-        }
       }
     }
   }

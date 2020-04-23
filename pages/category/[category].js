@@ -6,17 +6,15 @@ import partnersActions from "../../src/redux/actions/partners";
 const { fetchCategory } = categoriesActions;
 const { fetchPartners } = partnersActions;
 
-const Category = ({ category, partners }) => {
-  console.log(partners);
-
-  return <CategoryPage category={category} partners={partners} />;
+const Category = ({ category, partners, currentUrl }) => {  
+  return <CategoryPage category={category} partners={partners} currentUrl={currentUrl} />;
 };
 
-Category.getInitialProps = async ({ store }) => {
-  const category = await store.dispatch(fetchCategory("restaurantes"));
-  const partners = await store.dispatch(fetchPartners("restaurantes"));
+Category.getInitialProps = async ({ store, query: { category: categoryQuery } }) => {
+  const category = await store.dispatch(fetchCategory(categoryQuery));
+  const partners = await store.dispatch(fetchPartners(categoryQuery));
 
-  return { category, partners };
+  return { category, partners, currentUrl: `/category/${categoryQuery}` };
 };
 
 export default Category;

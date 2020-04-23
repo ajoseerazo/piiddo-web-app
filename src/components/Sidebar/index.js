@@ -2,8 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import "./styles.scss";
 
-const Sidebar = ({ categories, categorySlug }) => {
-  const [isMounted, setIsMounted] = useState(false);
+const Sidebar = ({ categories, categorySlug, currentUrl }) => {
   const [isBrowser, setIsBrowser] = useState(false);
   const [sidebarHeight, setSidebarHeightCallback] = useState(600);
 
@@ -12,8 +11,6 @@ const Sidebar = ({ categories, categorySlug }) => {
   }, [isBrowser]);
 
   useEffect(() => {
-    if (!isMounted) {
-    }
     if (!isBrowser) {
       if (typeof window !== "undefined") {
         setIsBrowser(true);
@@ -24,6 +21,10 @@ const Sidebar = ({ categories, categorySlug }) => {
       }
     }
   });
+
+  console.log(
+    `/category/${categorySlug}` === currentUrl ? "active" : undefined
+  );
 
   return (
     <div
@@ -36,16 +37,29 @@ const Sidebar = ({ categories, categorySlug }) => {
         <div>
           <div className="category-name">Categorías</div>
           <ul>
-            <li>
+            <li
+              className={
+                `/category/${categorySlug}` === currentUrl
+                  ? "active"
+                  : undefined
+              }
+            >
               <Link
-                href="category/[category]"
+                href="/category/[category]"
                 as={`/category/${categorySlug}`}
               >
                 <a>Todos</a>
               </Link>
             </li>
             {categories.map((category) => (
-              <li key={category.slug}>
+              <li
+                key={category.slug}
+                className={
+                  `/category/${categorySlug}/${category.slug}` === currentUrl
+                    ? "active"
+                    : undefined
+                }
+              >
                 <Link
                   href="/category/[category]/[subcategory]"
                   as={`/category/${categorySlug}/${category.slug}`}

@@ -23,7 +23,7 @@
   border-left: 2px solid white;
 }
 .sidebar ul li:hover,
-.sidebar ul li .active {
+.sidebar ul li.active {
   border-left: 2px solid #f74342;
 }
 .sidebar-wrapper {

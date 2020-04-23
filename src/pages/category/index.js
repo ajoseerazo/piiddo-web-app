@@ -7,7 +7,7 @@ import Footer from "../../components/Footer";
 import "../../styles.scss";
 import "../../shop-styles.scss";
 
-const Category = ({ category, partners }) => {
+const Category = ({ category, partners, currentUrl }) => {
   return (
     <>
       <ShopHeader />
@@ -18,6 +18,7 @@ const Category = ({ category, partners }) => {
             <Sidebar
               categories={category.subcategories}
               categorySlug={category.slug}
+              currentUrl={currentUrl}
             />
           </SidebarWrapper>
 

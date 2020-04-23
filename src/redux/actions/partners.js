@@ -6,28 +6,31 @@ const partnersActions = {
   GET_ALL_FAILED: "GET_ALL_FAILED",
   fetchingPartners: () => {
     return {
-      type: partnersActions.GET_ALL_REQUEST
+      type: partnersActions.GET_ALL_REQUEST,
     };
   },
-  fetchPartnersFailed: error => {
+  fetchPartnersFailed: (error) => {
     return {
       type: partnersActions.GET_ALL_FAILED,
-      error
+      error,
     };
   },
-  fetchPartnersSuccess: partners => {
+  fetchPartnersSuccess: (partners) => {
     return {
       type: partnersActions.GET_ALL_SUCCESS,
-      partners
+      partners,
     };
   },
-  fetchPartners: (categorySlug) => {
-    return async dispatch => {
+  fetchPartners: (categorySlug, subcategorySlug) => {
+    return async (dispatch) => {
       try {
         dispatch(partnersActions.fetchingPartners());
 
-        const partners = await API.Partners.getAll(categorySlug);
-        
+        const partners = await API.Partners.getAll(
+          categorySlug,
+          subcategorySlug
+        );
+
         dispatch(partnersActions.fetchPartnersSuccess(partners));
 
         return partners;
@@ -35,7 +38,7 @@ const partnersActions = {
         dispatch(partnersActions.fetchPartnersFailed(error));
       }
     };
-  }
+  },
 };
 
 export default partnersActions;

@@ -21,43 +21,51 @@ class Products {
       productsRef = await db.collection("products").get();
     }
 
-    const products = productsRef.docs.map(product => {
+    const products = productsRef.docs.map((product) => {
       return {
         id: product.id,
-        ...product.data()
+        ...product.data(),
       };
     });
 
     return products;
   };
 
-  static get = async id => {
-    const productRef = await db
-      .collection("products")
-      .doc(id)
-      .get();
+  static get = async (id) => {
+    const productRef = await db.collection("products").doc(id).get();
 
     return {
       id: productRef.id,
-      ...productRef.data()
+      ...productRef.data(),
     };
   };
 }
 
 class Partners {
-  static getAll = async category => {
+  static getAll = async (category, subCategory) => {
     let partnersRef;
 
     if (category) {
-      partnersRef = await db.collection("partners").where("mainCategory", "==", category).get();
+      if (!subCategory) {
+        partnersRef = await db
+          .collection("partners")
+          .where("mainCategory", "==", category)
+          .get();
+      } else {
+        partnersRef = await db
+          .collection("partners")
+          .where("mainCategory", "==", category)
+          .where("categories", "array-contains", subCategory)
+          .get();
+      }
     } else {
       partnersRef = await db.collection("partners").get();
     }
 
-    const partners = partnersRef.docs.map(p => {
+    const partners = partnersRef.docs.map((p) => {
       return {
         id: p.id,
-        ...p.data()
+        ...p.data(),
       };
     });
 
@@ -68,5 +76,5 @@ class Partners {
 export default {
   Products,
   Partners,
-  Categories
+  Categories,
 };

@@ -21,12 +21,12 @@ const partnersActions = {
       partners
     };
   },
-  fetchPartners: () => {
+  fetchPartners: (categorySlug) => {
     return async dispatch => {
       try {
         dispatch(partnersActions.fetchingPartners());
 
-        const partners = await API.Partners.getAll();
+        const partners = await API.Partners.getAll(categorySlug);
         
         dispatch(partnersActions.fetchPartnersSuccess(partners));
 

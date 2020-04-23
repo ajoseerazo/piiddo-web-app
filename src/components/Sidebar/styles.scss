@@ -1,12 +1,14 @@
 .sidebar {
   background-color: white;
-  font-family: 'Poppins';
-  padding: 15px;
-  overflow-y: auto;
+  font-family: "Poppins";
+  padding: 15px 5px 15px 0;
   animation: height 1s ease-in-out;
+  border-radius: 12px;
+  overflow-y: auto;
+  height: 100%;
 
   a {
-    color: black;
+    color: #7d7d7d;
     text-decoration: none;
   }
 
@@ -14,20 +16,18 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    margin-bottom: 20px;
 
     li {
-      padding: 10px 15px;
-      font-size: 13px;
+      padding: 10px 20px;
+      font-size: 14px;
       cursor: pointer;
+      border-left: 2px solid white;
 
-      &:hover, .active {
-        background: #fcb3d8;
-        color: white;
-        border-radius: 12px;
+      &:hover,
+      .active {
+        border-left: 2px solid #F74342;
 
         a {
-          color: white;
         }
       }
     }
@@ -35,19 +35,21 @@
 }
 
 .sidebar-wrapper {
-  background-color: #FFF;
-  width: 20%;
+  background-color: #fff;
+  width: 256px;
+  border-radius: 12px;
 
   &.is-sticky {
     position: fixed;
-    top: 57px;
-    left: 0px;
+    top: 90px;
+    left: 40px;
     z-index: 10;
   }
 }
 
 .category-name {
-  color: #546067;
-  font-size: 16px;
+  font-size: 20px;
   margin-bottom: 10px;
+  font-weight: 600;
+  padding: 0px 20px 10px;
 }

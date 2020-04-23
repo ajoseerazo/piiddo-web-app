@@ -1,86 +1,64 @@
-import React, { useEffect, useState } from "react"
-import Link from "next/link"
-import "./styles.scss"
+import React, { useEffect, useState, useCallback } from "react";
+import Link from "next/link";
+import "./styles.scss";
 
-const categories = [
-  {
-    name: "Tortas",
-    url: '/tortas'
-  },
-  {
-    name: "Peluches",
-    url: '/peluches'
-  },
-  {
-    name: "Flores",
-    url: '/flores'
-  },
-  {
-    name: "Chocolates",
-    url: '/chocolates'
-  },
-  {
-    name: "Comida",
-    url: "/comida"
-  },
-  {
-    name: "Ropa",
-    url: "/ropa"
-  },
-  {
-    name: "Bebidas",
-    url: "/bebidas"
-  },
-  {
-    name: "Experiencias",
-    url: "/experiencias"
-  },
-  {
-    name: "Otros",
-    url: "/otros"
-  }
-]
+const Sidebar = ({ categories, categorySlug }) => {
+  const [isMounted, setIsMounted] = useState(false);
+  const [isBrowser, setIsBrowser] = useState(false);
+  const [sidebarHeight, setSidebarHeightCallback] = useState(600);
 
-const motives = [
-  {
-    name: "Para navidad",
-    url: "/motivos/para-navidad"
-  },
-  {
-    name: "Para cumpleaños",
-    url: "/motivos/para-cumpleanos"
-  },
-  {
-    name: "Para mi novi@",
-    url: "/motivos/para-mi-novix"
-  }
-]
+  const setSidebarHeight = useCallback(() => {
+    setSidebarHeightCallback(window.innerHeight - 110);
+  }, [isBrowser]);
 
-const Sidebar = (props) => {
+  useEffect(() => {
+    if (!isMounted) {
+    }
+    if (!isBrowser) {
+      if (typeof window !== "undefined") {
+        setIsBrowser(true);
+
+        setTimeout(() => {
+          setSidebarHeight();
+        }, 1000);
+      }
+    }
+  });
+
   return (
-    <div className={`sidebar-wrapper ${props.isSticky ? 'is-sticky' : ''}`}>
-      <div className="sidebar" style={{
-        maxHeight: props.height ? props.height : "auto"
-      }}>
+    <div
+      className={`sidebar-wrapper is-sticky`}
+      style={{
+        height: sidebarHeight,
+      }}
+    >
+      <div className="sidebar">
         <div>
           <div className="category-name">Categorías</div>
           <ul>
-            {
-              categories.map(category => (
-                <li>
-                  <Link href={category.url} key={category.url}>
-                    <a>
-                      {category.name}
-                    </a>
-                  </Link>
-                </li>
-              ))
-            }
+            <li>
+              <Link
+                href="category/[category]"
+                as={`/category/${categorySlug}`}
+              >
+                <a>Todos</a>
+              </Link>
+            </li>
+            {categories.map((category) => (
+              <li key={category.slug}>
+                <Link
+                  href="/category/[category]/[subcategory]"
+                  as={`/category/${categorySlug}/${category.slug}`}
+                >
+                  <a>{category.name}</a>
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Sidebar;

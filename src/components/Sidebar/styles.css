@@ -1,0 +1,45 @@
+.sidebar {
+  background-color: white;
+  font-family: "Poppins";
+  padding: 15px 5px 15px 0;
+  animation: height 1s ease-in-out;
+  border-radius: 12px;
+  overflow-y: auto;
+  height: 100%;
+}
+.sidebar a {
+  color: #7d7d7d;
+  text-decoration: none;
+}
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.sidebar ul li {
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+  border-left: 2px solid white;
+}
+.sidebar ul li:hover,
+.sidebar ul li .active {
+  border-left: 2px solid #f74342;
+}
+.sidebar-wrapper {
+  background-color: #fff;
+  width: 256px;
+  border-radius: 12px;
+}
+.sidebar-wrapper.is-sticky {
+  position: fixed;
+  top: 90px;
+  left: 40px;
+  z-index: 10;
+}
+.category-name {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  padding: 0px 20px 10px;
+}

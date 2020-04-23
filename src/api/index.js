@@ -46,7 +46,13 @@ class Products {
 
 class Partners {
   static getAll = async category => {
-    const partnersRef = await db.collection("partners").get();
+    let partnersRef;
+
+    if (category) {
+      partnersRef = await db.collection("partners").where("mainCategory", "==", category).get();
+    } else {
+      partnersRef = await db.collection("partners").get();
+    }
 
     const partners = partnersRef.docs.map(p => {
       return {

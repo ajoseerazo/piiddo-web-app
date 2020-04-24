@@ -30,6 +30,11 @@ export const ContentWrapper = styled.div`
     font-family: 'Poppins';
     font-size: 20px;
     margin-bottom: 30px;
+
+    span {
+      display: flex;
+      align-items: center;
+    }
   }
 `;
 
@@ -40,4 +45,17 @@ export const SidebarWrapper = styled.div`
 export const RestaurantsGrid = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+`;
+
+export const ChevronRightIcon = styled.span`
+  font-weight: 100;
+  color: red;
+  font-size: 30px;
+  margin-left: 10px;
+  margin-right: 10px;
 `;

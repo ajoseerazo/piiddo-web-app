@@ -71,6 +71,23 @@ class Partners {
 
     return partners;
   };
+
+  static getBySlug = async (slug) => {
+    const partnersRef = await db
+      .collection("partners")
+      .where("slug", "==", slug)
+      .limit(1)
+      .get();
+
+    if (partnersRef.docs.length) {
+      return {
+        id: partnersRef.docs[0].id,
+        ...partnersRef.docs[0].data(),
+      }
+    } else {
+      return null;
+    }
+  };
 }
 
 export default {

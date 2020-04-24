@@ -78,4 +78,8 @@ const Sidebar = ({ categories, categorySlug, currentUrl }) => {
   );
 };
 
+Sidebar.defaultProps = {
+  categories: [],
+};
+
 export default Sidebar;

@@ -44,6 +44,7 @@ export const ProductDescription = styled.div`
   font-size: 12px;
   color: #7d7d7d;
   font-weight: 200;
+  height: 37px;
 `;
 
 export const ProductPrice = styled.div`

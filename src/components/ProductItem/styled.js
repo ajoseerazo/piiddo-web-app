@@ -45,6 +45,11 @@ export const ProductDescription = styled.div`
   color: #7d7d7d;
   font-weight: 200;
   height: 37px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;  
+  width: 100%;
 `;
 
 export const ProductPrice = styled.div`

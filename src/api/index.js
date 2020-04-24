@@ -2,23 +2,21 @@ import firebase, { db } from "../config/firebase";
 import Categories from "./categories";
 
 class Products {
-  static getAll = async (category, isOcassion) => {
+  static getAll = async (parentId, type = "partner") => {
     let productsRef;
 
-    if (category) {
-      if (isOcassion) {
+    if (type === "partner") {
+      productsRef = await db
+        .collection("products")
+        .where("partnersId", "array-contains", parentId)
+        .get();
+    } else {
+      if (type === "catalog") {
         productsRef = await db
           .collection("products")
-          .where("ocassion", "array-contains", category)
-          .get();
-      } else {
-        productsRef = await db
-          .collection("products")
-          .where("category", "==", category)
+          .where("catalog", "==", parentId)
           .get();
       }
-    } else {
-      productsRef = await db.collection("products").get();
     }
 
     const products = productsRef.docs.map((product) => {
@@ -83,10 +81,29 @@ class Partners {
       return {
         id: partnersRef.docs[0].id,
         ...partnersRef.docs[0].data(),
-      }
+      };
     } else {
       return null;
     }
+  };
+
+  static getCatalog = async (partnerId) => {
+    const catalogRef = await db
+      .collection("catalog")
+      .where("partnersId", "array-contains", partnerId)
+      .limit(1)
+      .get();
+
+    let catalog = null;
+
+    if (catalogRef.docs.length) {
+      catalog = {
+        id: catalogRef.docs[0].id,
+        ...catalogRef.docs[0].data(),
+      };
+    }
+
+    return catalog;
   };
 }
 

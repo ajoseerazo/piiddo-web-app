@@ -33,7 +33,7 @@ class ProductSummary extends Component {
             </div>
 
             <div className="product-img">
-              <img src={product.images[0]} />
+              <img src={product.image} />
             </div>
 
             <div className="product-info">

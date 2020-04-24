@@ -3,9 +3,11 @@ import CategoryPage from "../../../src/pages/category";
 import StorePage from "../../../src/pages/partner";
 import categoriesActions from "../../../src/redux/actions/categories";
 import partnersActions from "../../../src/redux/actions/partners";
+import productsActions from "../../../src/redux/actions/products";
 
 const { fetchCategory } = categoriesActions;
-const { fetchPartners, fetchPartner } = partnersActions;
+const { fetchPartners, fetchPartner, fetchCatalog } = partnersActions;
+const { fetchProducts } = productsActions;
 
 const SubCategory = ({
   category,
@@ -14,8 +16,6 @@ const SubCategory = ({
   subcategory,
   partner,
 }) => {
-  console.log("partner", partner);
-
   if (partner) {
     return <StorePage partner={partner} />;
   }
@@ -49,7 +49,13 @@ SubCategory.getInitialProps = async ({
     partners = await store.dispatch(fetchPartners(categoryQuery, subcategory));
   } else {
     partner = await store.dispatch(fetchPartner(subcategory));
+    partner.catalog = await store.dispatch(fetchCatalog(partner.id));
+    partner.products = await store.dispatch(
+      fetchProducts(partner.id, "partner")
+    );
   }
+
+  
 
   return {
     category,

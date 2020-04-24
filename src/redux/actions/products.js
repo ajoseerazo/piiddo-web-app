@@ -25,12 +25,12 @@ const productsActions = {
       error
     }
   },
-  fetchProducts: (category, isOcassion) => {
+  fetchProducts: (parentId, type = "partner") => {
     return async (dispatch) => {
       try {
         dispatch(productsActions.fetchingProducts())
 
-        const products = await API.Products.getAll(category, isOcassion);
+        const products = await API.Products.getAll(parentId, type);
 
         dispatch(productsActions.fetchProductsSuccess(products))
 

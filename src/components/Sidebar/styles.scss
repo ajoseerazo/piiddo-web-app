@@ -37,7 +37,7 @@
   border-radius: 12px;
 
   &.is-sticky {
-    position: fixed;
+    position: sticky;
     top: 90px;
     left: 40px;
     z-index: 10;

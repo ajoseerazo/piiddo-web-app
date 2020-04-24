@@ -23,7 +23,6 @@ export const ContentWrapper = styled.div`
   padding: 30px 20px;
   background: #FFF;
   margin-left: 20px;
-  min-height: 600px;
 
   h1 {
     font-weight: 600;

@@ -7,7 +7,7 @@ const { fetchCategory } = categoriesActions;
 const { fetchPartners } = partnersActions;
 
 const Category = ({ category, partners, currentUrl }) => {  
-  return <CategoryPage category={category} partners={partners} currentUrl={currentUrl} />;
+  return <CategoryPage category={category} partners={partners}  />;
 };
 
 Category.getInitialProps = async ({ store, query: { category: categoryQuery } }) => {

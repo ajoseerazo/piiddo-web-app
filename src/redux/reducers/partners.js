@@ -6,6 +6,8 @@ const initialState = new Map({
   isLoading: false,
   isLoadingPartner: false,
   partner: null,
+  catalog: null,
+  isLoadingCatalog: false,
 });
 
 export default function partnersReducer(state = initialState, action) {
@@ -24,6 +26,12 @@ export default function partnersReducer(state = initialState, action) {
       return state
         .set("partner", action.partner)
         .set("isLoadingPartner", false);
+    case actions.GET_CATALOG_REQUEST:
+      return state.set("isLoadingCatalog", true);
+    case actions.GET_CATALOG_FAILED:
+      return state.set("isLoadingCatalog", false);
+    case actions.GET_CATALOG_SUCCESS:
+      return state.set("isLoadingCatalog", false).set("catalog", action.catalog);
     default:
       return state;
   }

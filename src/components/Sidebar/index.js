@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import "./styles.scss";
 
-const Sidebar = ({ categories, categorySlug, currentUrl }) => {
+const Sidebar = ({ categories, categorySlug, currentUrl, showTitle }) => {
   const [isBrowser, setIsBrowser] = useState(false);
   const [sidebarHeight, setSidebarHeightCallback] = useState(600);
 
@@ -35,7 +35,7 @@ const Sidebar = ({ categories, categorySlug, currentUrl }) => {
     >
       <div className="sidebar">
         <div>
-          <div className="category-name">Categorías</div>
+          {showTitle && <div className="category-name">Categorías</div>}
           <ul>
             <li
               className={
@@ -80,6 +80,7 @@ const Sidebar = ({ categories, categorySlug, currentUrl }) => {
 
 Sidebar.defaultProps = {
   categories: [],
+  showTitle: true
 };
 
 export default Sidebar;

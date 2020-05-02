@@ -105,6 +105,22 @@ class Partners {
 
     return catalog;
   };
+
+  static getCatalogCategories = async (catalogId) => {
+    const categoriesRef = await db
+      .collection("catalogCategories")
+      .where("catalogId", "==", catalogId)
+      .get();
+    
+    let categories = categoriesRef.docs.map(cat => {
+      return {
+        id: cat.id,
+        ...cat.data()
+      }
+    })
+
+    return categories;
+  };
 }
 
 export default {

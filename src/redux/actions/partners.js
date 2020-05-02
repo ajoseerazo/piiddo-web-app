@@ -10,6 +10,9 @@ const partnersActions = {
   GET_CATALOG_REQUEST: "GET_CATALOG_REQUEST",
   GET_CATALOG_SUCCESS: "GET_CATALOG_REQUEST",
   GET_CATALOG_FAILED: "GET_CATALOG_FAILED",
+  GET_CATALOG_CATEGORIES_REQUEST: "GET_CATALOG_CATEGORIES_REQUEST",
+  GET_CATALOG_CATEGORIES_SUCCESS: "GET_CATALOG_CATEGORIES_SUCCESS",
+  GET_CATALOG_CATEGORIES_FAILED: "GET_CATALOG_CATEGORIES_FAILED",
   fetchingPartners: () => {
     return {
       type: partnersActions.GET_ALL_REQUEST,
@@ -109,6 +112,38 @@ const partnersActions = {
       }
     };
   },
+  fetchingCatalogCategories: () => {
+    return {
+      type: partnersActions.GET_CATALOG_CATEGORIES_REQUEST
+    }
+  },
+  fetchCatalogCaegoriesFailed: (error) => {
+    return {
+      type: partnersActions.GET_CATALOG_CATEGORIES_FAILED,
+      error
+    }
+  },
+  fetchCatalogCategoriesSuccess: (categories) => {
+    return {
+      type: partnersActions.GET_CATALOG_CATEGORIES_SUCCESS,
+      categories
+    }
+  },
+  fetchCatalogCategories: (catalogId) => {
+    return async (dispatch) => {
+      try {
+        dispatch(partnersActions.fetchingCatalogCategories());
+
+        const categories = await API.Partners.getCatalogCategories(catalogId);
+
+        dispatch(partnersActions.fetchCatalogCategoriesSuccess(categories));
+
+        return categories;
+      } catch (error) {
+        dispatch(partnersActions.fetchCatalogFailed(error));
+      }
+    };
+  } 
 };
 
 export default partnersActions;

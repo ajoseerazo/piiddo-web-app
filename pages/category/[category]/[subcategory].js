@@ -6,7 +6,12 @@ import partnersActions from "../../../src/redux/actions/partners";
 import productsActions from "../../../src/redux/actions/products";
 
 const { fetchCategory } = categoriesActions;
-const { fetchPartners, fetchPartner, fetchCatalog } = partnersActions;
+const {
+  fetchPartners,
+  fetchPartner,
+  fetchCatalog,
+  fetchCatalogCategories,
+} = partnersActions;
 const { fetchProducts } = productsActions;
 
 const SubCategory = ({
@@ -37,7 +42,7 @@ SubCategory.getInitialProps = async ({
   const category = await store.dispatch(fetchCategory(categoryQuery));
 
   const subcat = category.subcategories.find((cat) => {
-    if (cat === subcategory) {
+    if (cat.slug === subcategory) {
       return true;
     }
   });
@@ -53,9 +58,11 @@ SubCategory.getInitialProps = async ({
     partner.products = await store.dispatch(
       fetchProducts(partner.id, "partner")
     );
+    const categories = await store.dispatch(
+      fetchCatalogCategories(partner.catalog.id)
+    );
+    partner.catalog.categories = categories;
   }
-
-  
 
   return {
     category,

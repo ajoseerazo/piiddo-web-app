@@ -32,7 +32,9 @@ import {
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 
-const Store = ({ category, partners, currentUrl, subcategory, partner }) => {
+const Store = ({ currentUrl, partner }) => {
+  console.log(partner);
+
   return (
     <>
       <ShopHeader />
@@ -70,6 +72,7 @@ const Store = ({ category, partners, currentUrl, subcategory, partner }) => {
                 // categorySlug={category.slug}
                 currentUrl={currentUrl}
                 showTitle={false}
+                scrollSpy
               />
             </SidebarWrapper>
 

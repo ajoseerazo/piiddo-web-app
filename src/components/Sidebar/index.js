@@ -2,7 +2,21 @@ import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import "./styles.scss";
 
-const Sidebar = ({ categories, categorySlug, currentUrl, showTitle }) => {
+const Div = ({ children }) => {
+  return <div>{children}</div>;
+};
+
+const A = (props) => {
+  return <a {...props} />
+}
+
+const Sidebar = ({
+  categories,
+  categorySlug,
+  currentUrl,
+  showTitle,
+  scrollSpy,
+}) => {
   const [isBrowser, setIsBrowser] = useState(false);
   const [sidebarHeight, setSidebarHeightCallback] = useState(600);
 
@@ -22,9 +36,8 @@ const Sidebar = ({ categories, categorySlug, currentUrl, showTitle }) => {
     }
   });
 
-  console.log(
-    `/category/${categorySlug}` === currentUrl ? "active" : undefined
-  );
+  const WrapperLink = !scrollSpy ? Link : Div;
+  const ALink = !scrollSpy ? A : Div;
 
   return (
     <div
@@ -44,20 +57,20 @@ const Sidebar = ({ categories, categorySlug, currentUrl, showTitle }) => {
                   : undefined
               }
             >
-              <Link
+              <WrapperLink
                 href="/category/[category]"
                 as={`/category/${categorySlug}`}
               >
-                <a>Todos</a>
-              </Link>
+                <ALink>Todos</ALink>
+              </WrapperLink>
             </li>
             {categories.map((category) => (
-              <Link
+              <WrapperLink
                 key={category.slug}
                 href="/category/[category]/[subcategory]"
                 as={`/category/${categorySlug}/${category.slug}`}
               >
-                <a>
+                <ALink>
                   <li
                     className={
                       `/category/${categorySlug}/${category.slug}` ===
@@ -68,8 +81,8 @@ const Sidebar = ({ categories, categorySlug, currentUrl, showTitle }) => {
                   >
                     {category.name}
                   </li>
-                </a>
-              </Link>
+                </ALink>
+              </WrapperLink>
             ))}
           </ul>
         </div>
@@ -80,7 +93,7 @@ const Sidebar = ({ categories, categorySlug, currentUrl, showTitle }) => {
 
 Sidebar.defaultProps = {
   categories: [],
-  showTitle: true
+  showTitle: true,
 };
 
 export default Sidebar;

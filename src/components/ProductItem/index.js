@@ -8,9 +8,9 @@ import {
   ProductPrice,
 } from "./styled";
 
-const ProductItem = ({ product }) => {
+const ProductItem = ({ product, onSelectProduct }) => {
   return (
-    <ProductItemWrapper>
+    <ProductItemWrapper onClick={onSelectProduct}>
       <ProductMedia>
         <img src={product.image} />
       </ProductMedia>
@@ -20,7 +20,7 @@ const ProductItem = ({ product }) => {
         <ProductDescription>{product.description}</ProductDescription>
 
         <ProductPrice>
-          Bs. {`${new Intl.NumberFormat("es").format(product.price)}`}
+          $ {`${new Intl.NumberFormat("es").format(product.usdPrice)}`}
         </ProductPrice>
       </ProductInfo>
     </ProductItemWrapper>

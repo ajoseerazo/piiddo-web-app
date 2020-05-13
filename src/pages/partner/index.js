@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import getSlug from "speakingurl";
 import Link from "next/link";
 import ShopHeader from "../../components/ShopHeader/ShopHeader";
@@ -31,9 +31,28 @@ import {
   CategoryName,
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
+import ProductModal from "../../components/ProductModal";
 
 const Store = ({ currentUrl, partner }) => {
-  console.log(partner);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [productSelected, setProductSelect] = useState();
+
+  const openProduct = useCallback(
+    (product) => {
+      setIsModalOpen(true);
+
+      setProductSelect(product);
+    },
+    [setIsModalOpen]
+  );
+
+  const onCloseModal = useCallback(() => {
+    setIsModalOpen(false);
+  }, [setIsModalOpen]);
+
+  const onAddProductToCart = useCallback(() => {
+    setIsModalOpen(false);
+  }, [setIsModalOpen]);
 
   return (
     <>
@@ -78,12 +97,16 @@ const Store = ({ currentUrl, partner }) => {
 
             <ProductsWrapper>
               <CategoryName>{"Hamburguesas"}</CategoryName>
-              
+
               <ProductsGrid>
                 {partner.products && partner.products.length && (
                   <>
                     {partner.products.map((product) => (
-                      <ProductItem key={product.id} product={product} />
+                      <ProductItem
+                        key={product.id}
+                        product={product}
+                        onSelectProduct={openProduct.bind(this, product)}
+                      />
                     ))}
                   </>
                 )}
@@ -91,6 +114,13 @@ const Store = ({ currentUrl, partner }) => {
             </ProductsWrapper>
           </PartnerContent>
         </PartnerWrapper>
+
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={onCloseModal}
+          product={productSelected}
+          onAccept={onAddProductToCart}
+        />
       </HomeWrapper>
 
       <Footer />

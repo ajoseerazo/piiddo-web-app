@@ -55,9 +55,13 @@ SubCategory.getInitialProps = async ({
   } else {
     partner = await store.dispatch(fetchPartner(subcategory));
     partner.catalog = await store.dispatch(fetchCatalog(partner.id));
-    partner.products = await store.dispatch(
+    const [products, extras, companions] = await store.dispatch(
       fetchProducts(partner.id, "partner")
     );
+
+    partner.products = products;
+    partner.extras = extras;
+    partner.companions = companions;
     const categories = await store.dispatch(
       fetchCatalogCategories(partner.catalog.id)
     );

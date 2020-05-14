@@ -1,5 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { Link as AnimatedLink } from "react-scroll";
+
 import "./styles.scss";
 
 const Div = ({ children }) => {
@@ -7,8 +9,8 @@ const Div = ({ children }) => {
 };
 
 const A = (props) => {
-  return <a {...props} />
-}
+  return <MenuLink {...props} />;
+};
 
 const Sidebar = ({
   categories,
@@ -37,7 +39,17 @@ const Sidebar = ({
   });
 
   const WrapperLink = !scrollSpy ? Link : Div;
-  const ALink = !scrollSpy ? A : Div;
+  const MenuLink = scrollSpy ? AnimatedLink : A;
+
+  const menuLinkOptions = scrollSpy
+    ? {
+        spy: true,
+        smooth: true,
+        duration: 500,
+        activeClass: "active",
+        offset: -90
+      }
+    : {};
 
   return (
     <div
@@ -61,28 +73,35 @@ const Sidebar = ({
                 href="/category/[category]"
                 as={`/category/${categorySlug}`}
               >
-                <ALink>Todos</ALink>
+                <MenuLink
+                  to={scrollSpy ? "all" : undefined}
+                  {...menuLinkOptions}
+                >
+                  Todos
+                </MenuLink>
               </WrapperLink>
             </li>
             {categories.map((category) => (
-              <WrapperLink
-                key={category.slug}
-                href="/category/[category]/[subcategory]"
-                as={`/category/${categorySlug}/${category.slug}`}
+              <li
+                className={
+                  `/category/${categorySlug}/${category.slug}` === currentUrl
+                    ? "active"
+                    : undefined
+                }
               >
-                <ALink>
-                  <li
-                    className={
-                      `/category/${categorySlug}/${category.slug}` ===
-                      currentUrl
-                        ? "active"
-                        : undefined
-                    }
+                <WrapperLink
+                  key={category.id || category.slug}
+                  href="/category/[category]/[subcategory]"
+                  as={`/category/${categorySlug}/${category.slug}`}
+                >
+                  <MenuLink
+                    to={scrollSpy ? `${category.id}` : undefined}
+                    {...menuLinkOptions}
                   >
                     {category.name}
-                  </li>
-                </ALink>
-              </WrapperLink>
+                  </MenuLink>
+                </WrapperLink>
+              </li>
             ))}
           </ul>
         </div>

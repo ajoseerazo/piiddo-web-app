@@ -111,7 +111,7 @@ const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
                   <>
                     {partner.productsHash[cat.id] &&
                       partner.productsHash[cat.id].length !== 0 && (
-                        <CategoryWrapper>
+                        <CategoryWrapper id={cat.id}>
                           <CategoryName key={cat.id}>{cat.name}</CategoryName>
 
                           <ProductsGrid>

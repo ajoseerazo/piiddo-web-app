@@ -9,7 +9,7 @@ const Div = ({ children }) => {
 };
 
 const A = (props) => {
-  return <MenuLink {...props} />;
+  return <a {...props} />;
 };
 
 const Sidebar = ({
@@ -47,65 +47,61 @@ const Sidebar = ({
         smooth: true,
         duration: 500,
         activeClass: "active",
-        offset: -90
+        offset: -90,
       }
     : {};
 
   return (
     <div
-      className={`sidebar-wrapper is-sticky`}
-      style={{
-        height: sidebarHeight,
-      }}
+      className={`sidebar-wrapper sidebar is-sticky ${
+        scrollSpy ? "is-scrollSpy" : undefined
+      }`}
     >
-      <div className="sidebar">
-        <div>
-          {showTitle && <div className="category-name">Categorías</div>}
-          <ul>
-            <li
-              className={
-                `/category/${categorySlug}` === currentUrl
-                  ? "active"
-                  : undefined
-              }
+      {showTitle && <div className="category-name">Categorías</div>}
+      <ul
+        className={showTitle ? "with-title" : "no-title"}
+        /*style={{
+          height: sidebarHeight,
+        }}
+        */
+      >
+        <li
+          className={
+            `/category/${categorySlug}` === currentUrl ? "active" : undefined
+          }
+        >
+          <WrapperLink
+            href="/category/[category]"
+            as={`/category/${categorySlug}`}
+          >
+            <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
+              Todos
+            </MenuLink>
+          </WrapperLink>
+        </li>
+        {categories.map((category) => (
+          <li
+            className={
+              `/category/${categorySlug}/${category.slug}` === currentUrl
+                ? "active"
+                : undefined
+            }
+          >
+            <WrapperLink
+              key={category.id || category.slug}
+              href="/category/[category]/[subcategory]"
+              as={`/category/${categorySlug}/${category.slug}`}
             >
-              <WrapperLink
-                href="/category/[category]"
-                as={`/category/${categorySlug}`}
+              <MenuLink
+                to={scrollSpy ? `${category.id}` : undefined}
+                {...menuLinkOptions}
               >
-                <MenuLink
-                  to={scrollSpy ? "all" : undefined}
-                  {...menuLinkOptions}
-                >
-                  Todos
-                </MenuLink>
-              </WrapperLink>
-            </li>
-            {categories.map((category) => (
-              <li
-                className={
-                  `/category/${categorySlug}/${category.slug}` === currentUrl
-                    ? "active"
-                    : undefined
-                }
-              >
-                <WrapperLink
-                  key={category.id || category.slug}
-                  href="/category/[category]/[subcategory]"
-                  as={`/category/${categorySlug}/${category.slug}`}
-                >
-                  <MenuLink
-                    to={scrollSpy ? `${category.id}` : undefined}
-                    {...menuLinkOptions}
-                  >
-                    {category.name}
-                  </MenuLink>
-                </WrapperLink>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </div>
+                {category.name}
+              </MenuLink>
+            </WrapperLink>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

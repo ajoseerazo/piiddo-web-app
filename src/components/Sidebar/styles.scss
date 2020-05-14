@@ -1,10 +1,10 @@
 .sidebar {
   background-color: white;
   font-family: "Poppins";
-  padding: 15px 5px 15px 0;
+  padding: 15px 0px 15px 0;
   animation: height 1s ease-in-out;
   border-radius: 12px;
-  overflow-y: auto;
+  overflow-y: hidden;
   height: 100%;
 
   a {
@@ -16,6 +16,10 @@
     list-style: none;
     padding: 0;
     margin: 0;
+
+    &.no-title {
+      //height: calc(100% - 70px);
+    }
 
     li {
       padding: 10px 20px;
@@ -35,6 +39,7 @@
   background-color: #fff;
   width: 256px;
   border-radius: 12px;
+  max-height: 600px;
 
   &.is-sticky {
     position: sticky;
@@ -42,6 +47,21 @@
     left: 40px;
     z-index: 10;
   }
+
+  ul {
+    overflow-y: auto;
+    height: 550px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+
+
+  /*&.is-scrollSpy {
+    top: 300px;
+  }*/
 }
 
 .category-name {

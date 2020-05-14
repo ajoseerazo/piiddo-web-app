@@ -89,6 +89,7 @@ export const ProductsWrapper = styled.div`
   flex: 1;
   padding: 0px 10px;
   margin-left: 20px;
+  min-height: 200vh;
 `;
 
 export const CategoryName = styled.h2`

@@ -24,6 +24,7 @@ export const ButtonStyled = styled(Button)`
   border: none;
   border-radius: 8px;
   height: 100%;
+  width: 36px;
 
   &:hover {
     background-color: #F74342;

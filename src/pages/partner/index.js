@@ -32,8 +32,13 @@ import {
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
+import shoppingCartActions from "../../redux/actions/shoppingCart";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
-const Store = ({ currentUrl, partner }) => {
+const { addToCart } = shoppingCartActions;
+
+const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productSelected, setProductSelect] = useState();
 
@@ -50,9 +55,13 @@ const Store = ({ currentUrl, partner }) => {
     setIsModalOpen(false);
   }, [setIsModalOpen]);
 
-  const onAddProductToCart = useCallback(() => {
-    setIsModalOpen(false);
-  }, [setIsModalOpen]);
+  const onAddProductToCart = useCallback(
+    (order) => {
+      setIsModalOpen(false);
+      addToCart(order);
+    },
+    [setIsModalOpen]
+  );
 
   return (
     <>
@@ -128,4 +137,18 @@ const Store = ({ currentUrl, partner }) => {
   );
 };
 
-export default Store;
+function mapStateToProps(state, props) {
+  const { products } = props;
+
+  return {
+    products,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ addToCart }, dispatch),
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Store);

@@ -6,6 +6,7 @@ export const ButtonStyled = styled(Button)`
   color: #222;
   border: none;
   outline: none;
+  position: relative;
 
   &:hover,
   &:active,

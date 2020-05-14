@@ -49,8 +49,6 @@ class Shop extends Component {
     const partners = await store.dispatch(fetchPartners());
     const categories = await store.dispatch(fetchCategories());
 
-    console.log("CAT", categories);
-
     return { partners, categories };
   }
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import CategoryPage from "../../../src/pages/category";
 import StorePage from "../../../src/pages/partner";
 import categoriesActions from "../../../src/redux/actions/categories";

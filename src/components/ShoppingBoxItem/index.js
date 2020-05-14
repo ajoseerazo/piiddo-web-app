@@ -9,7 +9,7 @@ function ShoppingBoxItem(props) {
     name,
     description,
     price,
-    length,
+    length = 1,
     image,
     handleUp,
     handleDown,
@@ -19,13 +19,13 @@ function ShoppingBoxItem(props) {
 
   let activeName = "";
 
-  added.forEach((item) => {
+  /*added.forEach((item) => {
     activeName += " " + item.name;
-  });
+  });*/
 
   return (
     <div className="shoppingItems mount">
-      <div className="shoppingItems-action">
+      {/*<div className="shoppingItems-action">
         <FontAwesome
           name="caret-up"
           className="caret-up-icon"
@@ -39,21 +39,16 @@ function ShoppingBoxItem(props) {
           className="caret-down-icon"
           onClick={handleDown}
         />
-      </div>
-      {image && (
-        <div
-          className="gallery-img"
-          style={{ backgroundImage: "url(" + image + ")" }}
-        ></div>
-      )}
+  </div>*/}
+      {image && <img className="gallery-img" src={image} />}
       <div className="shoppingItems-box">
         <div className="shoppingItems-title">{name}</div>
         <div className="shoppingItems-extra">
           <div className="shoppingItems-des">{description + activeName}</div>
-          <div className="shoppingItems-amount">
-            {`${new Intl.NumberFormat("es").format(amout)} Bs`}
-          </div>
         </div>
+      </div>
+      <div className="shoppingItems-amount">
+        {`$ ${new Intl.NumberFormat("es").format(amout)}`}
       </div>
     </div>
   );

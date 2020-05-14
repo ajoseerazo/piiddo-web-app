@@ -12,12 +12,6 @@ import ShoppingCartDetails from "../components/ShoppingCartDetails";
 class ShoppingCartContainer extends Component {
   handleOpen = (event) => {
     this.refs.ShoppingCartDetails.openAction();
-
-    /*gtag('event', 'click', {
-      'event_category' : 'Shopping Cart',
-      'event_action' : 'Click',
-      'event_label' : 'open_shopping_cart'
-    });*/
   };
 
   handleRemoveSlug = (slugId) => {
@@ -29,10 +23,11 @@ class ShoppingCartContainer extends Component {
   };
 
   render() {
-    let length = this.props.length;
-    let amount = this.props.amount;
     let mobile = this.props.mobile;
-    let slugs = this.props.slugs;
+
+    const { items } = this.props;
+
+    let length = items.length;
 
     return (
       <>
@@ -41,19 +36,18 @@ class ShoppingCartContainer extends Component {
           length={length}
           onClick={this.handleOpen}
         />
+
         <ShoppingCartDetails
           id={this.props.id}
-          length={length}
+          length={(items || []).length}
           ref="ShoppingCartDetails"
-          amount={amount}
+          amount={1000}
         >
-          {slugs.map((slug, index) => {
+          {(items || []).map((item, index) => {
             return (
               <ShoppingBoxList
-                slugId={slug.slugId}
-                key={slug.slugId + index}
-                slugName={slug.name}
-                items={slug.items}
+                key={index}
+                product={item.product}
                 forceActive={true}
               />
             );
@@ -71,43 +65,10 @@ function mapDispatchToProps(dispatch, props) {
 }
 
 function mapStateToProps(state, props) {
- //  let { BOX: storeSlugs } = state.shopping.toJS();
-  let slugs = [];
-  let amount = 0;
-  let length = 0;
-
-  /*storeSlugs.mapKeys(slugId => {
-    let items = [];
-
-    storeSlugs.get(slugId).mapKeys((itemKey, quantity) => {
-      let itemId = getId(itemKey);
-      let item = state.getIn(["data", "entities", "items", itemId]).toJS();
-      let itemAdded = getAddeds(item, itemKey);
-
-      item.length = quantity;
-      item.added = itemAdded;
-      itemAdded.forEach(element => {
-        item.price += element.price;
-      });
-
-      length += quantity;
-      amount += quantity * item.price;
-      item.image = null;
-
-      items.push(item);
-    });
-
-    slugs.push({
-      items,
-      name: state.getIn(["data", "entities", "places", slugId, "name"]),
-      slugId
-    });
-  });*/
+  const { items } = state.ShoppingCart.toJS();
 
   return {
-    slugs,
-    amount,
-    length,
+    items,
   };
 }
 

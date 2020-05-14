@@ -22,7 +22,7 @@ class ShoppingBoxList extends PureComponent {
   };
 
   handleTimes = () => {
-   // this.props.dispatch(removeSlug(this.props.slugId));
+    // this.props.dispatch(removeSlug(this.props.slugId));
   };
 
   render() {
@@ -30,12 +30,13 @@ class ShoppingBoxList extends PureComponent {
       ? "shoppingItem active"
       : "shoppingItem";
     let name = this.props.slugName;
-    let items = this.props.items;
     let slugId = this.props.slugId;
+
+    const { product } = this.props;
 
     return (
       <div className={shoppingItemClassName}>
-        <div className="shoppingItem-title">
+        {/*<div className="shoppingItem-title">
           {name}
           <span className="shoppingItem-show" onClick={this.toggleActive} />
           <FontAwesome
@@ -43,24 +44,19 @@ class ShoppingBoxList extends PureComponent {
             name="times"
             onClick={this.handleTimes}
           />
-        </div>
+    </div>*/}
         <div>
-          {items.map((item, index) => {
-            return (
-              <ShoppingBoxItem
-                key={item.id + index}
-                name={item.name}
-                slugId={slugId}
-                description={item.description}
-                price={item.price}
-                length={item.length}
-                image={item.image}
-                slug={item.slug}
-                id={item.id}
-                added={item.added}
-              />
-            );
-          })}
+          <ShoppingBoxItem
+            name={product.name}
+            slugId={slugId}
+            description={product.description}
+            price={product.usdPrice}
+            length={product.length}
+            image={product.image}
+            slug={product.slug}
+            id={product.id}
+            added={product.added}
+          />
         </div>
       </div>
     );

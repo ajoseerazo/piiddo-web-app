@@ -5,7 +5,7 @@ const AddToCartButton = ({ price, onClick }) => {
 	return (
 		<ButtonStyled onClick={onClick} >
 			<div>Agregar</div>
-			<div>{price}$</div>
+			<div>{parseFloat(price).toFixed(2)}$</div>
 		</ButtonStyled>
 	)
 }

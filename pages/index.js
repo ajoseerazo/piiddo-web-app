@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import ShopHeader from "../src/components/ShopHeader/ShopHeader";
 import ProductsGallery from "../src/components/ProductsGallery/ProductsGallery";
-import ShoppingCart from "../src/components/ShoppingCart/ShoppingCart";
-import ShoppingCartList from "../src/components/ShoppingCart/ShoppingCartList";
+import ShoppingCart from "../src/components/_ShoppingCart/ShoppingCart";
+import ShoppingCartList from "../src/components/_ShoppingCart/ShoppingCartList";
 import Sidebar from "../src/components/Sidebar";
 import Footer from "../src/components/Footer";
 import { InView } from "react-intersection-observer";
@@ -48,6 +48,8 @@ class Shop extends Component {
     // const products = await store.dispatch(fetchProducts());
     const partners = await store.dispatch(fetchPartners());
     const categories = await store.dispatch(fetchCategories());
+
+    console.log("CAT", categories);
 
     return { partners, categories };
   }
@@ -147,7 +149,7 @@ class Shop extends Component {
     const { itemsInCart, isSticky, sidebarHeight, isModalOpen } = this.state;
     const { products, category, partners, categories } = this.props;
 
-    console.log("P", categories.length);
+    console.log("P", (categories || []).length);
 
     return (
       <>
@@ -185,7 +187,7 @@ class Shop extends Component {
             >
               <h1 className="section-name">¿Qué tipo de producto deseas comprar?</h1>
 
-              <Categories categories={categories} />
+              <Categories categories={categories || []} />
 
               {process.browser && itemsInCart.length !== 0 && (
                 <ShoppingCart

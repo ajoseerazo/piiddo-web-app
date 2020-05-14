@@ -26,6 +26,7 @@ const { selectCurrency } = appActions;
 library.add([faSearch, faShoppingBasket]);
 
 import "./ShopHeader.scss";
+import ShoppingCart from "../../containers/ShoppingCartContainer";
 
 class ShopHeader extends Component {
   constructor(props) {
@@ -85,6 +86,10 @@ class ShopHeader extends Component {
         </Col>
 
         <Nav className="ml-auto" navbar>
+          <NavItem style={{ marginRight: 15 }}>
+            <ShoppingCart />
+          </NavItem>
+
           <NavItem style={{ marginRight: 10 }}>
             <NavLink className="ingresar-link" href="/ingresar">
               Ingresar

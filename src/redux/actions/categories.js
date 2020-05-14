@@ -35,6 +35,8 @@ const categoriesActions = {
 
         return categories;
       } catch (error) {
+        console.log(error);
+
         dispatch(categoriesActions.fetchCategoriesFailed(error));
       }
     };

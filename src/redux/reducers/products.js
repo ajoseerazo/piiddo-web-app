@@ -17,11 +17,15 @@ export default function productsReducer(state = initialState, action) {
     case actions.GET_ALL_FAIL:
       return state.set("isLoading", false);
     case actions.GET_ALL_SUCCESS:
-      return state
-        .set("products", action.products[0])
-        .set("extras", action.products[1])
-        .set("companions", action.products[2])
-        .set("isLoading", true);
+      if (action.products) {
+        return state
+          .set("products", action.products[0])
+          .set("extras", action.products[1])
+          .set("companions", action.products[2])
+          .set("isLoading", false);
+      } else {
+        return state.set("isLoading", false);
+      }
     case actions.SELECT_PRODUCT:
       return state.set("product", action.product);
     case actions.GET_PRODUCT_REQUEST:

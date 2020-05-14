@@ -118,7 +118,7 @@ const ProductModal = (props) => {
         }
       }
       
-      setTotalPrice(product.price + extraPrices + companionPrices);
+      setTotalPrice(product.usdPrice + extraPrices + companionPrices);
     }
   }, [product, extras, companions]);
 
@@ -193,7 +193,7 @@ const ProductModal = (props) => {
                         <ProductCustomItemStyled key={extra.id}>
                           <PrettyCheckbox
                             label={extra.name}
-                            rightLabel={`+ ${extra.price}$`}
+                            rightLabel={`+ ${extra.usdPrice}$`}
                             onChange={({ target }) => {
                               onChangeExtras(target.checked, extra);
                             }}
@@ -219,7 +219,7 @@ const ProductModal = (props) => {
                         <ProductCustomItemStyled key={companion.id}>
                           <PrettyCheckbox
                             label={companion.name}
-                            rightLabel={`+ ${companion.price}$`}
+                            rightLabel={`+ ${companion.usdPrice}$`}
                             onChange={({ target }) => {
                               onChangeCompanions(target.checked, companion);
                             }}

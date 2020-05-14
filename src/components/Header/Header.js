@@ -10,6 +10,7 @@ import {
 import Link from "next/link"
 
 import './Header.scss'
+import ShoppingCart from '../ShoppingCart';
 
 export default class Header extends Component {
   constructor(props) {
@@ -36,6 +37,7 @@ export default class Header extends Component {
           <NavbarBrand href="/" style={{fontFamily: 'Poppins', fontWeight: 100, color: '#FFF'}}>Piiddo</NavbarBrand>
         </Link>
         <Collapse isOpen={this.state.isOpen} navbar>
+          <ShoppingCart />
           <Nav className="ml-auto" navbar>
             <NavItem className="btn btn-primary" onClick={() => {
               this.props.onClick()

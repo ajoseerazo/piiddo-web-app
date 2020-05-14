@@ -66,6 +66,26 @@ SubCategory.getInitialProps = async ({
       fetchCatalogCategories(partner.catalog.id)
     );
     partner.catalog.categories = categories;
+
+    const productsHash = {
+      'all': products
+    };
+
+    for (let i = 0; i < products.length; i++) {
+      console.log(products[i].categories);
+
+      if (products[i].categories) {
+        for (let j = 0; j < products[i].categories.length; j++) {
+          if (!productsHash[products[i].categories[j]]) {
+            productsHash[products[i].categories[j]] = [];
+          }
+
+          productsHash[products[i].categories[j]].push(products[i]);
+        }
+      }
+    }
+
+    partner.productsHash = productsHash;
   }
 
   return {
@@ -73,7 +93,7 @@ SubCategory.getInitialProps = async ({
     partners,
     currentUrl: `/category/${categoryQuery}/${subcategory}`,
     subcategory,
-    partner,
+    partner
   };
 };
 

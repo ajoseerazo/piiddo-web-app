@@ -39,8 +39,6 @@ const productsActions = {
         const companions = [];
 
         for (let i = 0; i < products.length; i++) {
-          console.log(products[i]);
-  
           if (products[i].isExtra) {
             extras.push(products[i]);
           } else {

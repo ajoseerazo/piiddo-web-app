@@ -96,3 +96,7 @@ export const CategoryName = styled.h2`
   font-weight: 600;
   margin-bottom: 20px;
 `;
+
+export const CategoryWrapper = styled.div`
+  margin-bottom: 42px;
+`;

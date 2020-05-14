@@ -29,6 +29,7 @@ import {
   ProductsGrid,
   ProductsWrapper,
   CategoryName,
+  CategoryWrapper,
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
@@ -105,21 +106,45 @@ const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
             </SidebarWrapper>
 
             <ProductsWrapper>
-              <CategoryName>{"Hamburguesas"}</CategoryName>
-
-              <ProductsGrid>
-                {partner.products && partner.products.length && (
+              {partner.catalog ? (
+                partner.catalog.categories.map((cat) => (
                   <>
-                    {partner.products.map((product) => (
-                      <ProductItem
-                        key={product.id}
-                        product={product}
-                        onSelectProduct={openProduct.bind(this, product)}
-                      />
-                    ))}
+                    {partner.productsHash[cat.id] &&
+                      partner.productsHash[cat.id].length !== 0 && (
+                        <CategoryWrapper>
+                          <CategoryName key={cat.id}>{cat.name}</CategoryName>
+
+                          <ProductsGrid>
+                            {partner.productsHash[cat.id].map((product) => (
+                              <ProductItem
+                                key={product.id}
+                                product={product}
+                                onSelectProduct={openProduct.bind(
+                                  this,
+                                  product
+                                )}
+                              />
+                            ))}
+                          </ProductsGrid>
+                        </CategoryWrapper>
+                      )}
                   </>
-                )}
-              </ProductsGrid>
+                ))
+              ) : (
+                <ProductsGrid>
+                  {partner.products && partner.products.length && (
+                    <>
+                      {partner.products.map((product) => (
+                        <ProductItem
+                          key={product.id}
+                          product={product}
+                          onSelectProduct={openProduct.bind(this, product)}
+                        />
+                      ))}
+                    </>
+                  )}
+                </ProductsGrid>
+              )}
             </ProductsWrapper>
           </PartnerContent>
         </PartnerWrapper>

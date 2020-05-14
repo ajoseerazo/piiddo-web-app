@@ -1,8 +1,7 @@
 import React, { useState, useCallback } from "react";
-import getSlug from "speakingurl";
-import Link from "next/link";
 import ShopHeader from "../../components/ShopHeader/ShopHeader";
 import Sidebar from "../../components/Sidebar";
+import Breadcumb from "../../components/Breadcumb";
 import {
   HomeWrapper,
   ContentWrapper,
@@ -30,6 +29,7 @@ import {
   ProductsWrapper,
   CategoryName,
   CategoryWrapper,
+  BreadcumbWrapper,
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
@@ -70,6 +70,25 @@ const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
 
       <HomeWrapper>
         <PartnerWrapper>
+          <BreadcumbWrapper>
+            <Breadcumb
+              items={[
+                {
+                  url: "/",
+                  name: "Inicio",
+                },
+                {
+                  url: `/category/restaurantes`,
+                  name: "Restaurantes",
+                },
+                {
+                  url: `/category/restaurantes/${partner.slug}`,
+                  name: partner.name,
+                },
+              ]}
+            />
+          </BreadcumbWrapper>
+
           <PartnerInfoWrapper>
             <PartnerMediaWrapper>
               <PartnerBanner src={partner.banner} />

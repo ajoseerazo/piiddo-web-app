@@ -5,13 +5,14 @@ export const PartnerWrapper = styled.div`
   padding-right: 20px;
   display: flex !important;
   flex-direction: column !important;
+  margin-top: 30px;
 `;
 
 export const PartnerInfoWrapper = styled.div`
   padding-bottom: 20px;
   border-bottom: 1px solid #e5edef;
   padding-left: 20px;
-  margin: 0 20px;
+  margin: 30px 20px;
   margin-bottom: 40px;
   display: flex;
   flex-direction: row;
@@ -100,4 +101,8 @@ export const CategoryName = styled.h2`
 
 export const CategoryWrapper = styled.div`
   margin-bottom: 42px;
+`;
+
+export const BreadcumbWrapper = styled.div`
+  margin-left: 40px;
 `;

@@ -1,20 +1,28 @@
-import Link from "next/link"
-import "./styles.scss"
+import Link from "next/link";
+import { UlWrapper, ChevronRight } from "./styled";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
+
+library.add([faChevronRight]);
+
+import "./styles.scss";
 
 const Breadcumb = (props) => {
   return (
-    <ul className="breadcumb list-group list-group-horizontal">
-      {
-        (props.items || []).map(it => (
-          <li className="list-group-item" key={it.url}>
-            <Link href={it.url}>
-              <a className="link">{it.name}</a>
-            </Link>
-          </li>
-        ))
-      }
-    </ul>
-  )
-}
+    <UlWrapper className="">
+      {(props.items || []).map((it, index) => (
+        <li className="" key={it.url}>
+          <Link href={it.url}>
+            <a className="link">{it.name}</a>
+          </Link>
 
-export default Breadcumb
+          {index !== props.items.length - 1 && (
+            <ChevronRight icon="chevron-right" />
+          )}
+        </li>
+      ))}
+    </UlWrapper>
+  );
+};
+
+export default Breadcumb;

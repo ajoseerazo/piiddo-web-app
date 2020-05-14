@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import ShopHeader from "../src/components/ShopHeader/ShopHeader";
 import ProductsGallery from "../src/components/ProductsGallery/ProductsGallery";
-import ShoppingCart from "../src/components/_ShoppingCart/ShoppingCart";
-import ShoppingCartList from "../src/components/_ShoppingCart/ShoppingCartList";
 import Sidebar from "../src/components/Sidebar";
 import Footer from "../src/components/Footer";
 import { InView } from "react-intersection-observer";
@@ -186,17 +184,6 @@ class Shop extends Component {
               <h1 className="section-name">¿Qué tipo de producto deseas comprar?</h1>
 
               <Categories categories={categories || []} />
-
-              {process.browser && itemsInCart.length !== 0 && (
-                <ShoppingCart
-                  amount={itemsInCart.reduce(
-                    (sum, item) => (sum = sum + item.price * item.length),
-                    0
-                  )}
-                >
-                  <ShoppingCartList items={itemsInCart} />
-                </ShoppingCart>
-              )}
             </div>
           </div>
         </div>

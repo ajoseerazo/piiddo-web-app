@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { getItemKey, getId, getAddeds } from "../utils";
-// import * as actions from "../actions/shopping";
+import actions from "../redux/actions/shoppingCart";
 
 import ShoppingCart from "../components/ShoppingCart";
 import ShoppingBoxList from "../components/ShoppingBoxList";
 import ShoppingCartDetails from "../components/ShoppingCartDetails";
+
+const { removeFromCart, changeCount } = actions;
 
 class ShoppingCartContainer extends Component {
   handleOpen = (event) => {
@@ -22,12 +24,34 @@ class ShoppingCartContainer extends Component {
     this.props.actions.setAmount(itemId, slugId, addeds, amount);
   };
 
+  onChangeOrderCount = (index, count) => {
+    const {
+      actions: { changeCount },
+    } = this.props;
+
+    changeCount(index, count);
+  };
+
+  deleteFromCart = (index) => {
+    const {
+      actions: { removeFromCart },
+    } = this.props;
+
+    removeFromCart(index);
+  };
+
   render() {
     let mobile = this.props.mobile;
 
     const { items } = this.props;
 
-    let length = items.length;
+    let length = items.reduce((a, b) => {
+      return a + b.count;
+    }, 0);
+
+    let total = items.reduce((a, b) => {
+      return a + b.totalAmount
+    }, 0);
 
     return (
       <>
@@ -39,16 +63,19 @@ class ShoppingCartContainer extends Component {
 
         <ShoppingCartDetails
           id={this.props.id}
-          length={(items || []).length}
+          length={length}
           ref="ShoppingCartDetails"
-          amount={1000}
+          deliveryTotal={2}
+          amount={total}
         >
           {(items || []).map((item, index) => {
             return (
               <ShoppingBoxList
                 key={index}
-                product={item.product}
+                order={item}
                 forceActive={true}
+                onClickDelete={this.deleteFromCart.bind(this, index)}
+                onChangeCount={this.onChangeOrderCount.bind(this, index)}
               />
             );
           })}
@@ -60,7 +87,7 @@ class ShoppingCartContainer extends Component {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ removeFromCart, changeCount }, dispatch),
   };
 }
 

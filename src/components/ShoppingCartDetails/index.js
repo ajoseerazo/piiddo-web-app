@@ -63,6 +63,8 @@ class ShoppingCartDetails extends PureComponent {
 
     const { overlayClass, mainClass } = this.state;
 
+    const { deliveryTotal } = this.props;
+
     return (
       <div>
         <div className={mainClass}>
@@ -111,29 +113,31 @@ class ShoppingCartDetails extends PureComponent {
               )}
             </div>
           </div>
-          <div className="card-result align">
-            <div>
-              <div className="card-adm">
-                Costo delivery
-                <span className="card-mount">
-                  $ {new Intl.NumberFormat("es").format(domicilio)}
+          {length !== 0 && (
+            <div className="card-result align">
+              <div>
+                <div className="card-adm">
+                  Costo delivery
+                  <span className="card-mount">
+                    $ {parseFloat(deliveryTotal).toFixed(2)}
+                  </span>
+                </div>
+                <span className="card-total">
+                  Total
+                  <span className="card-mount">
+                    $ {parseFloat(amount + deliveryTotal).toFixed(2)}
+                  </span>
                 </span>
               </div>
-              <span className="card-total">
-                Total
-                <span className="card-mount">
-                  $ {new Intl.NumberFormat("es").format(amount + domicilio)}
-                </span>
-              </span>
+              <div onClick={this.closeAction}>
+                <Link href="/checkout" as="/checkout">
+                  <Button block className="checkout-btn">
+                    Pagar
+                  </Button>
+                </Link>
+              </div>
             </div>
-            <div onClick={this.closeAction}>
-              <Link href="/checkout" as="/checkout">
-                <Button block className="checkout-btn">
-                  Pagar
-                </Button>
-              </Link>
-            </div>
-          </div>
+          )}
         </div>
 
         <div className={overlayClass} onClick={this.closeAction}></div>

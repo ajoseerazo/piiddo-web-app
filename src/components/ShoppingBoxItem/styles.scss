@@ -9,7 +9,7 @@
   animation-duration: 0.15s;
   animation-timing-function: ease-in-out;
   will-change: left, opacity;
-  font-family: "Open Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   display: flex;
   align-items: self-start;
 }
@@ -65,7 +65,7 @@
 }
 
 .shoppingItems-title {
-  font-weight: bolder;
+  font-weight: 600;
   color: #434343;
   background: #ffffff;
 }
@@ -76,11 +76,12 @@
 }
 
 .shoppingItems-des {
-  width: 70%;
+  width: 90%;
   line-height: 1.2;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  font-weight: 100;
 }
 
 .shoppingItems-amount {
@@ -106,10 +107,11 @@
 }
 
 .shoppingItems-box {
-  width: calc(100% - 150px);
+  width: 200px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  min-width: 200px;
 }
 
 .shoppingItems {

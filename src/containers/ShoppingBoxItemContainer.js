@@ -31,24 +31,35 @@ class ShoppingBoxItemContainer extends Component {
       name,
       description,
       price,
-      length,
       image,
       slug,
       id,
       added,
+      options,
+      companions,
+      extras,
+      totalAmount,
+      count,
+      onClickDelete,
+      onChangeCount
     } = this.props;
 
     return (
       <ShoppingBoxItem
         name={name}
         description={description}
-        price={price}
-        length={length}
+        price={totalAmount}
+        length={count}
         image={image}
         id={id}
         added={added}
         handleDown={this.handleDown}
         handleUp={this.handleUp}
+        options={options}
+        companions={companions}
+        extras={extras}
+        onClickDelete={onClickDelete}
+        onChangeCount={onChangeCount}
       />
     );
   }

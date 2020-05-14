@@ -15,6 +15,10 @@ const ProductOperator = ({ basePrice, onAddToCart }) => {
     [setTotalPrice, basePrice]
   );
 
+  const onAddToCartClick = useCallback(() => {
+    onAddToCart(totalPrice, totalCount, basePrice);
+  }, [totalPrice, totalCount, basePrice]);
+
   useEffect(() => {
     setTotalPrice(totalCount * basePrice);
   }, [basePrice, totalCount]);
@@ -22,7 +26,7 @@ const ProductOperator = ({ basePrice, onAddToCart }) => {
   return (
     <ProductOperatorWrapper>
       <ProductCounter onChangeCount={changeCount} />
-      <AddToCartButton price={totalPrice} onClick={onAddToCart} />
+      <AddToCartButton price={totalPrice} onClick={onAddToCartClick} />
     </ProductOperatorWrapper>
   );
 };

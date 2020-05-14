@@ -122,12 +122,15 @@ const ProductModal = (props) => {
     }
   }, [product, extras, companions]);
 
-  const onAddToCart = useCallback(() => {
+  const onAddToCart = useCallback((totalAmount, count, basePrice) => {
     props.onAccept({
       product,
       options,
       companions,
-      extras
+      extras,
+      totalAmount,
+      count,
+      basePrice
     });
   }, [options, extras, companions, product])
 

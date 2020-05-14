@@ -32,30 +32,31 @@ class ShoppingBoxList extends PureComponent {
     let name = this.props.slugName;
     let slugId = this.props.slugId;
 
-    const { product } = this.props;
+    const {
+      order: { product, options, companions, extras, totalAmount, count },
+      onClickDelete,
+      onChangeCount
+    } = this.props;
 
     return (
       <div className={shoppingItemClassName}>
-        {/*<div className="shoppingItem-title">
-          {name}
-          <span className="shoppingItem-show" onClick={this.toggleActive} />
-          <FontAwesome
-            className="shoppingItem-btn"
-            name="times"
-            onClick={this.handleTimes}
-          />
-    </div>*/}
         <div>
           <ShoppingBoxItem
             name={product.name}
             slugId={slugId}
             description={product.description}
             price={product.usdPrice}
-            length={product.length}
             image={product.image}
             slug={product.slug}
             id={product.id}
             added={product.added}
+            options={options}
+            companions={companions}
+            extras={extras}
+            totalAmount={totalAmount}
+            count={count}
+            onChangeCount={onChangeCount}
+            onClickDelete={onClickDelete}
           />
         </div>
       </div>

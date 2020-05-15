@@ -3,8 +3,6 @@ import { CategoryWrapper, ImageWrapper } from "./styled";
 import Link from "next/link";
 
 const Category = ({ name, image, slug }) => {
-  console.log(`/category/${slug}`);
-
   return (
     <CategoryWrapper>
       <Link href="/category/[category]" as={`/category/${slug}`}>

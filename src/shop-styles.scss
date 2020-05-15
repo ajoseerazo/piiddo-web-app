@@ -23,5 +23,10 @@ body {
 @media (max-width: 768px) {
   .products-container {
     width: 100%;
+    padding: 15px !important;
+  }
+
+  .main-container {
+    margin-top: 50px;
   }
 }

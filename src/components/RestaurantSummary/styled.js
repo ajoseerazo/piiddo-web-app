@@ -10,6 +10,10 @@ export const RestaurantWrapper = styled.div`
   &:hover {
     box-shadow: 0px 2px 5px 5px rgba(0, 0, 0, 0.025);
   }
+
+  @media screen and (max-width: 768px) {
+    margin: 0px 0px 20px 0px;
+  }
 `;
 
 export const RestaurantInfoWrapper = styled.div`
@@ -18,6 +22,10 @@ export const RestaurantInfoWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   flex: 1;
+
+  @media screen and (max-width: 768px) {
+    width: calc(100% - 150px);
+  }
 `;
 
 export const RestaurantFilters = styled.div`
@@ -49,6 +57,10 @@ export const RestaurantName = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
   width: 220px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const RestaurantBanner = styled.img`

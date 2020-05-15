@@ -43,6 +43,7 @@
   width: 18px;
   height: 18px;
   box-sizing: border-box;
+  display: none;
 
   border: solid 2px transparent;
   border-top-color: #F74342;

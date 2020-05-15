@@ -1,4 +1,4 @@
-@import '../../variables';
+@import "../../variables";
 
 nav {
   border-bottom: 1px solid #ededed;
@@ -32,7 +32,7 @@ nav {
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: #F74342;
+  color: #f74342;
 }
 
 .ingresar-link {
@@ -45,18 +45,35 @@ nav {
   margin-top: 2px;
 
   &:hover {
-    box-shadow: 0 10px 10px -5px #F74342;
+    box-shadow: 0 10px 10px -5px #f74342;
   }
 }
 
 @media (max-width: 768px) {
+  nav {
+    padding: 0px !important;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
   nav.navbar {
-    height: 90px !important;
+    height: 50px !important;
     padding-left: 0px;
     padding-right: 0px;
 
     .navbar-brand {
-      margin: 0 auto 5px auto;
+      margin: 0px;
+
+      img {
+        width: 80px !important;
+      }
+    }
+
+    ul {
+      position: absolute;
+      top: 5px;
+      right: 0px;
     }
 
     .ingresar-link {
@@ -81,5 +98,15 @@ nav {
   .input-group-text {
     background-color: #fafaf8 !important;
     border: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .search-input {
+    display: none;
+  }
+
+  .search-button {
+    display: none;
   }
 }

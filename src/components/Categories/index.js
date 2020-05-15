@@ -1,19 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Category from "../Category";
 import { CategoriesWrapper } from "./styled";
 
 const Categories = ({ categories }) => {
+  const [isBrowser, setIsBrowser] = useState(false);
+  const [breakPoint, setBreakPoint] = useState(0);
+
+  useEffect(() => {
+    if (!isBrowser) {
+      if (typeof window !== "undefined") {
+        setIsBrowser(true);
+
+        if (window.innerWidth <= 768) {
+          setBreakPoint(2);
+        }
+      }
+    }
+  }, [isBrowser]);
+
+  if (!categories || !categories.length) {
+    return <div></div>;
+  }
+
+  const mainCategories = [];
+  const lastCategories = [];
+
+  for (let i = 0; i < breakPoint; i++) {
+    mainCategories.push(categories[i]);
+  }
+
+  for (let i = breakPoint; i < categories.length; i++) {
+    lastCategories.push(categories[i]);
+  }
+
   return (
-    <CategoriesWrapper>
-      {categories.map((cat) => (
-        <Category name={cat.name} image={cat.image} slug={cat.slug} />
-      ))}
-    </CategoriesWrapper>
+    <div className={!isBrowser ? "hidden" : undefined}>
+      <CategoriesWrapper className="main-categories">
+        {mainCategories.map((cat) => (
+          <Category name={cat.name} image={cat.image} slug={cat.slug} />
+        ))}
+      </CategoriesWrapper>
+
+      <CategoriesWrapper>
+        {lastCategories.map((cat) => (
+          <Category name={cat.name} image={cat.image} slug={cat.slug} />
+        ))}
+      </CategoriesWrapper>
+    </div>
   );
 };
 
 Categories.defaultProps = {
-  categories: []
-}
+  categories: [],
+};
 
 export default Categories;

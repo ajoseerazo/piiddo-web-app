@@ -8,6 +8,10 @@ export const GlobalSearchWrapper = styled.div`
   border-radius: 0 0 22px 22px;
   background-color: #F74342;
   flex-direction: column;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const TitleSearch = styled.div`

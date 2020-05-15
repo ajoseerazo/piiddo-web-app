@@ -32,3 +32,17 @@
 .footer .logo {
   font-size: 40px;
 }
+@media screen and (max-width: 768px) {
+  .footer {
+    height: auto;
+  }
+  .footer .row {
+    margin: 0px;
+  }
+  .footer .logo {
+    margin: 0px auto 20px;
+  }
+  .footer ul li {
+    text-align: center;
+  }
+}

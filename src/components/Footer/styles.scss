@@ -38,6 +38,26 @@
     font-size: 40px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .footer {
+    height: auto;
+
+    .row {
+      margin: 0px;
+    }
+
+    .logo {
+      margin: 0px auto 20px;
+    }
+
+    ul {
+      li {
+        text-align: center;
+      }
+    }
+  }
+}
 /*.footer {
   padding: 80px 0px;
   a {

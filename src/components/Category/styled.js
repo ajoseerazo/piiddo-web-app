@@ -40,6 +40,21 @@ export const CategoryWrapper = styled.div`
   width: 100%;
   margin-bottom: 20px;
   background-color: #FFF;
+  position: relative;
+  overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    padding: 0px;
+    background-color: transparent;
+    box-shadow: none;
+    margin-bottom: 0px;
+    border-radius: 0px;
+
+    p {
+      margin-top: 5px !important;
+      font-size: 10px !important;
+    }
+  }
 
   a {
     color: black;
@@ -70,5 +85,9 @@ export const ImageWrapper = styled.div`
     height: 100%;
     object-fit: contain;
     object-position: center;
+  }
+
+  @media screen and (max-width: 768px) {
+    box-shadow: 0 7px 15px 0 rgba(0,0,0,.05);
   }
 `;

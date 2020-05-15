@@ -17,6 +17,7 @@ import Banner from "../src/components/Banner";
 import GlobalSearch from "../src/components/GlobalSearch";
 import Category from "../src/components/Category";
 import Categories from "../src/components/Categories";
+import { MainContainerWrapper } from "./styled.index";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchPartners } = partnersActions;
@@ -169,22 +170,11 @@ class Shop extends Component {
           >
             <GlobalSearch />
 
-            {/*<ProductsGallery
-              products={products}
-              onAddProduct={this.onAddProduct.bind(this)}
-              onClickProduct={this.openProduct}
-            />*/}
-            <div
-              style={{
-                paddingLeft: 20,
-                paddingRight: 20,
-                marginTop: 40,
-              }}
-            >
-              <h1 className="section-name">¿Qué tipo de producto deseas comprar?</h1>
+            <MainContainerWrapper>
+              <h1 className="section-name">¿Qué clase de producto deseas comprar?</h1>
 
               <Categories categories={categories || []} />
-            </div>
+            </MainContainerWrapper>
           </div>
         </div>
 

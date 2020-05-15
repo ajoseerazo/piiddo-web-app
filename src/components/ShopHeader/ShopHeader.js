@@ -20,6 +20,7 @@ import FontAwesome from "react-fontawesome";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import appActions from "../../redux/actions/app";
+import Link from "next/link";
 
 const { selectCurrency } = appActions;
 
@@ -62,14 +63,16 @@ class ShopHeader extends Component {
           backgroundColor: "#FFF",
         }}
       >
-        <NavbarBrand href="/" style={{ fontWeight: 300, color: "#FFF" }}>
-          <img
-            src="https://piiddo.com/piddo-color.png"
-            style={{
-              width: 104,
-            }}
-          />
-        </NavbarBrand>
+        <Link href="/" as="/">
+          <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
+            <img
+              src="https://piiddo.com/piddo-color.png"
+              style={{
+                width: 104,
+              }}
+            />
+          </NavbarBrand>
+        </Link>
 
         <Col md="5">
           <InputGroup>

@@ -15,18 +15,26 @@ export const HomeWrapper = styled.div`
     padding-right: 20px;
     margin: 0 auto;
   }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 100px;
+
+    > div {
+      padding: 0px;
+    }
+  }
 `;
 
 export const ContentWrapper = styled.div`
   flex: 1;
   border-radius: 12px;
   padding: 30px 20px;
-  background: #FFF;
+  background: #fff;
   margin-left: 20px;
 
   h1 {
     font-weight: 600;
-    font-family: 'Poppins';
+    font-family: "Poppins";
     font-size: 20px;
     margin-bottom: 30px;
 
@@ -35,10 +43,29 @@ export const ContentWrapper = styled.div`
       align-items: center;
     }
   }
+
+  @media screen and (max-width: 768px) {
+    margin: 0px;
+    width: 100%;
+
+    h1  {
+      line-height: 25px;
+      position: sticky;
+      top: 96px;
+      background: white;
+      padding-bottom: 8px;
+      padding-top: 8px;
+      font-size: 16px;
+    }
+  }
 `;
 
 export const SidebarWrapper = styled.div`
   width: 256px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const RestaurantsGrid = styled.div`
@@ -49,6 +76,12 @@ export const RestaurantsGrid = styled.div`
     color: black;
     text-decoration: none;
   }
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    padding: 0px 15px;
+    grid-gap: 12px;
+  }
 `;
 
 export const ChevronRightIcon = styled.span`
@@ -57,4 +90,16 @@ export const ChevronRightIcon = styled.span`
   font-size: 30px;
   margin-left: 10px;
   margin-right: 10px;
+`;
+
+export const TopCategoriesWrapper = styled.div`
+  position: fixed;
+  top: 48px;
+  z-index: 10000;
+  display: none;
+  1px solid #e5edef;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;

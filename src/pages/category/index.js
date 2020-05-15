@@ -9,16 +9,26 @@ import {
   SidebarWrapper,
   RestaurantsGrid,
   ChevronRightIcon,
+  TopCategoriesWrapper,
 } from "./styled";
 import RestaurantSummary from "../../components/RestaurantSummary";
 import Footer from "../../components/Footer";
 import "../../styles.scss";
 import "../../shop-styles.scss";
+import HorizontalCategories from "../../components/HorizontalCategories";
 
 const Category = ({ category, partners, currentUrl, subcategory }) => {
   return (
     <>
       <ShopHeader />
+
+      <TopCategoriesWrapper>
+        <HorizontalCategories
+          categories={category.subcategories}
+          categorySlug={category.slug}
+          currentUrl={currentUrl}
+        />
+      </TopCategoriesWrapper>
 
       <HomeWrapper>
         <div>
@@ -33,11 +43,11 @@ const Category = ({ category, partners, currentUrl, subcategory }) => {
           <ContentWrapper>
             <h1>
               {!subcategory ? (
-                `Más de ${partners.length} Restaurantes en Mérida`
+                `Más de ${partners.length} Restaurantes cerca de ti`
               ) : (
                 <span>
                   Restaurantes <ChevronRightIcon>></ChevronRightIcon>{" "}
-                  {subcategory} en Mérida
+                  {subcategory} cerca de ti
                 </span>
               )}
             </h1>

@@ -11,7 +11,22 @@ class Categories {
       };
     });
 
-    return categories;
+    const sortedCategories = categories.sort((a, b) => {
+      let ap = a.priority ? a.priority : 1000;
+      let bp = b.priority ? b.priority : 1000;
+
+      if (ap > bp) {
+        return 1;
+      }
+
+      if (ap < bp) {
+        return -1;
+      }
+
+      return 0;
+    });
+
+    return sortedCategories;
   };
 
   static getCategoryBySlug = async (categorySlug) => {

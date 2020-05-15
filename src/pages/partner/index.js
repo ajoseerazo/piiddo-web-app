@@ -3,7 +3,6 @@ import ShopHeader from "../../components/ShopHeader/ShopHeader";
 import Sidebar from "../../components/Sidebar";
 import Breadcumb from "../../components/Breadcumb";
 import {
-  HomeWrapper,
   ContentWrapper,
   SidebarWrapper,
   RestaurantsGrid,
@@ -30,10 +29,13 @@ import {
   CategoryName,
   CategoryWrapper,
   BreadcumbWrapper,
+  HomeWrapper,
+  MobileCategoriesWrapper
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
 import shoppingCartActions from "../../redux/actions/shoppingCart";
+import HorizontalCategories from "../../components/HorizontalCategories";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -113,11 +115,18 @@ const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
             </PartnerInfo>
           </PartnerInfoWrapper>
 
+          <MobileCategoriesWrapper>
+            <HorizontalCategories
+              categories={partner.catalog ? partner.catalog.categories : []}
+              currentUrl={currentUrl}
+              scrollSpy={true}
+            />
+          </MobileCategoriesWrapper>
+
           <PartnerContent>
             <SidebarWrapper>
               <Sidebar
                 categories={partner.catalog ? partner.catalog.categories : []}
-                // categorySlug={category.slug}
                 currentUrl={currentUrl}
                 showTitle={false}
                 scrollSpy

@@ -16,10 +16,21 @@ export const PartnerInfoWrapper = styled.div`
   margin-bottom: 40px;
   display: flex;
   flex-direction: row;
+
+  @media screen and (max-width: 768px) {
+    margin: 0px;
+    padding: 15px;
+    background: white;
+    border-bottom: none;
+  }
 `;
 
 export const PartnerMediaWrapper = styled.div`
   position: relative;
+
+  @media screen and (max-width: 768px) {
+    width: 150px;
+  }
 `;
 
 export const PartnerBanner = styled.img`
@@ -28,6 +39,10 @@ export const PartnerBanner = styled.img`
   object-fit: cover;
   object-position: center;
   border-radius: 8px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const PartnerLogo = styled.img`
@@ -37,6 +52,15 @@ export const PartnerLogo = styled.img`
   left: 225px;
   top: 30px;
   position: absolute;
+
+  @media screen and (max-width: 768px) {
+    width: 80px;
+    height: 80px;
+    right: 10px;
+    left: auto;
+    bottom: 10px;
+    top: auto;
+  }
 `;
 
 export const PartnerInfo = styled.div`
@@ -77,6 +101,10 @@ export const PartnerContent = styled.div`
   flex-direction: row;
   padding-left: 20px;
   padding-right: 20px;
+
+  @media screen and (max-width: 768px) {
+    padding: 20px 15px;
+  }
 `;
 
 export const ProductsGrid = styled.div`
@@ -84,6 +112,10 @@ export const ProductsGrid = styled.div`
   display: grid;
   max-width: 700px;
   grid-gap: 15px;
+
+  @media screen and (max-width: 768px) {
+    grid-template-columns: repeat(1,1fr);
+  }
 `;
 
 export const ProductsWrapper = styled.div`
@@ -91,6 +123,12 @@ export const ProductsWrapper = styled.div`
   padding: 0px 10px;
   margin-left: 20px;
   min-height: 200vh;
+
+  @media screen and (max-width: 768px) {
+    margin: 0px;
+    padding: 0px;
+    min-height: auto;
+  }
 `;
 
 export const CategoryName = styled.h2`
@@ -101,8 +139,53 @@ export const CategoryName = styled.h2`
 
 export const CategoryWrapper = styled.div`
   margin-bottom: 42px;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 20px;
+  }
 `;
 
 export const BreadcumbWrapper = styled.div`
   margin-left: 40px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const HomeWrapper = styled.div`
+  margin-top: 70px;
+  padding-top: 20px;
+  background: #fafaf8;
+  position: relative;
+  padding-bottom: 50px;
+
+  > div {
+    max-width: 1240px;
+    display: flex;
+    flex-direction: row;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin: 0 auto;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 50px;
+    padding-top: 0px;
+
+    > div {
+      padding: 0px;
+    }
+  }
+`;
+
+export const MobileCategoriesWrapper = styled.div`
+  position: sticky;
+  top: 48px;
+  z-index: 10000;
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;

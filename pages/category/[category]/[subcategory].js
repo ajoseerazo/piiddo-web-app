@@ -41,60 +41,66 @@ SubCategory.getInitialProps = async ({
 }) => {
   const category = await store.dispatch(fetchCategory(categoryQuery));
 
-  const subcat = category.subcategories.find((cat) => {
-    if (cat.slug === subcategory) {
-      return true;
-    }
-  });
+  if (category) {
+    const subcat = category.subcategories.find((cat) => {
+      if (cat.slug === subcategory) {
+        return true;
+      }
+    });
 
-  let partners = [];
-  let partner;
+    let partners = [];
+    let partner;
 
-  if (subcat) {
-    partners = await store.dispatch(fetchPartners(categoryQuery, subcategory));
-  } else {
-    partner = await store.dispatch(fetchPartner(subcategory));
-    partner.catalog = await store.dispatch(fetchCatalog(partner.id));
-    const [products, extras, companions] = await store.dispatch(
-      fetchProducts(partner.id, "partner")
-    );
+    if (subcat) {
+      partners = await store.dispatch(
+        fetchPartners(categoryQuery, subcategory)
+      );
+    } else {
+      partner = await store.dispatch(fetchPartner(subcategory));
+      partner.catalog = await store.dispatch(fetchCatalog(partner.id));
+      const [products, extras, companions] = await store.dispatch(
+        fetchProducts(partner.id, "partner")
+      );
 
-    partner.products = products;
-    partner.extras = extras;
-    partner.companions = companions;
-    const categories = await store.dispatch(
-      fetchCatalogCategories(partner.catalog.id)
-    );
-    partner.catalog.categories = categories;
+      partner.products = products;
+      partner.extras = extras;
+      partner.companions = companions;
+      const categories = await store.dispatch(
+        fetchCatalogCategories(partner.catalog.id)
+      );
+      partner.catalog.categories = categories;
 
-    const productsHash = {
-      'all': products
-    };
+      const productsHash = {
+        all: products,
+      };
 
-    for (let i = 0; i < products.length; i++) {
-      console.log(products[i].categories);
+      for (let i = 0; i < products.length; i++) {
+        console.log(products[i].categories);
 
-      if (products[i].categories) {
-        for (let j = 0; j < products[i].categories.length; j++) {
-          if (!productsHash[products[i].categories[j]]) {
-            productsHash[products[i].categories[j]] = [];
+        if (products[i].categories) {
+          for (let j = 0; j < products[i].categories.length; j++) {
+            if (!productsHash[products[i].categories[j]]) {
+              productsHash[products[i].categories[j]] = [];
+            }
+
+            productsHash[products[i].categories[j]].push(products[i]);
           }
-
-          productsHash[products[i].categories[j]].push(products[i]);
         }
       }
+
+      partner.productsHash = productsHash;
     }
 
-    partner.productsHash = productsHash;
+    return {
+      category,
+      partners,
+      currentUrl: `/category/${categoryQuery}/${subcategory}`,
+      subcategory,
+      partner,
+    };
+  } else {
+    return {};
   }
-
-  return {
-    category,
-    partners,
-    currentUrl: `/category/${categoryQuery}/${subcategory}`,
-    subcategory,
-    partner
-  };
 };
 
 export default SubCategory;

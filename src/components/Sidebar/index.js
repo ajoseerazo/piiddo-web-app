@@ -20,20 +20,11 @@ const Sidebar = ({
   scrollSpy,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
-  const [sidebarHeight, setSidebarHeightCallback] = useState(600);
-
-  const setSidebarHeight = useCallback(() => {
-    setSidebarHeightCallback(window.innerHeight - 110);
-  }, [isBrowser]);
 
   useEffect(() => {
     if (!isBrowser) {
       if (typeof window !== "undefined") {
         setIsBrowser(true);
-
-        setTimeout(() => {
-          setSidebarHeight();
-        }, 1000);
       }
     }
   });

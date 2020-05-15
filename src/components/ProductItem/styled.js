@@ -11,6 +11,10 @@ export const ProductItemWrapper = styled.div`
   &:hover {
     box-shadow: 0 11px 7px -7px rgba(0, 0, 0, 0.2);
   }
+
+  @media screen and (max-width: 768px) {
+    
+  }
 `;
 
 export const ProductInfo = styled.div`

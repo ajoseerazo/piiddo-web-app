@@ -12,4 +12,10 @@ export const ProductOperatorWrapper = styled.div`
   justify-content: space-between;
   padding: 10px 30px;
   z-index: 10;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    position: fixed;
+    padding: 10px 15px;
+  }
 `;

@@ -13,7 +13,12 @@ export const ProductItemWrapper = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    border-radius: 10px;
   }
 `;
 
@@ -22,6 +27,11 @@ export const ProductInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
+
+  @media screen and (max-width: 768px) {
+    padding: 10px 0px 0px;
+  }
 `;
 
 export const ProductMedia = styled.div`
@@ -37,11 +47,27 @@ export const ProductMedia = styled.div`
     object-fit: cover;
     object-position: center;
   }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 0px;
+
+    img {
+      width: 100%;
+      height: 160px;
+      object-fit: cover;
+      object-position: center;
+    }
+  }
 `;
 
 export const ProductTitle = styled.div`
   font-size: 16px;
   font-weight: 200;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 10px;
+    font-weight: 600;
+  }
 `;
 
 export const ProductDescription = styled.div`
@@ -52,11 +78,36 @@ export const ProductDescription = styled.div`
   overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;  
+  -webkit-box-orient: vertical;
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const ProductPrice = styled.div`
   font-size: 14px;
   font-weight: 200;
+
+  @media screen and (max-width: 768px) {
+    font-size: 18px;
+    color: #4a4a4a;
+    opacity: 0.8;
+    font-weight: 600;
+  }
+`;
+
+export const ProductAddButton = styled.div`
+  position: absolute;
+  right: 0;
+  bottom: 0px;
+  background: rgba(247, 67, 66, 0.3);
+  color: rgb(247, 67, 66);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

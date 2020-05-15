@@ -30,7 +30,14 @@ import {
   CategoryWrapper,
   BreadcumbWrapper,
   HomeWrapper,
-  MobileCategoriesWrapper
+  MobileCategoriesWrapper,
+  PartnerInfoWrapperMobile,
+  PartnerInfoMobile,
+  PartnerBannerMobile,
+  PartnerTitleMobile,
+  PartnerLogoMobile,
+  PartnerMobileAddress,
+  PartnerMobileDeliveryInfo
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
@@ -114,6 +121,22 @@ const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
               </PartnerDeliveryInfo>
             </PartnerInfo>
           </PartnerInfoWrapper>
+
+          <PartnerInfoWrapperMobile>
+            <PartnerBannerMobile src={partner.banner} />
+
+            <PartnerInfoMobile>
+              <PartnerLogoMobile src={partner.logo} />
+              <PartnerTitleMobile>{partner.name}</PartnerTitleMobile>
+              <PartnerMobileAddress>{partner.address}</PartnerMobileAddress>
+
+              <PartnerMobileDeliveryInfo>
+                <div>Delivery: 0.7$</div>
+
+                <div>Entrega: 40 min</div>
+              </PartnerMobileDeliveryInfo>
+            </PartnerInfoMobile>
+          </PartnerInfoWrapperMobile>
 
           <MobileCategoriesWrapper>
             <HorizontalCategories

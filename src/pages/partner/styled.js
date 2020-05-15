@@ -6,6 +6,10 @@ export const PartnerWrapper = styled.div`
   display: flex !important;
   flex-direction: column !important;
   margin-top: 30px;
+
+  @media screen and (max-width: 768px) {
+    background: white;
+  }
 `;
 
 export const PartnerInfoWrapper = styled.div`
@@ -22,7 +26,39 @@ export const PartnerInfoWrapper = styled.div`
     padding: 15px;
     background: white;
     border-bottom: none;
+    display: none;
   }
+`;
+
+export const PartnerInfoWrapperMobile = styled.div`
+  display: none;
+  position: relative;
+  margin-bottom: 110px;
+
+  @media screen and (max-width: 768px) {
+    height: 220px;
+    display: block;
+  }
+`;
+
+export const PartnerInfoMobile = styled.div`
+  position: absolute;
+  width: calc(100% - 30px);
+  left: 15px;
+  bottom: -90px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+  height: 200px;
+  background: rgba(255,255,255,0.97);
+  padding: 20px 0 30px;
+`;
+
+export const PartnerBannerMobile = styled.img`
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
 `;
 
 export const PartnerMediaWrapper = styled.div`
@@ -46,8 +82,8 @@ export const PartnerBanner = styled.img`
 `;
 
 export const PartnerLogo = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 80px;
+  height: 80px;
   border-radius: 50%;
   left: 225px;
   top: 30px;
@@ -104,6 +140,7 @@ export const PartnerContent = styled.div`
 
   @media screen and (max-width: 768px) {
     padding: 20px 15px;
+    background: #fafaf8;
   }
 `;
 
@@ -114,7 +151,7 @@ export const ProductsGrid = styled.div`
   grid-gap: 15px;
 
   @media screen and (max-width: 768px) {
-    grid-template-columns: repeat(1,1fr);
+    grid-template-columns: repeat(1, 1fr);
   }
 `;
 
@@ -135,6 +172,10 @@ export const CategoryName = styled.h2`
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 20px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+  }
 `;
 
 export const CategoryWrapper = styled.div`
@@ -182,10 +223,37 @@ export const HomeWrapper = styled.div`
 export const MobileCategoriesWrapper = styled.div`
   position: sticky;
   top: 48px;
-  z-index: 10000;
+  z-index: 1020;
   display: none;
+  border-bottom: 1px solid #e5edef;
 
   @media screen and (max-width: 768px) {
     display: block;
   }
+`;
+
+export const PartnerTitleMobile = styled.div`
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 2px;
+`;
+
+export const PartnerLogoMobile = styled.img`
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+`;
+
+export const PartnerMobileAddress = styled.div`
+  font-size: 12px;
+`;
+
+export const PartnerMobileDeliveryInfo = styled.div`
+  font-size: 12px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 80%;
+  margin: 0 auto;
+  margin-top: 5px;rgba(255,255,255,0.97)
 `;

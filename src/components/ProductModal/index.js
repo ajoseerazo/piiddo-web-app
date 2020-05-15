@@ -1,5 +1,5 @@
 import { useState, useCallback, useEffect } from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import {
   ModalStyled,
   ModalBodyStyled,
@@ -11,11 +11,15 @@ import {
   ProductCustomSection,
   ProductCustomSectionBody,
   ProductCustomItemStyled,
+  CloseButton,
 } from "./styled";
 import PrettyCheckbox from "../PrettyCheckbox";
 import ProductOperator from "../ProductOperator";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTimes } from "@fortawesome/free-solid-svg-icons";
+
+library.add([faTimes]);
 
 const ProductModal = (props) => {
   const { buttonLabel, className, product } = props;
@@ -117,22 +121,25 @@ const ProductModal = (props) => {
           companionPrices += companions[i].usdPrice;
         }
       }
-      
+
       setTotalPrice(product.usdPrice + extraPrices + companionPrices);
     }
   }, [product, extras, companions]);
 
-  const onAddToCart = useCallback((totalAmount, count, basePrice) => {
-    props.onAccept({
-      product,
-      options,
-      companions,
-      extras,
-      totalAmount,
-      count,
-      basePrice
-    });
-  }, [options, extras, companions, product])
+  const onAddToCart = useCallback(
+    (totalAmount, count, basePrice) => {
+      props.onAccept({
+        product,
+        options,
+        companions,
+        extras,
+        totalAmount,
+        count,
+        basePrice,
+      });
+    },
+    [options, extras, companions, product]
+  );
 
   if (!product) {
     return <></>;
@@ -140,15 +147,15 @@ const ProductModal = (props) => {
 
   return (
     <div>
-      <Button color="danger" onClick={props.onClose}>
-        {buttonLabel}
-      </Button>
       <ModalStyled
         isOpen={props.isOpen}
         toggle={props.onClose}
         className={className}
       >
         <ModalBodyStyled>
+          <CloseButton onClick={props.onClose}>
+            <FontAwesomeIcon icon="times" />
+          </CloseButton>
           <ModalBodyLeftStyled>
             <img src={product.image} alt={product.name} />
           </ModalBodyLeftStyled>

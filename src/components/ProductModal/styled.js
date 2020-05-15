@@ -1,5 +1,21 @@
 import styled from "styled-components";
-import { Modal, ModalBody } from "reactstrap"
+import { Modal, ModalBody, Button } from "reactstrap";
+
+export const CloseButton = styled(Button)`
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100%;
+  color: #f74342;
+  background: white;
+  border: none;
+  box-shadow: 0 6px 10px 0 rgba(128, 98, 96, 0.16);
+  position: absolute;
+  top: 10px;
+  right: 10px;
+`;
 
 export const ModalStyled = styled(Modal)`
   width: 900px;
@@ -11,8 +27,22 @@ export const ModalStyled = styled(Modal)`
     /*box-shadow: 0 2px 20px 12px rgba(247, 67, 66, 0.43);*/
     border: none;
     overflow: hidden;
-    max-height: calc(100vh - 3.50rem);
-    min-height: calc(100vh - 3.50rem);
+    max-height: calc(100vh - 3.5rem);
+    min-height: calc(100vh - 3.5rem);
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    margin: 0px;
+    border-radius: 0px;
+    min-width: 100% !important;
+    max-width: 100%;
+
+    .modal-content {
+      max-height: 100%;
+      margin: 0px;
+      border-radius: 0px;
+    }
   }
 `;
 
@@ -21,6 +51,10 @@ export const ModalBodyStyled = styled(ModalBody)`
   flex-direction: row;
   padding: 0px;
   overflow: hidden;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const ModalBodyLeftStyled = styled.div`
@@ -38,6 +72,16 @@ export const ModalBodyLeftStyled = styled.div`
     object-fit: cover;
     object-position: center;
   }
+
+  @media screen and (max-width: 768px) {
+    padding: 0px;
+    width: 100%;
+
+    img {
+      border-radius: 0px;
+      max-height: 250px;
+    }
+  }
 `;
 
 export const ModalBodyRightStyled = styled.div`
@@ -47,6 +91,12 @@ export const ModalBodyRightStyled = styled.div`
 
   &::-webkit-scrollbar {
     display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    padding-left: 20px;
+    padding-right: 20px;
+    width: 100%;
   }
 `;
 
@@ -68,8 +118,7 @@ export const ProductCustomSectionTitle = styled.div`
   font-weight: 600;
 `;
 
-export const ProductCustomSection = styled.div`
-`;
+export const ProductCustomSection = styled.div``;
 
 export const ProductCustomSectionBody = styled.div`
   ul {

@@ -95,9 +95,9 @@ export const ChevronRightIcon = styled.span`
 export const TopCategoriesWrapper = styled.div`
   position: fixed;
   top: 48px;
-  z-index: 10000;
+  z-index: 1020;
   display: none;
-  1px solid #e5edef;
+  border-bottom: 1px solid #e5edef;
 
   @media screen and (max-width: 768px) {
     display: block;

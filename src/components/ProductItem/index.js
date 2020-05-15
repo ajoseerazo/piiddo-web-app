@@ -6,7 +6,13 @@ import {
   ProductTitle,
   ProductDescription,
   ProductPrice,
+  ProductAddButton
 } from "./styled";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons";
+
+library.add([faPlus]);
 
 const ProductItem = ({ product, onSelectProduct }) => {
   return (
@@ -22,6 +28,10 @@ const ProductItem = ({ product, onSelectProduct }) => {
         <ProductPrice>
           $ {`${new Intl.NumberFormat("es").format(product.usdPrice)}`}
         </ProductPrice>
+
+        <ProductAddButton>
+          <FontAwesomeIcon icon="plus" />
+        </ProductAddButton>
       </ProductInfo>
     </ProductItemWrapper>
   );

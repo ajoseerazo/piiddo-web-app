@@ -214,3 +214,20 @@
     border: none !important;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .card-header,
+  .card-result {
+    padding: 10px;
+  }
+
+  .containerShoppingArticles {
+    > div {
+      width: 100%;
+
+      > div {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -3,7 +3,7 @@ import { Collapse } from "reactstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { LinkButtonStyled, Additionals } from "./styled";
+import { LinkButtonStyled, Additionals, ProductItemRight, ProductItemLeft } from "./styled";
 import ProductCounterTiny from "../ProductCounterTiny";
 
 library.add([faChevronUp, faChevronDown]);
@@ -39,39 +39,43 @@ function ShoppingBoxItem(props) {
 
   return (
     <div className="shoppingItems mount">
-      {image && <img className="gallery-img" src={image} />}
-      <div className="shoppingItems-box">
-        <div className="shoppingItems-title">{name}</div>
-        <div className="shoppingItems-extra">
-          <div className="shoppingItems-des">{description + activeName}</div>
-        </div>
-        {additionals.length !== 0 && (
-          <div>
-            <Collapse isOpen={collapse}>
-              <Additionals>
-                {additionals.map((additional) => {
-                  return <li>{additional.name}</li>;
-                })}
-              </Additionals>
-            </Collapse>
-            <LinkButtonStyled onClick={toggle}>
-              <span>{collapse ? "Ocultar" : "Adicionales"}</span>
-              <FontAwesomeIcon
-                icon={collapse ? "chevron-up" : "chevron-down"}
-              />
-            </LinkButtonStyled>
+      <ProductItemLeft>
+        {image && <img className="gallery-img" src={image} />}
+        <div className="shoppingItems-box">
+          <div className="shoppingItems-title">{name}</div>
+          <div className="shoppingItems-extra">
+            <div className="shoppingItems-des">{description + activeName}</div>
           </div>
-        )}
-      </div>
+          {additionals.length !== 0 && (
+            <div>
+              <Collapse isOpen={collapse}>
+                <Additionals>
+                  {additionals.map((additional) => {
+                    return <li>{additional.name}</li>;
+                  })}
+                </Additionals>
+              </Collapse>
+              <LinkButtonStyled onClick={toggle}>
+                <span>{collapse ? "Ocultar" : "Adicionales"}</span>
+                <FontAwesomeIcon
+                  icon={collapse ? "chevron-up" : "chevron-down"}
+                />
+              </LinkButtonStyled>
+            </div>
+          )}
+        </div>
+      </ProductItemLeft>
 
-      <ProductCounterTiny
-        amount={length}
-        onChangeCount={onChangeCount}
-        onClickDelete={onClickDelete}
-      />
-      <div className="shoppingItems-amount">
-        {`$ ${parseFloat(amout).toFixed(2)}`}
-      </div>
+      <ProductItemRight>
+        <ProductCounterTiny
+          amount={length}
+          onChangeCount={onChangeCount}
+          onClickDelete={onClickDelete}
+        />
+        <div className="shoppingItems-amount">
+          {`$ ${parseFloat(amout).toFixed(2)}`}
+        </div>
+      </ProductItemRight>
     </div>
   );
 }

@@ -55,3 +55,9 @@
     padding: 17.5px;
   }
 }
+
+@media screen and (max-width: 768px) {
+  .shoppingItems {
+    padding: 10px !important;
+  }
+}

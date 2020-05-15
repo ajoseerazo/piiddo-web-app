@@ -11,6 +11,10 @@ export const ProductCounterWrapper = styled.div`
   font-size: 12px;
   height: 36px;
   padding: 3px;
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 8px;
+  }
 `;
 
 export const ButtonStyled = styled(Button)`

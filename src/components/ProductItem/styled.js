@@ -99,6 +99,7 @@ export const ProductPrice = styled.div`
 `;
 
 export const ProductAddButton = styled.div`
+  display: none;
   position: absolute;
   right: 0;
   bottom: 0px;
@@ -107,7 +108,10 @@ export const ProductAddButton = styled.div`
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 `;

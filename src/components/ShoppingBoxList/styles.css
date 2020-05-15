@@ -48,3 +48,8 @@
   border-bottom: 1px solid #e5edef;
   padding: 17.5px;
 }
+@media screen and (max-width: 768px) {
+  .shoppingItems {
+    padding: 10px !important;
+  }
+}

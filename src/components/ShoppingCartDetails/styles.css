@@ -183,3 +183,15 @@
   box-shadow: none !important;
   border: none !important;
 }
+@media screen and (max-width: 768px) {
+  .card-header,
+  .card-result {
+    padding: 10px;
+  }
+  .containerShoppingArticles > div {
+    width: 100%;
+  }
+  .containerShoppingArticles > div > div {
+    width: 100%;
+  }
+}

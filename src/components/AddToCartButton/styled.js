@@ -25,4 +25,8 @@ export const ButtonStyled = styled(Button)`
     outline: none;
     box-shadow: none;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 150px;
+  }
 `;

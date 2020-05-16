@@ -1,7 +1,5 @@
 import React, { Component, Suspense } from "react";
 import ShopHeader from "../src/components/ShopHeader/ShopHeader";
-import ProductsGallery from "../src/components/ProductsGallery/ProductsGallery";
-import Sidebar from "../src/components/Sidebar";
 import Footer from "../src/components/Footer";
 import { InView } from "react-intersection-observer";
 import { bindActionCreators } from "redux";
@@ -11,16 +9,10 @@ import partnersActions from "../src/redux/actions/partners";
 import categoriesActions from "../src/redux/actions/categories";
 import locationActions from "../src/redux/actions/location";
 import ProductModal from "../src/components/ProductModal";
-import { getCategoryName } from "../src/utils";
-import "../src/styles.scss";
-import "../src/shop-styles.scss";
-import Banner from "../src/components/Banner";
 import GlobalSearch from "../src/components/GlobalSearch";
-import Category from "../src/components/Category";
 import Categories from "../src/components/Categories";
 import { MainContainerWrapper } from "../src/globalStyles/styled.index";
 import PlacePickerModal from "../src/components/PlacePickerModal";
-import API from "../src/api";
 import cookies from "next-cookies";
 
 const { fetchProducts, selectProduct } = productsActions;

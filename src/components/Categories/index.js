@@ -37,13 +37,23 @@ const Categories = ({ categories }) => {
     <div className={!isBrowser ? "hidden" : undefined}>
       <CategoriesWrapper className="main-categories">
         {mainCategories.map((cat) => (
-          <Category name={cat.name} image={cat.image} slug={cat.slug} />
+          <Category
+            name={cat.name}
+            image={cat.image}
+            slug={cat.slug}
+            id={cat.id}
+          />
         ))}
       </CategoriesWrapper>
 
       <CategoriesWrapper>
         {lastCategories.map((cat) => (
-          <Category name={cat.name} image={cat.image} slug={cat.slug} />
+          <Category
+            name={cat.name}
+            image={cat.image}
+            slug={cat.slug}
+            id={cat.id}
+          />
         ))}
       </CategoriesWrapper>
     </div>

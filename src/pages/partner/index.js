@@ -37,7 +37,7 @@ import {
   PartnerTitleMobile,
   PartnerLogoMobile,
   PartnerMobileAddress,
-  PartnerMobileDeliveryInfo
+  PartnerMobileDeliveryInfo,
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
@@ -48,7 +48,7 @@ import { connect } from "react-redux";
 
 const { addToCart } = shoppingCartActions;
 
-const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
+const Store = ({ currentUrl, partner, actions: { addToCart }, address }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productSelected, setProductSelect] = useState();
 
@@ -75,7 +75,7 @@ const Store = ({ currentUrl, partner, actions: { addToCart } }) => {
 
   return (
     <>
-      <ShopHeader />
+      <ShopHeader address={address} />
 
       <HomeWrapper>
         <PartnerWrapper>

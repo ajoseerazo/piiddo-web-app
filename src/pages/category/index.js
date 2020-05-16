@@ -17,10 +17,10 @@ import "../../styles.scss";
 import "../../shop-styles.scss";
 import HorizontalCategories from "../../components/HorizontalCategories";
 
-const Category = ({ category, partners, currentUrl, subcategory }) => {
+const Category = ({ category, partners, currentUrl, subcategory, address }) => {
   return (
     <>
-      <ShopHeader />
+      <ShopHeader address={address} />
 
       <TopCategoriesWrapper>
         <HorizontalCategories

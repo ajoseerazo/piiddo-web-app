@@ -4,6 +4,7 @@ import StorePage from "../../../src/pages/partner";
 import categoriesActions from "../../../src/redux/actions/categories";
 import partnersActions from "../../../src/redux/actions/partners";
 import productsActions from "../../../src/redux/actions/products";
+import cookies from "next-cookies";
 
 const { fetchCategory } = categoriesActions;
 const {
@@ -20,9 +21,10 @@ const SubCategory = ({
   currentUrl,
   subcategory,
   partner,
+  address,
 }) => {
   if (partner) {
-    return <StorePage partner={partner} />;
+    return <StorePage partner={partner} address={address} />;
   }
 
   return (
@@ -31,15 +33,20 @@ const SubCategory = ({
       partners={partners}
       currentUrl={currentUrl}
       subcategory={subcategory}
+      address={address}
     />
   );
 };
 
-SubCategory.getInitialProps = async ({
-  store,
-  query: { category: categoryQuery, subcategory },
-}) => {
+SubCategory.getInitialProps = async (ctx) => {
+  const {
+    store,
+    query: { category: categoryQuery, subcategory },
+  } = ctx;
+
   const category = await store.dispatch(fetchCategory(categoryQuery));
+
+  const address = cookies(ctx).deliveryAddress;
 
   if (category) {
     const subcat = category.subcategories.find((cat) => {
@@ -97,6 +104,7 @@ SubCategory.getInitialProps = async ({
       currentUrl: `/category/${categoryQuery}/${subcategory}`,
       subcategory,
       partner,
+      address,
     };
   } else {
     return {};

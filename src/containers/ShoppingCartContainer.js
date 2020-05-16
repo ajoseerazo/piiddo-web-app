@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import { getItemKey, getId, getAddeds } from "../utils";
 import actions from "../redux/actions/shoppingCart";
 
 import ShoppingCart from "../components/ShoppingCart";

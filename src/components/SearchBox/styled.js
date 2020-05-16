@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Button } from "reactstrap";
 
 export const SearchBoxWrapper = styled.div`
   position: relative;
@@ -31,4 +32,23 @@ export const SearchIconWrapper = styled.div`
   justify-content: flex-end;
   align-items: center;
   color: #ccc;
+`;
+
+export const SearchAddressButton = styled(Button)`
+  width: auto;
+  border-radius: 12px;
+  margin-right: -14px;
+  font-size: 20px;
+  height: calc(100% - 6px);
+  background: #f74342;
+  border: none;
+
+  &:hover,
+  &:visited,
+  &:active
+  &:focus {
+    background-color: #f74342 !important;
+    border: none !important;
+    box-shadow: none !important;
+  }
 `;

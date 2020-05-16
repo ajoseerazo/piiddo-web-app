@@ -24,6 +24,7 @@ function ShoppingBoxItem(props) {
     companions,
     onClickDelete,
     onChangeCount,
+    disableCounters
   } = props;
   let amout = price;
 
@@ -67,11 +68,11 @@ function ShoppingBoxItem(props) {
       </ProductItemLeft>
 
       <ProductItemRight>
-        <ProductCounterTiny
+        {!disableCounters && <ProductCounterTiny
           amount={length}
           onChangeCount={onChangeCount}
           onClickDelete={onClickDelete}
-        />
+        />}
         <div className="shoppingItems-amount">
           {`$ ${parseFloat(amout).toFixed(2)}`}
         </div>

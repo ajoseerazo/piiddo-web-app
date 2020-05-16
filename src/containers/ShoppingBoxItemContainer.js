@@ -41,7 +41,8 @@ class ShoppingBoxItemContainer extends Component {
       totalAmount,
       count,
       onClickDelete,
-      onChangeCount
+      onChangeCount,
+      disableCounters
     } = this.props;
 
     return (
@@ -60,6 +61,7 @@ class ShoppingBoxItemContainer extends Component {
         extras={extras}
         onClickDelete={onClickDelete}
         onChangeCount={onChangeCount}
+        disableCounters={disableCounters}
       />
     );
   }

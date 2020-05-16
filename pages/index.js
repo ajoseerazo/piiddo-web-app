@@ -168,7 +168,7 @@ class Shop extends Component {
                   : "auto",
             }}
           >
-            <GlobalSearch />
+            <GlobalSearch address={null} />
 
             <MainContainerWrapper>
               <h1 className="section-name">¿Qué clase de producto deseas comprar?</h1>

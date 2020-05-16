@@ -35,7 +35,8 @@ class ShoppingBoxList extends PureComponent {
     const {
       order: { product, options, companions, extras, totalAmount, count },
       onClickDelete,
-      onChangeCount
+      onChangeCount,
+      disableCounters
     } = this.props;
 
     return (
@@ -57,6 +58,7 @@ class ShoppingBoxList extends PureComponent {
             count={count}
             onChangeCount={onChangeCount}
             onClickDelete={onClickDelete}
+            disableCounters={disableCounters}
           />
         </div>
       </div>

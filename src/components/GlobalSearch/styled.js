@@ -6,7 +6,7 @@ export const GlobalSearchWrapper = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 0 0 22px 22px;
-  background-color: #F74342;
+  background-color: rgb(247, 67, 66, 0.5);
   flex-direction: column;
 
   @media screen and (max-width: 768px) {

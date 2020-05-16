@@ -54,6 +54,8 @@ class ShopHeader extends Component {
   };
 
   render() {
+    const { hideShoppingCart } = this.props;
+
     return (
       <Navbar
         light
@@ -90,7 +92,7 @@ class ShopHeader extends Component {
 
         <Nav className="ml-auto" navbar>
           <NavItem style={{ marginRight: 15 }}>
-            <ShoppingCart />
+            {!hideShoppingCart && <ShoppingCart />}
           </NavItem>
 
           <NavItem style={{ marginRight: 10 }}>

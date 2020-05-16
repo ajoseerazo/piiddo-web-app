@@ -7,7 +7,7 @@ const GlobalSearch = (props) => {
     <GlobalSearchWrapper {...props}>
       <TitleSearch>¿Qué deseas pedir hoy?</TitleSearch>
 
-      <SearchBox />
+      <SearchBox address={props.address} />
     </GlobalSearchWrapper>
   );
 };

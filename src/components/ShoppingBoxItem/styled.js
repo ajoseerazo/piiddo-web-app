@@ -7,14 +7,15 @@ export const LinkButtonStyled = styled(Button)`
   color: #222;
   font-size: 12px;
   padding: 0px;
+  text-align: left;
 
   &:hover,
   &:active,
   &:focus {
-    background: transparent;
-    border: none;
-    color: #222;
-    box-shadow: none;
+    background-color: transparent !important;
+    border: none !important;
+    color: #222 !important;
+    box-shadow: none !important;
   }
 
   span {

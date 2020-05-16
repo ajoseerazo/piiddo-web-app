@@ -17,7 +17,7 @@ import Banner from "../src/components/Banner";
 import GlobalSearch from "../src/components/GlobalSearch";
 import Category from "../src/components/Category";
 import Categories from "../src/components/Categories";
-import { MainContainerWrapper } from "./styled.index";
+import { MainContainerWrapper } from "../src/globalStyles/styled.index";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchPartners } = partnersActions;

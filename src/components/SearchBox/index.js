@@ -19,8 +19,11 @@ const SearchBox = (props) => {
         <Autocomplete
           placeholder="Ingresa la dirección de envío o un punto cercano"
           onSelect={async ({ lat, lng, value }) => {
-            console.log(lat, lng);
-            console.log(value);
+            props.onSelectPlace({
+              lat,
+              lng,
+              value,
+            });
           }}
           style={{
             width: "100%",

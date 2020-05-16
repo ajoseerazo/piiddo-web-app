@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Suspense } from "react";
 import ShopHeader from "../src/components/ShopHeader/ShopHeader";
 import ProductsGallery from "../src/components/ProductsGallery/ProductsGallery";
 import Sidebar from "../src/components/Sidebar";
@@ -18,6 +18,7 @@ import GlobalSearch from "../src/components/GlobalSearch";
 import Category from "../src/components/Category";
 import Categories from "../src/components/Categories";
 import { MainContainerWrapper } from "../src/globalStyles/styled.index";
+import PlacePickerModal from "../src/components/PlacePickerModal";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchPartners } = partnersActions;
@@ -78,6 +79,14 @@ class Shop extends Component {
     /*this.setState({
       isModalOpen: true
     })*/
+  };
+
+  onSelectPlace = (place) => {
+    console.log(place);
+    this.setState({
+      place,
+      isPlacePickerModalOpened: true,
+    });
   };
 
   /*setSidebarHeight = (isVisible) => {
@@ -142,11 +151,22 @@ class Shop extends Component {
     });
   };
 
-  render() {
-    const { itemsInCart, isSticky, sidebarHeight, isModalOpen } = this.state;
-    const { products, category, partners, categories } = this.props;
+  closePlacePickerModal = () => {
+    this.setState({
+      isPlacePickerModalOpened: false,
+    });
+  };
 
-    console.log("P", (categories || []).length);
+  render() {
+    const {
+      itemsInCart,
+      isSticky,
+      sidebarHeight,
+      isModalOpen,
+      isPlacePickerModalOpened,
+      place,
+    } = this.state;
+    const { products, category, partners, categories } = this.props;
 
     return (
       <>
@@ -168,10 +188,12 @@ class Shop extends Component {
                   : "auto",
             }}
           >
-            <GlobalSearch address={null} />
+            <GlobalSearch address={null} onSelectPlace={this.onSelectPlace} />
 
             <MainContainerWrapper>
-              <h1 className="section-name">¿Qué clase de producto deseas comprar?</h1>
+              <h1 className="section-name">
+                ¿Qué clase de producto deseas comprar?
+              </h1>
 
               <Categories categories={categories || []} />
             </MainContainerWrapper>
@@ -193,6 +215,13 @@ class Shop extends Component {
         </InView>
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
+
+        <PlacePickerModal
+          isOpen={isPlacePickerModalOpened}
+          place={place}
+          onClose={this.closePlacePickerModal}
+          onAccept={this.closePlacePickerModal}
+        />
       </>
     );
   }

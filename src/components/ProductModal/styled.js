@@ -15,6 +15,14 @@ export const CloseButton = styled(Button)`
   position: absolute;
   top: 10px;
   right: 10px;
+
+  &:hover,
+  &:visited,
+  &:active,
+  &:focus {
+    background-color: white;
+    color: #f74342;
+  }
 `;
 
 export const ModalStyled = styled(Modal)`

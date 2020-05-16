@@ -21,6 +21,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import appActions from "../../redux/actions/app";
 import Link from "next/link";
+import AddressSelector from "../AddressSelector";
 
 const { selectCurrency } = appActions;
 
@@ -54,7 +55,7 @@ class ShopHeader extends Component {
   };
 
   render() {
-    const { hideShoppingCart } = this.props;
+    const { hideShoppingCart, address } = this.props;
 
     return (
       <Navbar
@@ -91,6 +92,7 @@ class ShopHeader extends Component {
         </Col>
 
         <Nav className="ml-auto" navbar>
+          {address && <AddressSelector address={address} />}
           <NavItem style={{ marginRight: 15 }}>
             {!hideShoppingCart && <ShoppingCart />}
           </NavItem>

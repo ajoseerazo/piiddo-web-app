@@ -1,5 +1,6 @@
 import firebase, { db } from "../config/firebase";
 import Categories from "./categories";
+import Cookies from "cookies-js";
 
 class Products {
   static getAll = async (parentId, type = "partner") => {
@@ -111,20 +112,33 @@ class Partners {
       .collection("catalogCategories")
       .where("catalogId", "==", catalogId)
       .get();
-    
-    let categories = categoriesRef.docs.map(cat => {
+
+    let categories = categoriesRef.docs.map((cat) => {
       return {
         id: cat.id,
-        ...cat.data()
-      }
-    })
+        ...cat.data(),
+      };
+    });
 
     return categories;
   };
+}
+
+class DeliveryLocation {
+  static get() {
+    const address = Cookies.get("deliveryAddress");
+    const location = Cookies.get("deliveryLocation");
+
+    return {
+      address,
+      location,
+    };
+  }
 }
 
 export default {
   Products,
   Partners,
   Categories,
+  DeliveryLocation,
 };

@@ -9,6 +9,12 @@ nav {
     font-size: 14px !important;
   }
 
+  .nav-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
   .input-group-text {
     background: #fafaf8;
     border-color: #ebebeb !important;

@@ -46,10 +46,11 @@ const PlacePickerModal = ({ isOpen, place, onClose, onAccept }) => {
 
   const onAcceptLocation = useCallback(() => {
     onAccept({
-      address,
-      location,
+      address: address ? address : place.value,
+      location: location ? location : { lat: place.lat, lng: place.lng },
     });
-  }, [onAccept, address, location]);
+  }, [onAccept, address, location, place]);
+
   return (
     <ModalStyled isOpen={isOpen}>
       <ModalBodyStyled>

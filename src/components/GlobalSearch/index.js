@@ -5,7 +5,7 @@ import SearchBox from "../SearchBox";
 const GlobalSearch = (props) => {
   return (
     <GlobalSearchWrapper {...props}>
-      <TitleSearch>¿Qué deseas pedir hoy?</TitleSearch>
+      <TitleSearch>{props.address ? "¿Qué deseas pedir hoy?" : "¿Dónde te encuentras?"}</TitleSearch>
 
       <SearchBox address={props.address} onSelectPlace={props.onSelectPlace} />
     </GlobalSearchWrapper>

@@ -4,13 +4,15 @@ import Partners from "./reducers/partners";
 import App from "./reducers/app";
 import Categories from "./reducers/categories";
 import ShoppingCart from "./reducers/shoppingCart";
+import Location from "./reducers/location";
 
 const rootReducer = combineReducers({
   Products,
   Partners,
   App,
   Categories,
-  ShoppingCart
+  ShoppingCart,
+  Location
 })
 
 export default rootReducer

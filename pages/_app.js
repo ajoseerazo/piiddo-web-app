@@ -44,7 +44,6 @@ class MyApp extends App {
     return (
       <>
         <Head>
-          {/* Import CSS for nprogress */}
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
         </Head>
         <Provider store={store}>

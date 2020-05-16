@@ -9,6 +9,7 @@ import { connect } from "react-redux";
 import productsActions from "../src/redux/actions/products";
 import partnersActions from "../src/redux/actions/partners";
 import categoriesActions from "../src/redux/actions/categories";
+import locationActions from "../src/redux/actions/location";
 import ProductModal from "../src/components/ProductModal";
 import { getCategoryName } from "../src/utils";
 import "../src/styles.scss";
@@ -19,10 +20,13 @@ import Category from "../src/components/Category";
 import Categories from "../src/components/Categories";
 import { MainContainerWrapper } from "../src/globalStyles/styled.index";
 import PlacePickerModal from "../src/components/PlacePickerModal";
+import API from "../src/api";
+import cookies from "next-cookies";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchPartners } = partnersActions;
 const { fetchCategories } = categoriesActions;
+const { setDeliveryPlace } = locationActions;
 
 const categories = [
   {
@@ -36,7 +40,8 @@ class Shop extends Component {
     itemsInCart: [],
     isSticky: false,
     footerIsVisible: false,
-    sidebarHeight: "auto",
+    address: this.props.address,
+    sidebarHeight: "auto"
   };
 
   constructor(props) {
@@ -44,12 +49,16 @@ class Shop extends Component {
     this.footer = React.createRef();
   }
 
-  static async getInitialProps({ store, isServer, pathname, query }) {
+  static async getInitialProps(ctx) {
     // const products = await store.dispatch(fetchProducts());
+    const { store, isServer, pathname, query } = ctx;
+
     const partners = await store.dispatch(fetchPartners());
     const categories = await store.dispatch(fetchCategories());
 
-    return { partners, categories };
+    const address = cookies(ctx).deliveryAddress;
+
+    return { partners, categories, address };
   }
 
   onAddProduct(product) {
@@ -82,7 +91,6 @@ class Shop extends Component {
   };
 
   onSelectPlace = (place) => {
-    console.log(place);
     this.setState({
       place,
       isPlacePickerModalOpened: true,
@@ -116,33 +124,15 @@ class Shop extends Component {
   };
 
   /*componentDidMount = () => {
-    if (window.scrollY > 160) {
-      this.setState({
-        isSticky: true,
-      });
-    }
+    if (typeof window !== "undefined") {
+      const place = API.DeliveryLocation.get();
 
-    window.onscroll = () => {
-      if (window.scrollY > 160) {
+      if (place) {
         this.setState({
-          isSticky: true,
+          address: place.address,
         });
       }
-
-      window.onscroll = () => {
-        if (window.scrollY > 160) {
-          this.setState({
-            isSticky: true,
-          });
-        } else {
-          this.setState({
-            isSticky: false,
-          });
-        }
-
-        this.setSidebarHeight(this.state.footerIsVisible);
-      };
-    };
+    }
   };*/
 
   onCloseModal = () => {
@@ -157,6 +147,20 @@ class Shop extends Component {
     });
   };
 
+  onSetAddress = (place) => {
+    const {
+      actions: { setDeliveryPlace },
+    } = this.props;
+
+    this.closePlacePickerModal();
+
+    setDeliveryPlace(place);
+
+    this.setState({
+      address: place.address,
+    });
+  };
+
   render() {
     const {
       itemsInCart,
@@ -165,12 +169,13 @@ class Shop extends Component {
       isModalOpen,
       isPlacePickerModalOpened,
       place,
+      address,
     } = this.state;
     const { products, category, partners, categories } = this.props;
 
     return (
       <>
-        <ShopHeader />
+        <ShopHeader address={address} />
 
         {/*<div style={{marginTop: 57}}>
           <Banner />
@@ -188,7 +193,10 @@ class Shop extends Component {
                   : "auto",
             }}
           >
-            <GlobalSearch address={null} onSelectPlace={this.onSelectPlace} />
+            <GlobalSearch
+              address={address}
+              onSelectPlace={this.onSelectPlace}
+            />
 
             <MainContainerWrapper>
               <h1 className="section-name">
@@ -216,12 +224,14 @@ class Shop extends Component {
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
 
-        <PlacePickerModal
-          isOpen={isPlacePickerModalOpened}
-          place={place}
-          onClose={this.closePlacePickerModal}
-          onAccept={this.closePlacePickerModal}
-        />
+        {!address && (
+          <PlacePickerModal
+            isOpen={isPlacePickerModalOpened}
+            place={place}
+            onClose={this.closePlacePickerModal}
+            onAccept={this.onSetAddress}
+          />
+        )}
       </>
     );
   }
@@ -237,7 +247,10 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ fetchProducts, selectProduct }, dispatch),
+    actions: bindActionCreators(
+      { fetchProducts, selectProduct, setDeliveryPlace },
+      dispatch
+    ),
   };
 }
 

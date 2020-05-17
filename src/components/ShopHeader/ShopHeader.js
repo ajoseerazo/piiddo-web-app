@@ -55,7 +55,7 @@ class ShopHeader extends Component {
   };
 
   render() {
-    const { hideShoppingCart, address } = this.props;
+    const { hideShoppingCart, address, bordered } = this.props;
 
     return (
       <Navbar
@@ -64,6 +64,7 @@ class ShopHeader extends Component {
         fixed="top"
         style={{
           backgroundColor: "#FFF",
+          borderBottom: bordered ? '1px solid #e5edef' : undefined
         }}
       >
         <Link href="/" as="/">

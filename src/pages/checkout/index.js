@@ -20,13 +20,17 @@ import {
   CheckoutTotalPrice,
   CheckoutButton,
   CheckoutBoxTitle,
+  CheckoutAddressText,
+  CheckoutTimeContainer
 } from "./styled";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
 
-const CheckoutPage = ({ items }) => {
+const CheckoutPage = ({ items, address }) => {
   let total = (items || []).reduce((a, b) => {
     return a + b.totalAmount;
   }, 0);
+
+  console.log(address);
 
   return (
     <Wrapper>
@@ -38,6 +42,12 @@ const CheckoutPage = ({ items }) => {
             <CheckoutBox>
               <CheckoutAddress>
                 <CheckoutBoxTitle>Dirección</CheckoutBoxTitle>
+                <CheckoutAddressText>{address}</CheckoutAddressText>
+
+                <CheckoutTimeContainer>
+                  <span>Tiempo de entrega</span>
+                  <span>40mins</span>
+                </CheckoutTimeContainer>
               </CheckoutAddress>
             </CheckoutBox>
 

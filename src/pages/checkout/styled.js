@@ -10,21 +10,42 @@ export const Wrapper = styled.div`
     padding: 20px 20px;
     min-height: calc(100vh - 70px);
   }
+
+  @media screen and (max-width: 768px) {
+    > div {
+      margin-top: 50px;
+      padding: 20px 0px;
+    }
+  }
 `;
 
 export const CheckoutTitle = styled.div`
   font-size: 28px;
   font-weight: 600;
+
+  @media screen and (max-width: 768px) {
+    padding: 0px 15px;
+  }
 `;
 
 export const CheckoutContent = styled.div`
   display: flex;
   flex-direction: row;
+
+  @media screen and (max-width: 768px) {
+    flex-direction: column;
+  }
 `;
 
 export const CheckoutContentLeft = styled.div`
   min-width: 660px;
   margin-right: 40px;
+
+  @media screen and (max-width: 768px) {
+    max-width: 100%;
+    min-width: 100%;
+    margin-right: 0px; 
+  }
 `;
 
 export const CheckoutBox = styled.div`
@@ -101,5 +122,26 @@ export const CheckoutButton = styled(Button)`
 
 export const CheckoutBoxTitle = styled.div`
   font-size: 16px;
+  font-weight: 600;
+`;
+
+export const CheckoutAddressText = styled.div`
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 20px;
+  }
+`;
+
+export const CheckoutTimeContainer = styled.div`
+  border-top: 1px solid #e5edef;
+  padding: 20px 10px 0px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 15px;
   font-weight: 600;
 `;

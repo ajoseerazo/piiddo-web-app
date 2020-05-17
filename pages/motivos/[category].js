@@ -22,8 +22,6 @@ const CategoryIndex = (props) => {
 CategoryIndex.getInitialProps = async ({store, query}) => {
   const { category } = query
 
-  console.log("CATE", category);
-
   const products = await store.dispatch(fetchProducts(category, true)); 
   
   return { products };

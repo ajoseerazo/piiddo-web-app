@@ -14,6 +14,7 @@ import Categories from "../src/components/Categories";
 import { MainContainerWrapper } from "../src/globalStyles/styled.index";
 import PlacePickerModal from "../src/components/PlacePickerModal";
 import cookies from "next-cookies";
+import "../src/shop-styles.scss";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchPartners } = partnersActions;

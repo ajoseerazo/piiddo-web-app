@@ -87,6 +87,11 @@ const CheckoutPage = ({ items, address }) => {
                 <label>Número de teléfono</label>
                 <CheckoutInput placeholder="Número de teléfono de la persona que recibe" />
               </CheckoutPersonalDataGroup>
+
+              <CheckoutPersonalDataGroup>
+                <label>Correo</label>
+                <CheckoutInput placeholder="Correo Electrónico" />
+              </CheckoutPersonalDataGroup>
             </CheckoutBox>
 
             <CheckoutBox>

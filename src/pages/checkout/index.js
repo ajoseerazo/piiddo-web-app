@@ -77,8 +77,8 @@ const CheckoutPage = ({ items, address }) => {
       name,
       number,
       email,
-      receiverName,
-      receiverNumber,
+      receiverName: isSamePerson ? name : receiverName,
+      receiverNumber: isSamePerson ? number : receiverNumber,
       paymentMethodSelected,
       extraAddress,
       vuelto,
@@ -94,6 +94,7 @@ const CheckoutPage = ({ items, address }) => {
     paymentMethodSelected,
     extraAddress,
     vuelto,
+    isSamePerson
   ]);
 
   return (

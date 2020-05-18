@@ -90,13 +90,17 @@ export const CheckoutSummaryItemTitle = styled.div`
 export const CheckoutSummaryItemPrice = styled.div``;
 
 export const CheckoutTotal = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
   font-size: 16px;
   font-weight: 600;
   padding: 20px 0px;
   border-top: 1px solid #e5edef;
+
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 5px;
+  }
 `;
 
 export const CheckoutTotalTitle = styled.div``;
@@ -150,9 +154,14 @@ export const PaymentMethodSelected = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 15px;
+  align-items: center;
 `;
 
-export const PaymentMethodSelectedTitle = styled.div``;
+export const PaymentMethodSelectedTitle = styled.div`
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+`;
 
 export const PaymentMethodChangeButton = styled(Button)`
   background: #f74342;
@@ -168,5 +177,35 @@ export const PaymentMethodChangeButton = styled(Button)`
   &:visited  {
     background: #f74342;
     border: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
+  }
+`;
+
+export const CashAmount = styled.div`
+  padding-top: 10px;
+
+  > div {
+    margin-bottom: 5px;
+  }
+
+  input {
+    width: 100%;
+    height: 50px;
+    background: #f7f7f7;
+    border: none;
+    border-radius: 8px;
+    padding: 12px;
+
+    &:focus {
+      box-shadow: none;
+      outline: none;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
   }
 `;

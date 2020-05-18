@@ -26,6 +26,7 @@ import {
   PaymentMethodSelected,
   PaymentMethodSelectedTitle,
   PaymentMethodChangeButton,
+  CashAmount,
 } from "./styled";
 import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
@@ -70,7 +71,10 @@ const CheckoutPage = ({ items, address }) => {
                 <CheckoutBoxTitle>Método de pago</CheckoutBoxTitle>
 
                 {showPaymentMethods && (
-                  <PaymentMethods onSelectOption={selectPaymentMethod} value={paymentMethodSelected} />
+                  <PaymentMethods
+                    onSelectOption={selectPaymentMethod}
+                    value={paymentMethodSelected}
+                  />
                 )}
 
                 {paymentMethodSelected ? (
@@ -96,7 +100,9 @@ const CheckoutPage = ({ items, address }) => {
                     <>
                       {(paymentMethodSelected.value === "cash-bs" ||
                         paymentMethodSelected.value === "cash-usd") && (
-                        <input />
+                        <CashAmount>
+                          <input placeholder="Indique la cantidad que debemos llevar de vuelto" />
+                        </CashAmount>
                       )}
                     </>
                   </>
@@ -141,8 +147,15 @@ const CheckoutPage = ({ items, address }) => {
               </CheckoutSummaryItem>
 
               <CheckoutTotal>
-                <CheckoutTotalTitle>Total</CheckoutTotalTitle>
-                <CheckoutTotalPrice>$12.00</CheckoutTotalPrice>
+                <div>
+                  <CheckoutTotalTitle>Total</CheckoutTotalTitle>
+                  <CheckoutTotalPrice>$12.00</CheckoutTotalPrice>
+                </div>
+
+                <div>
+                  <CheckoutTotalTitle>Total Bs</CheckoutTotalTitle>
+                  <CheckoutTotalPrice>Bs {12 * 183000}</CheckoutTotalPrice>
+                </div>
               </CheckoutTotal>
 
               <CheckoutButton>Realizar pedido</CheckoutButton>

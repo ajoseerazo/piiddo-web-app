@@ -59,8 +59,6 @@ const PaymentMethods = ({ onSelectOption, value }) => {
     [paymentMethodSelected]
   );
 
-  console.log(paymentMethodSelected);
-
   return (
     <PaymentMethodsWrapper>
       {paymentMethods.map((pm, index) => (

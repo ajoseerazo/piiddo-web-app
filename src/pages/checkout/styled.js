@@ -44,7 +44,7 @@ export const CheckoutContentLeft = styled.div`
   @media screen and (max-width: 768px) {
     max-width: 100%;
     min-width: 100%;
-    margin-right: 0px; 
+    margin-right: 0px;
   }
 `;
 
@@ -144,4 +144,29 @@ export const CheckoutTimeContainer = styled.div`
   justify-content: space-between;
   margin-top: 15px;
   font-weight: 600;
+`;
+
+export const PaymentMethodSelected = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 15px;
+`;
+
+export const PaymentMethodSelectedTitle = styled.div``;
+
+export const PaymentMethodChangeButton = styled(Button)`
+  background: #f74342;
+  border: none;
+  border-radius: 8px;
+  height: 30px;
+
+  padding: 0px 20px;
+  font-size: 14px;
+
+  &:hover,
+  &:active,
+  &:visited  {
+    background: #f74342;
+    border: none;
+  }
 `;

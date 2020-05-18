@@ -1,3 +1,4 @@
+import React, { useCallback, useState } from "react";
 import PrettyRadioButton from "../PrettyRadioButton";
 import { PaymentMethodsWrapper } from "./styled";
 
@@ -12,7 +13,7 @@ const paymentMethods = [
     value: "cash-bs",
   },
   {
-    name: "Dólares en efectivo",
+    name: "Dólares/Euros en efectivo",
     icon: "cash",
     value: "cash-usd",
   },
@@ -47,12 +48,32 @@ const paymentMethods = [
   },
 ];
 
-const PaymentMethods = () => {
+const PaymentMethods = ({ onSelectOption, value }) => {
+  const [paymentMethodSelected, setPaymetnMethodSelected] = useState(value);
+
+  const onSelectOptionCb = useCallback(
+    (paymentMethod) => {
+      setPaymetnMethodSelected(paymentMethod);
+      onSelectOption(paymentMethod);
+    },
+    [paymentMethodSelected]
+  );
+
+  console.log(paymentMethodSelected);
+
   return (
     <PaymentMethodsWrapper>
       {paymentMethods.map((pm, index) => (
         <li key={index}>
-          <PrettyRadioButton label={pm.name} />
+          <PrettyRadioButton
+            label={pm.name}
+            onChange={onSelectOptionCb.bind(this, pm)}
+            checked={
+              paymentMethodSelected
+                ? pm.value === paymentMethodSelected.value
+                : false
+            }
+          />
         </li>
       ))}
     </PaymentMethodsWrapper>

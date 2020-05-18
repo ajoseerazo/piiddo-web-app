@@ -1,3 +1,4 @@
+import { useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import actions from "../../redux/actions/shoppingCart";
@@ -22,16 +23,28 @@ import {
   CheckoutBoxTitle,
   CheckoutAddressText,
   CheckoutTimeContainer,
+  PaymentMethodSelected,
+  PaymentMethodSelectedTitle,
+  PaymentMethodChangeButton,
 } from "./styled";
 import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
 
 const CheckoutPage = ({ items, address }) => {
+  const [paymentMethodSelected, setPaymentMethodSelected] = useState();
+  const [showPaymentMethods, setShowPaymentMethods] = useState(true);
+
   let total = (items || []).reduce((a, b) => {
     return a + b.totalAmount;
   }, 0);
 
-  console.log(address);
+  const selectPaymentMethod = useCallback(
+    (paymentMethod) => {
+      setPaymentMethodSelected(paymentMethod);
+      setShowPaymentMethods(false);
+    },
+    [setPaymentMethodSelected]
+  );
 
   return (
     <Wrapper>
@@ -56,7 +69,38 @@ const CheckoutPage = ({ items, address }) => {
               <CheckoutPaymentMethod>
                 <CheckoutBoxTitle>Método de pago</CheckoutBoxTitle>
 
-                <PaymentMethods />
+                {showPaymentMethods && (
+                  <PaymentMethods onSelectOption={selectPaymentMethod} value={paymentMethodSelected} />
+                )}
+
+                {paymentMethodSelected ? (
+                  <>
+                    <>
+                      {!showPaymentMethods && (
+                        <PaymentMethodSelected>
+                          <PaymentMethodSelectedTitle>
+                            {paymentMethodSelected.name}
+                          </PaymentMethodSelectedTitle>
+
+                          <PaymentMethodChangeButton
+                            onClick={() => {
+                              setShowPaymentMethods(true);
+                            }}
+                          >
+                            Cambiar
+                          </PaymentMethodChangeButton>
+                        </PaymentMethodSelected>
+                      )}
+                    </>
+
+                    <>
+                      {(paymentMethodSelected.value === "cash-bs" ||
+                        paymentMethodSelected.value === "cash-usd") && (
+                        <input />
+                      )}
+                    </>
+                  </>
+                ) : null}
               </CheckoutPaymentMethod>
             </CheckoutBox>
 

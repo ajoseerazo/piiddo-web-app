@@ -6,6 +6,7 @@ const paymentMethods = [
   {
     name: "Piiddo Créditos",
     value: "piiddo-credits",
+    disabled: true
   },
   {
     name: "Bolívares en efectivo",
@@ -71,6 +72,7 @@ const PaymentMethods = ({ onSelectOption, value }) => {
                 ? pm.value === paymentMethodSelected.value
                 : false
             }
+            disabled={pm.disabled}
           />
         </li>
       ))}

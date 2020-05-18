@@ -158,7 +158,7 @@ export const PaymentMethodSelected = styled.div`
 `;
 
 export const PaymentMethodSelectedTitle = styled.div`
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     font-size: 12px;
   }
 `;
@@ -179,7 +179,7 @@ export const PaymentMethodChangeButton = styled(Button)`
     border: none;
   }
 
-  @media screen and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     font-size: 12px;
   }
 `;
@@ -191,19 +191,27 @@ export const CashAmount = styled.div`
     margin-bottom: 5px;
   }
 
-  input {
-    width: 100%;
-    height: 50px;
-    background: #f7f7f7;
-    border: none;
-    border-radius: 8px;
-    padding: 12px;
-
-    &:focus {
-      box-shadow: none;
-      outline: none;
-    }
+  @media screen and (max-width: 768px) {
+    font-size: 12px;
   }
+`;
+
+export const CheckoutInput = styled.input`
+  width: 100%;
+  height: 50px;
+  background: #f7f7f7;
+  border: none;
+  border-radius: 8px;
+  padding: 12px;
+
+  &:focus {
+    box-shadow: none;
+    outline: none;
+  }
+`;
+
+export const CheckoutPersonalDataGroup = styled.div`
+  margin-top: 15px;
 
   @media screen and (max-width: 768px) {
     font-size: 12px;

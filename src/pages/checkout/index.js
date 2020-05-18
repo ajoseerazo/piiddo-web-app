@@ -27,6 +27,8 @@ import {
   PaymentMethodSelectedTitle,
   PaymentMethodChangeButton,
   CashAmount,
+  CheckoutInput,
+  CheckoutPersonalDataGroup,
 } from "./styled";
 import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
@@ -56,14 +58,35 @@ const CheckoutPage = ({ items, address }) => {
           <CheckoutContentLeft>
             <CheckoutBox>
               <CheckoutAddress>
-                <CheckoutBoxTitle>Dirección</CheckoutBoxTitle>
-                <CheckoutAddressText>{address}</CheckoutAddressText>
+                <div>
+                  <CheckoutBoxTitle>Dirección</CheckoutBoxTitle>
+                  <CheckoutAddressText>{address}</CheckoutAddressText>
+                </div>
+
+                <CheckoutPersonalDataGroup>
+                  <label>Dirección exacta</label>
+                  <CheckoutInput placeholder="Escribe la dirección exacta, puntos de referencias, etc" />
+                </CheckoutPersonalDataGroup>
 
                 <CheckoutTimeContainer>
                   <span>Tiempo de entrega</span>
                   <span>40mins</span>
                 </CheckoutTimeContainer>
               </CheckoutAddress>
+            </CheckoutBox>
+
+            <CheckoutBox>
+              <CheckoutBoxTitle>Tus datos</CheckoutBoxTitle>
+
+              <CheckoutPersonalDataGroup>
+                <label>Nombre</label>
+                <CheckoutInput placeholder="Nombre de la persona que recibe" />
+              </CheckoutPersonalDataGroup>
+
+              <CheckoutPersonalDataGroup>
+                <label>Número de teléfono</label>
+                <CheckoutInput placeholder="Número de teléfono de la persona que recibe" />
+              </CheckoutPersonalDataGroup>
             </CheckoutBox>
 
             <CheckoutBox>
@@ -101,7 +124,7 @@ const CheckoutPage = ({ items, address }) => {
                       {(paymentMethodSelected.value === "cash-bs" ||
                         paymentMethodSelected.value === "cash-usd") && (
                         <CashAmount>
-                          <input placeholder="Indique la cantidad que debemos llevar de vuelto" />
+                          <CheckoutInput placeholder="Indique la cantidad que debemos llevar de vuelto" />
                         </CashAmount>
                       )}
                     </>

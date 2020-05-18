@@ -63,6 +63,39 @@ const CheckoutPage = ({ items, address }) => {
     setIsSamePerson(!isSamePerson);
   }, [isSamePerson]);
 
+  const handleInputChange = useCallback(
+    (key, { target: { value } }) => {
+      const func = `set${key[0].toUpperCase()}${key.substr(1)}('${value}')`;
+
+      eval(func);
+    },
+    [setName]
+  );
+
+  const confirmOrder = useCallback(() => {
+    const payload = {
+      name,
+      number,
+      email,
+      receiverName,
+      receiverNumber,
+      paymentMethodSelected,
+      extraAddress,
+      vuelto,
+    };
+
+    console.log(payload);
+  }, [
+    name,
+    number,
+    email,
+    receiverName,
+    receiverNumber,
+    paymentMethodSelected,
+    extraAddress,
+    vuelto,
+  ]);
+
   return (
     <Wrapper>
       <div>
@@ -79,7 +112,10 @@ const CheckoutPage = ({ items, address }) => {
 
                 <CheckoutPersonalDataGroup>
                   <label>Dirección exacta</label>
-                  <CheckoutInput placeholder="Escribe la dirección exacta, puntos de referencias, etc" />
+                  <CheckoutInput
+                    placeholder="Escribe la dirección exacta, puntos de referencias, etc"
+                    onChange={handleInputChange.bind(this, "extraAddress")}
+                  />
                 </CheckoutPersonalDataGroup>
 
                 <CheckoutTimeContainer>
@@ -94,17 +130,26 @@ const CheckoutPage = ({ items, address }) => {
 
               <CheckoutPersonalDataGroup>
                 <label>Nombre</label>
-                <CheckoutInput placeholder="Tu nombre" />
+                <CheckoutInput
+                  placeholder="Tu nombre"
+                  onChange={handleInputChange.bind(this, "name")}
+                />
               </CheckoutPersonalDataGroup>
 
               <CheckoutPersonalDataGroup>
                 <label>Número de teléfono</label>
-                <CheckoutInput placeholder="Tu número de teléfono" />
+                <CheckoutInput
+                  placeholder="Tu número de teléfono"
+                  onChange={handleInputChange.bind(this, "number")}
+                />
               </CheckoutPersonalDataGroup>
 
               <CheckoutPersonalDataGroup>
                 <label>Correo</label>
-                <CheckoutInput placeholder="Tu correo electrónico" />
+                <CheckoutInput
+                  placeholder="Tu correo electrónico"
+                  onChange={handleInputChange.bind(this, "email")}
+                />
               </CheckoutPersonalDataGroup>
             </CheckoutBox>
 
@@ -124,12 +169,18 @@ const CheckoutPage = ({ items, address }) => {
                 <>
                   <CheckoutPersonalDataGroup>
                     <label>Nombre</label>
-                    <CheckoutInput placeholder="Nombre de la persona que recibe" />
+                    <CheckoutInput
+                      placeholder="Nombre de la persona que recibe"
+                      onChange={handleInputChange.bind(this, "receiverName")}
+                    />
                   </CheckoutPersonalDataGroup>
 
                   <CheckoutPersonalDataGroup>
                     <label>Número de teléfono</label>
-                    <CheckoutInput placeholder="Número de teléfono de la persona que recibe" />
+                    <CheckoutInput
+                      placeholder="Número de teléfono de la persona que recibe"
+                      onChange={handleInputChange.bind(this, "receiverNumber")}
+                    />
                   </CheckoutPersonalDataGroup>
                 </>
               )}
@@ -223,11 +274,15 @@ const CheckoutPage = ({ items, address }) => {
 
                 <div>
                   <CheckoutTotalTitle>Total Bs</CheckoutTotalTitle>
-                  <CheckoutTotalPrice>Bs {`${new Intl.NumberFormat("es").format(12 * 183000)}`}</CheckoutTotalPrice>
+                  <CheckoutTotalPrice>
+                    Bs {`${new Intl.NumberFormat("es").format(12 * 183000)}`}
+                  </CheckoutTotalPrice>
                 </div>
               </CheckoutTotal>
 
-              <CheckoutButton>Realizar pedido</CheckoutButton>
+              <CheckoutButton onClick={confirmOrder}>
+                Realizar pedido
+              </CheckoutButton>
             </CheckoutBox>
           </CheckoutContentRight>
         </CheckoutContent>

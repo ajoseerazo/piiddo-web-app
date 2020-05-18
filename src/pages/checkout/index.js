@@ -223,7 +223,7 @@ const CheckoutPage = ({ items, address }) => {
 
                 <div>
                   <CheckoutTotalTitle>Total Bs</CheckoutTotalTitle>
-                  <CheckoutTotalPrice>Bs {12 * 183000}</CheckoutTotalPrice>
+                  <CheckoutTotalPrice>Bs {`${new Intl.NumberFormat("es").format(12 * 183000)}`}</CheckoutTotalPrice>
                 </div>
               </CheckoutTotal>
 

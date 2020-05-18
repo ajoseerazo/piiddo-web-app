@@ -1,6 +1,7 @@
 import firebase, { db } from "../config/firebase";
 import Categories from "./categories";
 import Cookies from "cookies-js";
+import Orders from "./orders";
 
 class Products {
   static getAll = async (parentId, type = "partner") => {
@@ -141,4 +142,5 @@ export default {
   Partners,
   Categories,
   DeliveryLocation,
+  Orders
 };

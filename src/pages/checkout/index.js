@@ -1,6 +1,7 @@
 import { useState, useCallback } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import ordersActions from "../../redux/actions/orders";
 import actions from "../../redux/actions/shoppingCart";
 import {
   Wrapper,
@@ -34,8 +35,16 @@ import {
 import PrettyCheckbox from "../../components/PrettyCheckbox";
 import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
-const CheckoutPage = ({ items, address }) => {
+const { createOrder } = ordersActions;
+
+const CheckoutPage = ({
+  items,
+  address,
+  actions: { createOrder },
+  isCreatingOrder,
+}) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
   const [name, setName] = useState();
@@ -74,6 +83,7 @@ const CheckoutPage = ({ items, address }) => {
 
   const confirmOrder = useCallback(() => {
     const payload = {
+      address: address || "",
       name,
       number,
       email,
@@ -82,9 +92,10 @@ const CheckoutPage = ({ items, address }) => {
       paymentMethodSelected,
       extraAddress,
       vuelto,
+      items,
     };
 
-    console.log(payload);
+    createOrder(payload);
   }, [
     name,
     number,
@@ -94,7 +105,10 @@ const CheckoutPage = ({ items, address }) => {
     paymentMethodSelected,
     extraAddress,
     vuelto,
-    isSamePerson
+    isSamePerson,
+    address,
+    items,
+    createOrder,
   ]);
 
   return (
@@ -222,7 +236,10 @@ const CheckoutPage = ({ items, address }) => {
                       {(paymentMethodSelected.value === "cash-bs" ||
                         paymentMethodSelected.value === "cash-usd") && (
                         <CashAmount>
-                          <CheckoutInput placeholder="Indique la cantidad que debemos llevar de vuelto" />
+                          <CheckoutInput
+                            placeholder="Indique la cantidad que debemos llevar de vuelto"
+                            onChange={handleInputChange.bind(this, "vuelto")}
+                          />
                         </CashAmount>
                       )}
                     </>
@@ -281,8 +298,9 @@ const CheckoutPage = ({ items, address }) => {
                 </div>
               </CheckoutTotal>
 
-              <CheckoutButton onClick={confirmOrder}>
-                Realizar pedido
+              <CheckoutButton onClick={confirmOrder} disabled={isCreatingOrder}>
+                {isCreatingOrder && <LoadingSpinner />}
+                {!isCreatingOrder && <spin>Realizar pedido</spin>}
               </CheckoutButton>
             </CheckoutBox>
           </CheckoutContentRight>
@@ -294,15 +312,19 @@ const CheckoutPage = ({ items, address }) => {
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators({ createOrder }, dispatch),
   };
 }
 
 function mapStateToProps(state, props) {
   const { items } = state.ShoppingCart.toJS();
+  const { order, creatingOrder } = state.Orders.toJS();
 
   return {
     items,
+    order,
+    creatingOrder,
+    isCreatingOrder: creatingOrder,
   };
 }
 

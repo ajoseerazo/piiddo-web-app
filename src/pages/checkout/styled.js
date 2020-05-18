@@ -114,6 +114,12 @@ export const CheckoutButton = styled(Button)`
   height: 50px;
   font-size: 14px;
 
+  &:disabled {
+    border: none;
+    background-color: #f74342;
+    color: white;
+  }
+
   &:hover,
   &:active,
   &:visited  {

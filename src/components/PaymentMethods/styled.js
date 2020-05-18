@@ -7,7 +7,7 @@ export const PaymentMethodsWrapper = styled.ul`
 
   li {
     position: relative;
-    height: 55px;
+    height: 52px;
     display: flex;
     justify-content: center;
     align-items: center;

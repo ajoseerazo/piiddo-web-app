@@ -217,3 +217,8 @@ export const CheckoutPersonalDataGroup = styled.div`
     font-size: 12px;
   }
 `;
+
+export const CheckboxWrapper = styled.div`
+  margin-top: 15px;
+  font-size: 12px;
+`;

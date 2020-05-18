@@ -29,13 +29,23 @@ import {
   CashAmount,
   CheckoutInput,
   CheckoutPersonalDataGroup,
+  CheckboxWrapper,
 } from "./styled";
+import PrettyCheckbox from "../../components/PrettyCheckbox";
 import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
 
 const CheckoutPage = ({ items, address }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
+  const [name, setName] = useState();
+  const [extraAddress, setExtraAddress] = useState();
+  const [number, setNumber] = useState();
+  const [receiverName, setReceiverName] = useState();
+  const [receiverNumber, setReceiverNumber] = useState();
+  const [email, setEmail] = useState();
+  const [vuelto, setVuelto] = useState();
+  const [isSamePerson, setIsSamePerson] = useState(false);
 
   let total = (items || []).reduce((a, b) => {
     return a + b.totalAmount;
@@ -48,6 +58,10 @@ const CheckoutPage = ({ items, address }) => {
     },
     [setPaymentMethodSelected]
   );
+
+  const toggleSamePerson = useCallback(() => {
+    setIsSamePerson(!isSamePerson);
+  }, [isSamePerson]);
 
   return (
     <Wrapper>
@@ -80,18 +94,45 @@ const CheckoutPage = ({ items, address }) => {
 
               <CheckoutPersonalDataGroup>
                 <label>Nombre</label>
-                <CheckoutInput placeholder="Nombre de la persona que recibe" />
+                <CheckoutInput placeholder="Tu nombre" />
               </CheckoutPersonalDataGroup>
 
               <CheckoutPersonalDataGroup>
                 <label>Número de teléfono</label>
-                <CheckoutInput placeholder="Número de teléfono de la persona que recibe" />
+                <CheckoutInput placeholder="Tu número de teléfono" />
               </CheckoutPersonalDataGroup>
 
               <CheckoutPersonalDataGroup>
                 <label>Correo</label>
-                <CheckoutInput placeholder="Correo Electrónico" />
+                <CheckoutInput placeholder="Tu correo electrónico" />
               </CheckoutPersonalDataGroup>
+            </CheckoutBox>
+
+            <CheckoutBox>
+              <CheckoutBoxTitle>
+                Datos de la persona que recibe
+              </CheckoutBoxTitle>
+
+              <CheckboxWrapper>
+                <PrettyCheckbox
+                  label={"Quien recibe es la misma persona"}
+                  onChange={toggleSamePerson}
+                />
+              </CheckboxWrapper>
+
+              {!isSamePerson && (
+                <>
+                  <CheckoutPersonalDataGroup>
+                    <label>Nombre</label>
+                    <CheckoutInput placeholder="Nombre de la persona que recibe" />
+                  </CheckoutPersonalDataGroup>
+
+                  <CheckoutPersonalDataGroup>
+                    <label>Número de teléfono</label>
+                    <CheckoutInput placeholder="Número de teléfono de la persona que recibe" />
+                  </CheckoutPersonalDataGroup>
+                </>
+              )}
             </CheckoutBox>
 
             <CheckoutBox>

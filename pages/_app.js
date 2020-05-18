@@ -9,7 +9,9 @@ import thunk from "redux-thunk";
 import Router from "next/router";
 import { fromJS } from "immutable";
 import Head from "next/head";
-import NProgress from 'nprogress'
+import NProgress from "nprogress";
+import "../src/shop-styles.scss";
+import "../src/styles.scss";
 
 const makeStore = (initialState, options) => {
   return createStore(

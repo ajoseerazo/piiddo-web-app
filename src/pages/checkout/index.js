@@ -21,8 +21,9 @@ import {
   CheckoutButton,
   CheckoutBoxTitle,
   CheckoutAddressText,
-  CheckoutTimeContainer
+  CheckoutTimeContainer,
 } from "./styled";
+import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
 
 const CheckoutPage = ({ items, address }) => {
@@ -54,6 +55,8 @@ const CheckoutPage = ({ items, address }) => {
             <CheckoutBox>
               <CheckoutPaymentMethod>
                 <CheckoutBoxTitle>Método de pago</CheckoutBoxTitle>
+
+                <PaymentMethods />
               </CheckoutPaymentMethod>
             </CheckoutBox>
 

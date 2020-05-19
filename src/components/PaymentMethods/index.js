@@ -28,6 +28,10 @@ const paymentMethods = [
     value: "bank-transfer",
   },
   {
+    name: "Remepagos",
+    value: "remepagos"
+  },
+  {
     name: "Zelle",
     value: "zelle",
   },

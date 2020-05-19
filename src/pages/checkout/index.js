@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ordersActions from "../../redux/actions/orders";
@@ -36,14 +36,19 @@ import PrettyCheckbox from "../../components/PrettyCheckbox";
 import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import PaymentSupportModal from "../../components/PaymentSupportModal";
 
-const { createOrder } = ordersActions;
+const { createOrder, setOrderPaymentSupport } = ordersActions;
 
 const CheckoutPage = ({
   items,
   address,
-  actions: { createOrder },
+  actions: { createOrder, setOrderPaymentSupport },
   isCreatingOrder,
+  order,
+  orderCreated,
+  settingPaymentSupport,
+  paymentSupportSent
 }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
@@ -53,8 +58,9 @@ const CheckoutPage = ({
   const [receiverName, setReceiverName] = useState();
   const [receiverNumber, setReceiverNumber] = useState();
   const [email, setEmail] = useState();
-  const [vuelto, setVuelto] = useState();
+  const [vuelto, setVuelto] = useState(0);
   const [isSamePerson, setIsSamePerson] = useState(false);
+  const [shouldOpenSupportModal, setShouldOpenSupportModal] = useState(false);
 
   let total = (items || []).reduce((a, b) => {
     return a + b.totalAmount;
@@ -110,6 +116,39 @@ const CheckoutPage = ({
     items,
     createOrder,
   ]);
+
+  useEffect(() => {
+    if (
+      orderCreated &&
+      paymentMethodSelected &&
+      (paymentMethodSelected.value === "pago-movil" ||
+        paymentMethodSelected.value === "bank-transfer" ||
+        paymentMethodSelected.value === "zelle")
+    ) {
+      setShouldOpenSupportModal(true);
+    }
+  }, [orderCreated, paymentMethodSelected]);
+
+  const onFinishPayment = useCallback(
+    ({ supportUrl }) => {
+      setOrderPaymentSupport(order.id, supportUrl);
+    },
+    [order]
+  );
+
+  useEffect(() => {
+    if (
+      orderCreated &&
+      paymentMethodSelected &&
+      (paymentMethodSelected.value === "pago-movil" ||
+        paymentMethodSelected.value === "bank-transfer" ||
+        paymentMethodSelected.value === "zelle")
+    ) {
+      if (paymentSupportSent) {
+        alert("Payment Sent")
+      }
+    }
+  }, [paymentSupportSent]);
 
   return (
     <Wrapper>
@@ -306,25 +345,51 @@ const CheckoutPage = ({
           </CheckoutContentRight>
         </CheckoutContent>
       </div>
+
+      {paymentMethodSelected &&
+        (paymentMethodSelected.value === "pago-movil" ||
+          paymentMethodSelected.value === "bank-transfer" ||
+          paymentMethodSelected.value === "zelle") && (
+          <PaymentSupportModal
+            isOpened={shouldOpenSupportModal}
+            type={paymentMethodSelected.value}
+            amount={total * 183000}
+            order={order}
+            onFinishPayment={onFinishPayment}
+            isLoading={settingPaymentSupport}
+          />
+        )}
     </Wrapper>
   );
 };
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    actions: bindActionCreators({ createOrder }, dispatch),
+    actions: bindActionCreators(
+      { createOrder, setOrderPaymentSupport },
+      dispatch
+    ),
   };
 }
 
 function mapStateToProps(state, props) {
   const { items } = state.ShoppingCart.toJS();
-  const { order, creatingOrder } = state.Orders.toJS();
+  const {
+    order,
+    creatingOrder,
+    orderCreated,
+    settingPaymentSupport,
+    paymentSupportSent,
+  } = state.Orders.toJS();
 
   return {
     items,
     order,
     creatingOrder,
     isCreatingOrder: creatingOrder,
+    orderCreated,
+    settingPaymentSupport,
+    paymentSupportSent,
   };
 }
 

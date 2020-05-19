@@ -1,5 +1,5 @@
-import * as firebase from 'firebase'
-import 'firebase/firestore'
+import firebase from "firebase";
+import "firebase/firestore";
 
 var config = {
   apiKey: "AIzaSyD53LSQgZaTGd7n_g5UxM1j3Gw_K4cpNAw",
@@ -8,13 +8,15 @@ var config = {
   projectId: "genial-core-212201",
   storageBucket: "genial-core-212201.appspot.com",
   messagingSenderId: "981763353916",
-  appId: "1:981763353916:web:7e2e2e626040c2bf2b8239"
+  appId: "1:981763353916:web:7e2e2e626040c2bf2b8239",
 };
 
 if (!firebase.apps.length) {
-  firebase.initializeApp(config)
+  firebase.initializeApp(config);
 }
 
 export const db = firebase.firestore();
 
-export default firebase
+export const storage = firebase.storage;
+
+export default firebase;

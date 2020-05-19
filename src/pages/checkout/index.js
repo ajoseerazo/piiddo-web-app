@@ -136,7 +136,7 @@ const CheckoutPage = ({
     [order]
   );
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (
       orderCreated &&
       paymentMethodSelected &&
@@ -145,10 +145,9 @@ const CheckoutPage = ({
         paymentMethodSelected.value === "zelle")
     ) {
       if (paymentSupportSent) {
-        alert("Payment Sent");
       }
     }
-  }, [paymentSupportSent]);
+  }, [paymentSupportSent]);*/
 
   return (
     <Wrapper>
@@ -346,7 +345,8 @@ const CheckoutPage = ({
         </CheckoutContent>
       </div>
 
-      {order && paymentMethodSelected &&
+      {order &&
+        paymentMethodSelected &&
         (paymentMethodSelected.value === "pago-movil" ||
           paymentMethodSelected.value === "bank-transfer" ||
           paymentMethodSelected.value === "zelle") && (

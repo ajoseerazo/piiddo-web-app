@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button } from "reactstrap";
 
 export const PagoMovilWrapper = styled.div`
-  padding: 20px;
+  padding: 30px 20px;
   max-width: 768px;
   margin: 0 auto;
   font-size: 14px;

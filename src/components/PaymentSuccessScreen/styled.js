@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const SuccessWrapper = styled.div`
-  height: 100vh;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,6 +13,7 @@ export const SuccessWrapper = styled.div`
   box-sizing: border-box;
   background: rgb(42, 187, 155);
   color: white;
+  border-radius: 16px;
 
   div {
     font-size: 16px;
@@ -51,6 +52,10 @@ export const SuccessWrapper = styled.div`
     -webkit-animation: checkmark-circle 0.6s ease-in-out forwards;
     animation: checkmark-circle 0.6s ease-in-out forwards;
   }  
+
+  @media screen and (max-width: 768px) {
+    border-radius: 0px;
+  }
 
   @keyframes checkmark {
     0% {

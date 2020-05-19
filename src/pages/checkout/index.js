@@ -48,7 +48,7 @@ const CheckoutPage = ({
   order,
   orderCreated,
   settingPaymentSupport,
-  paymentSupportSent
+  paymentSupportSent,
 }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
@@ -145,7 +145,7 @@ const CheckoutPage = ({
         paymentMethodSelected.value === "zelle")
     ) {
       if (paymentSupportSent) {
-        alert("Payment Sent")
+        alert("Payment Sent");
       }
     }
   }, [paymentSupportSent]);
@@ -346,17 +346,20 @@ const CheckoutPage = ({
         </CheckoutContent>
       </div>
 
-      {paymentMethodSelected &&
+      {order && paymentMethodSelected &&
         (paymentMethodSelected.value === "pago-movil" ||
           paymentMethodSelected.value === "bank-transfer" ||
           paymentMethodSelected.value === "zelle") && (
           <PaymentSupportModal
             isOpened={shouldOpenSupportModal}
             type={paymentMethodSelected.value}
-            amount={total * 183000}
-            order={order}
+            amount={
+              paymentMethodSelected.value === "zelle" ? total : total * 183000
+            }
+            orderId={order.id}
             onFinishPayment={onFinishPayment}
             isLoading={settingPaymentSupport}
+            paymentSupportSent={paymentSupportSent}
           />
         )}
     </Wrapper>

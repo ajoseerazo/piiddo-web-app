@@ -1,6 +1,7 @@
 import React from "react";
 import PagoMovil from "../PagoMovil";
 import { ModalStyled, ModalBodyStyled } from "./styled";
+import PaymentSuccessScreen from "../PaymentSuccessScreen";
 
 const PaymentSupportModal = ({
   isOpened,
@@ -8,18 +9,23 @@ const PaymentSupportModal = ({
   amount,
   orderId,
   onFinishPayment,
-  isLoading
+  isLoading,
+  paymentSupportSent,
 }) => {
+  console.log(orderId);
   return (
     <ModalStyled isOpen={isOpened}>
       <ModalBodyStyled>
-        {type === "pago-movil" && (
+        {!paymentSupportSent ? (
           <PagoMovil
             amount={amount}
             orderId={orderId}
             onClickPayButton={onFinishPayment}
             loading={isLoading}
+            type={type}
           />
+        ) : (
+          <PaymentSuccessScreen orderId={orderId} />
         )}
       </ModalBodyStyled>
     </ModalStyled>

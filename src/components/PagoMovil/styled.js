@@ -21,10 +21,12 @@ export const PagoMovilData = styled.div`
   margin-top: 15px;
 
   > div {
-    margin-bottom: 10px;
+    > div {
+      margin-bottom: 10px;
 
-    &:last-child {
-      margin-bottom: 0px;
+      &:last-child {
+        margin-bottom: 0px;
+      }
     }
   }
 `;
@@ -55,4 +57,17 @@ export const PaymentButton = styled(Button)`
 
 export const DropzoneWrapper = styled.div`
   margin-top: 15px;
+`;
+
+export const BankInfo = styled.div`
+  margin-bottom: 10px;
+
+  @media screen and (max-width: 768px) {
+    
+  }
+`;
+
+export const BankInfoName = styled.div`
+  font-weight: 600;
+  text-transform: uppercase;
 `;

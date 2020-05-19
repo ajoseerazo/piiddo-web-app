@@ -23,5 +23,6 @@ export const ModalBodyStyled = styled(ModalBody)`
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 0px;
   }
 `;

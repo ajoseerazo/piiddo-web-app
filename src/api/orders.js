@@ -5,7 +5,7 @@ class Orders {
     const orderRef = await db.collection("orders").add({
       ...order,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
-      paymentStatus: "PENDING",
+      paymentStatus: order.paymentStatus || "PENDING",
       status: "CREATED",
     });
 

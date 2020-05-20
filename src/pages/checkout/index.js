@@ -38,18 +38,23 @@ import ShoppingBoxList from "../../components/ShoppingBoxList";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import PaymentSupportModal from "../../components/PaymentSupportModal";
 import CreditCardForm from "../../components/CreditCardForm";
+import paymentsActions from "../../redux/actions/payments";
+import PaymentSuccessModal from "../../components/PaymentSuccessModal";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
+const { doPayment } = paymentsActions;
 
 const CheckoutPage = ({
   items,
   address,
-  actions: { createOrder, setOrderPaymentSupport },
+  actions: { createOrder, setOrderPaymentSupport, doPayment },
   isCreatingOrder,
   order,
   orderCreated,
   settingPaymentSupport,
   paymentSupportSent,
+  isDoingPayment,
+  paymentSuccess,
 }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
@@ -63,10 +68,16 @@ const CheckoutPage = ({
   const [isSamePerson, setIsSamePerson] = useState(false);
   const [shouldOpenSupportModal, setShouldOpenSupportModal] = useState(false);
   const [creditCard, setCreditCard] = useState();
+  const [
+    shouldOpenPaymentSuccessModal,
+    setShouldOpenPaymentSuccessModal,
+  ] = useState(false);
 
   let total = (items || []).reduce((a, b) => {
     return a + b.totalAmount;
   }, 0);
+
+  let totalDelivery = 1.4;
 
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
@@ -89,7 +100,7 @@ const CheckoutPage = ({
     [setName]
   );
 
-  const confirmOrder = useCallback(() => {
+  const confirmOrder = useCallback(async () => {
     const payload = {
       address: address || "",
       name,
@@ -103,7 +114,34 @@ const CheckoutPage = ({
       items,
     };
 
-    createOrder(payload);
+    if (
+      paymentMethodSelected.value === "credit-card" ||
+      paymentMethodSelected.value === "debit-card"
+    ) {
+      const result = await doPayment({
+        card: creditCard,
+        bill: {
+          firstName: name,
+          lastName: name,
+          address: address || extraAddress,
+          email,
+          documentType: "dni",
+          documentNumber: number,
+        },
+        amount: total + totalDelivery,
+      });
+
+      console.log(result);
+
+      if (result && result.success) {
+        payload.paymentStatus = "COMPLETED";
+        createOrder(payload);
+      } else {
+        alert("Ocurrió un error procesando el pago");
+      }
+    } else {
+      createOrder(payload);
+    }
   }, [
     name,
     number,
@@ -117,6 +155,10 @@ const CheckoutPage = ({
     address,
     items,
     createOrder,
+    doPayment,
+    total,
+    totalDelivery,
+    creditCard,
   ]);
 
   useEffect(() => {
@@ -128,6 +170,15 @@ const CheckoutPage = ({
         paymentMethodSelected.value === "zelle")
     ) {
       setShouldOpenSupportModal(true);
+    } else {
+      if (
+        orderCreated &&
+        paymentMethodSelected &&
+        (paymentMethodSelected.value === "credit-card" ||
+          paymentMethodSelected.value === "debit-card")
+      ) {
+        setShouldOpenPaymentSuccessModal(true);
+      }
     }
   }, [orderCreated, paymentMethodSelected]);
 
@@ -340,13 +391,17 @@ const CheckoutPage = ({
 
               <CheckoutSummaryItem>
                 <CheckoutSummaryItemTitle>Delivery</CheckoutSummaryItemTitle>
-                <CheckoutSummaryItemPrice>$2.00</CheckoutSummaryItemPrice>
+                <CheckoutSummaryItemPrice>
+                  ${parseFloat(totalDelivery).toFixed(2)}
+                </CheckoutSummaryItemPrice>
               </CheckoutSummaryItem>
 
               <CheckoutTotal>
                 <div>
                   <CheckoutTotalTitle>Total</CheckoutTotalTitle>
-                  <CheckoutTotalPrice>$12.00</CheckoutTotalPrice>
+                  <CheckoutTotalPrice>
+                    ${parseFloat(total).toFixed(2)}
+                  </CheckoutTotalPrice>
                 </div>
 
                 <div>
@@ -358,8 +413,10 @@ const CheckoutPage = ({
               </CheckoutTotal>
 
               <CheckoutButton onClick={confirmOrder} disabled={isCreatingOrder}>
-                {isCreatingOrder && <LoadingSpinner />}
-                {!isCreatingOrder && <spin>Realizar pedido</spin>}
+                {(isCreatingOrder || isDoingPayment) && <LoadingSpinner />}
+                {!isCreatingOrder && !isDoingPayment && (
+                  <span>Realizar pedido</span>
+                )}
               </CheckoutButton>
             </CheckoutBox>
           </CheckoutContentRight>
@@ -383,6 +440,16 @@ const CheckoutPage = ({
             paymentSupportSent={paymentSupportSent}
           />
         )}
+
+      {order &&
+        paymentSuccess &&
+        paymentMethodSelected &&
+        (paymentMethodSelected.value === "credit-card" ||
+          paymentMethodSelected.value === "debit-card") && (
+          <PaymentSuccessModal
+            isOpened={true || shouldOpenPaymentSuccessModal}
+          />
+        )}
     </Wrapper>
   );
 };
@@ -390,7 +457,7 @@ const CheckoutPage = ({
 function mapDispatchToProps(dispatch, props) {
   return {
     actions: bindActionCreators(
-      { createOrder, setOrderPaymentSupport },
+      { createOrder, setOrderPaymentSupport, doPayment },
       dispatch
     ),
   };
@@ -406,6 +473,8 @@ function mapStateToProps(state, props) {
     paymentSupportSent,
   } = state.Orders.toJS();
 
+  const { payment, paymentSuccess, isDoingPayment } = state.Payments.toJS();
+
   return {
     items,
     order,
@@ -414,6 +483,9 @@ function mapStateToProps(state, props) {
     orderCreated,
     settingPaymentSupport,
     paymentSupportSent,
+    payment,
+    paymentSuccess,
+    isDoingPayment,
   };
 }
 

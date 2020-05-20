@@ -6,7 +6,11 @@ const paymentMethods = [
   {
     name: "Piiddo Créditos",
     value: "piiddo-credits",
-    disabled: true
+    disabled: true,
+  },
+  {
+    name: "Tarjeta de crédito/débito internacional",
+    value: "credit-card",
   },
   {
     name: "Bolívares en efectivo",
@@ -30,7 +34,7 @@ const paymentMethods = [
   {
     name: "Remepagos",
     value: "remepagos",
-    disabled: true
+    disabled: true,
   },
   {
     name: "Zelle",
@@ -41,13 +45,9 @@ const paymentMethods = [
     value: "paypal",
   },
   {
-    name: "Tarjeta de crédito/débito internacional",
-    value: "debit-card",
-  },
-  {
     name: "Bitcoins",
     value: "bitcoin",
-    disabled: true
+    disabled: true,
   },
 ];
 

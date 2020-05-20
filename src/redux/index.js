@@ -6,6 +6,7 @@ import Categories from "./reducers/categories";
 import ShoppingCart from "./reducers/shoppingCart";
 import Location from "./reducers/location";
 import Orders from "./reducers/orders";
+import Payments from "./reducers/payments";
 
 const rootReducer = combineReducers({
   Products,
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
   ShoppingCart,
   Location,
   Orders,
+  Payments
 });
 
 export default rootReducer;

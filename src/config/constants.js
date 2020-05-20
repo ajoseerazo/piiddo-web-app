@@ -1,0 +1,1 @@
+export const PAYMENT_GATEWAY_URL = "https://payment-gateway.piiddo.com";

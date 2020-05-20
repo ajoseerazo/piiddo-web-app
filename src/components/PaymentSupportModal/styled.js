@@ -16,6 +16,7 @@ export const ModalStyled = styled(Modal)`
     .modal-content {
       height: 100vh;
       border-radius: 0px;
+      overflow-y: auto;
     }
   }
 `;

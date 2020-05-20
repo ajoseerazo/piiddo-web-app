@@ -29,7 +29,8 @@ const paymentMethods = [
   },
   {
     name: "Remepagos",
-    value: "remepagos"
+    value: "remepagos",
+    disabled: true
   },
   {
     name: "Zelle",
@@ -50,6 +51,7 @@ const paymentMethods = [
   {
     name: "Bitcoins",
     value: "bitcoin",
+    disabled: true
   },
 ];
 

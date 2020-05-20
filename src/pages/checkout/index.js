@@ -205,7 +205,6 @@ const CheckoutPage = ({
   const onChangeCreditCardData = useCallback(
     (cc) => {
       if (cc.cvc && cc.name && cc.number && cc.expiry) {
-        console.log(cc);
         setCreditCard(cc);
       } else {
         setCreditCard(null);

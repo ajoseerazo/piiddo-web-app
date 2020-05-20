@@ -37,6 +37,7 @@ import PaymentMethods from "../../components/PaymentMethods";
 import ShoppingBoxList from "../../components/ShoppingBoxList";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import PaymentSupportModal from "../../components/PaymentSupportModal";
+import CreditCardForm from "../../components/CreditCardForm";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 
@@ -61,6 +62,7 @@ const CheckoutPage = ({
   const [vuelto, setVuelto] = useState(0);
   const [isSamePerson, setIsSamePerson] = useState(false);
   const [shouldOpenSupportModal, setShouldOpenSupportModal] = useState(false);
+  const [creditCard, setCreditCard] = useState();
 
   let total = (items || []).reduce((a, b) => {
     return a + b.totalAmount;
@@ -148,6 +150,18 @@ const CheckoutPage = ({
       }
     }
   }, [paymentSupportSent]);*/
+
+  const onChangeCreditCardData = useCallback(
+    (cc) => {
+      if (cc.cvc && cc.name && cc.number && cc.expiry) {
+        console.log(cc);
+        setCreditCard(cc);
+      } else {
+        setCreditCard(null);
+      }
+    },
+    [setCreditCard]
+  );
 
   return (
     <Wrapper>
@@ -279,6 +293,13 @@ const CheckoutPage = ({
                             onChange={handleInputChange.bind(this, "vuelto")}
                           />
                         </CashAmount>
+                      )}
+                    </>
+
+                    <>
+                      {(paymentMethodSelected.value === "credit-card" ||
+                        paymentMethodSelected.value === "debit-card") && (
+                        <CreditCardForm onChange={onChangeCreditCardData} />
                       )}
                     </>
                   </>

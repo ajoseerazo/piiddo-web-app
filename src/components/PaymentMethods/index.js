@@ -41,12 +41,8 @@ const paymentMethods = [
     value: "paypal",
   },
   {
-    name: "Tarjeta de débito internacional",
-    value: "tdb",
-  },
-  {
-    name: "Tarjeta de crédito internacional",
-    value: "tdc",
+    name: "Tarjeta de crédito/débito internacional",
+    value: "debit-card",
   },
   {
     name: "Bitcoins",

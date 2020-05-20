@@ -5213,6 +5213,13 @@ path-type@^2.0.0:
   dependencies:
     pify "^2.0.0"
 
+payment@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/payment/-/payment-2.3.0.tgz#b2a95e9c3052459647da3926b8b66c553d93098f"
+  integrity sha1-sqlenDBSRZZH2jkmuLZsVT2TCY8=
+  dependencies:
+    qj "~2.0.0"
+
 pbkdf2@^3.0.3:
   version "3.0.17"
   resolved "https://registry.yarnpkg.com/pbkdf2/-/pbkdf2-3.0.17.tgz#976c206530617b14ebb32114239f7b09336e93a6"
@@ -5868,6 +5875,11 @@ q@^1.1.2:
   resolved "https://registry.yarnpkg.com/q/-/q-1.5.1.tgz#7e32f75b41381291d04611f1bf14109ac00651d7"
   integrity sha1-fjL3W0E4EpHQRhHxvxQQmsAGUdc=
 
+qj@~2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/qj/-/qj-2.0.0.tgz#054dd3b75ce018728d23a0605f030dfda0bd158a"
+  integrity sha1-BU3Tt1zgGHKNI6BgXwMN/aC9FYo=
+
 qs@~6.5.2:
   version "6.5.2"
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
@@ -5955,6 +5967,13 @@ react-country-flag@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-country-flag/-/react-country-flag-1.1.0.tgz#c30033b00c195d58776a9d522187b5e97add2963"
   integrity sha512-Z6LW4U+qeH0X0d1o02aZUevRyk5Z4ZQmp1ResWkh/4z6kvjBqg9otYyxBAUtvElpgfQiP61cSZ2/XZ+pLjBPDw==
+
+react-credit-cards@^0.8.2:
+  version "0.8.2"
+  resolved "https://registry.yarnpkg.com/react-credit-cards/-/react-credit-cards-0.8.2.tgz#175bdbbe3bc34f51de4566b7aaebf7fe2fe34f12"
+  integrity sha512-V9qs9DNCAUBk3JzudVpHdnCi/XCewTrNurziphxa/iyoiiGTJ3mrPA6ofpBWZCMxQvTx7kiMbnhwapHAcdhtNA==
+  dependencies:
+    payment "^2.3.0"
 
 react-custom-scrollbars@^4.2.1:
   version "4.2.1"

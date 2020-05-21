@@ -73,6 +73,7 @@ const CheckoutPage = ({
     shouldOpenPaymentSuccessModal,
     setShouldOpenPaymentSuccessModal,
   ] = useState(false);
+  const [paypalPaymentSuccess, setPaypalPaymentSuccess] = useState(false);
 
   let total = (items || []).reduce((a, b) => {
     return a + b.totalAmount;
@@ -179,6 +180,14 @@ const CheckoutPage = ({
           paymentMethodSelected.value === "debit-card")
       ) {
         setShouldOpenPaymentSuccessModal(true);
+      } else {
+        if (
+          orderCreated &&
+          paymentMethodSelected &&
+          paymentMethodSelected.value === "paypal"
+        ) {
+          setShouldOpenPaymentSuccessModal(true);
+        }
       }
     }
   }, [orderCreated, paymentMethodSelected]);
@@ -190,19 +199,6 @@ const CheckoutPage = ({
     [order]
   );
 
-  /*useEffect(() => {
-    if (
-      orderCreated &&
-      paymentMethodSelected &&
-      (paymentMethodSelected.value === "pago-movil" ||
-        paymentMethodSelected.value === "bank-transfer" ||
-        paymentMethodSelected.value === "zelle")
-    ) {
-      if (paymentSupportSent) {
-      }
-    }
-  }, [paymentSupportSent]);*/
-
   const onChangeCreditCardData = useCallback(
     (cc) => {
       if (cc.cvc && cc.name && cc.number && cc.expiry) {
@@ -213,6 +209,59 @@ const CheckoutPage = ({
     },
     [setCreditCard]
   );
+
+  const onPaypalPaymentSuccess = useCallback(
+    (details, data) => {
+      setPaypalPaymentSuccess(true);
+
+      // console.log(details);
+
+      // console.log("Transaction completed by " + details.payer.name.given_name);
+
+      const payload = {
+        address: address || "",
+        name,
+        number,
+        email,
+        receiverName: isSamePerson ? name : receiverName,
+        receiverNumber: isSamePerson ? number : receiverNumber,
+        paymentMethodSelected,
+        extraAddress,
+        vuelto,
+        items,
+        paymentStatus: "COMPLETED",
+        paymentDetails: details,
+      };
+
+      createOrder(payload);
+    },
+    [
+      name,
+      number,
+      email,
+      receiverName,
+      receiverNumber,
+      paymentMethodSelected,
+      extraAddress,
+      vuelto,
+      isSamePerson,
+      address,
+      items,
+      createOrder,
+      doPayment,
+      total,
+      totalDelivery,
+      creditCard,
+      setPaypalPaymentSuccess,
+    ]
+  );
+
+  const onPayPalPaymentError = useCallback((error) => {
+    console.log(error);
+  });
+
+  // console.log(order);
+  // console.log(paypalPaymentSuccess);
 
   return (
     <Wrapper>
@@ -412,25 +461,20 @@ const CheckoutPage = ({
                 </div>
               </CheckoutTotal>
 
-              {paymentMethodSelected &&
+              {!isCreatingOrder &&
+              !isDoingPayment &&
+              !paypalPaymentSuccess &&
+              paymentMethodSelected &&
               paymentMethodSelected.value === "paypal" ? (
                 <PayPalButton
-                  amount="0.01"
-                  // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                  onSuccess={(details, data) => {
-                    alert(
-                      "Transaction completed by " +
-                        details.payer.name.given_name
-                    );
-
-                    // OPTIONAL: Call your server to save the transaction
-                    return fetch("/paypal-transaction-complete", {
-                      method: "post",
-                      body: JSON.stringify({
-                        orderID: data.orderID,
-                      }),
-                    });
+                  amount={total + totalDelivery}
+                  shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                  onSuccess={onPaypalPaymentSuccess}
+                  options={{
+                    clientId:
+                      "AVrBWgvqybeqh7m5jzwLfLF6pHFP4JhSUZNkLwQCSapEPahVQWwoNIwD92HICSAO83BDg-u-zuFADVia",
                   }}
+                  onError={onPayPalPaymentError}
                 />
               ) : (
                 <CheckoutButton
@@ -467,13 +511,13 @@ const CheckoutPage = ({
         )}
 
       {order &&
-        paymentSuccess &&
         paymentMethodSelected &&
-        (paymentMethodSelected.value === "credit-card" ||
-          paymentMethodSelected.value === "debit-card") && (
-          <PaymentSuccessModal
-            isOpened={true || shouldOpenPaymentSuccessModal}
-          />
+        ((paymentSuccess &&
+          (paymentMethodSelected.value === "credit-card" ||
+            paymentMethodSelected.value === "debit-card")) ||
+          (paypalPaymentSuccess &&
+            paymentMethodSelected.value === "paypal")) && (
+          <PaymentSuccessModal isOpened={shouldOpenPaymentSuccessModal} />
         )}
     </Wrapper>
   );

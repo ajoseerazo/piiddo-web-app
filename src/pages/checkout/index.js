@@ -40,6 +40,7 @@ import PaymentSupportModal from "../../components/PaymentSupportModal";
 import CreditCardForm from "../../components/CreditCardForm";
 import paymentsActions from "../../redux/actions/payments";
 import PaymentSuccessModal from "../../components/PaymentSuccessModal";
+import { PayPalButton } from "react-paypal-button-v2";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -411,12 +412,37 @@ const CheckoutPage = ({
                 </div>
               </CheckoutTotal>
 
-              <CheckoutButton onClick={confirmOrder} disabled={isCreatingOrder}>
-                {(isCreatingOrder || isDoingPayment) && <LoadingSpinner />}
-                {!isCreatingOrder && !isDoingPayment && (
-                  <span>Realizar pedido</span>
-                )}
-              </CheckoutButton>
+              {paymentMethodSelected &&
+              paymentMethodSelected.value === "paypal" ? (
+                <PayPalButton
+                  amount="0.01"
+                  // shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                  onSuccess={(details, data) => {
+                    alert(
+                      "Transaction completed by " +
+                        details.payer.name.given_name
+                    );
+
+                    // OPTIONAL: Call your server to save the transaction
+                    return fetch("/paypal-transaction-complete", {
+                      method: "post",
+                      body: JSON.stringify({
+                        orderID: data.orderID,
+                      }),
+                    });
+                  }}
+                />
+              ) : (
+                <CheckoutButton
+                  onClick={confirmOrder}
+                  disabled={isCreatingOrder}
+                >
+                  {(isCreatingOrder || isDoingPayment) && <LoadingSpinner />}
+                  {!isCreatingOrder && !isDoingPayment && (
+                    <span>Realizar pedido</span>
+                  )}
+                </CheckoutButton>
+              )}
             </CheckoutBox>
           </CheckoutContentRight>
         </CheckoutContent>

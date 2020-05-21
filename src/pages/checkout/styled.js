@@ -118,6 +118,12 @@ export const CheckoutButton = styled(Button)`
     border: none;
     background-color: #f74342;
     color: white;
+    opacity: 0.7;
+
+    &:hover {
+      cursor: initial;
+      box-shadow: none;
+    }
   }
 
   &:hover,
@@ -227,4 +233,18 @@ export const CheckoutPersonalDataGroup = styled.div`
 export const CheckboxWrapper = styled.div`
   margin-top: 15px;
   font-size: 12px;
+`;
+
+export const PaypalButtonWrapper = styled.div`
+  position: relative;
+`;
+
+export const PayPalButtonDisabling = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.7);
+  z-index: 1000;
 `;

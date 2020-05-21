@@ -1,4 +1,4 @@
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ordersActions from "../../redux/actions/orders";
@@ -31,6 +31,8 @@ import {
   CheckoutInput,
   CheckoutPersonalDataGroup,
   CheckboxWrapper,
+  PaypalButtonWrapper,
+  PayPalButtonDisabling
 } from "./styled";
 import PrettyCheckbox from "../../components/PrettyCheckbox";
 import PaymentMethods from "../../components/PaymentMethods";
@@ -260,6 +262,49 @@ const CheckoutPage = ({
     console.log(error);
   });
 
+  const isCheckoutButtonDisabled = useMemo(() => {
+    if (!name || !number || !email || !extraAddress) {
+      return true;
+    }
+
+    if (!isSamePerson) {
+      if (!receiverNumber || !receiverName) {
+        return true;
+      }
+    }
+
+    if (!paymentMethodSelected) {
+      return true;
+    } else {
+      switch (paymentMethodSelected.value) {
+        case "cash-bs":
+        case "cash-usd":
+          if (Number.isNaN(parseFloat(vuelto))) {
+            return true;
+          } else {
+            return false;
+          }
+        case "credit-card":
+        case "debit-card":
+          if (!creditCard) {
+            return true;
+          }
+        default:
+          return false;
+      }
+    }
+  }, [
+    paymentMethodSelected,
+    name,
+    number,
+    email,
+    extraAddress,
+    isSamePerson,
+    receiverName,
+    receiverNumber,
+    vuelto,
+    creditCard,
+  ]);
   // console.log(order);
   // console.log(paypalPaymentSuccess);
 
@@ -278,7 +323,7 @@ const CheckoutPage = ({
                 </div>
 
                 <CheckoutPersonalDataGroup>
-                  <label>Dirección exacta</label>
+                  <label>Dirección exacta *</label>
                   <CheckoutInput
                     placeholder="Escribe la dirección exacta, puntos de referencias, etc"
                     onChange={handleInputChange.bind(this, "extraAddress")}
@@ -296,7 +341,7 @@ const CheckoutPage = ({
               <CheckoutBoxTitle>Tus datos</CheckoutBoxTitle>
 
               <CheckoutPersonalDataGroup>
-                <label>Nombre</label>
+                <label>Nombre *</label>
                 <CheckoutInput
                   placeholder="Tu nombre"
                   onChange={handleInputChange.bind(this, "name")}
@@ -304,7 +349,7 @@ const CheckoutPage = ({
               </CheckoutPersonalDataGroup>
 
               <CheckoutPersonalDataGroup>
-                <label>Número de teléfono</label>
+                <label>Número de teléfono *</label>
                 <CheckoutInput
                   placeholder="Tu número de teléfono"
                   onChange={handleInputChange.bind(this, "number")}
@@ -312,7 +357,7 @@ const CheckoutPage = ({
               </CheckoutPersonalDataGroup>
 
               <CheckoutPersonalDataGroup>
-                <label>Correo</label>
+                <label>Correo *</label>
                 <CheckoutInput
                   placeholder="Tu correo electrónico"
                   onChange={handleInputChange.bind(this, "email")}
@@ -335,7 +380,7 @@ const CheckoutPage = ({
               {!isSamePerson && (
                 <>
                   <CheckoutPersonalDataGroup>
-                    <label>Nombre</label>
+                    <label>Nombre *</label>
                     <CheckoutInput
                       placeholder="Nombre de la persona que recibe"
                       onChange={handleInputChange.bind(this, "receiverName")}
@@ -343,7 +388,7 @@ const CheckoutPage = ({
                   </CheckoutPersonalDataGroup>
 
                   <CheckoutPersonalDataGroup>
-                    <label>Número de teléfono</label>
+                    <label>Número de teléfono *</label>
                     <CheckoutInput
                       placeholder="Número de teléfono de la persona que recibe"
                       onChange={handleInputChange.bind(this, "receiverNumber")}
@@ -391,6 +436,7 @@ const CheckoutPage = ({
                           <CheckoutInput
                             placeholder="Indique la cantidad que debemos llevar de vuelto"
                             onChange={handleInputChange.bind(this, "vuelto")}
+                            value={vuelto}
                           />
                         </CashAmount>
                       )}
@@ -466,20 +512,23 @@ const CheckoutPage = ({
               !paypalPaymentSuccess &&
               paymentMethodSelected &&
               paymentMethodSelected.value === "paypal" ? (
-                <PayPalButton
-                  amount={total + totalDelivery}
-                  shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
-                  onSuccess={onPaypalPaymentSuccess}
-                  options={{
-                    clientId:
-                      "AVrBWgvqybeqh7m5jzwLfLF6pHFP4JhSUZNkLwQCSapEPahVQWwoNIwD92HICSAO83BDg-u-zuFADVia",
-                  }}
-                  onError={onPayPalPaymentError}
-                />
+                <PaypalButtonWrapper>
+                  {isCheckoutButtonDisabled && <PayPalButtonDisabling />}
+                  <PayPalButton
+                    amount={total + totalDelivery}
+                    shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
+                    onSuccess={onPaypalPaymentSuccess}
+                    options={{
+                      clientId:
+                        "AVrBWgvqybeqh7m5jzwLfLF6pHFP4JhSUZNkLwQCSapEPahVQWwoNIwD92HICSAO83BDg-u-zuFADVia",
+                    }}
+                    onError={onPayPalPaymentError}
+                  />
+                </PaypalButtonWrapper>
               ) : (
                 <CheckoutButton
                   onClick={confirmOrder}
-                  disabled={isCreatingOrder}
+                  disabled={isCreatingOrder || isCheckoutButtonDisabled}
                 >
                   {(isCreatingOrder || isDoingPayment) && <LoadingSpinner />}
                   {!isCreatingOrder && !isDoingPayment && (

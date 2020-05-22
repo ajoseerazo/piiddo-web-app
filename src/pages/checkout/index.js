@@ -185,7 +185,7 @@ const CheckoutPage = ({
           } else {
             if (paymentMethodSelected.value === "cryptocoins") {
               window.open(
-                `https://criptopagos-checkout.ajoseerazo.now.sh?amount=${
+                `https://payments.criptopagos.co?amount=${
                   total + totalDelivery
                 }&apikey=${"c7bb0ffa805af6860e5f16acf27ecf0ed10ebc61fd57954206898904b64806b2"}&accountID=${`48709671`}&merchantID=${`94834135`}`,
                 "_blank",

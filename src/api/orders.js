@@ -2,6 +2,8 @@ import firebase, { db } from "../config/firebase";
 
 class Orders {
   static create = async (order) => {
+    console.log(order);
+    
     const orderRef = await db.collection("orders").add({
       ...order,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),

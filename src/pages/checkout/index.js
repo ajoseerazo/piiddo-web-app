@@ -32,7 +32,7 @@ import {
   CheckoutPersonalDataGroup,
   CheckboxWrapper,
   PaypalButtonWrapper,
-  PayPalButtonDisabling
+  PayPalButtonDisabling,
 } from "./styled";
 import PrettyCheckbox from "../../components/PrettyCheckbox";
 import PaymentMethods from "../../components/PaymentMethods";
@@ -166,29 +166,37 @@ const CheckoutPage = ({
   ]);
 
   useEffect(() => {
-    if (
-      orderCreated &&
-      paymentMethodSelected &&
-      (paymentMethodSelected.value === "pago-movil" ||
-        paymentMethodSelected.value === "bank-transfer" ||
-        paymentMethodSelected.value === "zelle")
-    ) {
-      setShouldOpenSupportModal(true);
-    } else {
+    if (orderCreated && paymentMethodSelected) {
       if (
-        orderCreated &&
-        paymentMethodSelected &&
-        (paymentMethodSelected.value === "credit-card" ||
-          paymentMethodSelected.value === "debit-card")
+        paymentMethodSelected.value === "pago-movil" ||
+        paymentMethodSelected.value === "bank-transfer" ||
+        paymentMethodSelected.value === "zelle"
       ) {
-        setShouldOpenPaymentSuccessModal(true);
+        setShouldOpenSupportModal(true);
       } else {
         if (
-          orderCreated &&
-          paymentMethodSelected &&
-          paymentMethodSelected.value === "paypal"
+          paymentMethodSelected.value === "credit-card" ||
+          paymentMethodSelected.value === "debit-card"
         ) {
           setShouldOpenPaymentSuccessModal(true);
+        } else {
+          if (paymentMethodSelected.value === "paypal") {
+            setShouldOpenPaymentSuccessModal(true);
+          } else {
+            if (paymentMethodSelected.value === "cryptocoins") {
+              window.open(
+                `https://criptopagos-checkout.ajoseerazo.now.sh?amount=${
+                  total + totalDelivery
+                }&apikey=${"c7bb0ffa805af6860e5f16acf27ecf0ed10ebc61fd57954206898904b64806b2"}&accountID=${`48709671`}&merchantID=${`94834135`}`,
+                "_blank",
+                window.innerWidth > 768
+                  ? `width=500,height=${window.innerHeight},left=${
+                      window.innerWidth / 2 - 250
+                    }`
+                  : undefined
+              );
+            }
+          }
         }
       }
     }

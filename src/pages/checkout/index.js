@@ -184,6 +184,7 @@ const CheckoutPage = ({
             setShouldOpenPaymentSuccessModal(true);
           } else {
             if (paymentMethodSelected.value === "cryptocoins") {
+              
               window.open(
                 `https://payments.criptopagos.co?amount=${
                   total + totalDelivery

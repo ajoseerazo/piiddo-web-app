@@ -187,7 +187,7 @@ const CheckoutPage = ({
               window.open(
                 `https://payments.criptopagos.co?amount=${
                   total + totalDelivery
-                }&apikey=${"c7bb0ffa805af6860e5f16acf27ecf0ed10ebc61fd57954206898904b64806b2"}&accountID=${`48709671`}&merchantID=${`94834135`}`,
+                }&apikey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}`,
                 "_blank",
                 window.innerWidth > 768
                   ? `width=500,height=${window.innerHeight},left=${

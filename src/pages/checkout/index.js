@@ -184,11 +184,12 @@ const CheckoutPage = ({
             setShouldOpenPaymentSuccessModal(true);
           } else {
             if (paymentMethodSelected.value === "cryptocoins") {
-              
               window.open(
                 `https://payments.criptopagos.co?amount=${
                   total + totalDelivery
-                }&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}`,
+                }&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
+                  order.id
+                }`,
                 "_blank",
                 window.innerWidth > 768
                   ? `width=500,height=${window.innerHeight},left=${
@@ -201,7 +202,7 @@ const CheckoutPage = ({
         }
       }
     }
-  }, [orderCreated, paymentMethodSelected]);
+  }, [orderCreated, paymentMethodSelected, order]);
 
   const onFinishPayment = useCallback(
     ({ supportUrl }) => {

@@ -49,9 +49,9 @@ export default class MyDocument extends Document {
             name="msapplication-config"
             content="/static/icons/browserconfig.xml"
           />
-          <meta name="msapplication-TileColor" content="#F74342" />
+          <meta name="msapplication-TileColor" content="#FFFFFF" />
           <meta name="msapplication-tap-highlight" content="no" />
-          <meta name="theme-color" content="#F74342" />
+          <meta name="theme-color" content="#FFFFFF" />
           <meta
             name="viewport"
             content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"

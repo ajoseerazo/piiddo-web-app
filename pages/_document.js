@@ -34,9 +34,75 @@ export default class MyDocument extends Document {
       <html>
         <Head>
           <meta charSet="utf-8" />
+
+          <meta name="application-name" content="Piiddo" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta
+            name="apple-mobile-web-app-status-bar-style"
+            content="default"
+          />
+          <meta name="apple-mobile-web-app-title" content="Piiddo" />
+          <meta name="description" content="Pide lo que necesites y recíbelo en tu casa en minutos" />
+          <meta name="format-detection" content="telephone=no" />
+          <meta name="mobile-web-app-capable" content="yes" />
+          <meta
+            name="msapplication-config"
+            content="/static/icons/browserconfig.xml"
+          />
+          <meta name="msapplication-TileColor" content="#F74342" />
+          <meta name="msapplication-tap-highlight" content="no" />
+          <meta name="theme-color" content="#F74342" />
           <meta
             name="viewport"
-            content="width=device-width, initial-scale=1, user-scalable=no"
+            content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+          />
+
+          <link
+            rel="apple-touch-icon"
+            sizes="180x180"
+            href="/static/icons/apple-icon-180x180.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="32x32"
+            href="/static/icons/favicon-32x32.png"
+          />
+          <link
+            rel="icon"
+            type="image/png"
+            sizes="16x16"
+            href="/static/icons/favicon-16x16.png"
+          />
+          <link rel="manifest" href="/static/manifest.json" />
+          <link
+            rel="mask-icon"
+            href="/static/icons/safari-pinned-tab.svg"
+            color="#5bbad5"
+          />
+          <link rel="shortcut icon" href="/static/icons/favicon.ico" />
+
+          <meta name="twitter:card" content="summary" />
+          <meta name="twitter:url" content="https://piiddo-web-app.now.sh" />
+          <meta name="twitter:title" content="Piiddo" />
+          <meta
+            name="twitter:description"
+            content="Pide lo que necesites y recíbelo en tu casa en minutos"
+          />
+          <meta
+            name="twitter:image"
+            content="https://piiddo-web-app.now.sh/static/icons/piiddo-192x192.png"
+          />
+          <meta name="twitter:creator" content="@piiddo" />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="Piiddo" />
+          <meta property="og:description" content="Pide lo que necesites y recíbelo en tu casa en minutos" />
+          <meta property="og:site_name" content="Piiddo" />
+          <meta property="og:url" content="https://piiddo-web-app.now.sh" />
+
+          <meta
+            property="og:image"
+            content="https://piiddo-web-app.now.sh/static/icons/piiddo-192x192.png"
           />
           <link
             rel="stylesheet"
@@ -119,7 +185,7 @@ export default class MyDocument extends Document {
             type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAX1z89iahv9s6jVeH1dixt0Ey0hZW9teo&libraries=places"
           />
-          
+
           <script
             type="text/javascript"
             dangerouslySetInnerHTML={{

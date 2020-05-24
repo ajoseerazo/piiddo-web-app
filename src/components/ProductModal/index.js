@@ -23,9 +23,9 @@ library.add([faTimes]);
 
 const ProductModal = (props) => {
   const { buttonLabel, className, product } = props;
-  const [options, setOptions] = useState();
-  const [extras, setExtras] = useState();
-  const [companions, setCompanions] = useState();
+  const [options, setOptions] = useState([]);
+  const [extras, setExtras] = useState([]);
+  const [companions, setCompanions] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
 
   const onChangeOptions = useCallback(

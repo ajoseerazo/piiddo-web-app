@@ -3,23 +3,25 @@ import SuccessSVG from "../../success.svg";
 import { SuccessWrapper, RedirectionDisclaimer } from "./styled";
 import Router from "next/router";
 
-const SuccessScreen = ({ orderId, type }) => {
+const SuccessScreen = ({ orderId, type, title, redirect = true }) => {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     if (!mounted) {
       setMounted(true);
 
-      setTimeout(() => {
-        Router.push(`/order/${orderId}/eta`);
-      }, 5000);
+      if (redirect) {
+        setTimeout(() => {
+          Router.push(`/order/${orderId}/eta`);
+        }, 5000);
+      }
     }
   }, [mounted]);
 
   return (
     <SuccessWrapper>
       {type !== "inner-payment" ? (
-        <div>Comprobante de pago recibido exitosamente</div>
+        <div>{title || "Comprobante de pago recibido exitosamente"}</div>
       ) : (
         <div>Orden procesada exitosamente</div>
       )}
@@ -30,7 +32,11 @@ const SuccessScreen = ({ orderId, type }) => {
           : "Tu pedido está siendo confirmado con la tienda"}
       </div>
 
-      <RedirectionDisclaimer>En segundos será redirigido</RedirectionDisclaimer>
+      {redirect && (
+        <RedirectionDisclaimer>
+          En segundos será redirigido
+        </RedirectionDisclaimer>
+      )}
     </SuccessWrapper>
   );
 };

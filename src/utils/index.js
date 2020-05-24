@@ -11,3 +11,7 @@ export const getCurrencyCode = (currency) => {
       return "COP"
   }
 }
+
+export function round(value, decimals) {
+  return Number(Math.round(value+'e'+decimals)+'e-'+decimals);
+}

@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ordersActions from "../../redux/actions/orders";
 import actions from "../../redux/actions/shoppingCart";
+import { round } from "../../utils";
 import {
   Wrapper,
   CheckoutTitle,
@@ -184,9 +185,10 @@ const CheckoutPage = ({
             setShouldOpenPaymentSuccessModal(true);
           } else {
             if (paymentMethodSelected.value === "cryptocoins") {
-              window.location = `https://payments.criptopagos.co?amount=${
-                total + totalDelivery
-              }&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
+              window.location = `https://payments.criptopagos.co?amount=${round(
+                total + totalDelivery,
+                2
+              )}&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
                 order.id
               }&callbackURL=${window.location.origin}/criptopayments/${
                 order.id

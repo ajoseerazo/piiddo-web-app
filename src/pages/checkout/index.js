@@ -184,12 +184,21 @@ const CheckoutPage = ({
             setShouldOpenPaymentSuccessModal(true);
           } else {
             if (paymentMethodSelected.value === "cryptocoins") {
-              window.open(
-                `https://payments.criptopagos.co?amount=${
+              window.location = `https://payments.criptopagos.co?amount=${
+                total + totalDelivery
+              }&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
+                order.id
+              }&callbackURL=${window.location.origin}/criptopayments/${
+                order.id
+              }`;
+
+              /*window.open(
+                *`https://payments.criptopagos.co?amount=${
                   total + totalDelivery
                 }&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
                   order.id
-                }`,
+                }`*
+                "http://localhost:3001/?amount=3.5&apiKey=960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee&accountID=41513570&merchantID=90361928",
                 "_blank",
                 window.innerWidth > 768
                   ? `width=500,height=${window.innerHeight},left=${
@@ -197,6 +206,12 @@ const CheckoutPage = ({
                     }`
                   : undefined
               );
+
+              window.addEventListener("message", (e) => {
+                if (e.origin === "https://localhost:3001") {
+                  console.log(e.data);
+                }
+              });*/
             }
           }
         }
@@ -538,7 +553,9 @@ const CheckoutPage = ({
               ) : (
                 <CheckoutButton
                   onClick={confirmOrder}
-                  disabled={isCreatingOrder || isCheckoutButtonDisabled}
+                  disabled={
+                    isCreatingOrder || isCheckoutButtonDisabled || orderCreated
+                  }
                 >
                   {(isCreatingOrder || isDoingPayment) && <LoadingSpinner />}
                   {!isCreatingOrder && !isDoingPayment && (

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CategoryPage from "../../src/pages/category";
 import categoriesActions from "../../src/redux/actions/categories";
 import partnersActions from "../../src/redux/actions/partners";
@@ -11,8 +11,24 @@ import API from "../../src/api";
 const { fetchCategory } = categoriesActions;
 const { fetchPartners } = partnersActions;
 
-const Category = ({ category, currentUrl, address }) => {
-  let partners = [];
+const Category = ({
+  category,
+  currentUrl,
+  partners,
+  address,
+  actions: { fetchPartners },
+}) => {
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    if (!isBrowser && category) {
+      if (typeof window !== "undefined") {
+        setIsBrowser(true);
+
+        fetchPartners(category.slug);
+      }
+    }
+  }, [isBrowser, category]);
 
   return (
     <CategoryPage category={category} partners={partners} address={address} />
@@ -27,8 +43,6 @@ export const getStaticPaths = async () => {
       params: { category: cat.slug },
     };
   });
-
-  console.log("PATHS", paths);
 
   return {
     paths: paths,
@@ -45,8 +59,6 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   const category = await store.dispatch(fetchCategory(categoryQuery));
   // const partners = await store.dispatch(fetchPartners(categoryQuery));
 
-  console.log("CATEGORY", category);
-
   const address = cookies(ctx).deliveryAddress || null;
 
   return {
@@ -60,17 +72,22 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
 
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;
-
-  console.log("STATE", state);
+  const { partners } = state.Partners;
 
   return {
     categories,
+    partners,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({}, dispatch),
+    actions: bindActionCreators(
+      {
+        fetchPartners,
+      },
+      dispatch
+    ),
   };
 }
 

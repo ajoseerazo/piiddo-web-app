@@ -9,14 +9,16 @@ import Orders from "./orders";
 import Payments from "./payments";
 
 const rootReducer = {
-  Products: {},
-  ...Partners,
+  // Products: {},
+  Partners: Partners,
   App,
   Categories,
   ShoppingCart,
-  Location: {},
-  Orders: {},
-  Payments: {},
+  // Location: {},
+  // Orders: {},
+  // Payments: {},
 };
+
+console.log(rootReducer);
 
 export default rootReducer;

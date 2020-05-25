@@ -18,6 +18,7 @@ import "../../shop-styles.scss";
 import HorizontalCategories from "../../components/HorizontalCategories";
 
 const Category = ({ category, partners, currentUrl, subcategory, address }) => {
+
   return (
     <>
       <ShopHeader address={address} />
@@ -43,7 +44,7 @@ const Category = ({ category, partners, currentUrl, subcategory, address }) => {
           <ContentWrapper>
             <h1>
               {!subcategory ? (
-                `Más de ${partners.length} Restaurantes cerca de ti`
+                `Más de ${(partners || []).length} Restaurantes cerca de ti`
               ) : (
                 <span>
                   Restaurantes <ChevronRightIcon>></ChevronRightIcon>{" "}
@@ -53,7 +54,7 @@ const Category = ({ category, partners, currentUrl, subcategory, address }) => {
             </h1>
 
             <RestaurantsGrid>
-              {partners.map((partner) => (
+              {(partners || []).map((partner) => (
                 <Link
                   href="/category/[category]/[subcategory]"
                   as={`/category/${category.slug}/${getSlug(partner.name)}`}

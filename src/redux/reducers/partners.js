@@ -11,17 +11,17 @@ const initialState = {
 
 export default function partnersReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.GET_ALL_REQUEST:
+    case actions.GET_ALL_PARTNERS_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case actions.GET_ALL_FAILED:
+    case actions.GET_ALL_PARTNERS_FAILED:
       return {
         ...state,
         isLoading: false,
       };
-    case actions.GET_ALL_SUCCESS:
+    case actions.GET_ALL_PARTNERS_SUCCESS:
       return {
         ...state,
         isLoading: false,

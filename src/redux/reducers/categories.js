@@ -10,17 +10,17 @@ const initialState = {
 
 export default function categoriesRegucer(state = initialState, action) {
   switch (action.type) {
-    case actions.GET_ALL_REQUEST:
+    case actions.GET_ALL_CATEGORIES_REQUEST:
       return {
         ...state,
         isLoading: true,
       };
-    case actions.GET_ALL_FAILED:
+    case actions.GET_ALL_CATEGORIES_FAILED:
       return {
         ...state,
         isLoading: false,
       };
-    case actions.GET_ALL_SUCCESS:
+    case actions.GET_ALL_CATEGORIES_SUCCESS:
       return {
         ...state,
         categories: action.categories,

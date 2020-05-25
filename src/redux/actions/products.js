@@ -1,27 +1,27 @@
 import API from "../../api/index"
 
 const productsActions = {
-  GET_ALL_REQUEST: "GET_ALL_REQUEST",
-  GET_ALL_SUCCESS: "GET_ALL_SUCCESS",
-  GET_ALL_FAIL: "GET_ALL_FAIL",
+  GET_ALL_PRODUCTS_REQUEST: "GET_ALL_PRODUCTS_REQUEST",
+  GET_ALL_PRODUCTS_SUCCESS: "GET_ALL_PRODUCTS_SUCCESS",
+  GET_ALL_PRODUCTS_FAIL: "GET_ALL_PRODUCTS_FAIL",
   SELECT_PRODUCT: "SELECT_PRODUCT",
   GET_PRODUCT_REQUEST: "GET_PRODUCT_REQUEST",
   GET_PRODUCT_SUCCESS: "GET_PRODUCT_SUCCESS",
   GET_PRODUCT_FAIL: "GET_PRODUCT_FAIL",
   fetchingProducts: () => {
     return {
-      type: productsActions.GET_ALL_REQUEST
+      type: productsActions.GET_ALL_PRODUCTS_REQUEST
     }
   },
   fetchProductsSuccess: (products) => {
     return {
-      type: productsActions.GET_ALL_SUCCESS,
+      type: productsActions.GET_ALL_PRODUCTS_SUCCESS,
       products
     }
   },
   fetchProductsFailed: (error) => {
     return {
-      type: productsActions.GET_ALL_FAIL,
+      type: productsActions.GET_ALL_PRODUCTS_FAIL,
       error
     }
   },

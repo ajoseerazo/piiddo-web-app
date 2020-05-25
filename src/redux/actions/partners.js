@@ -1,9 +1,9 @@
 import API from "../../api/index";
 
 const partnersActions = {
-  GET_ALL_REQUEST: "GET_ALL_REQUEST",
-  GET_ALL_SUCCESS: "GET_ALL_SUCCESS",
-  GET_ALL_FAILED: "GET_ALL_FAILED",
+  GET_ALL_PARTNERS_REQUEST: "GET_ALL_PARTNERS_REQUEST",
+  GET_ALL_PARTNERS_SUCCESS: "GET_ALL_PARTNERS_SUCCESS",
+  GET_ALL_PARTNERS_FAILED: "GET_ALL_PARTNERS_FAILED",
   GET_PARTNER_REQUEST: "GET_PARTNER_REQUEST",
   GET_PARTNER_SUCCESS: "GET_PARTNER_SUCCESS",
   GET_PARTNER_FAILED: "GET_PARTNER_SUCCESS",
@@ -15,18 +15,18 @@ const partnersActions = {
   GET_CATALOG_CATEGORIES_FAILED: "GET_CATALOG_CATEGORIES_FAILED",
   fetchingPartners: () => {
     return {
-      type: partnersActions.GET_ALL_REQUEST,
+      type: partnersActions.GET_ALL_PARTNERS_REQUEST,
     };
   },
   fetchPartnersFailed: (error) => {
     return {
-      type: partnersActions.GET_ALL_FAILED,
+      type: partnersActions.GET_ALL_PARTNERS_FAILED,
       error,
     };
   },
   fetchPartnersSuccess: (partners) => {
     return {
-      type: partnersActions.GET_ALL_SUCCESS,
+      type: partnersActions.GET_ALL_PARTNERS_SUCCESS,
       partners,
     };
   },

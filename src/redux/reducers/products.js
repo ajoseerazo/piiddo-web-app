@@ -12,11 +12,11 @@ const initialState = new Map({
 
 export default function productsReducer(state = initialState, action) {
   switch (action.type) {
-    case actions.GET_ALL_REQUEST:
+    case actions.GET_ALL_PRODUCTS_REQUEST:
       return state.set("isLoading", true);
-    case actions.GET_ALL_FAIL:
+    case actions.GET_ALL_PRODUCTS_FAIL:
       return state.set("isLoading", false);
-    case actions.GET_ALL_SUCCESS:
+    case actions.GET_ALL_PRODUCTS_SUCCESS:
       if (action.products) {
         return state
           .set("products", action.products[0])

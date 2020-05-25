@@ -20,13 +20,6 @@ const { fetchProducts, selectProduct } = productsActions;
 const { fetchCategories } = categoriesActions;
 const { setDeliveryPlace } = locationActions;
 
-const categories = [
-  {
-    name: "Restaurantes",
-    id: "res",
-  },
-];
-
 class Shop extends Component {
   state = {
     itemsInCart: [],
@@ -39,22 +32,8 @@ class Shop extends Component {
   constructor(props) {
     super(props);
 
-    console.log(props);
-
     this.footer = React.createRef();
   }
-
-  /*static async getInitialProps(ctx) {
-    // const products = await store.dispatch(fetchProducts());
-    const { store, isServer, pathname, query } = ctx;
-
-    const partners = await store.dispatch(fetchPartners());
-    const categories = await store.dispatch(fetchCategories());
-
-    const address = cookies(ctx).deliveryAddress;
-
-    return { partners, categories, address };
-  }*/
 
   onAddProduct(product) {
     let { itemsInCart } = this.state;
@@ -235,8 +214,6 @@ class Shop extends Component {
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;
 
-  console.log("Categories", categories);
-
   return {
     categories,
   };
@@ -257,7 +234,7 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
 
   await store.dispatch(fetchCategories());
 
-  // const address = cookies(ctx).deliveryAddress || null;
+  console.log("PASSSED");
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

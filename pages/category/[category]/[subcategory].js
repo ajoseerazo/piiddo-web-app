@@ -34,6 +34,8 @@ const SubCategory = ({
   const [innerSubcategory, setInnerSubcategory] = useState();
   const [innerCurrentURL, setInnerCurrentURL] = useState();
 
+  console.log(router.isFallback);
+  console.log(category);
   console.log("SUB", router.query.subcategory);
 
   useEffect(() => {
@@ -62,18 +64,28 @@ const SubCategory = ({
 };
 
 export const getStaticPaths = async () => {
-  //const categories = await API.Categories.getAll();
+  const categories = await API.Categories.getAll();
 
-  /*const paths = categories.map((cat) => {
-    return {
-      params: { category: cat.slug, subcategory: "hamburguesas" },
-    };
+  const paths = categories.map((cat) => {
+    if (cat.subcategories) {
+      const catParams = [];
+      for (let i = 0; i < cat.subcategories.length; i++) {
+        catParams.push({
+          params: {
+            category: cat.slug,
+            subcategory: cat.subcategories[i].slug,
+          },
+        });
+      }
+
+      return catParams;
+    }
   });
 
-  console.log(paths);*/
+  
 
   return {
-    paths: [{ category: "restaurantes", subcategory: "hamburguesas" }],
+    paths: paths.filter((p) => !!p).flat(),
     fallback: true,
   };
 };
@@ -124,8 +136,6 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
       };
 
       for (let i = 0; i < products.length; i++) {
-        console.log(products[i].categories);
-
         if (products[i].categories) {
           for (let j = 0; j < products[i].categories.length; j++) {
             if (!productsHash[products[i].categories[j]]) {

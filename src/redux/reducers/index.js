@@ -10,7 +10,7 @@ import Payments from "./payments";
 
 const rootReducer = {
   Products: {},
-  Partners: {},
+  ...Partners,
   App,
   Categories,
   ShoppingCart,

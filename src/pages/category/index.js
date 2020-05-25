@@ -23,11 +23,11 @@ const Category = ({ category, partners, currentUrl, subcategory, address }) => {
       <ShopHeader address={address} />
 
       <TopCategoriesWrapper>
-        {/*<HorizontalCategories
+        <HorizontalCategories
           categories={category.subcategories}
           categorySlug={category.slug}
           currentUrl={currentUrl}
-        />*/}
+        />
       </TopCategoriesWrapper>
 
       <HomeWrapper>

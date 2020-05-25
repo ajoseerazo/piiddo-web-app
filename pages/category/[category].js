@@ -4,11 +4,15 @@ import categoriesActions from "../../src/redux/actions/categories";
 import partnersActions from "../../src/redux/actions/partners";
 import cookies from "next-cookies";
 import { wrapper } from "../../src/redux/store";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 const { fetchCategory } = categoriesActions;
 const { fetchPartners } = partnersActions;
 
-const Category = ({ category, partners, currentUrl, address }) => {
+const Category = ({ category, currentUrl, address }) => {
+  let partners = [];
+
   return (
     <CategoryPage category={category} partners={partners} address={address} />
   );
@@ -29,16 +33,45 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
     params: { category: categoryQuery },
   } = ctx;
 
+  const category = await store.dispatch(fetchCategory(categoryQuery));
+  // const partners = await store.dispatch(fetchPartners(categoryQuery));
+
+  console.log("CATEGORY", category);
+
   const address = cookies(ctx).deliveryAddress || null;
 
   return {
     props: {
-      category: {},
-      partners: [],
+      category,
       currentUrl: `/category/${categoryQuery}`,
       address,
     },
   };
 });
 
-export default Category;
+function mapStateToProps(state, props) {
+  const { categories } = state.Categories;
+
+  console.log("STATE", state);
+
+  return {
+    categories,
+  };
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({}, dispatch),
+  };
+}
+
+/*export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
+  console.log("Called");
+  const { store } = ctx;
+
+  const categories = await store.dispatch(fetchCategories());
+
+  const address = cookies(ctx).deliveryAddress || null;
+});*/
+
+export default connect(mapStateToProps, mapDispatchToProps)(Category);

@@ -235,8 +235,10 @@ class Shop extends Component {
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;
 
+  console.log("Categories", categories);
+
   return {
-    categories
+    categories,
   };
 }
 
@@ -253,9 +255,9 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   console.log("Called");
   const { store } = ctx;
 
-  const categories = await store.dispatch(fetchCategories());
+  await store.dispatch(fetchCategories());
 
-  const address = cookies(ctx).deliveryAddress || null;
+  // const address = cookies(ctx).deliveryAddress || null;
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

@@ -73,7 +73,7 @@ export const getStaticPaths = async () => {
   console.log(paths);*/
 
   return {
-    paths: { category: "restaurantes", subcategory: "hamburguesas" },
+    paths: [{ category: "restaurantes", subcategory: "hamburguesas" }],
     fallback: true,
   };
 };

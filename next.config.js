@@ -1,10 +1,13 @@
 const withSass = require("@zeit/next-sass");
 const withPWA = require("next-pwa");
+const withCSS = require("@zeit/next-css");
 
-module.exports = withSass(
-  withPWA({
-    pwa: {
-      dest: "public",
-    },
-  })
+module.exports = withCSS(
+  withSass(
+    withPWA({
+      pwa: {
+        dest: "public",
+      },
+    })
+  )
 );

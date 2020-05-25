@@ -17,6 +17,7 @@ const Category = ({
   partners,
   address,
   actions: { fetchPartners },
+  isLoadingPartners,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -31,7 +32,12 @@ const Category = ({
   }, [isBrowser, category]);
 
   return (
-    <CategoryPage category={category} partners={partners} address={address} />
+    <CategoryPage
+      category={category}
+      partners={partners}
+      address={address}
+      isLoadingPartners={isLoadingPartners}
+    />
   );
 };
 
@@ -72,11 +78,12 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
 
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;
-  const { partners } = state.Partners;
+  const { partners, isLoading } = state.Partners;
 
   return {
     categories,
     partners,
+    isLoadingPartners: isLoading,
   };
 }
 

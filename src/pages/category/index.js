@@ -16,9 +16,16 @@ import Footer from "../../components/Footer";
 import "../../styles.scss";
 import "../../shop-styles.scss";
 import HorizontalCategories from "../../components/HorizontalCategories";
+import PartnersPlaceholder from "../../components/PartnersPlaceholder";
 
-const Category = ({ category, partners, currentUrl, subcategory, address }) => {
-
+const Category = ({
+  category,
+  partners,
+  currentUrl,
+  subcategory,
+  address,
+  isLoadingPartners,
+}) => {
   return (
     <>
       <ShopHeader address={address} />
@@ -44,7 +51,7 @@ const Category = ({ category, partners, currentUrl, subcategory, address }) => {
           <ContentWrapper>
             <h1>
               {!subcategory ? (
-                `Más de ${(partners || []).length} Restaurantes cerca de ti`
+                `Restaurantes cerca de ti`
               ) : (
                 <span>
                   Restaurantes <ChevronRightIcon>></ChevronRightIcon>{" "}
@@ -53,18 +60,23 @@ const Category = ({ category, partners, currentUrl, subcategory, address }) => {
               )}
             </h1>
 
-            <RestaurantsGrid>
-              {(partners || []).map((partner) => (
-                <Link
-                  href="/category/[category]/[subcategory]"
-                  as={`/category/${category.slug}/${getSlug(partner.name)}`}
-                >
-                  <a>
-                    <RestaurantSummary restaurant={partner} />
-                  </a>
-                </Link>
-              ))}
-            </RestaurantsGrid>
+            <PartnersPlaceholder
+              ready={partners && !isLoadingPartners}
+              rows={12}
+            >
+              <RestaurantsGrid>
+                {(partners || []).map((partner) => (
+                  <Link
+                    href="/category/[category]/[subcategory]"
+                    as={`/category/${category.slug}/${getSlug(partner.name)}`}
+                  >
+                    <a>
+                      <RestaurantSummary restaurant={partner} />
+                    </a>
+                  </Link>
+                ))}
+              </RestaurantsGrid>
+            </PartnersPlaceholder>
           </ContentWrapper>
         </div>
       </HomeWrapper>

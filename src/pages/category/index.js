@@ -59,6 +59,7 @@ const Category = ({
           categories={category.subcategories || []}
           categorySlug={category.slug}
           currentUrl={currentUrl}
+          shallow={true}
         />
       </TopCategoriesWrapper>
 
@@ -69,6 +70,7 @@ const Category = ({
               categories={category.subcategories || []}
               categorySlug={category.slug}
               currentUrl={currentUrl}
+              shallow={true}
             />
           </SidebarWrapper>
 

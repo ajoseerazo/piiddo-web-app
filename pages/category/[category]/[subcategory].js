@@ -8,6 +8,8 @@ import cookies from "next-cookies";
 import { useRouter } from "next/router";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { wrapper } from "../../../src/redux/store";
+import API from "../../../src/api";
 
 const { fetchCategory } = categoriesActions;
 const {
@@ -32,11 +34,15 @@ const SubCategory = ({
   const [innerSubcategory, setInnerSubcategory] = useState();
   const [innerCurrentURL, setInnerCurrentURL] = useState();
 
+  console.log("SUB", router.query.subcategory);
+
   useEffect(() => {
     console.log(category);
     fetchPartners(category.slug, router.query.subcategory);
     setInnerSubcategory(router.query.subcategory);
-    setInnerCurrentURL(`/category/${category.slug}/${router.query.subcategory}`)
+    setInnerCurrentURL(
+      `/category/${category.slug}/${router.query.subcategory}`
+    );
   }, [router.query.subcategory]);
 
   if (partner) {
@@ -55,17 +61,34 @@ const SubCategory = ({
   );
 };
 
-SubCategory.getInitialProps = async (ctx) => {
+export const getStaticPaths = async () => {
+  const categories = await API.Categories.getAll();
+
+  const paths = categories.map((cat) => {
+    return {
+      params: { category: cat.slug, subcategory: "hamburguesas" },
+    };
+  });
+
+  console.log(paths);
+
+  return {
+    paths: paths,
+    fallback: true,
+  };
+};
+
+export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   console.log("SE LLAMAAAAAA");
 
   const {
     store,
-    query: { category: categoryQuery, subcategory },
+    params: { category: categoryQuery, subcategory },
   } = ctx;
 
   const category = await store.dispatch(fetchCategory(categoryQuery));
 
-  const address = cookies(ctx).deliveryAddress;
+  const address = cookies(ctx).deliveryAddress || null;
 
   if (category) {
     const subcat = category.subcategories.find((cat) => {
@@ -75,7 +98,7 @@ SubCategory.getInitialProps = async (ctx) => {
     });
 
     let partners = [];
-    let partner;
+    let partner = null;
 
     if (subcat) {
       partners = await store.dispatch(
@@ -118,17 +141,21 @@ SubCategory.getInitialProps = async (ctx) => {
     }
 
     return {
-      category,
-      partners,
-      currentUrl: `/category/${categoryQuery}/${subcategory}`,
-      subcategory,
-      partner,
-      address,
+      props: {
+        category,
+        partners,
+        currentUrl: `/category/${categoryQuery}/${subcategory}`,
+        subcategory,
+        partner,
+        address,
+      },
     };
   } else {
-    return {};
+    return {
+      props: {},
+    };
   }
-};
+});
 
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;

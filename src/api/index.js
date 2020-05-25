@@ -64,11 +64,16 @@ class Partners {
     }
 
     const partners = partnersRef.docs.map((p) => {
+      const data = p.data();
+      delete data.location;
+
       return {
         id: p.id,
-        ...p.data(),
+        ...data,
       };
     });
+
+    console.log(partners);
 
     return partners;
   };
@@ -144,5 +149,5 @@ export default {
   Categories,
   DeliveryLocation,
   Orders,
-  Payments
+  Payments,
 };

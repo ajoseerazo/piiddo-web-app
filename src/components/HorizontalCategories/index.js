@@ -16,22 +16,23 @@ const HorizontalCategories = ({
   categorySlug,
   currentUrl,
   scrollSpy,
+  shallow,
 }) => {
   const [selected, setSelected] = useState("all");
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = useState(false);
 
   const WrapperLink = !scrollSpy ? Link : Div;
   const MenuLink = scrollSpy ? AnimatedLink : A;
 
-  useEffect(() => {
+  useEffect(() => {
     if (!mounted) {
       setMounted(true);
 
-      Events.scrollEvent.register('end', function(to, element) {
-        setSelected(to)
+      Events.scrollEvent.register("end", function (to, element) {
+        setSelected(to);
       });
     }
-  }, [mounted])
+  }, [mounted]);
 
   const menuLinkOptions = scrollSpy
     ? {
@@ -68,6 +69,7 @@ const HorizontalCategories = ({
           href="/category/[category]"
           as={`/category/${categorySlug}`}
           onClick={scrollSpy ? setSelectedMenu.bind(this, "all") : undefined}
+          shallow={shallow}
         >
           <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
             Todos
@@ -94,6 +96,7 @@ const HorizontalCategories = ({
             onClick={
               scrollSpy ? setSelectedMenu.bind(this, category.id) : undefined
             }
+            shallow={shallow}
           >
             <MenuLink
               to={scrollSpy ? `${category.id}` : undefined}

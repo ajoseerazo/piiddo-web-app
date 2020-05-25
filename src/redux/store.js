@@ -16,14 +16,9 @@ const combinedReducer = combineReducers(rootReducer);
 
 const reducer = (state, action) => {
   if (action.type === HYDRATE) {
-    let serverState = {};
-    for (let key in action.payload) {
-      serverState[key] = fromJS(action.payload[key]);
-    }
-
     const nextState = {
       ...state, // use previous state
-      ...serverState, // apply delta from hydration
+      ...action.payload, // apply delta from hydration
     };
 
     return nextState;

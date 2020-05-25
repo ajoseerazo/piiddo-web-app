@@ -116,7 +116,7 @@ class ShopHeader extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { cop_rate } = state.App.toJS();
+  const { cop_rate } = state.App;
 
   return {
     rate: cop_rate,

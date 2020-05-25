@@ -62,7 +62,7 @@ class ProductSummary extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { rate, currency_code } = state.App.toJS();
+  const { rate, currency_code } = state.App;
 
   return {
     rate,

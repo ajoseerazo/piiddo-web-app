@@ -1,35 +1,40 @@
-import { Map } from "immutable";
 import actions from "../actions/shoppingCart";
 
-const initialState = new Map({
+const initialState = {
   items: [],
-});
+};
 
 export default function shoppingCartReducer(state = initialState, action) {
   switch (action.type) {
     case actions.ADD_TO_CART:
-      const oldItems = state.get("items");
+      const oldItems = state.items;
 
-      return state.set("items", oldItems.concat([action.order]));
+      return {
+        ...state,
+        items: oldItems.concat([action.order]),
+      };
     case actions.REMOVE_FROM_CART:
       const newItems = [];
 
-      for (let i = 0; i < state.get("items").length; i++) {
+      for (let i = 0; i < state.items.length; i++) {
         if (i !== action.index) {
-          newItems.push(state.get("items")[i])
+          newItems.push(state.items[i]);
         }
       }
 
-      return state.set("items", newItems);
+      return {
+        ...state,
+        items: newItems,
+      };
     case actions.CHANGE_COUNT:
-      const newOrder = state.get("items")[action.index];
+      const newOrder = state.items[action.index];
 
       const newOrdersUpdated = [];
 
       if (newOrder) {
-        for (let i = 0; i < state.get("items").length; i++) {
+        for (let i = 0; i < state.items.length; i++) {
           if (i !== action.index) {
-            newOrdersUpdated.push(state.get("items")[i])
+            newOrdersUpdated.push(state.items[i]);
           } else {
             newOrder.count = action.count;
             newOrder.totalAmount = newOrder.basePrice * action.count;
@@ -37,8 +42,11 @@ export default function shoppingCartReducer(state = initialState, action) {
             newOrdersUpdated.push(newOrder);
           }
         }
-  
-        return state.set("items", newOrdersUpdated);
+
+        return {
+          ...state,
+          items: newOrdersUpdated,
+        };
       } else {
         return state;
       }

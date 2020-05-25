@@ -5,7 +5,6 @@ import { InView } from "react-intersection-observer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import productsActions from "../src/redux/actions/products";
-import partnersActions from "../src/redux/actions/partners";
 import categoriesActions from "../src/redux/actions/categories";
 import locationActions from "../src/redux/actions/location";
 import ProductModal from "../src/components/ProductModal";
@@ -15,9 +14,9 @@ import { MainContainerWrapper } from "../src/globalStyles/styled.index";
 import PlacePickerModal from "../src/components/PlacePickerModal";
 import cookies from "next-cookies";
 import "../src/shop-styles.scss";
+import { wrapper } from "../src/redux/store";
 
 const { fetchProducts, selectProduct } = productsActions;
-const { fetchPartners } = partnersActions;
 const { fetchCategories } = categoriesActions;
 const { setDeliveryPlace } = locationActions;
 
@@ -34,15 +33,18 @@ class Shop extends Component {
     isSticky: false,
     footerIsVisible: false,
     address: this.props.address,
-    sidebarHeight: "auto"
+    sidebarHeight: "auto",
   };
 
   constructor(props) {
     super(props);
+
+    console.log(props);
+
     this.footer = React.createRef();
   }
 
-  static async getInitialProps(ctx) {
+  /*static async getInitialProps(ctx) {
     // const products = await store.dispatch(fetchProducts());
     const { store, isServer, pathname, query } = ctx;
 
@@ -52,7 +54,7 @@ class Shop extends Component {
     const address = cookies(ctx).deliveryAddress;
 
     return { partners, categories, address };
-  }
+  }*/
 
   onAddProduct(product) {
     let { itemsInCart } = this.state;
@@ -164,7 +166,7 @@ class Shop extends Component {
       place,
       address,
     } = this.state;
-    const { products, category, partners, categories } = this.props;
+    const { categories } = this.props;
 
     return (
       <>
@@ -231,10 +233,10 @@ class Shop extends Component {
 }
 
 function mapStateToProps(state, props) {
-  const { products } = props;
+  const { categories } = state.Categories;
 
   return {
-    products,
+    categories
   };
 }
 
@@ -246,5 +248,14 @@ function mapDispatchToProps(dispatch) {
     ),
   };
 }
+
+export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
+  console.log("Called");
+  const { store } = ctx;
+
+  const categories = await store.dispatch(fetchCategories());
+
+  const address = cookies(ctx).deliveryAddress || null;
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

@@ -611,7 +611,7 @@ function mapDispatchToProps(dispatch, props) {
 }
 
 function mapStateToProps(state, props) {
-  const { items } = state.ShoppingCart.toJS();
+  const { items } = state.ShoppingCart;
   const {
     order,
     creatingOrder,

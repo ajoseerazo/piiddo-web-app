@@ -19,6 +19,4 @@ const rootReducer = {
   // Payments: {},
 };
 
-console.log(rootReducer);
-
 export default rootReducer;

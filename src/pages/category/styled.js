@@ -101,5 +101,6 @@ export const TopCategoriesWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     display: block;
+    width: 100%;
   }
 `;

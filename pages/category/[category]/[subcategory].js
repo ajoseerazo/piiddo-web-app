@@ -62,18 +62,18 @@ const SubCategory = ({
 };
 
 export const getStaticPaths = async () => {
-  const categories = await API.Categories.getAll();
+  //const categories = await API.Categories.getAll();
 
-  const paths = categories.map((cat) => {
+  /*const paths = categories.map((cat) => {
     return {
       params: { category: cat.slug, subcategory: "hamburguesas" },
     };
   });
 
-  console.log(paths);
+  console.log(paths);*/
 
   return {
-    paths: paths,
+    paths: { category: "restaurantes", subcategory: "hamburguesas" },
     fallback: true,
   };
 };

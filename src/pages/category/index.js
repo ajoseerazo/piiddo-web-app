@@ -24,7 +24,7 @@ const Category = ({ category, partners, currentUrl, subcategory, address }) => {
 
       <TopCategoriesWrapper>
         <HorizontalCategories
-          categories={category.subcategories}
+          categories={category.subcategories || []}
           categorySlug={category.slug}
           currentUrl={currentUrl}
         />
@@ -34,7 +34,7 @@ const Category = ({ category, partners, currentUrl, subcategory, address }) => {
         <div>
           <SidebarWrapper>
             <Sidebar
-              categories={category.subcategories}
+              categories={category.subcategories || []}
               categorySlug={category.slug}
               currentUrl={currentUrl}
             />

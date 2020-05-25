@@ -6,6 +6,7 @@ import cookies from "next-cookies";
 import { wrapper } from "../../src/redux/store";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import API from "../../src/api";
 
 const { fetchCategory } = categoriesActions;
 const { fetchPartners } = partnersActions;
@@ -18,11 +19,19 @@ const Category = ({ category, currentUrl, address }) => {
   );
 };
 
-export const getStaticPaths = () => {
+export const getStaticPaths = async () => {
+  const categories = await API.Categories.getAll();
+
+  const paths = categories.map((cat) => {
+    return {
+      params: { category: cat.slug },
+    };
+  });
+
+  console.log("PATHS", paths);
+
   return {
-    paths: [
-      { params: { category: "restaurantes" } }, // See the "paths" section below
-    ],
+    paths: paths,
     fallback: false,
   };
 };

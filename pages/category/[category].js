@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CategoryPage from "../../src/pages/category";
 import categoriesActions from "../../src/redux/actions/categories";
 import partnersActions from "../../src/redux/actions/partners";
@@ -31,12 +31,21 @@ const Category = ({
     }
   }, [isBrowser, category]);
 
+  const changeSubcategory = useCallback(
+    (subcategory) => {
+      console.log("emtra");
+      fetchPartners(subcategory);
+    },
+    [fetchPartners]
+  );
+
   return (
     <CategoryPage
       category={category}
       partners={partners}
       address={address}
       isLoadingPartners={isLoadingPartners}
+      onChangeSubcategory={changeSubcategory}
     />
   );
 };
@@ -97,14 +106,5 @@ function mapDispatchToProps(dispatch) {
     ),
   };
 }
-
-/*export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
-  console.log("Called");
-  const { store } = ctx;
-
-  const categories = await store.dispatch(fetchCategories());
-
-  const address = cookies(ctx).deliveryAddress || null;
-});*/
 
 export default connect(mapStateToProps, mapDispatchToProps)(Category);

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import getSlug from "speakingurl";
 import Link from "next/link";
 import ShopHeader from "../../components/ShopHeader/ShopHeader";
@@ -17,6 +17,7 @@ import "../../styles.scss";
 import "../../shop-styles.scss";
 import HorizontalCategories from "../../components/HorizontalCategories";
 import PartnersPlaceholder from "../../components/PartnersPlaceholder";
+import Router from "next/router";
 
 const Category = ({
   category,
@@ -25,7 +26,30 @@ const Category = ({
   subcategory,
   address,
   isLoadingPartners,
+  onChangeSubcategory,
 }) => {
+  console.log("entra");
+
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  const handleRouteChange = (url) => {
+    console.log("App is changing to: ", url);
+    /*const [rootPath, category, subcategory] = url.split("/");
+
+    if (subcategory && onChangeSubcategory) {
+      onChangeSubcategory(subcategory);
+    }*/
+  };
+
+  useEffect(() => {
+    if (!isBrowser) {
+      if (typeof window !== "undefined") {
+        Router.events.on("routeChangeStart", handleRouteChange);
+        setIsBrowser(true);
+      }
+    }
+  }, [isBrowser]);
+
   return (
     <>
       <ShopHeader address={address} />

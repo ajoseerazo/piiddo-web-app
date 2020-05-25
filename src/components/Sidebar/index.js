@@ -64,6 +64,7 @@ const Sidebar = ({
           <WrapperLink
             href="/category/[category]"
             as={`/category/${categorySlug}`}
+            shallow={true}
           >
             <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
               Todos
@@ -82,6 +83,7 @@ const Sidebar = ({
               key={category.id || category.slug}
               href="/category/[category]/[subcategory]"
               as={`/category/${categorySlug}/${category.slug}`}
+              shallow={true}
             >
               <MenuLink
                 to={scrollSpy ? `${category.id}` : undefined}

@@ -18,6 +18,7 @@ export const HomeWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     margin-top: 100px;
+    min-height: calc(100vh - 100px);
 
     > div {
       padding: 0px;

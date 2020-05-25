@@ -23,9 +23,12 @@ class Products {
     }
 
     const products = productsRef.docs.map((product) => {
+      const data = product.data();
+      delete data.createdAt;
+
       return {
         id: product.id,
-        ...product.data(),
+        ...data,
       };
     });
 
@@ -86,9 +89,13 @@ class Partners {
       .get();
 
     if (partnersRef.docs.length) {
+      const data = partnersRef.docs[0].data();
+      delete data.location;
+      delete data.createdAt;
+
       return {
         id: partnersRef.docs[0].id,
-        ...partnersRef.docs[0].data(),
+        ...data,
       };
     } else {
       return null;
@@ -105,9 +112,11 @@ class Partners {
     let catalog = null;
 
     if (catalogRef.docs.length) {
+      const data = catalogRef.docs[0].data();
+      delete data.createdAt;
       catalog = {
         id: catalogRef.docs[0].id,
-        ...catalogRef.docs[0].data(),
+        ...data,
       };
     }
 
@@ -121,9 +130,12 @@ class Partners {
       .get();
 
     let categories = categoriesRef.docs.map((cat) => {
+      const data = cat.data();
+      delete data.createdAt;
+
       return {
         id: cat.id,
-        ...cat.data(),
+        ...data,
       };
     });
 

@@ -33,19 +33,27 @@ const SubCategory = ({
   const router = useRouter();
   const [innerSubcategory, setInnerSubcategory] = useState();
   const [innerCurrentURL, setInnerCurrentURL] = useState();
+  const [isBrowser, setIsBrowser] = useState(false);
 
   console.log(router.isFallback);
   console.log(category);
   console.log("SUB", router.query.subcategory);
 
   useEffect(() => {
-    console.log(category);
-    fetchPartners(category.slug, router.query.subcategory);
-    setInnerSubcategory(router.query.subcategory);
-    setInnerCurrentURL(
-      `/category/${category.slug}/${router.query.subcategory}`
-    );
-  }, [router.query.subcategory]);
+    if (!isBrowser && !partner && category) {
+      if (typeof window !== "undefined") {
+        fetchPartners(category.slug, router.query.subcategory);
+        setInnerSubcategory(router.query.subcategory);
+        setInnerCurrentURL(
+          `/category/${category.slug}/${router.query.subcategory}`
+        );
+      }
+    }
+  }, [partner, isBrowser, router.query.subcategory]);
+
+  if (router.isFallback) {
+    return <div></div>;
+  }
 
   if (partner) {
     return <StorePage partner={partner} address={address} />;
@@ -82,8 +90,6 @@ export const getStaticPaths = async () => {
     }
   });
 
-  
-
   return {
     paths: paths.filter((p) => !!p).flat(),
     fallback: true,
@@ -99,6 +105,8 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   } = ctx;
 
   const category = await store.dispatch(fetchCategory(categoryQuery));
+
+  console.log("CATEGORY", category);
 
   const address = cookies(ctx).deliveryAddress || null;
 

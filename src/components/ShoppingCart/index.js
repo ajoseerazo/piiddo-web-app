@@ -13,7 +13,7 @@ function ShoppingCart(props) {
   return (
     <span className={mobClassName}>
       <ButtonStyled onClick={onClick}>
-        <FontAwesome name="shopping-basket" className="basket" />
+        <FontAwesome name="shopping-basket" className="basket" color="#f74342" />
         {length > 0 && (
           <span className="shoppingCardBubble">
             {length > 9 ? "+9" : length}

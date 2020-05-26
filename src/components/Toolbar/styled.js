@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ToolbarWrapper = styled.div`
-  display: flex;
+  display: none;
   height: 50px;
   bottom: 0px;
   width: 100%;
@@ -11,4 +11,8 @@ export const ToolbarWrapper = styled.div`
   border-top: 1px solid #e5edef;
   z-index: 1000;
   justify-content: space-around;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+  }
 `;

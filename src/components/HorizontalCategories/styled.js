@@ -16,8 +16,10 @@ export const Wrapper = styled.ul`
     li {
       font-size: 13px;
       padding: 5px 8px;
-      margin: 0 2px;
+      margin: 0 4px;
       font-family: 'Poppins', sans-serif;
+      background: #fafaf8;
+      border-radius: 8px;
   
       a {
         white-space: nowrap;
@@ -31,7 +33,6 @@ export const Wrapper = styled.ul`
 
       &.selected {
         background: #F74342;
-        border-radius: 8px;
   
         a {
           color: #FFF;

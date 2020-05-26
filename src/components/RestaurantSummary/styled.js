@@ -6,13 +6,18 @@ export const RestaurantWrapper = styled.div`
   margin: 0px 25px 20px 0px;
   border-radius: 4px;
   cursor: pointer;
+  border: 1px solid #fff;
 
   &:hover {
-    box-shadow: 0px 2px 5px 5px rgba(0, 0, 0, 0.025);
+    border: 1px solid #ddd;
   }
 
   @media screen and (max-width: 768px) {
     margin: 0px 0px 20px 0px;
+
+    &:hover {
+      border: none;
+    }
   }
 `;
 

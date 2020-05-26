@@ -229,12 +229,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
-  console.log("Called");
   const { store } = ctx;
 
   await store.dispatch(fetchCategories());
-
-  console.log("PASSSED");
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

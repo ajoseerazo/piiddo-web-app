@@ -113,6 +113,8 @@ const Store = ({
     }
   }, [catalog]);
 
+  console.log(isLoadingProducts);
+
   return (
     <>
       <ShopHeader address={address} />
@@ -220,7 +222,11 @@ const Store = ({
 
             <ProductsWrapper>
               <ProductsPlaceholder
-                ready={!showFallback && !isLoadingProducts}
+                ready={
+                  !showFallback &&
+                  !isLoadingProducts &&
+                  !isLoadingCatalogCategories
+                }
                 rows={12}
               >
                 {catalogCategories ? (
@@ -248,7 +254,7 @@ const Store = ({
                   ))
                 ) : (
                   <ProductsGrid>
-                    {!isLoadingCatalogCategories && products && products.all && (
+                    {products && products.all && (
                       <>
                         {products.all.map((product) => (
                           <ProductItem

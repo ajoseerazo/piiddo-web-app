@@ -19,10 +19,6 @@ export const ProductItemWrapper = styled.div`
     box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
     padding: 20px;
     border-radius: 10px;
-
-    &:hover {
-      box-shadow: none;
-    }
   }
 `;
 

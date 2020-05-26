@@ -23,7 +23,12 @@ Router.events.on("routeChangeStart", (url) => {
   NProgress.start();
 });
 
-Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeComplete", (url) => {
+  if (url === "/") {
+    window.scrollTo(0, 0);
+  }
+  NProgress.done();
+});
 Router.events.on("routeChangeError", () => NProgress.done());
 
 class MyApp extends App {

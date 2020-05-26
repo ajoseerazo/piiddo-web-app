@@ -18,6 +18,7 @@ import "../../shop-styles.scss";
 import HorizontalCategories from "../../components/HorizontalCategories";
 import PartnersPlaceholder from "../../components/PartnersPlaceholder";
 import Router from "next/router";
+import Toolbar from "../../components/Toolbar";
 
 const Category = ({
   category,
@@ -106,6 +107,8 @@ const Category = ({
           </ContentWrapper>
         </div>
       </HomeWrapper>
+
+      <Toolbar />
 
       <Footer />
     </>

@@ -15,6 +15,7 @@ import PlacePickerModal from "../src/components/PlacePickerModal";
 import cookies from "next-cookies";
 import "../src/shop-styles.scss";
 import { wrapper } from "../src/redux/store";
+import Toolbar from "../src/components/Toolbar";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchCategories } = categoriesActions;
@@ -181,6 +182,8 @@ class Shop extends Component {
             </MainContainerWrapper>
           </div>
         </div>
+
+        <Toolbar />
 
         <InView
           as="div"

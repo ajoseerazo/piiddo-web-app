@@ -7,6 +7,8 @@ const initialState = {
   partner: null,
   catalog: null,
   isLoadingCatalog: false,
+  isLoadingCatalogCategories: false,
+  catalogCategories: null,
 };
 
 export default function partnersReducer(state = initialState, action) {
@@ -58,6 +60,22 @@ export default function partnersReducer(state = initialState, action) {
         ...state,
         isLoadingCatalog: false,
         catalog: action.catalog,
+      };
+    case actions.GET_CATALOG_CATEGORIES_REQUEST:
+      return {
+        ...state,
+        isLoadingCatalogCategories: true,
+      };
+    case actions.GET_CATALOG_CATEGORIES_FAILED:
+      return {
+        ...state,
+        isLoadingCatalogCategories: false,
+      };
+    case actions.GET_CATALOG_CATEGORIES_SUCCESS:
+      return {
+        ...state,
+        isLoadingCatalogCategories: false,
+        catalogCategories: action.categories,
       };
     default:
       return state;

@@ -9,8 +9,8 @@ import Orders from "./orders";
 import Payments from "./payments";
 
 const rootReducer = {
-  // Products: {},
-  Partners: Partners,
+  Products,
+  Partners,
   App,
   Categories,
   ShoppingCart,

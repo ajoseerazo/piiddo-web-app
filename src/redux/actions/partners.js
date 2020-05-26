@@ -8,7 +8,7 @@ const partnersActions = {
   GET_PARTNER_SUCCESS: "GET_PARTNER_SUCCESS",
   GET_PARTNER_FAILED: "GET_PARTNER_SUCCESS",
   GET_CATALOG_REQUEST: "GET_CATALOG_REQUEST",
-  GET_CATALOG_SUCCESS: "GET_CATALOG_REQUEST",
+  GET_CATALOG_SUCCESS: "GET_CATALOG_SUCCESS",
   GET_CATALOG_FAILED: "GET_CATALOG_FAILED",
   GET_CATALOG_CATEGORIES_REQUEST: "GET_CATALOG_CATEGORIES_REQUEST",
   GET_CATALOG_CATEGORIES_SUCCESS: "GET_CATALOG_CATEGORIES_SUCCESS",
@@ -136,6 +136,8 @@ const partnersActions = {
 
         const categories = await API.Partners.getCatalogCategories(catalogId);
 
+        console.log(categories);
+        
         dispatch(partnersActions.fetchCatalogCategoriesSuccess(categories));
 
         return categories;

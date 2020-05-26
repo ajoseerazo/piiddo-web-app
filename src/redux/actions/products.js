@@ -13,10 +13,12 @@ const productsActions = {
       type: productsActions.GET_ALL_PRODUCTS_REQUEST
     }
   },
-  fetchProductsSuccess: (products) => {
+  fetchProductsSuccess: (products, extras, companions) => {
     return {
       type: productsActions.GET_ALL_PRODUCTS_SUCCESS,
-      products
+      products,
+      extras,
+      companions
     }
   },
   fetchProductsFailed: (error) => {
@@ -31,8 +33,6 @@ const productsActions = {
         dispatch(productsActions.fetchingProducts())
 
         const products = await API.Products.getAll(parentId, type);
-
-        dispatch(productsActions.fetchProductsSuccess(products))
 
         const finalProducts = [];
         const extras = [];
@@ -49,6 +49,8 @@ const productsActions = {
             }
           }
         }
+
+        dispatch(productsActions.fetchProductsSuccess(finalProducts, extras, companions))
 
         return [finalProducts, extras, companions];
       } catch (error) {

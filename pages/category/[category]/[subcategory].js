@@ -35,10 +35,6 @@ const SubCategory = ({
   const [innerCurrentURL, setInnerCurrentURL] = useState();
   const [isBrowser, setIsBrowser] = useState(false);
 
-  console.log(router.isFallback);
-  console.log(category);
-  console.log("SUB", router.query.subcategory);
-
   useEffect(() => {
     if (!isBrowser && !partner && category) {
       if (typeof window !== "undefined") {
@@ -47,16 +43,14 @@ const SubCategory = ({
         setInnerCurrentURL(
           `/category/${category.slug}/${router.query.subcategory}`
         );
+        setIsBrowser(true);
       }
     }
   }, [partner, isBrowser, router.query.subcategory]);
 
-  if (router.isFallback) {
-    return <div></div>;
-  }
 
-  if (partner) {
-    return <StorePage partner={partner} address={address} />;
+  if (partner || router.isFallback) {
+    return <StorePage showFallback={router.isFallback} partner={partner} address={address} />;
   }
 
   return (
@@ -97,16 +91,12 @@ export const getStaticPaths = async () => {
 };
 
 export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
-  console.log("SE LLAMAAAAAA");
-
   const {
     store,
     params: { category: categoryQuery, subcategory },
   } = ctx;
 
   const category = await store.dispatch(fetchCategory(categoryQuery));
-
-  console.log("CATEGORY", category);
 
   const address = cookies(ctx).deliveryAddress || null;
 
@@ -126,36 +116,6 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
       );
     } else {
       partner = await store.dispatch(fetchPartner(subcategory));
-      partner.catalog = await store.dispatch(fetchCatalog(partner.id));
-      const [products, extras, companions] = await store.dispatch(
-        fetchProducts(partner.id, "partner")
-      );
-
-      partner.products = products;
-      partner.extras = extras;
-      partner.companions = companions;
-      const categories = await store.dispatch(
-        fetchCatalogCategories(partner.catalog.id)
-      );
-      partner.catalog.categories = categories;
-
-      const productsHash = {
-        all: products,
-      };
-
-      for (let i = 0; i < products.length; i++) {
-        if (products[i].categories) {
-          for (let j = 0; j < products[i].categories.length; j++) {
-            if (!productsHash[products[i].categories[j]]) {
-              productsHash[products[i].categories[j]] = [];
-            }
-
-            productsHash[products[i].categories[j]].push(products[i]);
-          }
-        }
-      }
-
-      partner.productsHash = productsHash;
     }
 
     return {

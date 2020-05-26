@@ -13,7 +13,7 @@ import debounce from "lodash.debounce";
 library.add([faChevronLeft, faTimes]);
 
 const MobileSearchModal = ({ isOpen, onClose }) => {
-  const [searchText, setSearchText] = useState();
+  const [searchText, setSearchText] = useState("");
 
   useEffect(() => {
     if (isOpen) {
@@ -24,11 +24,13 @@ const MobileSearchModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const onChangeSearch = useCallback(
-    debounce(({ target }) => {
+    ({ target }) => {
       setSearchText(target.value);
-    }, 300),
+    },
     [setSearchText]
   );
+
+  const onChangeSearchDebounce = debounce(onChangeSearch, 300);
 
   const clearSearchText = useCallback(() => {
     setSearchText("");

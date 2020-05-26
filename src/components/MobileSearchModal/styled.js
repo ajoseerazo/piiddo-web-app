@@ -26,6 +26,7 @@ export const SearchWrapper = styled.div`
     height: 58px;
     flex: 1;
     color: #332927;
+    border: none;
 
     &:focus {
       outline: none;

@@ -49,6 +49,7 @@ import partnersActions from "../../redux/actions/partners";
 import productsActions from "../../redux/actions/products";
 import ProductsPlaceholder from "../../components/ProductsPlaceholder";
 import PartnerBannerPlaceholder from "../../components/PartnerBannerPlaceholder";
+import Toolbar from "../../components/Toolbar";
 
 const {
   fetchPartners,
@@ -72,7 +73,7 @@ const Store = ({
   showFallback,
   isLoadingCatalogCategories,
   isLoadingProducts,
-  isLoadingCatalog
+  isLoadingCatalog,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -280,6 +281,8 @@ const Store = ({
         />
       </HomeWrapper>
 
+      <Toolbar />
+
       <Footer />
     </>
   );
@@ -291,7 +294,7 @@ function mapStateToProps(state, props) {
     catalog,
     catalogCategories,
     isLoadingCatalogCategories,
-    isLoadingCatalog
+    isLoadingCatalog,
   } = state.Partners;
 
   const productsHash = {
@@ -318,7 +321,7 @@ function mapStateToProps(state, props) {
     catalogCategories,
     isLoadingCatalogCategories,
     isLoadingProducts: isLoading,
-    isLoadingCatalog
+    isLoadingCatalog,
   };
 }
 

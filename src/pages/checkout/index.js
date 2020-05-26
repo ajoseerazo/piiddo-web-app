@@ -44,6 +44,7 @@ import CreditCardForm from "../../components/CreditCardForm";
 import paymentsActions from "../../redux/actions/payments";
 import PaymentSuccessModal from "../../components/PaymentSuccessModal";
 import { PayPalButton } from "react-paypal-button-v2";
+import Toolbar from "../../components/Toolbar";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -597,6 +598,9 @@ const CheckoutPage = ({
             paymentMethodSelected.value === "paypal")) && (
           <PaymentSuccessModal isOpened={shouldOpenPaymentSuccessModal} />
         )}
+
+      <Toolbar />
+      
     </Wrapper>
   );
 };

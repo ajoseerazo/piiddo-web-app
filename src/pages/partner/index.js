@@ -68,6 +68,7 @@ const Store = ({
   catalogCategories,
   products,
   showFallback,
+  isLoadingCatalogCategories
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -193,6 +194,8 @@ const Store = ({
                     currentUrl={currentUrl}
                     showTitle={false}
                     scrollSpy
+                    withPlaceholder={true}
+                    isLoading={isLoadingCatalogCategories}
                   />
                 </SidebarWrapper>
 
@@ -256,7 +259,7 @@ const Store = ({
 
 function mapStateToProps(state, props) {
   const { products } = state.Products;
-  const { catalog, catalogCategories } = state.Partners;
+  const { catalog, catalogCategories, isLoadingCatalogCategories } = state.Partners;
 
   const productsHash = {
     all: products,
@@ -280,6 +283,7 @@ function mapStateToProps(state, props) {
     products: productsHash,
     catalog,
     catalogCategories,
+    isLoadingCatalogCategories
   };
 }
 

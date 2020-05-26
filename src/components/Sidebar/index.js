@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { Link as AnimatedLink } from "react-scroll";
+import SidebarPlaceholder from "../SidebarPlaceholder";
 
 import "./styles.scss";
 
@@ -18,7 +19,9 @@ const Sidebar = ({
   currentUrl,
   showTitle,
   scrollSpy,
-  shallow
+  shallow,
+  withPlaceholder,
+  isLoading
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -50,52 +53,55 @@ const Sidebar = ({
       }`}
     >
       {showTitle && <div className="category-name">Categorías</div>}
-      <ul
-        className={showTitle ? "with-title" : "no-title"}
-        /*style={{
+
+      <SidebarPlaceholder rows={10} ready={withPlaceholder ? categories && categories.length && !isLoading : true}>
+        <ul
+          className={showTitle ? "with-title" : "no-title"}
+          /*style={{
           height: sidebarHeight,
         }}
         */
-      >
-        <li
-          className={
-            `/category/${categorySlug}` === currentUrl ? "active" : undefined
-          }
         >
-          <WrapperLink
-            href="/category/[category]"
-            as={`/category/${categorySlug}`}
-            shallow={shallow}
-          >
-            <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
-              Todos
-            </MenuLink>
-          </WrapperLink>
-        </li>
-        {categories.map((category) => (
           <li
             className={
-              `/category/${categorySlug}/${category.slug}` === currentUrl
-                ? "active"
-                : undefined
+              `/category/${categorySlug}` === currentUrl ? "active" : undefined
             }
           >
             <WrapperLink
-              key={category.id || category.slug}
-              href="/category/[category]/[subcategory]"
-              as={`/category/${categorySlug}/${category.slug}`}
+              href="/category/[category]"
+              as={`/category/${categorySlug}`}
               shallow={shallow}
             >
-              <MenuLink
-                to={scrollSpy ? `${category.id}` : undefined}
-                {...menuLinkOptions}
-              >
-                {category.name}
+              <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
+                Todos
               </MenuLink>
             </WrapperLink>
           </li>
-        ))}
-      </ul>
+          {categories.map((category) => (
+            <li
+              className={
+                `/category/${categorySlug}/${category.slug}` === currentUrl
+                  ? "active"
+                  : undefined
+              }
+            >
+              <WrapperLink
+                key={category.id || category.slug}
+                href="/category/[category]/[subcategory]"
+                as={`/category/${categorySlug}/${category.slug}`}
+                shallow={shallow}
+              >
+                <MenuLink
+                  to={scrollSpy ? `${category.id}` : undefined}
+                  {...menuLinkOptions}
+                >
+                  {category.name}
+                </MenuLink>
+              </WrapperLink>
+            </li>
+          ))}
+        </ul>
+      </SidebarPlaceholder>
     </div>
   );
 };

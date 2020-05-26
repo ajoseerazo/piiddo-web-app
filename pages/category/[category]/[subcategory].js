@@ -36,17 +36,16 @@ const SubCategory = ({
   const [isBrowser, setIsBrowser] = useState(false);
 
   useEffect(() => {
-    if (!isBrowser && !partner && category) {
+    if (!isBrowser && category && !partner) {
       if (typeof window !== "undefined") {
         fetchPartners(category.slug, router.query.subcategory);
         setInnerSubcategory(router.query.subcategory);
         setInnerCurrentURL(
           `/category/${category.slug}/${router.query.subcategory}`
         );
-        setIsBrowser(true);
       }
     }
-  }, [partner, isBrowser, router.query.subcategory]);
+  }, [isBrowser, router.query.subcategory]);
 
 
   if (partner || router.isFallback) {

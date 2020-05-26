@@ -47,6 +47,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import partnersActions from "../../redux/actions/partners";
 import productsActions from "../../redux/actions/products";
+import ProductsPlaceholder from "../../components/ProductsPlaceholder";
 
 const {
   fetchPartners,
@@ -69,6 +70,7 @@ const Store = ({
   products,
   showFallback,
   isLoadingCatalogCategories,
+  isLoadingProducts,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -199,41 +201,49 @@ const Store = ({
             </SidebarWrapper>
 
             <ProductsWrapper>
-              {catalogCategories ? (
-                catalogCategories.map((cat) => (
-                  <>
-                    {products[cat.id] && products[cat.id].length !== 0 && (
-                      <CategoryWrapper id={cat.id}>
-                        <CategoryName key={cat.id}>{cat.name}</CategoryName>
-
-                        <ProductsGrid>
-                          {products[cat.id].map((product) => (
-                            <ProductItem
-                              key={product.id}
-                              product={product}
-                              onSelectProduct={openProduct.bind(this, product)}
-                            />
-                          ))}
-                        </ProductsGrid>
-                      </CategoryWrapper>
-                    )}
-                  </>
-                ))
-              ) : (
-                <ProductsGrid>
-                  {products && products.all && (
+              <ProductsPlaceholder
+                ready={!showFallback && !isLoadingProducts}
+                rows={12}
+              >
+                {catalogCategories ? (
+                  catalogCategories.map((cat) => (
                     <>
-                      {products.all.map((product) => (
-                        <ProductItem
-                          key={product.id}
-                          product={product}
-                          onSelectProduct={openProduct.bind(this, product)}
-                        />
-                      ))}
+                      {products[cat.id] && products[cat.id].length !== 0 && (
+                        <CategoryWrapper id={cat.id}>
+                          <CategoryName key={cat.id}>{cat.name}</CategoryName>
+
+                          <ProductsGrid>
+                            {products[cat.id].map((product) => (
+                              <ProductItem
+                                key={product.id}
+                                product={product}
+                                onSelectProduct={openProduct.bind(
+                                  this,
+                                  product
+                                )}
+                              />
+                            ))}
+                          </ProductsGrid>
+                        </CategoryWrapper>
+                      )}
                     </>
-                  )}
-                </ProductsGrid>
-              )}
+                  ))
+                ) : (
+                  <ProductsGrid>
+                    {products && products.all && (
+                      <>
+                        {products.all.map((product) => (
+                          <ProductItem
+                            key={product.id}
+                            product={product}
+                            onSelectProduct={openProduct.bind(this, product)}
+                          />
+                        ))}
+                      </>
+                    )}
+                  </ProductsGrid>
+                )}
+              </ProductsPlaceholder>
             </ProductsWrapper>
           </PartnerContent>
         </PartnerWrapper>
@@ -252,7 +262,7 @@ const Store = ({
 };
 
 function mapStateToProps(state, props) {
-  const { products } = state.Products;
+  const { products, isLoading } = state.Products;
   const {
     catalog,
     catalogCategories,
@@ -277,11 +287,14 @@ function mapStateToProps(state, props) {
     }
   }
 
+  console.log("isLoading", isLoading);
+
   return {
     products: productsHash,
     catalog,
     catalogCategories,
     isLoadingCatalogCategories,
+    isLoadingProducts: isLoading,
   };
 }
 

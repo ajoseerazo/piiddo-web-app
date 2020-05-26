@@ -84,7 +84,7 @@ class ShopHeader extends Component {
         <Link href="/" as="/">
           <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
             <img
-              src="https://piiddo.com/piddo-color.png"
+              src="https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/piddo-color.png?alt=media&token=22e13946-57a0-490d-8b2b-42282273e88a"
               style={{
                 width: 104,
               }}

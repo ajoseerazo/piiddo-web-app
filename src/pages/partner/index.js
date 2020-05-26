@@ -48,6 +48,7 @@ import { connect } from "react-redux";
 import partnersActions from "../../redux/actions/partners";
 import productsActions from "../../redux/actions/products";
 import ProductsPlaceholder from "../../components/ProductsPlaceholder";
+import PartnerBannerPlaceholder from "../../components/PartnerBannerPlaceholder";
 
 const {
   fetchPartners,
@@ -138,48 +139,57 @@ const Store = ({
                   ]}
                 />
               </BreadcumbWrapper>
-
-              <PartnerInfoWrapper>
-                <PartnerMediaWrapper>
-                  <PartnerBanner src={partner.banner} />
-                  <PartnerLogo src={partner.logo} />
-                </PartnerMediaWrapper>
-
-                <PartnerInfo>
-                  <PartnerName>{partner.name}</PartnerName>
-                  <PartnerHourly>7:30am - 2:00pm</PartnerHourly>
-
-                  <PartnerDeliveryInfo>
-                    <div>
-                      <PartnerDeliveryText>Delivery</PartnerDeliveryText>
-                      <div>0.7$</div>
-                    </div>
-
-                    <div>
-                      <PartnerDeliveryText>Entrega</PartnerDeliveryText>
-                      <div>40 min</div>
-                    </div>
-                  </PartnerDeliveryInfo>
-                </PartnerInfo>
-              </PartnerInfoWrapper>
-
-              <PartnerInfoWrapperMobile>
-                <PartnerBannerMobile src={partner.banner} />
-
-                <PartnerInfoMobile>
-                  <PartnerLogoMobile src={partner.logo} />
-                  <PartnerTitleMobile>{partner.name}</PartnerTitleMobile>
-                  <PartnerMobileAddress>{partner.address}</PartnerMobileAddress>
-
-                  <PartnerMobileDeliveryInfo>
-                    <div>Delivery: 0.7$</div>
-
-                    <div>Entrega: 40 min</div>
-                  </PartnerMobileDeliveryInfo>
-                </PartnerInfoMobile>
-              </PartnerInfoWrapperMobile>
             </>
           )}
+
+          <PartnerInfoWrapper>
+            <PartnerBannerPlaceholder ready={!showFallback}>
+              {partner && (
+                <>
+                  <PartnerMediaWrapper>
+                    <PartnerBanner src={partner.banner} />
+                    <PartnerLogo src={partner.logo} />
+                  </PartnerMediaWrapper>
+
+                  <PartnerInfo>
+                    <PartnerName>{partner.name}</PartnerName>
+                    <PartnerHourly>7:30am - 2:00pm</PartnerHourly>
+
+                    <PartnerDeliveryInfo>
+                      <div>
+                        <PartnerDeliveryText>Delivery</PartnerDeliveryText>
+                        <div>0.7$</div>
+                      </div>
+
+                      <div>
+                        <PartnerDeliveryText>Entrega</PartnerDeliveryText>
+                        <div>40 min</div>
+                      </div>
+                    </PartnerDeliveryInfo>
+                  </PartnerInfo>
+                </>
+              )}
+            </PartnerBannerPlaceholder>
+          </PartnerInfoWrapper>
+
+          {!showFallback && (
+            <PartnerInfoWrapperMobile>
+              <PartnerBannerMobile src={partner.banner} />
+
+              <PartnerInfoMobile>
+                <PartnerLogoMobile src={partner.logo} />
+                <PartnerTitleMobile>{partner.name}</PartnerTitleMobile>
+                <PartnerMobileAddress>{partner.address}</PartnerMobileAddress>
+
+                <PartnerMobileDeliveryInfo>
+                  <div>Delivery: 0.7$</div>
+
+                  <div>Entrega: 40 min</div>
+                </PartnerMobileDeliveryInfo>
+              </PartnerInfoMobile>
+            </PartnerInfoWrapperMobile>
+          )}
+
           <MobileCategoriesWrapper>
             <HorizontalCategories
               categories={catalogCategories ? catalogCategories : []}

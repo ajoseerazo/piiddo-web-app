@@ -63,7 +63,7 @@ class ShopHeader extends Component {
   };
 
   render() {
-    const { hideShoppingCart, address, bordered } = this.props;
+    const { hideShoppingCart, address, bordered, hideBackButton } = this.props;
 
     return (
       <Navbar
@@ -75,9 +75,11 @@ class ShopHeader extends Component {
           borderBottom: bordered ? "1px solid #e5edef" : undefined,
         }}
       >
-        <BackButtonWrapper onClick={this.goBack}>
-          <FontAwesomeIcon icon="chevron-left" color="#f74342" />
-        </BackButtonWrapper>
+        {!hideBackButton && (
+          <BackButtonWrapper onClick={this.goBack}>
+            <FontAwesomeIcon icon="chevron-left" color="#f74342" />
+          </BackButtonWrapper>
+        )}
 
         <Link href="/" as="/">
           <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>

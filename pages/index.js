@@ -150,7 +150,7 @@ class Shop extends Component {
 
     return (
       <>
-        <ShopHeader address={address} />
+        <ShopHeader address={address} hideBackButton />
 
         {/*<div style={{marginTop: 57}}>
           <Banner />

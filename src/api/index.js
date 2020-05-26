@@ -76,8 +76,6 @@ class Partners {
       };
     });
 
-    console.log(partners);
-
     return partners;
   };
 

@@ -29,8 +29,6 @@ const Category = ({
   isLoadingPartners,
   onChangeSubcategory,
 }) => {
-  console.log("entra");
-
   const [isBrowser, setIsBrowser] = useState(false);
 
   const handleRouteChange = (url) => {

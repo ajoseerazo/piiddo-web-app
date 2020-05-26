@@ -1,9 +1,10 @@
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { ToolbarWrapper } from "./styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faSearch } from "@fortawesome/free-solid-svg-icons";
 import Router from "next/router";
+import MobileSearchModal from "../MobileSearchModal";
 
 library.add([faHome, faSearch]);
 
@@ -21,32 +22,49 @@ const items = [
 ];
 
 const Toolbar = () => {
-  const onPressItem = useCallback((value) => {
-    switch (value) {
-      case "home":
-        Router.push("/");
-        break;
-      case "search":
-        break;
-      default:
-        break;
-    }
-  });
+  const [searchModalOpened, setSearchModalOpened] = useState(false);
+
+  const onPressItem = useCallback(
+    (value) => {
+      switch (value) {
+        case "home":
+          Router.push("/");
+          break;
+        case "search":
+          setSearchModalOpened(true);
+          break;
+        default:
+          break;
+      }
+    },
+    [setSearchModalOpened]
+  );
+
+  const closeSearchModal = useCallback(() => {
+    setSearchModalOpened(false);
+  }, [setSearchModalOpened]);
 
   return (
-    <ToolbarWrapper>
-      {items.map((item, index) => {
-        return (
-          <div key={index}>
-            <FontAwesomeIcon
-              icon={item.icon}
-              color="#f74342"
-              onClick={onPressItem.bind(this, item.value)}
-            />
-          </div>
-        );
-      })}
-    </ToolbarWrapper>
+    <>
+      <ToolbarWrapper>
+        {items.map((item, index) => {
+          return (
+            <div key={index}>
+              <FontAwesomeIcon
+                icon={item.icon}
+                color="#f74342"
+                onClick={onPressItem.bind(this, item.value)}
+              />
+            </div>
+          );
+        })}
+      </ToolbarWrapper>
+
+      <MobileSearchModal
+        isOpen={searchModalOpened}
+        onClose={closeSearchModal}
+      />
+    </>
   );
 };
 

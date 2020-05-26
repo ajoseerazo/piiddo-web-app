@@ -5,4 +5,21 @@ export const PlaceholderWrapper = styled.div`
   padding: 10px;
   background: white;
   border-radius: 8px;
+
+  @media screen and (max-width: 768px) {
+  }
+`;
+
+export const DesktopPlaceholder = styled.div`
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+`;
+
+export const MobilePlaceholder = styled.div`
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;

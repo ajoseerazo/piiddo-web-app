@@ -172,29 +172,37 @@ const Store = ({
             </PartnerBannerPlaceholder>
           </PartnerInfoWrapper>
 
-          {!showFallback && (
-            <PartnerInfoWrapperMobile>
-              <PartnerBannerMobile src={partner.banner} />
+          <PartnerInfoWrapperMobile>
+            <PartnerBannerPlaceholder ready={!showFallback}>
+              {!showFallback && partner && (
+                <>
+                  <PartnerBannerMobile src={partner.banner} />
 
-              <PartnerInfoMobile>
-                <PartnerLogoMobile src={partner.logo} />
-                <PartnerTitleMobile>{partner.name}</PartnerTitleMobile>
-                <PartnerMobileAddress>{partner.address}</PartnerMobileAddress>
+                  <PartnerInfoMobile>
+                    <PartnerLogoMobile src={partner.logo} />
+                    <PartnerTitleMobile>{partner.name}</PartnerTitleMobile>
+                    <PartnerMobileAddress>
+                      {partner.address}
+                    </PartnerMobileAddress>
 
-                <PartnerMobileDeliveryInfo>
-                  <div>Delivery: 0.7$</div>
+                    <PartnerMobileDeliveryInfo>
+                      <div>Delivery: 0.7$</div>
 
-                  <div>Entrega: 40 min</div>
-                </PartnerMobileDeliveryInfo>
-              </PartnerInfoMobile>
-            </PartnerInfoWrapperMobile>
-          )}
+                      <div>Entrega: 40 min</div>
+                    </PartnerMobileDeliveryInfo>
+                  </PartnerInfoMobile>
+                </>
+              )}
+            </PartnerBannerPlaceholder>
+          </PartnerInfoWrapperMobile>
 
           <MobileCategoriesWrapper>
             <HorizontalCategories
               categories={catalogCategories ? catalogCategories : []}
               currentUrl={currentUrl}
               scrollSpy={true}
+              withPlaceholder={true}
+              isLoading={showFallback || isLoadingCatalogCategories}
             />
           </MobileCategoriesWrapper>
 

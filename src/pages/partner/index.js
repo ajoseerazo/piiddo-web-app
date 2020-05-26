@@ -248,7 +248,7 @@ const Store = ({
                   ))
                 ) : (
                   <ProductsGrid>
-                    {products && products.all && (
+                    {!isLoadingCatalogCategories && products && products.all && (
                       <>
                         {products.all.map((product) => (
                           <ProductItem

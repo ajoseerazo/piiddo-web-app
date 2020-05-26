@@ -72,6 +72,7 @@ const Store = ({
   showFallback,
   isLoadingCatalogCategories,
   isLoadingProducts,
+  isLoadingCatalog
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -112,8 +113,6 @@ const Store = ({
       fetchCatalogCategories(catalog.id);
     }
   }, [catalog]);
-
-  console.log(isLoadingProducts);
 
   return (
     <>
@@ -225,7 +224,8 @@ const Store = ({
                 ready={
                   !showFallback &&
                   !isLoadingProducts &&
-                  !isLoadingCatalogCategories
+                  !isLoadingCatalogCategories &&
+                  !isLoadingCatalog
                 }
                 rows={12}
               >
@@ -291,6 +291,7 @@ function mapStateToProps(state, props) {
     catalog,
     catalogCategories,
     isLoadingCatalogCategories,
+    isLoadingCatalog
   } = state.Partners;
 
   const productsHash = {
@@ -311,14 +312,13 @@ function mapStateToProps(state, props) {
     }
   }
 
-  console.log("isLoading", isLoading);
-
   return {
     products: productsHash,
     catalog,
     catalogCategories,
     isLoadingCatalogCategories,
     isLoadingProducts: isLoading,
+    isLoadingCatalog
   };
 }
 

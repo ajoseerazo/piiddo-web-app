@@ -14,7 +14,7 @@ export const Wrapper = styled.div`
   @media screen and (max-width: 768px) {
     > div {
       margin-top: 50px;
-      padding: 20px 0px;
+      padding: 20px 0px 70px;
     }
   }
 `;

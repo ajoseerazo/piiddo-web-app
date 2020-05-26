@@ -28,6 +28,7 @@ const Toolbar = () => {
     (value) => {
       switch (value) {
         case "home":
+          setSearchModalOpened(false);
           Router.push("/");
           break;
         case "search":

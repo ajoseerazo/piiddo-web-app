@@ -14,18 +14,22 @@ import {
 } from "reactstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch, faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
-import CurrencySelector from "../CurrencySelector";
-import FontAwesome from "react-fontawesome";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
+import {
+  faSearch,
+  faShoppingBasket,
+  faChevronLeft,
+} from "@fortawesome/free-solid-svg-icons";
 import appActions from "../../redux/actions/app";
 import Link from "next/link";
 import AddressSelector from "../AddressSelector";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import { BackButtonWrapper } from "./styled";
+import Router from "next/router";
 
 const { selectCurrency } = appActions;
 
-library.add([faSearch, faShoppingBasket]);
+library.add([faSearch, faShoppingBasket, faChevronLeft]);
 
 import "./ShopHeader.scss";
 import ShoppingCart from "../../containers/ShoppingCartContainer";
@@ -54,6 +58,10 @@ class ShopHeader extends Component {
     selectCurrency(currency);
   };
 
+  goBack = () => {
+    Router.back();
+  };
+
   render() {
     const { hideShoppingCart, address, bordered } = this.props;
 
@@ -64,9 +72,13 @@ class ShopHeader extends Component {
         fixed="top"
         style={{
           backgroundColor: "#FFF",
-          borderBottom: bordered ? '1px solid #e5edef' : undefined
+          borderBottom: bordered ? "1px solid #e5edef" : undefined,
         }}
       >
+        <BackButtonWrapper onClick={this.goBack}>
+          <FontAwesomeIcon icon="chevron-left" color="#f74342" />
+        </BackButtonWrapper>
+
         <Link href="/" as="/">
           <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
             <img

@@ -18,7 +18,7 @@ export const ButtonStyled = styled(Button)`
     box-shadow: none !important;
   }
 
-  span {
+  span.fa {
     color: #f74342;
   }
 `;

@@ -24,9 +24,7 @@ Router.events.on("routeChangeStart", (url) => {
 });
 
 Router.events.on("routeChangeComplete", (url) => {
-  if (url === "/") {
-    window.scrollTo(0, 0);
-  }
+  window.scrollTo(0, 0);
   NProgress.done();
 });
 Router.events.on("routeChangeError", () => NProgress.done());

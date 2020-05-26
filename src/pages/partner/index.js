@@ -68,7 +68,7 @@ const Store = ({
   catalogCategories,
   products,
   showFallback,
-  isLoadingCatalogCategories
+  isLoadingCatalogCategories,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -110,16 +110,14 @@ const Store = ({
     }
   }, [catalog]);
 
-  console.log(showFallback);
-
   return (
     <>
       <ShopHeader address={address} />
 
       <HomeWrapper>
-        {!showFallback && (
-          <>
-            <PartnerWrapper>
+        <PartnerWrapper>
+          {!showFallback && (
+            <>
               <BreadcumbWrapper>
                 <Breadcumb
                   items={[
@@ -178,78 +176,74 @@ const Store = ({
                   </PartnerMobileDeliveryInfo>
                 </PartnerInfoMobile>
               </PartnerInfoWrapperMobile>
+            </>
+          )}
+          <MobileCategoriesWrapper>
+            <HorizontalCategories
+              categories={catalogCategories ? catalogCategories : []}
+              currentUrl={currentUrl}
+              scrollSpy={true}
+            />
+          </MobileCategoriesWrapper>
 
-              <MobileCategoriesWrapper>
-                <HorizontalCategories
-                  categories={catalogCategories ? catalogCategories : []}
-                  currentUrl={currentUrl}
-                  scrollSpy={true}
-                />
-              </MobileCategoriesWrapper>
+          <PartnerContent>
+            <SidebarWrapper>
+              <Sidebar
+                categories={catalogCategories ? catalogCategories : []}
+                currentUrl={currentUrl}
+                showTitle={false}
+                scrollSpy
+                withPlaceholder={true}
+                isLoading={showFallback || isLoadingCatalogCategories}
+              />
+            </SidebarWrapper>
 
-              <PartnerContent>
-                <SidebarWrapper>
-                  <Sidebar
-                    categories={catalogCategories ? catalogCategories : []}
-                    currentUrl={currentUrl}
-                    showTitle={false}
-                    scrollSpy
-                    withPlaceholder={true}
-                    isLoading={isLoadingCatalogCategories}
-                  />
-                </SidebarWrapper>
+            <ProductsWrapper>
+              {catalogCategories ? (
+                catalogCategories.map((cat) => (
+                  <>
+                    {products[cat.id] && products[cat.id].length !== 0 && (
+                      <CategoryWrapper id={cat.id}>
+                        <CategoryName key={cat.id}>{cat.name}</CategoryName>
 
-                <ProductsWrapper>
-                  {catalogCategories ? (
-                    catalogCategories.map((cat) => (
-                      <>
-                        {products[cat.id] && products[cat.id].length !== 0 && (
-                          <CategoryWrapper id={cat.id}>
-                            <CategoryName key={cat.id}>{cat.name}</CategoryName>
-
-                            <ProductsGrid>
-                              {products[cat.id].map((product) => (
-                                <ProductItem
-                                  key={product.id}
-                                  product={product}
-                                  onSelectProduct={openProduct.bind(
-                                    this,
-                                    product
-                                  )}
-                                />
-                              ))}
-                            </ProductsGrid>
-                          </CategoryWrapper>
-                        )}
-                      </>
-                    ))
-                  ) : (
-                    <ProductsGrid>
-                      {products && products.all && (
-                        <>
-                          {products.all.map((product) => (
+                        <ProductsGrid>
+                          {products[cat.id].map((product) => (
                             <ProductItem
                               key={product.id}
                               product={product}
                               onSelectProduct={openProduct.bind(this, product)}
                             />
                           ))}
-                        </>
-                      )}
-                    </ProductsGrid>
+                        </ProductsGrid>
+                      </CategoryWrapper>
+                    )}
+                  </>
+                ))
+              ) : (
+                <ProductsGrid>
+                  {products && products.all && (
+                    <>
+                      {products.all.map((product) => (
+                        <ProductItem
+                          key={product.id}
+                          product={product}
+                          onSelectProduct={openProduct.bind(this, product)}
+                        />
+                      ))}
+                    </>
                   )}
-                </ProductsWrapper>
-              </PartnerContent>
-            </PartnerWrapper>
+                </ProductsGrid>
+              )}
+            </ProductsWrapper>
+          </PartnerContent>
+        </PartnerWrapper>
 
-            <ProductModal
-              isOpen={isModalOpen}
-              onClose={onCloseModal}
-              product={productSelected}
-              onAccept={onAddProductToCart}
-            />
-          </>
-        )}
+        <ProductModal
+          isOpen={isModalOpen}
+          onClose={onCloseModal}
+          product={productSelected}
+          onAccept={onAddProductToCart}
+        />
       </HomeWrapper>
 
       <Footer />
@@ -259,7 +253,11 @@ const Store = ({
 
 function mapStateToProps(state, props) {
   const { products } = state.Products;
-  const { catalog, catalogCategories, isLoadingCatalogCategories } = state.Partners;
+  const {
+    catalog,
+    catalogCategories,
+    isLoadingCatalogCategories,
+  } = state.Partners;
 
   const productsHash = {
     all: products,
@@ -283,7 +281,7 @@ function mapStateToProps(state, props) {
     products: productsHash,
     catalog,
     catalogCategories,
-    isLoadingCatalogCategories
+    isLoadingCatalogCategories,
   };
 }
 

@@ -618,9 +618,9 @@ function mapStateToProps(state, props) {
     orderCreated,
     settingPaymentSupport,
     paymentSupportSent,
-  } = state.Orders.toJS();
+  } = state.Orders;
 
-  const { payment, paymentSuccess, isDoingPayment } = state.Payments.toJS();
+  const { payment, paymentSuccess, isDoingPayment } = state.Payments;
 
   return {
     items,

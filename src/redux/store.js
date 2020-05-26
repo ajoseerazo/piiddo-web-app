@@ -20,7 +20,9 @@ const reducer = (state, action) => {
       ...action.payload, // apply delta from hydration
     };
 
-    if (state.Categories.categories) nextState.Categories.categories = state.Categories.categories; // preserve count value on client side navigation
+    if (state.Categories.categories)
+      nextState.Categories.categories = state.Categories.categories; // preserve count value on client side navigation
+    if (state.Orders.order) nextState.Orders.order = state.Orders.order;
 
     return nextState;
   } else {

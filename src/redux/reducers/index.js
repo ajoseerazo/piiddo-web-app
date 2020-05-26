@@ -14,9 +14,9 @@ const rootReducer = {
   App,
   Categories,
   ShoppingCart,
-  // Location: {},
-  // Orders: {},
-  // Payments: {},
+  Location,
+  Orders,
+  Payments,
 };
 
 export default rootReducer;

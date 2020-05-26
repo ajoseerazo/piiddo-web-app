@@ -1,23 +1,31 @@
-import { Map } from "immutable";
 import actions from "../actions/payments";
 
-const initialState = new Map({
+const initialState = {
   isDoingPayment: false,
   payment: null,
   paymentSuccess: false,
-});
+};
 
 export default function paymentsReducer(state = initialState, action) {
   switch (action.type) {
     case actions.DO_PAYMENT_REQUEST:
-      return state.set("isDoingPayment", true);
+      return {
+        ...state,
+        isDoingPayment: true,
+      };
     case actions.DO_PAYMENT_FAILED:
-      return state.set("isDoingPayment", false).set("paymentSuccess", true);
+      return {
+        ...state,
+        isDoingPayment: false,
+        paymentSuccess: true,
+      };
     case actions.DO_PAYMENT_SUCCESS:
-      return state
-        .set("isDoingPayment", false)
-        .set("payment", action.payment)
-        .set("paymentSuccess", true);
+      return {
+        ...state,
+        isDoingPayment: false,
+        payment: action.payment,
+        paymentSuccess: true,
+      };
     default:
       return state;
   }

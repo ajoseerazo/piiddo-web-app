@@ -23,6 +23,10 @@ const reducer = (state, action) => {
     if (state.Categories.categories)
       nextState.Categories.categories = state.Categories.categories; // preserve count value on client side navigation
     if (state.Orders.order) nextState.Orders.order = state.Orders.order;
+    if (state.Location.deliveryAddress)
+      nextState.Location.deliveryAddress = state.Location.deliveryAddress;
+    if (state.Location.deliveryLocation)
+      nextState.Location.deliveryLocation = state.Location.deliveryLocation;
 
     return nextState;
   } else {

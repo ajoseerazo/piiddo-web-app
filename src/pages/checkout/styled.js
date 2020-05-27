@@ -148,7 +148,7 @@ export const CheckoutAddressText = styled.div`
   margin-bottom: 5px;
 
   @media screen and (max-width: 768px) {
-    font-size: 20px;
+    font-size: 16px;
   }
 `;
 

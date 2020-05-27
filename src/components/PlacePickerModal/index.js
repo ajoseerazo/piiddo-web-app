@@ -1,5 +1,4 @@
 import { useState, useEffect, Suspense, useCallback } from "react";
-import { Modal, ModalBody, Button } from "reactstrap";
 import {
   ModalStyled,
   ModalBodyStyled,

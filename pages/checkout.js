@@ -1,24 +1,48 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import CheckoutPage from "../src/pages/checkout";
 import ShopHeader from "../src/components/ShopHeader/ShopHeader";
-import cookies from "next-cookies";
+import { bindActionCreators } from "redux";
+import locationActions from "../src/redux/actions/location";
+import { connect } from "react-redux";
 
-const Checkout = ({ address }) => {
+const { getDeliveryPlace } = locationActions;
+
+const Checkout = ({ actions: { getDeliveryPlace }, place }) => {
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    if (!mounted) {
+      setMounted(true);
+      if (!place) {
+        getDeliveryPlace();
+      }
+    }
+  }, [mounted, place]);
+
   return (
     <>
       <ShopHeader hideShoppingCart bordered />
 
-      <CheckoutPage address={address} />
+      <CheckoutPage address={(place || {}).address} />
     </>
   );
 };
 
-Checkout.getInitialProps = (ctx) => {
-  const address = cookies(ctx).deliveryAddress;
+function mapStateToProps(state, props) {
+  const { deliveryLocation, deliveryAddress } = state.Location;
 
-  console.log("Address", address);
+  return {
+    place: {
+      address: deliveryAddress,
+      location: deliveryLocation,
+    },
+  };
+}
 
-  return { address };
-};
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators({ getDeliveryPlace }, dispatch),
+  };
+}
 
-export default Checkout;
+export default connect(mapStateToProps, mapDispatchToProps)(Checkout);

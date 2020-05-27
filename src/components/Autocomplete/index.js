@@ -46,6 +46,12 @@ export default class Autocomplete extends Component {
     showSuggestions: false,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.inputRef = React.createRef();
+  }
+
   handleChange = (address) => {
     this.setState({ address });
 
@@ -66,6 +72,8 @@ export default class Autocomplete extends Component {
   };
 
   handleSelect = (selected) => {
+    const { blurOnSelect } = this.props;
+
     this.setState({ isGeocoding: true, address: selected });
     geocodeByAddress(selected)
       .then((res) => getLatLng(res[0]))
@@ -75,6 +83,10 @@ export default class Autocomplete extends Component {
           longitude: lng,
           isGeocoding: false,
         });
+
+        if (this.inputRef && blurOnSelect) {
+          this.inputRef.current.blur();
+        }
 
         this.props.onSelect({
           lat: lat,
@@ -122,6 +134,7 @@ export default class Autocomplete extends Component {
                       showSuggestions: true,
                     })
                   }
+                  ref={this.inputRef}
                   className={inputClassName}
                 />
               ) : (
@@ -136,6 +149,7 @@ export default class Autocomplete extends Component {
                       showSuggestions: true,
                     })
                   }
+                  ref={this.inputRef}
                   className={inputClassName}
                 />
               )}

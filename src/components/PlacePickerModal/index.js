@@ -96,6 +96,7 @@ const PlacePickerModal = ({
               style={{
                 width: "100%",
               }}
+              blurOnSelect={true}
               CustomComponent={InputStyled}
             />
           ) : (

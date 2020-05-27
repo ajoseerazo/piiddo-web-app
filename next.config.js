@@ -6,6 +6,7 @@ module.exports = withCSS(
   withSass(
     withPWA({
       pwa: {
+        // disable: process.env.NODE_ENV === "production" ? false : true,
         dest: "public",
       },
     })

@@ -112,13 +112,24 @@ export const MapElementStyled = styled.div`
 
 export const InputStyled = styled.input`
   width: 100%;
-  height: 45px;
+  height: 55px;
   border: none;
   border-bottom: 0.5px solid #ddd;
 
   &:focus {
     border: none;
+    border-bottom: 0.5px solid #ddd;
     outline: none;
     box-shadow: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    height: 45px;
+    font-size: 14px;
+    border-bottom: none;
+
+    &:focus {
+      border-bottom: none;
+    }
   }
 `;

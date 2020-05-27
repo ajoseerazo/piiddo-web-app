@@ -38,7 +38,7 @@ export const TitleStyled = styled.div`
 
   @media screen and (max-width: 768px) {
     font-size: 16px;
-    padding: 13px 50px 13px 30px;
+    padding: 13px 50px 13px 15px;
     height: 72px;
   }
 `;
@@ -49,7 +49,7 @@ export const MapNotification = styled.div`
   background: #458ee5;
   padding: 15px 40px;
   border-radius: 4px;
-  z-index: 100;
+  z-index: 1;
   right: 130px;
   top: 100px;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.19), 0 2px 4px rgba(0, 0, 0, 0.23);
@@ -107,5 +107,18 @@ export const MapElementStyled = styled.div`
 
   @media screen and (max-width: 768px) {
     height: calc(100vh - 197px);
+  }
+`;
+
+export const InputStyled = styled.input`
+  width: 100%;
+  height: 45px;
+  border: none;
+  border-bottom: 0.5px solid #ddd;
+
+  &:focus {
+    border: none;
+    outline: none;
+    box-shadow: none;
   }
 `;

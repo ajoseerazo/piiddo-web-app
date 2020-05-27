@@ -37,6 +37,10 @@ class MyApp extends App {
       <>
         <Head>
           <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+          <title>
+            {" "}
+            Piiddo | Compra lo que quieras y te lo llevamos en minutos
+          </title>
         </Head>
 
         <Component {...pageProps} />

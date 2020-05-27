@@ -352,7 +352,7 @@ const CheckoutPage = ({
                   </div>
 
                   <CheckoutPersonalDataGroup>
-                    <label>Dirección exacta *</label>
+                    <label>¿Cómo llegar? *</label>
                     <CheckoutInput
                       placeholder="Escribe la dirección exacta, puntos de referencias, etc"
                       onChange={handleInputChange.bind(this, "extraAddress")}

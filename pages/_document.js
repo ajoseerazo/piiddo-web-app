@@ -129,10 +129,6 @@ export default class MyDocument extends Document {
           />
           <link rel="stylesheet" href="/_next/static/style.css" />
           <meta charset="utf-8" />
-          <title>
-            {" "}
-            Piiddo | Compra lo que quieras y te lo llevamos en minutos
-          </title>
           <meta
             name="description"
             content="Compra lo que quieras y te lo llevamos en minutos"

@@ -66,11 +66,10 @@ class Shop extends Component {
   };
 
   onSelectPlace = (place) => {
-    console.log(place);
-
     this.setState({
       place,
       isPlacePickerModalOpened: true,
+      showAutocomplete: false
     });
   };
 
@@ -141,6 +140,7 @@ class Shop extends Component {
   onClickAddressSelector = () => {
     this.setState({
       isPlacePickerModalOpened: true,
+      showAutocomplete: true
     });
   };
 
@@ -153,6 +153,7 @@ class Shop extends Component {
       isPlacePickerModalOpened,
       place,
       address,
+      showAutocomplete
     } = this.state;
     const { categories } = this.props;
 
@@ -218,6 +219,7 @@ class Shop extends Component {
           place={place}
           onClose={this.closePlacePickerModal}
           onAccept={this.onSetAddress}
+          showAutocomplete={showAutocomplete}
         />
       </>
     );

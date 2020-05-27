@@ -7,6 +7,19 @@ export const ModalStyled = styled(Modal)`
   position: relative;
   height: calc(100vh - 40px);
   margin-top: 20px;
+
+  @media screen and (max-width: 768px) {
+    min-width: 100%;
+    max-width: 100%;
+    margin: 0px;
+    min-height: 100vh;
+
+    .modal-content {
+      min-height: 100%;
+      border-radius: 0px;
+      border: none;
+    }
+  }
 `;
 
 export const ModalBodyStyled = styled(ModalBody)`
@@ -22,6 +35,12 @@ export const TitleStyled = styled.div`
   font-size: 18px;
   height: 82px;
   border-bottom: 1px solid #ddd;
+
+  @media screen and (max-width: 768px) {
+    font-size: 16px;
+    padding: 13px 50px 13px 30px;
+    height: 72px;
+  }
 `;
 
 export const MapNotification = styled.div`
@@ -37,6 +56,12 @@ export const MapNotification = styled.div`
   text-align: center;
   font-size: 12px;
   width: 400px;
+
+  @media screen and (max-width: 768px) {
+    width: 80%;
+    left: 10%;
+    padding: 10px 20px;
+  }
 `;
 
 export const ModalFooter = styled.div`
@@ -74,5 +99,13 @@ export const CurrentAddress = styled.div`
   span {
     margin-left: 10px;
     font-size: 14px;
+  }
+`;
+
+export const MapElementStyled = styled.div`
+  height: calc(100vh - 250px);
+
+  @media screen and (max-width: 768px) {
+    height: calc(100vh - 197px);
   }
 `;

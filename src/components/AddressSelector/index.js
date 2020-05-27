@@ -5,9 +5,9 @@ import { faTimes, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 library.add([faTimes, faMapMarkerAlt]);
 
-const AddressSelector = ({ address }) => {
+const AddressSelector = ({ address, onClick }) => {
   return (
-    <AddressSelectorWrapper>
+    <AddressSelectorWrapper onClick={onClick}>
       <FontAwesomeIcon icon="map-marker-alt" color="#f74342" />
       <span>{address ? address : "Ingresa dirección"}</span>
     </AddressSelectorWrapper>

@@ -66,6 +66,8 @@ class Shop extends Component {
   };
 
   onSelectPlace = (place) => {
+    console.log(place);
+
     this.setState({
       place,
       isPlacePickerModalOpened: true,
@@ -136,6 +138,12 @@ class Shop extends Component {
     });
   };
 
+  onClickAddressSelector = () => {
+    this.setState({
+      isPlacePickerModalOpened: true,
+    });
+  };
+
   render() {
     const {
       itemsInCart,
@@ -150,7 +158,11 @@ class Shop extends Component {
 
     return (
       <>
-        <ShopHeader address={address} hideBackButton />
+        <ShopHeader
+          address={address}
+          hideBackButton
+          onClickAddressSelector={this.onClickAddressSelector}
+        />
 
         {/*<div style={{marginTop: 57}}>
           <Banner />

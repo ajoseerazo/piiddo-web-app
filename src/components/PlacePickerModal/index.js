@@ -8,11 +8,13 @@ import {
   ModalFooter,
   ButtonStyled,
   CurrentAddress,
+  MapElementStyled
 } from "./styled";
 import { CloseButton } from "../ProductModal/styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import { DEFAULT_LOCATION } from "../../utils/constants";
 
 library.add([faTimes, faMapMarkerAlt]);
 
@@ -20,7 +22,7 @@ const LocationPicker = React.lazy(() => import("react-location-picker"));
 
 const PlacePickerModal = ({ isOpen, place, onClose, onAccept }) => {
   const [isBrowser, setIsBrowser] = useState();
-  const [address, setAddress] = useState((place || {}).value);
+  const [address, setAddress] = useState(place ? place.value : DEFAULT_LOCATION.value);
   const [location, setLocation] = useState();
   const [notificationOpened, setNotificationOpened] = useState(true);
 
@@ -66,14 +68,14 @@ const PlacePickerModal = ({ isOpen, place, onClose, onAccept }) => {
           </MapNotification>
         )}
 
-        {isBrowser && place && (
+        {isBrowser && (
           <Suspense fallback={<div></div>}>
             <LocationPicker
-              containerElement={<div style={{ height: "100%" }} />}
-              mapElement={<div style={{ height: window.innerHeight - 250 }} />}
+              containerElement={<div/>}
+              mapElement={<MapElementStyled />}
               defaultPosition={{
-                lat: place.lat,
-                lng: place.lng,
+                lat: place ? place.lat : DEFAULT_LOCATION.lat,
+                lng: place ? place.lng : DEFAULT_LOCATION.lng,
               }}
               zoom={15}
               radius={-1}

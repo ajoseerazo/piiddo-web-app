@@ -29,6 +29,7 @@ export const AddressSelectorWrapper = styled.div`
     margin-right: 0px;
     padding: 0 10px;
     margin-right: 5px;
+    max-width: calc(100% - 45px);
 
     span {
       font-size: 12px;

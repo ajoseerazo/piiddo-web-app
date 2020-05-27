@@ -81,9 +81,9 @@ nav {
       top: 5px;
       right: 0px;
       flex-direction: row;
-      width: calc(100% - 130px);
+      width: calc(100% - 150px);
       justify-content: flex-end;
-      margin-left: 20px;
+      max-width: 300px;
 
       li {
         margin-right: 0px !important;

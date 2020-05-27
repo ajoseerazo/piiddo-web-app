@@ -57,10 +57,9 @@ nav {
 
 @media (max-width: 768px) {
   nav {
-    padding: 0px !important;
+    padding: 0px 15px !important;
     display: flex;
     align-items: center !important;
-    justify-content: center !important;
     border-bottom: none;
   }
 
@@ -70,7 +69,7 @@ nav {
     padding-right: 0px;
 
     .navbar-brand {
-      margin: 0px;
+      margin: 0px 0px 0px 34px;
 
       img {
         width: 80px !important;
@@ -81,6 +80,11 @@ nav {
       position: absolute;
       top: 5px;
       right: 0px;
+      flex-direction: row;
+
+      li {
+        margin-right: 0px !important;
+      }
     }
 
     .ingresar-link {

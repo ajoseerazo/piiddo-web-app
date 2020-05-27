@@ -18,6 +18,7 @@ import {
   faSearch,
   faShoppingBasket,
   faChevronLeft,
+  faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import appActions from "../../redux/actions/app";
 import Link from "next/link";
@@ -29,7 +30,7 @@ import Router from "next/router";
 
 const { selectCurrency } = appActions;
 
-library.add([faSearch, faShoppingBasket, faChevronLeft]);
+library.add([faSearch, faShoppingBasket, faChevronLeft, faBars]);
 
 import "./ShopHeader.scss";
 import ShoppingCart from "../../containers/ShoppingCartContainer";
@@ -75,11 +76,12 @@ class ShopHeader extends Component {
           borderBottom: bordered ? "1px solid #e5edef" : undefined,
         }}
       >
-        {!hideBackButton && (
-          <BackButtonWrapper onClick={this.goBack}>
-            <FontAwesomeIcon icon="chevron-left" color="#f74342" />
-          </BackButtonWrapper>
-        )}
+        <BackButtonWrapper onClick={hideBackButton ? null : this.goBack}>
+          <FontAwesomeIcon
+            icon={hideBackButton ? "bars" : "chevron-left"}
+            color="#f74342"
+          />
+        </BackButtonWrapper>
 
         <Link href="/" as="/">
           <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
@@ -107,7 +109,7 @@ class ShopHeader extends Component {
         </Col>
 
         <Nav className="ml-auto" navbar>
-          {address && <AddressSelector address={address} />}
+          <AddressSelector address={address} />
           <NavItem style={{ marginRight: 15 }}>
             {!hideShoppingCart && <ShoppingCart />}
           </NavItem>

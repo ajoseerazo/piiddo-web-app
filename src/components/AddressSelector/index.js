@@ -9,7 +9,7 @@ const AddressSelector = ({ address }) => {
   return (
     <AddressSelectorWrapper>
       <FontAwesomeIcon icon="map-marker-alt" color="#f74342" />
-      <span>{address}</span>
+      <span>{address ? address : "Ingresa dirección"}</span>
     </AddressSelectorWrapper>
   );
 };

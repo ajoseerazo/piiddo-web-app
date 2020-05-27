@@ -8,7 +8,7 @@ export const AddressSelectorWrapper = styled.div`
   width: 230px;
   margin-right: 15px;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   align-items: center;
   cursor: pointer;
 
@@ -23,6 +23,9 @@ export const AddressSelectorWrapper = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    display: none;
+    width: 180px;
+    font-size: 12px;
+    height: 35px;
+    margin-right: 0px;
   }
 `;

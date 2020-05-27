@@ -115,7 +115,8 @@ class ShopHeader extends Component {
         </Col>
 
         <Nav className="ml-auto" navbar>
-          <AddressSelector address={address} onClick={onClickAddressSelector} />
+          <AddressSelector address={address} />
+
           <NavItem style={{ marginRight: 15 }}>
             {!hideShoppingCart && <ShoppingCart />}
           </NavItem>

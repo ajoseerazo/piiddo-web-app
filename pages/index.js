@@ -11,7 +11,6 @@ import ProductModal from "../src/components/ProductModal";
 import GlobalSearch from "../src/components/GlobalSearch";
 import Categories from "../src/components/Categories";
 import { MainContainerWrapper } from "../src/globalStyles/styled.index";
-import PlacePickerModal from "../src/components/PlacePickerModal";
 import cookies from "next-cookies";
 import "../src/shop-styles.scss";
 import { wrapper } from "../src/redux/store";
@@ -213,14 +212,6 @@ class Shop extends Component {
         </InView>
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
-
-        <PlacePickerModal
-          isOpen={isPlacePickerModalOpened}
-          place={place}
-          onClose={this.closePlacePickerModal}
-          onAccept={this.onSetAddress}
-          showAutocomplete={showAutocomplete}
-        />
       </>
     );
   }

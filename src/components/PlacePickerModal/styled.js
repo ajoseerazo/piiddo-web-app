@@ -94,6 +94,13 @@ export const ButtonStyled = styled(Button)`
   &:visited {
     background-color: #f74342;
   }
+
+  @media screen and (max-width: 768px) {
+    border-radius: 0px;
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+  }
 `;
 
 export const CurrentAddress = styled.div`

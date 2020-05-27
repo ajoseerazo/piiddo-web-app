@@ -27,5 +27,7 @@ export const AddressSelectorWrapper = styled.div`
     font-size: 12px;
     height: 35px;
     margin-right: 0px;
+    padding: 0 10px;
+    margin-right: 5px;
   }
 `;

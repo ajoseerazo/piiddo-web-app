@@ -148,9 +148,14 @@ class DeliveryLocation {
 
     return {
       address,
-      location,
+      location: location ? JSON.parse(location) : null,
     };
   }
+
+  static set = async (address, location) => {
+    Cookies.set("deliveryAddress", address);
+    Cookies.set("deliveryLocation", JSON.stringify(location));
+  };
 }
 
 export default {

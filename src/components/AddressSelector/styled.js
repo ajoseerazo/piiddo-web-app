@@ -8,7 +8,7 @@ export const AddressSelectorWrapper = styled.div`
   width: 230px;
   margin-right: 15px;
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   cursor: pointer;
 
@@ -20,6 +20,8 @@ export const AddressSelectorWrapper = styled.div`
     text-overflow: ellipsis;
     display: block;
     margin-left: 10px;
+    margin-right: 10px;
+    flex: 1;
   }
 
   @media screen and (max-width: 768px) {
@@ -35,4 +37,12 @@ export const AddressSelectorWrapper = styled.div`
       font-size: 12px;
     }
   }
+`;
+
+export const ChevronIconWrapper = styled.div``;
+
+export const LeftContent = styled.div`
+  display: flex;
+  align-items: center;
+  width: calc(100% - 20px);
 `;

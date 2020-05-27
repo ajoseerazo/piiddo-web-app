@@ -22,7 +22,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import appActions from "../../redux/actions/app";
 import Link from "next/link";
-import AddressSelector from "../AddressSelector";
+import AddressSelector from "../../containers/AddressSelector";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { BackButtonWrapper } from "./styled";

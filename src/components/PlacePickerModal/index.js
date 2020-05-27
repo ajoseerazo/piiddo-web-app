@@ -33,7 +33,7 @@ const PlacePickerModal = ({
 }) => {
   const [isBrowser, setIsBrowser] = useState();
   const [address, setAddress] = useState(
-    place ? place.value : DEFAULT_LOCATION.value
+    place && place.location ? place.address : DEFAULT_LOCATION.address
   );
   const [location, setLocation] = useState();
   const [notificationOpened, setNotificationOpened] = useState(true);
@@ -61,19 +61,25 @@ const PlacePickerModal = ({
 
   const onAcceptLocation = useCallback(() => {
     onAccept({
-      address: address ? address : place.value,
+      address: address ? address : place.address,
       location: location
         ? location
         : {
-            lat: place ? place.lat : DEFAULT_LOCATION.lat,
-            lng: place ? place.lng : DEFAULT_LOCATION.lng,
+            lat:
+              place && place.location
+                ? place.location.lat
+                : DEFAULT_LOCATION.lat,
+            lng:
+              place && place.location
+                ? place.location.lng
+                : DEFAULT_LOCATION.lng,
           },
     });
   }, [onAccept, address, location, place]);
 
   useEffect(() => {
     if (place) {
-      setAddress(place.value);
+      setAddress(place.address);
     }
   }, [place]);
 
@@ -100,9 +106,6 @@ const PlacePickerModal = ({
                     value,
                   });
                 }}
-                onChange={(value) => {
-                  console.log(value);
-                }}
                 style={{
                   width: "100%",
                 }}
@@ -125,13 +128,19 @@ const PlacePickerModal = ({
         )}
 
         {isBrowser && (
-          <Suspense fallback={<div></div>}>
+          <Suspense fallback={<MapElementStyled />}>
             <LocationPicker
               containerElement={<div />}
               mapElement={<MapElementStyled />}
               defaultPosition={{
-                lat: place ? place.lat : defaultPosition.lat,
-                lng: place ? place.lng : defaultPosition.lng,
+                lat:
+                  place && place.location
+                    ? place.location.lat
+                    : defaultPosition.lat,
+                lng:
+                  place && place.location
+                    ? place.location.lng
+                    : defaultPosition.lng,
               }}
               zoom={15}
               radius={-1}
@@ -143,7 +152,7 @@ const PlacePickerModal = ({
         <ModalFooter>
           <CurrentAddress>
             <FontAwesomeIcon icon="map-marker-alt" color="#f74342" />
-            <span>{address || (place || {}).value}</span>
+            <span>{address || (place || {}).address}</span>
           </CurrentAddress>
           <ButtonStyled onClick={onAcceptLocation}>
             Confirmar ubicación

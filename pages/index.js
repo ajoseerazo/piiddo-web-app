@@ -213,14 +213,12 @@ class Shop extends Component {
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
 
-        {!address && (
-          <PlacePickerModal
-            isOpen={isPlacePickerModalOpened}
-            place={place}
-            onClose={this.closePlacePickerModal}
-            onAccept={this.onSetAddress}
-          />
-        )}
+        <PlacePickerModal
+          isOpen={isPlacePickerModalOpened}
+          place={place}
+          onClose={this.closePlacePickerModal}
+          onAccept={this.onSetAddress}
+        />
       </>
     );
   }

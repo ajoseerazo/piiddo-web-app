@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { Modal, ModalBody, Button } from "reactstrap";
+import { CloseButton } from "../ProductModal/styled"
 
 export const ModalStyled = styled(Modal)`
   min-width: 660px;
@@ -18,6 +19,10 @@ export const ModalStyled = styled(Modal)`
       min-height: 100%;
       border-radius: 0px;
       border: none;
+    }
+
+    ${CloseButton} {
+      top: 18px;
     }
   }
 `;
@@ -115,6 +120,7 @@ export const InputStyled = styled.input`
   height: 55px;
   border: none;
   border-bottom: 0.5px solid #ddd;
+  padding-right: 125px;
 
   &:focus {
     border: none;
@@ -130,6 +136,22 @@ export const InputStyled = styled.input`
 
     &:focus {
       border-bottom: none;
+    }
+  }
+`;
+
+export const AutocompleteWrapper = styled.div`
+  position: relative;
+
+  .my-position-wrapper {
+    position: absolute;
+    right: 0px;
+    top: 13px;
+  }
+
+  @media screen and (max-width: 768px) {
+    .my-position-wrapper {
+      top: 6px;
     }
   }
 `;

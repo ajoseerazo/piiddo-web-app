@@ -10,6 +10,7 @@ import {
   CurrentAddress,
   MapElementStyled,
   InputStyled,
+  AutocompleteWrapper,
 } from "./styled";
 import { CloseButton } from "../ProductModal/styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -17,6 +18,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { DEFAULT_LOCATION } from "../../utils/constants";
 import Autocomplete from "../Autocomplete";
+import MyPositionButton from "../MyPositionButton";
 
 library.add([faTimes, faMapMarkerAlt]);
 
@@ -75,6 +77,10 @@ const PlacePickerModal = ({
     }
   }, [place]);
 
+  const onLocationSuccess = useCallback((location) => {
+    setDefaultPosition(location);
+  });
+
   return (
     <ModalStyled isOpen={isOpen}>
       <ModalBodyStyled>
@@ -84,21 +90,29 @@ const PlacePickerModal = ({
 
         <TitleStyled>
           {showAutocomplete ? (
-            <Autocomplete
-              placeholder="Ingresa un sector o punto de referencia"
-              onSelect={async ({ lat, lng, value }) => {
-                setDefaultPosition({
-                  lat,
-                  lng,
-                  value,
-                });
-              }}
-              style={{
-                width: "100%",
-              }}
-              blurOnSelect={true}
-              CustomComponent={InputStyled}
-            />
+            <AutocompleteWrapper>
+              <Autocomplete
+                placeholder="Ingresa un sector o punto de referencia"
+                onSelect={async ({ lat, lng, value }) => {
+                  setDefaultPosition({
+                    lat,
+                    lng,
+                    value,
+                  });
+                }}
+                onChange={(value) => {
+                  console.log(value);
+                }}
+                style={{
+                  width: "100%",
+                }}
+                blurOnSelect={true}
+                CustomComponent={InputStyled}
+              />
+              <div className="my-position-wrapper">
+                <MyPositionButton onLocationSuccess={onLocationSuccess} />
+              </div>
+            </AutocompleteWrapper>
           ) : (
             <span>Encontramos tu ubicación aproximada</span>
           )}

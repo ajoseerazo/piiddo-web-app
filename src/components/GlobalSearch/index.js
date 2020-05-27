@@ -5,11 +5,17 @@ import SearchBox from "../SearchBox";
 const GlobalSearch = (props) => {
   return (
     <GlobalSearchWrapper {...props}>
-      <TitleSearch>{props.address ? "¿Qué deseas pedir hoy?" : "¿Dónde te encuentras?"}</TitleSearch>
+      <TitleSearch>
+        {props.address ? "¿Qué deseas pedir hoy?" : "¿Dónde te encuentras?"}
+      </TitleSearch>
 
       <SearchBox address={props.address} onSelectPlace={props.onSelectPlace} />
     </GlobalSearchWrapper>
   );
+};
+
+GlobalSearch.defaultProps = {
+  address: true,
 };
 
 export default GlobalSearch;

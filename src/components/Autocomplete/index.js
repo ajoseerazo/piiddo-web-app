@@ -56,7 +56,7 @@ export default class Autocomplete extends Component {
     this.setState({ address });
 
     const { onChange } = this.props;
-
+    
     if (onChange) {
       onChange(address);
     }

@@ -1,5 +1,9 @@
 import { useState, useCallback, useEffect } from "react";
-import { AddressSelectorWrapper, ChevronIconWrapper, LeftContent } from "./styled";
+import {
+  AddressSelectorWrapper,
+  ChevronIconWrapper,
+  LeftContent,
+} from "./styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -11,7 +15,12 @@ import PlacePickerModal from "../PlacePickerModal";
 
 library.add([faTimes, faMapMarkerAlt, faChevronDown]);
 
-const AddressSelector = ({ place, showAutocomplete = true, onSetAddress }) => {
+const AddressSelector = ({
+  place,
+  showAutocomplete = true,
+  onSetAddress,
+  disabled = false,
+}) => {
   const [isPlacePickerModalOpened, setIsPlacePickerModalOpened] = useState(
     false
   );
@@ -40,7 +49,7 @@ const AddressSelector = ({ place, showAutocomplete = true, onSetAddress }) => {
 
   return (
     <>
-      <AddressSelectorWrapper onClick={onClick}>
+      <AddressSelectorWrapper onClick={disabled ? null : onClick}>
         <LeftContent>
           <FontAwesomeIcon icon="map-marker-alt" color="#f74342" />
 

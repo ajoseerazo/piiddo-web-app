@@ -10,6 +10,7 @@ const AddressSelectorContainer = ({
   showAutocomplete,
   actions: { setDeliveryPlace, getDeliveryPlace },
   place,
+  disabled,
 }) => {
   const [mounted, setMounted] = useState(false);
 
@@ -22,6 +23,7 @@ const AddressSelectorContainer = ({
 
   return (
     <AddressSelector
+      disabled={disabled}
       place={place}
       showAutocomplete={showAutocomplete}
       onSetAddress={setDeliveryPlace}

@@ -61,6 +61,41 @@ export const NotificationsWrapper = styled.div`
   }
 `;
 
+export const RiderWrapper = styled.div`
+  background-color: white;
+  position: fixed;
+  bottom: 180px;
+  left: 15px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 6px 10px 0 rgba(128, 98, 96, 0.16);
+  width: 400px;
+  height: 150px;
+  font-size: 14px;
+
+  > div {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    > div {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    bottom: auto;
+    width: calc(100% - 12px);
+    left: 6px;
+    padding: 15px 10px;
+    height: 130px;
+    bottom: 15px;
+    top: auto;
+  }
+`;
+
 export const ETAIcon = styled.div`
   width: 80px;
   height: 80px;
@@ -140,4 +175,32 @@ export const CheckIconWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+export const RiderAvatarWrapper = styled.div`
+  img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 50%;
+  }
+`;
+
+export const RiderName = styled.div`
+  font-size: 18px;
+  font-weight: 600;
+`;
+
+export const SupportWhatsappButton = styled.div`
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    left: 6px;
+    width: calc(100% - 12px);
+    bottom: 155px;
+  }
 `;

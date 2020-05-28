@@ -14,10 +14,17 @@ import {
   Step,
   StepWrapper,
   CheckIconWrapper,
+  RiderWrapper,
+  RiderAvatarWrapper,
+  RiderName,
+  SupportWhatsappButton
 } from "./styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import StarRatings from "react-star-ratings";
+import WhatsappButton from "../../components/WhatsappButton";
+import { useRouter } from "next/router";
 
 library.add([faCheck]);
 
@@ -92,8 +99,19 @@ const states = [
   },
 ];
 
+const rider = {
+  name: "Daniel Pérez",
+  avatar:
+    "https://www.pngkit.com/png/full/50-503951_profile-circle-profile-pic-in-circle.png",
+  rating: 4.3,
+  whatsapp: "584140361000",
+};
+
 const ETA = () => {
   const [currentState, setCurrentState] = useState(0);
+  const router = useRouter();
+
+  const { order } = router.query;
 
   useInterval(() => {
     if (currentState + 1 < states.length) {
@@ -103,7 +121,7 @@ const ETA = () => {
 
   return (
     <>
-      <ShopHeader />
+      <ShopHeader disableAddress hideShoppingCart />
 
       <EtaWrapper>
         <GoogleMaps
@@ -144,6 +162,39 @@ const ETA = () => {
             </RightContent>
           </div>
         </NotificationsWrapper>
+
+        <RiderWrapper>
+          <div>
+            <RiderAvatarWrapper>
+              <img src={rider.avatar} />
+            </RiderAvatarWrapper>
+
+            <RightContent>
+              <RiderName>{rider.name}</RiderName>
+
+              <StarRatings
+                rating={rider.rating}
+                starRatedColor="#f74342"
+                numberOfStars={5}
+                starDimension="20px"
+              />
+
+              <WhatsappButton
+                phone={rider.whatsapp}
+                text={"Hola, soy el cliente del pedido"}
+                msg={"Hablar con el repartidor"}
+              />
+            </RightContent>
+          </div>
+        </RiderWrapper>
+
+        <SupportWhatsappButton>
+          <WhatsappButton
+            phone={"584145745049"}
+            text={`Hola Piiddo, necesito ayuda con mi orden. Orden Id: ${order}`}
+            msg={"Contactar a soporte"}
+          />
+        </SupportWhatsappButton>
       </EtaWrapper>
     </>
   );

@@ -70,6 +70,7 @@ class ShopHeader extends Component {
       bordered,
       hideBackButton,
       onClickAddressSelector,
+      disableAddress,
     } = this.props;
 
     return (
@@ -115,7 +116,7 @@ class ShopHeader extends Component {
         </Col>
 
         <Nav className="ml-auto" navbar>
-          <AddressSelector address={address} />
+          <AddressSelector address={address} disabled={disableAddress} />
 
           <NavItem style={{ marginRight: 15 }}>
             {!hideShoppingCart && <ShoppingCart />}

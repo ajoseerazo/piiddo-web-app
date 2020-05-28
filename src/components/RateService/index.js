@@ -56,7 +56,7 @@ const RateService = ({ isOpen, rider }) => {
         </StarsWrapper>
 
         <Textarea
-          placeholder="Tienes algún comentario adicional"
+          placeholder="¿Tienes algún comentario adicional?"
           rows="3"
           onChange={setCommentsHandler}
         ></Textarea>

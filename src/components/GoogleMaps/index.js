@@ -26,7 +26,7 @@ const GoogleMaps = withGoogleMap(
       null /* size is determined at runtime */,
       null /* origin is 0,0 */,
       null /* anchor is bottom center of the scaled image */,
-      new window.google.maps.Size(58, 58)
+      new window.google.maps.Size(80, 80)
     );
 
     let customerIcon = new window.google.maps.MarkerImage(
@@ -34,15 +34,15 @@ const GoogleMaps = withGoogleMap(
       null /* size is determined at runtime */,
       null /* origin is 0,0 */,
       null /* anchor is bottom center of the scaled image */,
-      new window.google.maps.Size(58, 58)
+      new window.google.maps.Size(80, 80)
     );
 
     let riderIcon = new window.google.maps.MarkerImage(
-      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/map-markers%2FRaider%20vector.png?alt=media&token=8cabcebc-98d8-4770-8a9a-1d86ad897425",
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/map-markers%2FRaider%20vector.png?alt=media&token=8cabcebc-98d8-4780-8a9a-1d86ad897425",
       null /* size is determined at runtime */,
       null /* origin is 0,0 */,
       null /* anchor is bottom center of the scaled image */,
-      new window.google.maps.Size(58, 58)
+      new window.google.maps.Size(80, 80)
     );
 
     return (

@@ -22,7 +22,7 @@ const GoogleMaps = withGoogleMap(
   ({ storeLocation, customerLocation, riderLocation }) => {
     //const map = useRef();
     let storeMarker = new window.google.maps.MarkerImage(
-      "https://cdn.pixabay.com/photo/2018/07/11/23/44/shop-3532260_960_720.png",
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/map-markers%2FSin%20ti%CC%81tulo-1.png?alt=media&token=a3c09338-474d-4e5f-a507-f5a3f4e7b6d2",
       null /* size is determined at runtime */,
       null /* origin is 0,0 */,
       null /* anchor is bottom center of the scaled image */,
@@ -30,7 +30,7 @@ const GoogleMaps = withGoogleMap(
     );
 
     let customerIcon = new window.google.maps.MarkerImage(
-      "https://freesvg.org/img/Isometric-House.png",
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/map-markers%2Fllegada.png?alt=media&token=ba525469-867b-4f39-8286-2879d408c2b9",
       null /* size is determined at runtime */,
       null /* origin is 0,0 */,
       null /* anchor is bottom center of the scaled image */,
@@ -38,7 +38,7 @@ const GoogleMaps = withGoogleMap(
     );
 
     let riderIcon = new window.google.maps.MarkerImage(
-      "https://image.flaticon.com/icons/svg/2937/2937008.svg",
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/map-markers%2FRaider%20vector.png?alt=media&token=8cabcebc-98d8-4770-8a9a-1d86ad897425",
       null /* size is determined at runtime */,
       null /* origin is 0,0 */,
       null /* anchor is bottom center of the scaled image */,

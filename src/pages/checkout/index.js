@@ -45,6 +45,7 @@ import paymentsActions from "../../redux/actions/payments";
 import PaymentSuccessModal from "../../components/PaymentSuccessModal";
 import { PayPalButton } from "react-paypal-button-v2";
 import Toolbar from "../../components/Toolbar";
+import { Router } from "next/router";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -137,8 +138,6 @@ const CheckoutPage = ({
         amount: total + totalDelivery,
       });
 
-      console.log(result);
-
       if (result && result.success) {
         payload.paymentStatus = "COMPLETED";
         createOrder(payload);
@@ -194,27 +193,8 @@ const CheckoutPage = ({
               }&callbackURL=${window.location.origin}/criptopayments/${
                 order.id
               }`;
-
-              /*window.open(
-                *`https://payments.criptopagos.co?amount=${
-                  total + totalDelivery
-                }&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
-                  order.id
-                }`*
-                "http://localhost:3001/?amount=3.5&apiKey=960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee&accountID=41513570&merchantID=90361928",
-                "_blank",
-                window.innerWidth > 768
-                  ? `width=500,height=${window.innerHeight},left=${
-                      window.innerWidth / 2 - 250
-                    }`
-                  : undefined
-              );
-
-              window.addEventListener("message", (e) => {
-                if (e.origin === "https://localhost:3001") {
-                  console.log(e.data);
-                }
-              });*/
+            } else {
+              Router.push("/orders/1238712/eta");
             }
           }
         }

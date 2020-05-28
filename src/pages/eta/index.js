@@ -177,6 +177,7 @@ const ETA = () => {
                 starRatedColor="#f74342"
                 numberOfStars={5}
                 starDimension="20px"
+                starSpacing="2px"
               />
 
               <WhatsappButton

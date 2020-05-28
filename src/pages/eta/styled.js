@@ -41,8 +41,8 @@ export const NotificationsWrapper = styled.div`
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 6px 10px 0 rgba(128, 98, 96, 0.16);
-  width: 300px;
-  height: 120px;
+  width: 400px;
+  height: 150px;
   font-size: 14px;
 
   > div {
@@ -57,6 +57,7 @@ export const NotificationsWrapper = styled.div`
     left: 6px;
     top: 56px;
     padding: 15px 10px;
+    height: 130px;
   }
 `;
 

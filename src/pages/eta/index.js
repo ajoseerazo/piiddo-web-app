@@ -17,7 +17,7 @@ import {
   RiderWrapper,
   RiderAvatarWrapper,
   RiderName,
-  SupportWhatsappButton
+  SupportWhatsappButton,
 } from "./styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -138,7 +138,7 @@ const ETA = () => {
               <img src={states[currentState].icon} />
             </ETAIcon>
 
-            <RightContent>
+            <RightContent className="notifications">
               <Time>Quedan 40 minutos</Time>
 
               <StateText>{states[currentState].text}</StateText>

@@ -57,7 +57,8 @@ export const NotificationsWrapper = styled.div`
     left: 6px;
     top: 56px;
     padding: 15px 10px;
-    height: 130px;
+    min-height: 100px;
+    height: auto;
   }
 `;
 
@@ -80,8 +81,10 @@ export const RiderWrapper = styled.div`
     justify-content: space-between;
 
     > div {
-      display: flex;
-      justify-content: space-between;
+      a {
+        position: absolute;
+        bottom: 0px;
+      }
     }
   }
 
@@ -90,8 +93,9 @@ export const RiderWrapper = styled.div`
     width: calc(100% - 12px);
     left: 6px;
     padding: 15px 10px;
-    height: 130px;
-    bottom: 15px;
+    min-height: 120px;
+    height: 120px;
+    bottom: 6px;
     top: auto;
   }
 `;
@@ -114,6 +118,11 @@ export const ETAIcon = styled.div`
     object-fit: contain;
     object-position: center;
   }
+
+  @media screen and (max-width: 768px) {
+    width: 60px;
+    height: 60px;
+  }
 `;
 
 export const Time = styled.div`
@@ -132,6 +141,12 @@ export const RightContent = styled.div`
   position: relative;
   height: 100%;
   flex: 1;
+
+  @media screen and (max-width: 768px) {
+    &.notifications {
+      padding-bottom: 25px;
+    }
+  }
 `;
 
 export const ProgressSteps = styled.div`
@@ -151,6 +166,7 @@ export const Step = styled.div`
   height: 8px;
   background: ${({ color }) => color};
   flex: 1;
+  margin-right: -5px;
 `;
 
 export const StepWrapper = styled.div`
@@ -185,11 +201,22 @@ export const RiderAvatarWrapper = styled.div`
     object-position: center;
     border-radius: 50%;
   }
+
+  @media screen and (max-width: 768px) {
+    img {
+      width: 60px;
+      height: 60px;
+    }
+  }
 `;
 
 export const RiderName = styled.div`
   font-size: 18px;
   font-weight: 600;
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const SupportWhatsappButton = styled.div`
@@ -201,6 +228,12 @@ export const SupportWhatsappButton = styled.div`
     width: 100%;
     left: 6px;
     width: calc(100% - 12px);
-    bottom: 155px;
+    bottom: 135px;
+
+    > a {
+      > button {
+        width: 100%;
+      }
+    }
   }
 `;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MyPositionButtonWrapper = styled.div`
   font-size: 12px;
-  background: rgb(247, 67, 66, 0.1);
+  background: rgba(247, 67, 66, 0.1);
   padding: 0px 5px;
   border-radius: 16px;
   width: 114px;

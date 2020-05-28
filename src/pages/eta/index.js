@@ -1,7 +1,25 @@
 import { useState, useEffect, useRef } from "react";
 import ShopHeader from "../../components/ShopHeader/ShopHeader";
 import GoogleMaps from "../../components/GoogleMaps";
-import { EtaWrapper, MapWrapperStyled } from "./styled";
+import {
+  EtaWrapper,
+  MapWrapperStyled,
+  NotificationsWrapper,
+  ETAIcon,
+  Time,
+  TimeUnit,
+  RightContent,
+  ProgressSteps,
+  StateText,
+  Step,
+  StepWrapper,
+  CheckIconWrapper,
+} from "./styled";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+
+library.add([faCheck]);
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -39,57 +57,43 @@ const states = [
   {
     value: "confirming-payment",
     text: "Estamos confirmando el pago",
+    icon:
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/money.png?alt=media&token=12aa9064-996c-40e3-b742-790724b53749",
   },
   {
     value: "confirming-order-with-partner",
     text: "Estamos confirmando la orden con la tienda",
+    icon:
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/cafe.png?alt=media&token=de0e1726-4d8a-4f9d-9215-7cae7f54526c",
   },
   {
     value: "order-confirmed",
     text: "La tienda está preparando tu orden",
+    icon:
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/cafe.png?alt=media&token=de0e1726-4d8a-4f9d-9215-7cae7f54526c",
   },
   {
     value: "rider-at-partner",
     text: "El Piiddo Rider llegó a la tienda",
+    icon:
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/delivery-man%20(1).png?alt=media&token=e3d630d6-e076-45b6-97c1-4efe7032b1ea",
   },
   {
     value: "order-taken",
     text: "El Piddo Rider recogió tu orden y va hacia la dirección de entrega",
+    icon:
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/delivery-man%20(1).png?alt=media&token=e3d630d6-e076-45b6-97c1-4efe7032b1ea",
   },
   {
     value: "order-completed",
     text: "El pedido ha sido entregado",
+    icon:
+      "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/kid-and-baby.png?alt=media&token=51320f91-6023-4425-ae89-7f9dd7110939",
   },
 ];
 
-let cs = 0;
-
 const ETA = () => {
   const [currentState, setCurrentState] = useState(0);
-  const [mounted, setMounted] = useState(false);
-  const [interval, setInterv] = useState();
-
-  /*const upd = () => {
-    if (cs + 1 < states.length) {
-      console.log("Entra");
-      setCurrentState(currentState + 1);
-      cs++;
-    } else {
-      clearInterval(interval);
-    }
-  };
-
-  const updateState = () => {
-    setInterv(setInterval(upd, 5000));
-  };
-
-  useEffect(() => {
-    if (!mounted) {
-      setMounted(true);
-
-      updateState();
-    }
-  }, [mounted]);*/
 
   useInterval(() => {
     if (currentState + 1 < states.length) {
@@ -110,41 +114,36 @@ const ETA = () => {
           mapElement={<div style={{ height: `100%` }} />}
         />
 
-        <div
-          style={{
-            backgroundColor: "white",
-            position: "fixed",
-            bottom: 15,
-            left: 15,
-            padding: 20,
-            borderRadius: 8,
-            boxShadow: "0 6px 10px 0 rgba(128,98,96,0.16)",
-            width: 300,
-            height: 120,
-            fontSize: 14,
-          }}
-        >
-          <div>{states[currentState].text}</div>
+        <NotificationsWrapper>
+          <div>
+            <ETAIcon state={states[currentState].value}>
+              <img src={states[currentState].icon} />
+            </ETAIcon>
 
-          <div
-            style={{
-              display: "flex",
-            }}
-          >
-            {states.map((s, index) => {
-              return (
-                <div
-                  style={{
-                    width: 56,
-                    height: 2,
-                    marginRight: 4,
-                    background: index <= currentState ? "#f74342" : "#ddd",
-                  }}
-                ></div>
-              );
-            })}
+            <RightContent>
+              <Time>Quedan 40 minutos</Time>
+
+              <StateText>{states[currentState].text}</StateText>
+
+              <ProgressSteps>
+                {states.map((s, index) => {
+                  return (
+                    <StepWrapper>
+                      <Step
+                        color={index <= currentState ? "#f74342" : "#ddd"}
+                      />
+                      <CheckIconWrapper
+                        color={index <= currentState ? "#f74342" : "#ddd"}
+                      >
+                        <FontAwesomeIcon icon="check" />
+                      </CheckIconWrapper>
+                    </StepWrapper>
+                  );
+                })}
+              </ProgressSteps>
+            </RightContent>
           </div>
-        </div>
+        </NotificationsWrapper>
       </EtaWrapper>
     </>
   );

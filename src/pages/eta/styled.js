@@ -173,6 +173,7 @@ export const StepWrapper = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  margin-right: -1px;
 
   &:first-of-type {
     ${Step} {

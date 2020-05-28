@@ -45,7 +45,7 @@ import paymentsActions from "../../redux/actions/payments";
 import PaymentSuccessModal from "../../components/PaymentSuccessModal";
 import { PayPalButton } from "react-paypal-button-v2";
 import Toolbar from "../../components/Toolbar";
-import { Router } from "next/router";
+import Router from "next/router";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -70,7 +70,7 @@ const CheckoutPage = ({
   const [receiverName, setReceiverName] = useState();
   const [receiverNumber, setReceiverNumber] = useState();
   const [email, setEmail] = useState();
-  const [vuelto, setVuelto] = useState(0);
+  const [vuelto, setVuelto] = useState(null);
   const [isSamePerson, setIsSamePerson] = useState(false);
   const [shouldOpenSupportModal, setShouldOpenSupportModal] = useState(false);
   const [creditCard, setCreditCard] = useState();
@@ -194,7 +194,7 @@ const CheckoutPage = ({
                 order.id
               }`;
             } else {
-              Router.push("/orders/1238712/eta");
+              Router.push(`/orders/${order.id}/eta`);
             }
           }
         }

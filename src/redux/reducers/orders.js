@@ -31,6 +31,7 @@ export default function ordersReducer(state = initialState, action) {
         order: {
           id: action.order,
         },
+        orderCreated: true,
       };
     case actions.SET_ORDER_PAYMENT_SUPPORT_REQUEST:
       return {

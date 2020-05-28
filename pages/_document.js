@@ -128,7 +128,6 @@ export default class MyDocument extends Document {
             media="all"
           />
           <link rel="stylesheet" href="/_next/static/style.css" />
-          <meta charset="utf-8" />
           <meta
             name="description"
             content="Compra lo que quieras y te lo llevamos en minutos"
@@ -184,7 +183,7 @@ export default class MyDocument extends Document {
           <script
             type="text/javascript"
             src="https://cdn.jsdelivr.net/gh/space10-community/conversational-form@0.9.83/dist/conversational-form.min.js"
-            crossOrigin
+            crossOrigin="true"
           ></script>
 
           <script

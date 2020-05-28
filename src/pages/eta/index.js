@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import ShopHeader from "../../components/ShopHeader/ShopHeader";
 import GoogleMaps from "../../components/GoogleMaps";
-import { EtaWrapper } from "./styled";
+import { EtaWrapper, MapWrapperStyled } from "./styled";
 
 function useInterval(callback, delay) {
   const savedCallback = useRef();
@@ -106,7 +106,7 @@ const ETA = () => {
           storeLocation={storeLocation}
           customerLocation={customerLocation}
           riderLocation={currentState >= 3 ? riderLocation : null}
-          containerElement={<div style={{ height: `calc(100vh - 70px)` }} />}
+          containerElement={<MapWrapperStyled />}
           mapElement={<div style={{ height: `100%` }} />}
         />
 

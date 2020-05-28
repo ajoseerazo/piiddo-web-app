@@ -130,6 +130,10 @@ export const Time = styled.div`
   line-height: 16px;
   margin-bottom: 8px;
   font-size: 16px;
+
+  @media screen and (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 export const TimeUnit = styled.div``;

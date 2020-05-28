@@ -12,7 +12,7 @@ const SuccessScreen = ({ orderId, type, title, redirect = true }) => {
 
       if (redirect) {
         setTimeout(() => {
-          Router.push(`/order/${orderId}/eta`);
+          Router.push(`/orders/${orderId}/eta`);
         }, 5000);
       }
     }

@@ -25,6 +25,7 @@ import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import StarRatings from "react-star-ratings";
 import WhatsappButton from "../../components/WhatsappButton";
 import { useRouter } from "next/router";
+import RateService from "../../components/RateService";
 
 library.add([faCheck]);
 
@@ -110,6 +111,7 @@ const rider = {
 const ETA = () => {
   const [currentState, setCurrentState] = useState(0);
   const router = useRouter();
+  const [openRateServiceModal, setOpenRateServiceModal] = useState(false);
 
   const { order } = router.query;
 
@@ -118,6 +120,14 @@ const ETA = () => {
       setCurrentState(currentState + 1);
     }
   }, 5000);
+
+  useEffect(() => {
+    if (currentState === states.length - 1) {
+      setTimeout(() => {
+        setOpenRateServiceModal(true);
+      }, 3000);
+    }
+  }, [currentState]);
 
   return (
     <>
@@ -197,6 +207,8 @@ const ETA = () => {
           />
         </SupportWhatsappButton>
       </EtaWrapper>
+
+      <RateService isOpen={openRateServiceModal} rider={rider} />
     </>
   );
 };

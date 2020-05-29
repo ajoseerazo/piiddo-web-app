@@ -86,7 +86,7 @@ export default class MyDocument extends Document {
           <link rel="shortcut icon" href="/static/icons/favicon.ico" />
 
           <meta name="twitter:card" content="summary" />
-          <meta name="twitter:url" content="https://piiddo-web-app.now.sh" />
+          <meta name="twitter:url" content="https://piiddo.com" />
           <meta name="twitter:title" content="Piiddo" />
           <meta
             name="twitter:description"
@@ -94,7 +94,7 @@ export default class MyDocument extends Document {
           />
           <meta
             name="twitter:image"
-            content="https://piiddo-web-app.now.sh/static/icons/piiddo-192x192.png"
+            content="https://piiddo.com/static/icons/piiddo-192x192.png"
           />
           <meta name="twitter:creator" content="@piiddo" />
           <meta property="og:type" content="website" />
@@ -104,11 +104,11 @@ export default class MyDocument extends Document {
             content="Pide lo que necesites y recíbelo en tu casa en minutos"
           />
           <meta property="og:site_name" content="Piiddo" />
-          <meta property="og:url" content="https://piiddo-web-app.now.sh" />
+          <meta property="og:url" content="https://piiddo.com" />
 
           <meta
             property="og:image"
-            content="https://piiddo-web-app.now.sh/static/icons/piiddo-192x192.png"
+            content="https://piiddo.com/static/icons/piiddo-192x192.png"
           />
           {/*<link
             rel="stylesheet"
@@ -117,8 +117,9 @@ export default class MyDocument extends Document {
             crossOrigin="anonymous"
           />*/}
           <link
-            href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900|Open+Sans+Condensed:300,700|Open+Sans:300,400,600|Raleway:800,700,600,500,400,300,200,100|Lato:800,700,600,500,400,300,200,100"
+            href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900"
             rel="stylesheet"
+            async
           />
           <link
             rel="stylesheet"
@@ -126,8 +127,9 @@ export default class MyDocument extends Document {
             href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css?ver=4.9.4"
             type="text/css"
             media="all"
+            async
           />
-          
+
           <meta
             name="description"
             content="Compra lo que quieras y te lo llevamos en minutos"
@@ -183,6 +185,7 @@ export default class MyDocument extends Document {
           <script
             type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAX1z89iahv9s6jVeH1dixt0Ey0hZW9teo&libraries=places"
+            async
           />
 
           <script

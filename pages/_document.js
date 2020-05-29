@@ -36,7 +36,11 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
 
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link rel="preconnect" href="https://maps.googleapis.com" crossOrigin="true"/>
+          <link
+            rel="preconnect"
+            href="https://maps.googleapis.com"
+            crossOrigin="true"
+          />
 
           <meta name="application-name" content="Piiddo" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -95,10 +99,6 @@ export default class MyDocument extends Document {
             name="twitter:description"
             content="Pide lo que necesites y recíbelo en tu casa en minutos"
           />
-          <meta
-            name="twitter:image"
-            content="https://piiddo.com/static/icons/piiddo-192x192.png"
-          />
           <meta name="twitter:creator" content="@piiddo" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="Piiddo" />
@@ -112,21 +112,6 @@ export default class MyDocument extends Document {
           <link
             href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900"
             rel="stylesheet"
-          />
-          <meta
-            name="description"
-            content="Compra lo que quieras y te lo llevamos en minutos"
-          />
-          <meta itemProp="name" content="" />
-          <meta
-            itemProp="description"
-            content="Compra lo que quieras y te lo llevamos en minutos"
-          />
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:title" content="" />
-          <meta
-            name="twitter:description"
-            content="Compra lo que quieras y te lo llevamos en minutos"
           />
           <meta
             name="twitter:image"

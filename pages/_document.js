@@ -35,6 +35,10 @@ export default class MyDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
 
+          <link rel="preconnect" href="https://fonts.gstatic.com" />
+          <link rel="preconnect" href="https://www.google-analytics.com" />
+          <link rel="preconnect" href="https://maps.googleapis.com" />
+
           <meta name="application-name" content="Piiddo" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
           <meta
@@ -113,7 +117,6 @@ export default class MyDocument extends Document {
           <link
             href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900"
             rel="stylesheet"
-            async
           />
           <meta
             name="description"

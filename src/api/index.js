@@ -169,6 +169,10 @@ class Partners {
 
 class DeliveryLocation {
   static get() {
+    if (typeof window === "undefined") {
+      return {}
+    }
+    
     const address = Cookies.get("deliveryAddress");
     const location = Cookies.get("deliveryLocation");
 

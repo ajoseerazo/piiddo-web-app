@@ -36,8 +36,8 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
 
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link rel="preconnect" href="https://www.google-analytics.com" crossorigin/>
-          <link rel="preconnect" href="https://maps.googleapis.com" crossorigin/>
+          <link rel="preconnect" href="https://www.google-analytics.com" crossOrigin="true"/>
+          <link rel="preconnect" href="https://maps.googleapis.com" crossOrigin="true"/>
 
           <meta name="application-name" content="Piiddo" />
           <meta name="apple-mobile-web-app-capable" content="yes" />

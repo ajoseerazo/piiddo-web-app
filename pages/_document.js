@@ -182,12 +182,6 @@ export default class MyDocument extends Document {
 
           <script
             type="text/javascript"
-            src="https://cdn.jsdelivr.net/gh/space10-community/conversational-form@0.9.83/dist/conversational-form.min.js"
-            crossOrigin="true"
-          ></script>
-
-          <script
-            type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAX1z89iahv9s6jVeH1dixt0Ey0hZW9teo&libraries=places"
           />
 

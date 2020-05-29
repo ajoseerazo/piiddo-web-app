@@ -9,6 +9,7 @@ import NProgress from "nprogress";
 import "../src/shop-styles.scss";
 import "../src/styles.scss";
 import { wrapper } from "../src/redux/store";
+import 'bootstrap/dist/css/bootstrap.css'
 
 /*const makeStore = (initialState, options) => {
   return createStore(

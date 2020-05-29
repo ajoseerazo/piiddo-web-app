@@ -176,7 +176,7 @@ const Store = ({
                         <PartnerDeliveryText>Delivery</PartnerDeliveryText>
                         <div>
                           {isMounted && !Number.isNaN(deliveryPrice)
-                            ? `${deliveryPrice}$`
+                            ? `${deliveryPrice ? deliveryPrice : ''}$`
                             : null}
                         </div>
                       </div>

@@ -13,6 +13,7 @@ export const ButtonStyled = styled(Button)`
   display: flex;
   justify-content: space-between;
   font-size: 14px;
+  align-items: center;
 
   &:hover {
     background-color: #f74342;

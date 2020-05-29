@@ -1,6 +1,7 @@
 .card {
-  background-color: #fff;
-  position: fixed;
+  font-family: 'Poppins';
+  background-color: #fff !important;
+  position: fixed !important;
   bottom: 0;
   top: 0;
   text-align: left;
@@ -16,8 +17,8 @@
   transition: all 0.4s ease;
   right: -100%;
   max-width: 500px;
-  border-radius: 0px;
-  border: none;
+  border-radius: 0px !important;
+  border: none !important;
 
   &.show {
     right: 0;
@@ -69,9 +70,9 @@
 }
 
 .card-header {
-  border-bottom: 1px solid #ddd;
-  padding: 1.5em;
-  background-color: white;
+  border-bottom: 1px solid #ddd !important;
+  padding: 1.5em !important;
+  background-color: white !important;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -202,8 +203,8 @@
 }
 
 .checkout-btn {
-  background-color: #f74342;
-  border: none;
+  background-color: #f74342 !important;
+  border: none !important;
   margin-top: 10px;
 
   &:hover,

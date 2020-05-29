@@ -28,6 +28,7 @@
     "next-redux-wrapper": "^6.0.0",
     "node-sass": "^4.13.0",
     "nprogress": "^0.2.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.3",
     "payment": "^2.3.0",
     "pretty-checkbox": "^3.0.3",
     "react": "16.12.0",

@@ -97,6 +97,7 @@ class ShopHeader extends Component {
               style={{
                 width: 104,
               }}
+              alt="Piiddo-Logo"
             />
           </NavbarBrand>
         </Link>

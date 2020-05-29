@@ -1,7 +1,6 @@
 import React from "react";
 import "./styles.scss";
 import { Row, Col } from "reactstrap";
-import FontAwesome from "react-fontawesome";
 
 const Footer = props => {
   return (

@@ -1,7 +1,11 @@
 import React from "react";
-import FontAwesome from "react-fontawesome";
 import PropTypes from "prop-types";
 import { ButtonStyled } from "./styled";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShoppingBasket } from "@fortawesome/free-solid-svg-icons";
+
+library.add([faShoppingBasket]);
 
 import "./styles.scss";
 
@@ -13,7 +17,8 @@ function ShoppingCart(props) {
   return (
     <span className={mobClassName}>
       <ButtonStyled onClick={onClick} aria-label="Carrito de Compras">
-        <FontAwesome name="shopping-basket" className="basket" color="#f74342" />
+        <FontAwesomeIcon icon="shopping-basket" color="#f74342" />
+
         {length > 0 && (
           <span className="shoppingCardBubble">
             {length > 9 ? "+9" : length}

@@ -1,15 +1,12 @@
 import React, { PureComponent } from "react";
-import FontAwesome from "react-fontawesome";
-import Anime from "react-anime";
-// import { createPortal } from "react-dom";
-import { Col, Button } from "reactstrap";
+import { Button } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import Link from "next/link";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { faTimes, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
 
-library.add([faTimes]);
+library.add([faTimes, faShoppingBag]);
 
 import "./styles.scss";
 
@@ -83,16 +80,8 @@ class ShoppingCartDetails extends PureComponent {
             <div>
               {length === 0 ? (
                 <h3 className="card-title">
-                  <FontAwesome
-                    style={{
-                      display: "block",
-                      textAlign: "center",
-                      padding: "0.5em 0em",
-                      fontSize: "2em",
-                    }}
-                    name="shopping-bag"
-                  />
-                  Tu carrito está vacío
+                  <FontAwesomeIcon icon="shopping-bag" color="#443" size="2x" />
+                  <div>Tu carrito está vacío</div>
                 </h3>
               ) : (
                 <div className="containerShoppingArticles">

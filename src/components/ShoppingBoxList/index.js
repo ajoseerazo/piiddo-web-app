@@ -1,7 +1,6 @@
 import React, { PureComponent } from "react";
 // import { removeSlug } from "../../actions/shopping";
 import { connect } from "react-redux";
-import FontAwesome from "react-fontawesome";
 import ShoppingBoxItem from "../../containers/ShoppingBoxItemContainer";
 
 import "./styles.scss";

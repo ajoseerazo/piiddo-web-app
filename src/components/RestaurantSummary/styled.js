@@ -16,7 +16,7 @@ export const RestaurantWrapper = styled.div`
     margin: 0px 0px 20px 0px;
 
     &:hover {
-      border: none;
+      border: 1px solid #fff;
     }
   }
 `;

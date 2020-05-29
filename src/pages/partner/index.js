@@ -50,6 +50,7 @@ import productsActions from "../../redux/actions/products";
 import ProductsPlaceholder from "../../components/ProductsPlaceholder";
 import PartnerBannerPlaceholder from "../../components/PartnerBannerPlaceholder";
 import Toolbar from "../../components/Toolbar";
+import { calculatePriceFromPoints } from "../../utils";
 
 const {
   fetchPartners,
@@ -74,10 +75,12 @@ const Store = ({
   isLoadingCatalogCategories,
   isLoadingProducts,
   isLoadingCatalog,
+  deliveryLocation,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productSelected, setProductSelect] = useState();
+  const [deliveryPrice, setDeliveryPrice] = useState(null);
 
   const openProduct = useCallback(
     (product) => {
@@ -114,6 +117,14 @@ const Store = ({
       fetchCatalogCategories(catalog.id);
     }
   }, [catalog]);
+
+  useEffect(() => {
+    if (deliveryLocation && partner && partner.location) {
+      setDeliveryPrice(
+        calculatePriceFromPoints(deliveryLocation, partner.location)
+      );
+    }
+  }, [deliveryLocation, partner]);
 
   return (
     <>
@@ -160,7 +171,11 @@ const Store = ({
                     <PartnerDeliveryInfo>
                       <div>
                         <PartnerDeliveryText>Delivery</PartnerDeliveryText>
-                        <div>0.7$</div>
+                        <div>
+                          {isMounted && !Number.isNaN(deliveryPrice)
+                            ? `${deliveryPrice}$`
+                            : null}
+                        </div>
                       </div>
 
                       <div>
@@ -188,7 +203,12 @@ const Store = ({
                     </PartnerMobileAddress>
 
                     <PartnerMobileDeliveryInfo>
-                      <div>Delivery: 0.7$</div>
+                      <div>
+                        Delivery:{" "}
+                        {isMounted && !Number.isNaN(deliveryPrice)
+                          ? `${deliveryPrice}$`
+                          : null}
+                      </div>
 
                       <div>Entrega: 40 min</div>
                     </PartnerMobileDeliveryInfo>
@@ -296,6 +316,7 @@ function mapStateToProps(state, props) {
     isLoadingCatalogCategories,
     isLoadingCatalog,
   } = state.Partners;
+  const { deliveryLocation } = state.Location;
 
   const productsHash = {
     all: products,
@@ -322,6 +343,7 @@ function mapStateToProps(state, props) {
     isLoadingCatalogCategories,
     isLoadingProducts: isLoading,
     isLoadingCatalog,
+    deliveryLocation,
   };
 }
 

@@ -8,7 +8,7 @@ import {
   RestaurantDeliveryETA,
   RestaurantTags,
   RestaurantFilters,
-  BottomText
+  BottomText,
 } from "./styled";
 
 const RestaurantSummary = ({ restaurant }) => {
@@ -24,14 +24,22 @@ const RestaurantSummary = ({ restaurant }) => {
         </RestaurantTags>
 
         <RestaurantFilters>
-          <span>
-            <RestaurantDeliveryPrice><BottomText>Delivery: </BottomText> 0.7$</RestaurantDeliveryPrice>
-          </span>
+          {!Number.isNaN(restaurant.deliveryPrice) && (
+            <>
+              <span>
+                <RestaurantDeliveryPrice>
+                  <BottomText>Delivery: </BottomText> {restaurant.deliveryPrice}$
+                </RestaurantDeliveryPrice>
+              </span>
 
-          <span> · </span>
+              <span> · </span>
+            </>
+          )}
 
           <span>
-            <RestaurantDeliveryETA><BottomText>Entrega en:</BottomText> 40 mins</RestaurantDeliveryETA>
+            <RestaurantDeliveryETA>
+              <BottomText>Entrega en:</BottomText> 40 mins
+            </RestaurantDeliveryETA>
           </span>
         </RestaurantFilters>
       </RestaurantInfoWrapper>

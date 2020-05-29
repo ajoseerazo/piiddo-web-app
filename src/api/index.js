@@ -3,6 +3,8 @@ import Categories from "./categories";
 import Cookies from "cookies-js";
 import Orders from "./orders";
 import Payments from "./payments";
+import { getDistance } from "geolib";
+import { calculatePrice, round } from "../utils";
 
 class Products {
   static getAll = async (parentId, type = "partner") => {
@@ -66,9 +68,26 @@ class Partners {
       partnersRef = await db.collection("partners").get();
     }
 
+    const place = DeliveryLocation.get();
+
     const partners = partnersRef.docs.map((p) => {
       const data = p.data();
-      delete data.location;
+      if (data.location) {
+        data.location = {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+        };
+
+        if (place) {
+          const distance = getDistance(
+            { latitude: place.location.lat, longitude: place.location.lng },
+            { latitude: data.location.lat, longitude: data.location.lng }
+          );
+
+          data.distance = distance / 1000;
+          data.deliveryPrice = round(calculatePrice(distance), 1);
+        }
+      }
 
       return {
         id: p.id,
@@ -88,7 +107,14 @@ class Partners {
 
     if (partnersRef.docs.length) {
       const data = partnersRef.docs[0].data();
-      delete data.location;
+      
+      if (data.location) {
+        data.location = {
+          lat: data.location.latitude,
+          lng: data.location.longitude,
+        };
+      }
+
       delete data.createdAt;
 
       return {

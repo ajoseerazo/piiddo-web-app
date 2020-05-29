@@ -94,14 +94,14 @@ export default class MyDocument extends Document {
 
           <meta name="twitter:card" content="summary" />
           <meta name="twitter:url" content="https://piiddo.com" />
-          <meta name="twitter:title" content="Piiddo" />
+          <meta name="twitter:title" content="Piiddo - Delivery de comida, mercados y más" />
           <meta
             name="twitter:description"
             content="Pide lo que necesites y recíbelo en tu casa en minutos"
           />
           <meta name="twitter:creator" content="@piiddo" />
           <meta property="og:type" content="website" />
-          <meta property="og:title" content="Piiddo" />
+          <meta property="og:title" content="Piiddo - Delivery de comida, mercados y más" />
           <meta
             property="og:description"
             content="Pide lo que necesites y recíbelo en tu casa en minutos"

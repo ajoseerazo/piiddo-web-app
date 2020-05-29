@@ -12,7 +12,7 @@ function ShoppingCart(props) {
 
   return (
     <span className={mobClassName}>
-      <ButtonStyled onClick={onClick} ariaLabel="Carrito de Compras">
+      <ButtonStyled onClick={onClick} aria-label="Carrito de Compras">
         <FontAwesome name="shopping-basket" className="basket" color="#f74342" />
         {length > 0 && (
           <span className="shoppingCardBubble">

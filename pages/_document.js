@@ -109,10 +109,6 @@ export default class MyDocument extends Document {
           <meta property="og:site_name" content="Piiddo" />
           <meta property="og:url" content="https://piiddo.com" />
 
-          <meta
-            property="og:image"
-            content="https://piiddo.com/static/icons/piiddo-192x192.png"
-          />
           <link
             href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900"
             rel="stylesheet"

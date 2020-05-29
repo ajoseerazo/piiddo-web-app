@@ -48,7 +48,11 @@ class ShoppingCartContainer extends Component {
     }, 0);
 
     let total = items.reduce((a, b) => {
-      return a + b.totalAmount
+      return a + b.totalAmount;
+    }, 0);
+
+    let deliveryTotal = items.reduce((a, b) => {
+      return a + b.deliveryPrice;
     }, 0);
 
     return (
@@ -63,7 +67,7 @@ class ShoppingCartContainer extends Component {
           id={this.props.id}
           length={length}
           ref="ShoppingCartDetails"
-          deliveryTotal={2}
+          deliveryTotal={deliveryTotal}
           amount={total}
         >
           {(items || []).map((item, index) => {

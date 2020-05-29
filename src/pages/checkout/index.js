@@ -84,7 +84,9 @@ const CheckoutPage = ({
     return a + b.totalAmount;
   }, 0);
 
-  let totalDelivery = 1.4;
+  let totalDelivery = (items || []).reduce((a, b) => {
+    return a + b.deliveryPrice;
+  }, 0);
 
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
@@ -507,7 +509,7 @@ const CheckoutPage = ({
                   <div>
                     <CheckoutTotalTitle>Total</CheckoutTotalTitle>
                     <CheckoutTotalPrice>
-                      ${parseFloat(total).toFixed(2)}
+                      ${parseFloat(total + totalDelivery).toFixed(2)}
                     </CheckoutTotalPrice>
                   </div>
 

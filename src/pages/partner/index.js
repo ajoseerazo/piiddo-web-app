@@ -98,9 +98,12 @@ const Store = ({
   const onAddProductToCart = useCallback(
     (order) => {
       setIsModalOpen(false);
-      addToCart(order);
+      addToCart({
+        ...order,
+        deliveryPrice
+      });
     },
-    [setIsModalOpen]
+    [setIsModalOpen, deliveryPrice]
   );
 
   useEffect(() => {

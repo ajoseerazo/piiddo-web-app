@@ -102,7 +102,7 @@ class ShopHeader extends Component {
           </NavbarBrand>
         </Link>
 
-        <Col md="5">
+        <Col md="5" className="hide-mobile">
           <InputGroup>
             <Input
               className="search-input"
@@ -117,7 +117,9 @@ class ShopHeader extends Component {
         </Col>
 
         <Nav className="ml-auto" navbar>
-          <AddressSelector address={address} disabled={disableAddress} />
+          <NavItem className="address-selector-wrapper">
+            <AddressSelector address={address} disabled={disableAddress} />
+          </NavItem>
 
           <NavItem style={{ marginRight: 15 }}>
             {!hideShoppingCart && <ShoppingCart />}

@@ -123,4 +123,12 @@ nav {
   .search-button {
     display: none;
   }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  li.address-selector-wrapper {
+    max-width: calc(100% - 45px);
+  }
 }

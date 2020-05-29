@@ -127,7 +127,7 @@ export default class MyDocument extends Document {
             type="text/css"
             media="all"
           />
-          <link rel="stylesheet" href="/_next/static/style.css" />
+          
           <meta
             name="description"
             content="Compra lo que quieras y te lo llevamos en minutos"

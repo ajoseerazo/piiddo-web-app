@@ -29,6 +29,7 @@ const SubCategory = ({
   address,
   isLoadingPartners,
   actions: { fetchPartners },
+  deliveryLocation,
 }) => {
   const router = useRouter();
   const [innerSubcategory, setInnerSubcategory] = useState();
@@ -47,9 +48,14 @@ const SubCategory = ({
     }
   }, [isBrowser, router.query.subcategory]);
 
-
   if (partner || router.isFallback) {
-    return <StorePage showFallback={router.isFallback} partner={partner} address={address} />;
+    return (
+      <StorePage
+        showFallback={router.isFallback}
+        partner={partner}
+        address={address}
+      />
+    );
   }
 
   return (
@@ -60,6 +66,7 @@ const SubCategory = ({
       subcategory={innerSubcategory ? innerSubcategory : subcategory}
       address={address}
       isLoadingPartners={isLoadingPartners}
+      deliveryLocation={deliveryLocation}
     />
   );
 };
@@ -137,11 +144,13 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;
   const { partners, isLoading } = state.Partners;
+  const { deliveryLocation } = state.Location;
 
   return {
     categories,
     partners,
     isLoadingPartners: isLoading,
+    deliveryLocation,
   };
 }
 

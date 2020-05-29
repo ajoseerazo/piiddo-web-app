@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   RestaurantName,
   RestaurantBanner,
@@ -10,8 +10,19 @@ import {
   RestaurantFilters,
   BottomText,
 } from "./styled";
+import { calculatePriceFromPoints } from "../../utils";
 
-const RestaurantSummary = ({ restaurant }) => {
+const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
+  const [deliveryPrice, setDeliveryPrice] = useState(null);
+
+  useEffect(() => {
+    if (deliveryLocation && restaurant && restaurant.location) {
+      setDeliveryPrice(
+        calculatePriceFromPoints(deliveryLocation, restaurant.location)
+      );
+    }
+  }, [deliveryLocation, restaurant]);
+
   return (
     <RestaurantWrapper>
       <RestaurantBanner src={restaurant.banner} />
@@ -24,11 +35,11 @@ const RestaurantSummary = ({ restaurant }) => {
         </RestaurantTags>
 
         <RestaurantFilters>
-          {!Number.isNaN(restaurant.deliveryPrice) && (
+          {!Number.isNaN(deliveryPrice) && (
             <>
               <span>
                 <RestaurantDeliveryPrice>
-                  <BottomText>Delivery: </BottomText> {restaurant.deliveryPrice}$
+                  <BottomText>Delivery: </BottomText> {deliveryPrice}$
                 </RestaurantDeliveryPrice>
               </span>
 

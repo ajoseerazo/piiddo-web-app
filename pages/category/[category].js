@@ -18,6 +18,7 @@ const Category = ({
   address,
   actions: { fetchPartners },
   isLoadingPartners,
+  deliveryLocation
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -46,6 +47,7 @@ const Category = ({
       address={address}
       isLoadingPartners={isLoadingPartners}
       onChangeSubcategory={changeSubcategory}
+      deliveryLocation={deliveryLocation}
     />
   );
 };
@@ -88,11 +90,13 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;
   const { partners, isLoading } = state.Partners;
+  const { deliveryLocation } = state.Location;
 
   return {
     categories,
     partners,
     isLoadingPartners: isLoading,
+    deliveryLocation
   };
 }
 

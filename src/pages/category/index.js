@@ -28,6 +28,7 @@ const Category = ({
   address,
   isLoadingPartners,
   onChangeSubcategory,
+  deliveryLocation
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -96,7 +97,7 @@ const Category = ({
                     as={`/category/${category.slug}/${getSlug(partner.name)}`}
                   >
                     <a>
-                      <RestaurantSummary restaurant={partner} />
+                      <RestaurantSummary restaurant={partner} deliveryLocation={deliveryLocation} />
                     </a>
                   </Link>
                 ))}

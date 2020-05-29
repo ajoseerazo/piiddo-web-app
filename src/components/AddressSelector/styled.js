@@ -30,7 +30,7 @@ export const AddressSelectorWrapper = styled.div`
     height: 35px;
     margin-right: 0px;
     padding: 0 10px;
-    margin-right: 5px;
+    margin-right: 8px;
     width: 100%;
 
     span {

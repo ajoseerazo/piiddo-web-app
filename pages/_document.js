@@ -145,7 +145,7 @@ export default class MyDocument extends Document {
           />
           <meta
             name="twitter:image"
-            content="https://regaloenvenezuela.com/static/images/sharing2.png"
+            content="https://piiddo.com/static/images/piiddo-512x512.png"
           />
 
           <meta name="og:title" content="" />
@@ -153,13 +153,13 @@ export default class MyDocument extends Document {
             name="og:description"
             content="Compra lo que quieras y te lo llevamos en minutos"
           />
-          <meta name="og:url" content="www.regaloenvenezuela.com" />
+          <meta name="og:url" content="www.piiddo.com" />
           <meta name="og:site_name" content="" />
           <meta name="og:locale" content="es_VE" />
           <meta name="og:type" content="website" />
           <meta
             property="og:image"
-            content="https://regaloenvenezuela.com/static/images/sharing2.png"
+            content="https://piiddo.com/static/images/piiddo-512x512.png"
           />
 
           <script

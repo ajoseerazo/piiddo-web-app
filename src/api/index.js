@@ -78,7 +78,7 @@ class Partners {
           lng: data.location.longitude,
         };
 
-        if (place) {
+        if (place && place.location) {
           const distance = getDistance(
             { latitude: place.location.lat, longitude: place.location.lng },
             { latitude: data.location.lat, longitude: data.location.lng }
@@ -170,9 +170,9 @@ class Partners {
 class DeliveryLocation {
   static get() {
     if (typeof window === "undefined") {
-      return {}
+      return null
     }
-    
+
     const address = Cookies.get("deliveryAddress");
     const location = Cookies.get("deliveryLocation");
 

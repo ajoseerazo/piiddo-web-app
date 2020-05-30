@@ -36,11 +36,6 @@ export default class MyDocument extends Document {
           <meta charSet="utf-8" />
 
           <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link
-            rel="preconnect"
-            href="https://maps.googleapis.com"
-            crossOrigin="true"
-          />
 
           <meta name="application-name" content="Piiddo" />
           <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -147,7 +142,6 @@ export default class MyDocument extends Document {
           <script
             type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAX1z89iahv9s6jVeH1dixt0Ey0hZW9teo&libraries=places"
-            async
           />
 
           <script

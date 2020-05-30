@@ -52,21 +52,6 @@ const Restaurantes = ({
   );
 };
 
-export const getStaticPaths = async () => {
-  const categories = await API.Categories.getAll();
-
-  const paths = categories.map((cat) => {
-    return {
-      params: { category: cat.slug },
-    };
-  });
-
-  return {
-    paths: paths,
-    fallback: false,
-  };
-};
-
 export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   const {
     store,

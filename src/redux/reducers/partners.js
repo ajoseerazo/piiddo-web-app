@@ -9,6 +9,7 @@ const initialState = {
   isLoadingCatalog: false,
   isLoadingCatalogCategories: false,
   catalogCategories: null,
+  catalogLoaded: false,
 };
 
 export default function partnersReducer(state = initialState, action) {
@@ -65,17 +66,20 @@ export default function partnersReducer(state = initialState, action) {
       return {
         ...state,
         isLoadingCatalogCategories: true,
+        catalogLoaded: false,
       };
     case actions.GET_CATALOG_CATEGORIES_FAILED:
       return {
         ...state,
         isLoadingCatalogCategories: false,
+        catalogLoaded: true,
       };
     case actions.GET_CATALOG_CATEGORIES_SUCCESS:
       return {
         ...state,
         isLoadingCatalogCategories: false,
         catalogCategories: action.categories,
+        catalogLoaded: true,
       };
     default:
       return state;

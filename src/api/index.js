@@ -25,6 +25,7 @@ class Products {
     const products = productsRef.docs.map((product) => {
       const data = product.data();
       delete data.createdAt;
+      delete data.updatedAt;
 
       return {
         id: product.id,
@@ -68,6 +69,9 @@ class Partners {
 
     const partners = partnersRef.docs.map((p) => {
       const data = p.data();
+      delete data.createdAt;
+      delete data.updatedAt;
+      
       if (data.location) {
         data.location = {
           lat: data.location.latitude,
@@ -102,6 +106,7 @@ class Partners {
       }
 
       delete data.createdAt;
+      delete data.updatedAt;
 
       return {
         id: partnersRef.docs[0].id,

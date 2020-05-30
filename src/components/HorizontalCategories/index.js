@@ -86,7 +86,7 @@ const HorizontalCategories = ({
           </WrapperLink>
         </li>
 
-        {categories.map((category) => (
+        {(categories || []).map((category) => (
           <li
             className={
               !scrollSpy

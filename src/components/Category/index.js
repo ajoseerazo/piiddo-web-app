@@ -5,7 +5,14 @@ import Link from "next/link";
 const Category = ({ name, image, slug }) => {
   return (
     <CategoryWrapper>
-      <Link href="/category/[category]" as={`/category/${slug}`}>
+      <Link
+        href={
+          slug === "restaurantes" ? "/restaurantes" : "/category/[category]"
+        }
+        as={`${
+          slug === "restaurantes" ? "/restaurantes" : `/category/${slug}`
+        }`}
+      >
         <a>
           <ImageWrapper category={name}>
             <img src={image} alt={name} />

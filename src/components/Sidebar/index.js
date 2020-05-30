@@ -64,12 +64,12 @@ const Sidebar = ({
         >
           <li
             className={
-              `/category/${categorySlug}` === currentUrl ? "active" : undefined
+              `/restaurantes` === currentUrl ? "active" : undefined
             }
           >
             <WrapperLink
-              href="/category/[category]"
-              as={`/category/${categorySlug}`}
+              href="/restaurantes"
+              as={`/restaurantes`}
               shallow={shallow}
             >
               <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
@@ -80,15 +80,15 @@ const Sidebar = ({
           {categories.map((category) => (
             <li
               className={
-                `/category/${categorySlug}/${category.slug}` === currentUrl
+                `/restaurantes/${category.slug}` === currentUrl
                   ? "active"
                   : undefined
               }
             >
               <WrapperLink
                 key={category.id || category.slug}
-                href="/category/[category]/[subcategory]"
-                as={`/category/${categorySlug}/${category.slug}`}
+                href="/restaurantes/[subcategory]"
+                as={`/restaurantes/${category.slug}`}
                 shallow={shallow}
               >
                 <MenuLink

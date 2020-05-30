@@ -93,8 +93,8 @@ const Category = ({
               <RestaurantsGrid>
                 {(partners || []).map((partner) => (
                   <Link
-                    href="/category/[category]/v/[slug]"
-                    as={`/category/${category.slug}/v/${getSlug(partner.name)}`}
+                    href="/restaurantes/v/[slug]"
+                    as={`/restaurantes/v/${getSlug(partner.name)}`}
                     // shallow
                   >
                     <a>

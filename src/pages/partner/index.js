@@ -100,7 +100,7 @@ const Store = ({
       setIsModalOpen(false);
       addToCart({
         ...order,
-        deliveryPrice
+        deliveryPrice,
       });
     },
     [setIsModalOpen, deliveryPrice]
@@ -134,134 +134,157 @@ const Store = ({
       <ShopHeader address={address} />
 
       <HomeWrapper>
-        <PartnerWrapper>
-          {!showFallback && (
-            <>
-              <BreadcumbWrapper>
-                <Breadcumb
-                  items={[
-                    {
-                      url: "/",
-                      name: "Inicio",
-                    },
-                    {
-                      url: `/category/restaurantes`,
-                      name: "Restaurantes",
-                    },
-                    {
-                      url: `/category/restaurantes/${partner.slug}`,
-                      name: partner.name,
-                    },
-                  ]}
-                />
-              </BreadcumbWrapper>
-            </>
-          )}
-
-          <PartnerInfoWrapper>
-            <PartnerBannerPlaceholder ready={!showFallback}>
-              {partner && (
+        {partner ? (
+          <>
+            <PartnerWrapper>
+              {!showFallback && (
                 <>
-                  <PartnerMediaWrapper>
-                    <PartnerBanner src={partner.banner} />
-                    <PartnerLogo src={partner.logo} />
-                  </PartnerMediaWrapper>
-
-                  <PartnerInfo>
-                    <PartnerName>{partner.name}</PartnerName>
-                    <PartnerHourly>7:30am - 2:00pm</PartnerHourly>
-
-                    <PartnerDeliveryInfo>
-                      <div>
-                        <PartnerDeliveryText>Delivery</PartnerDeliveryText>
-                        <div>
-                          {isMounted && !Number.isNaN(deliveryPrice)
-                            ? `${deliveryPrice ? deliveryPrice : ''}$`
-                            : null}
-                        </div>
-                      </div>
-
-                      <div>
-                        <PartnerDeliveryText>Entrega</PartnerDeliveryText>
-                        <div>40 min</div>
-                      </div>
-                    </PartnerDeliveryInfo>
-                  </PartnerInfo>
+                  <BreadcumbWrapper>
+                    <Breadcumb
+                      items={[
+                        {
+                          url: "/",
+                          name: "Inicio",
+                        },
+                        {
+                          url: `/category/restaurantes`,
+                          name: "Restaurantes",
+                        },
+                        {
+                          url: `/category/restaurantes/${partner.slug}`,
+                          name: partner.name,
+                        },
+                      ]}
+                    />
+                  </BreadcumbWrapper>
                 </>
               )}
-            </PartnerBannerPlaceholder>
-          </PartnerInfoWrapper>
 
-          <PartnerInfoWrapperMobile>
-            <PartnerBannerPlaceholder ready={!showFallback}>
-              {!showFallback && partner && (
-                <>
-                  <PartnerBannerMobile src={partner.banner} />
-
-                  <PartnerInfoMobile>
-                    <PartnerLogoMobile src={partner.logo} />
-                    <PartnerTitleMobile>{partner.name}</PartnerTitleMobile>
-                    <PartnerMobileAddress>
-                      {partner.address}
-                    </PartnerMobileAddress>
-
-                    <PartnerMobileDeliveryInfo>
-                      <div>
-                        Delivery:{" "}
-                        {isMounted && !Number.isNaN(deliveryPrice)
-                          ? `${deliveryPrice}$`
-                          : null}
-                      </div>
-
-                      <div>Entrega: 40 min</div>
-                    </PartnerMobileDeliveryInfo>
-                  </PartnerInfoMobile>
-                </>
-              )}
-            </PartnerBannerPlaceholder>
-          </PartnerInfoWrapperMobile>
-
-          <MobileCategoriesWrapper>
-            <HorizontalCategories
-              categories={catalogCategories ? catalogCategories : []}
-              currentUrl={currentUrl}
-              scrollSpy={true}
-              withPlaceholder={true}
-              isLoading={showFallback || isLoadingCatalogCategories}
-            />
-          </MobileCategoriesWrapper>
-
-          <PartnerContent>
-            <SidebarWrapper>
-              <Sidebar
-                categories={catalogCategories ? catalogCategories : []}
-                currentUrl={currentUrl}
-                showTitle={false}
-                scrollSpy
-                withPlaceholder={true}
-                isLoading={showFallback || isLoadingCatalogCategories}
-              />
-            </SidebarWrapper>
-
-            <ProductsWrapper>
-              <ProductsPlaceholder
-                ready={
-                  !showFallback &&
-                  !isLoadingProducts &&
-                  !isLoadingCatalogCategories &&
-                  !isLoadingCatalog
-                }
-                rows={12}
-              >
-                {catalogCategories ? (
-                  catalogCategories.map((cat) => (
+              <PartnerInfoWrapper>
+                <PartnerBannerPlaceholder ready={!showFallback}>
+                  {partner && (
                     <>
-                      {products[cat.id] && products[cat.id].length !== 0 && (
-                        <CategoryWrapper id={cat.id}>
-                          <CategoryName key={cat.id}>{cat.name}</CategoryName>
+                      <PartnerMediaWrapper>
+                        <PartnerBanner src={partner.banner} />
+                        <PartnerLogo src={partner.logo} />
+                      </PartnerMediaWrapper>
 
-                          <ProductsGrid>
-                            {products[cat.id].map((product) => (
+                      <PartnerInfo>
+                        <PartnerName>{partner.name}</PartnerName>
+                        <PartnerHourly>7:30am - 2:00pm</PartnerHourly>
+
+                        <PartnerDeliveryInfo>
+                          <div>
+                            <PartnerDeliveryText>Delivery</PartnerDeliveryText>
+                            <div>
+                              {isMounted && !Number.isNaN(deliveryPrice)
+                                ? `${deliveryPrice ? deliveryPrice : ""}$`
+                                : null}
+                            </div>
+                          </div>
+
+                          <div>
+                            <PartnerDeliveryText>Entrega</PartnerDeliveryText>
+                            <div>40 min</div>
+                          </div>
+                        </PartnerDeliveryInfo>
+                      </PartnerInfo>
+                    </>
+                  )}
+                </PartnerBannerPlaceholder>
+              </PartnerInfoWrapper>
+
+              <PartnerInfoWrapperMobile>
+                <PartnerBannerPlaceholder ready={!showFallback}>
+                  {!showFallback && partner && (
+                    <>
+                      <PartnerBannerMobile src={partner.banner} />
+
+                      <PartnerInfoMobile>
+                        <PartnerLogoMobile src={partner.logo} />
+                        <PartnerTitleMobile>{partner.name}</PartnerTitleMobile>
+                        <PartnerMobileAddress>
+                          {partner.address}
+                        </PartnerMobileAddress>
+
+                        <PartnerMobileDeliveryInfo>
+                          <div>
+                            Delivery:{" "}
+                            {isMounted && !Number.isNaN(deliveryPrice)
+                              ? `${deliveryPrice}$`
+                              : null}
+                          </div>
+
+                          <div>Entrega: 40 min</div>
+                        </PartnerMobileDeliveryInfo>
+                      </PartnerInfoMobile>
+                    </>
+                  )}
+                </PartnerBannerPlaceholder>
+              </PartnerInfoWrapperMobile>
+
+              <MobileCategoriesWrapper>
+                <HorizontalCategories
+                  categories={catalogCategories ? catalogCategories : []}
+                  currentUrl={currentUrl}
+                  scrollSpy={true}
+                  withPlaceholder={true}
+                  isLoading={showFallback || isLoadingCatalogCategories}
+                />
+              </MobileCategoriesWrapper>
+
+              <PartnerContent>
+                <SidebarWrapper>
+                  <Sidebar
+                    categories={catalogCategories ? catalogCategories : []}
+                    currentUrl={currentUrl}
+                    showTitle={false}
+                    scrollSpy
+                    withPlaceholder={true}
+                    isLoading={showFallback || isLoadingCatalogCategories}
+                  />
+                </SidebarWrapper>
+
+                <ProductsWrapper>
+                  <ProductsPlaceholder
+                    ready={
+                      !showFallback &&
+                      !isLoadingProducts &&
+                      !isLoadingCatalogCategories &&
+                      !isLoadingCatalog
+                    }
+                    rows={12}
+                  >
+                    {catalogCategories ? (
+                      catalogCategories.map((cat) => (
+                        <>
+                          {products[cat.id] && products[cat.id].length !== 0 && (
+                            <CategoryWrapper id={cat.id}>
+                              <CategoryName key={cat.id}>
+                                {cat.name}
+                              </CategoryName>
+
+                              <ProductsGrid>
+                                {products[cat.id].map((product) => (
+                                  <ProductItem
+                                    key={product.id}
+                                    product={product}
+                                    onSelectProduct={openProduct.bind(
+                                      this,
+                                      product
+                                    )}
+                                  />
+                                ))}
+                              </ProductsGrid>
+                            </CategoryWrapper>
+                          )}
+                        </>
+                      ))
+                    ) : (
+                      <ProductsGrid>
+                        {products && products.all && (
+                          <>
+                            {products.all.map((product) => (
                               <ProductItem
                                 key={product.id}
                                 product={product}
@@ -271,37 +294,25 @@ const Store = ({
                                 )}
                               />
                             ))}
-                          </ProductsGrid>
-                        </CategoryWrapper>
-                      )}
-                    </>
-                  ))
-                ) : (
-                  <ProductsGrid>
-                    {products && products.all && (
-                      <>
-                        {products.all.map((product) => (
-                          <ProductItem
-                            key={product.id}
-                            product={product}
-                            onSelectProduct={openProduct.bind(this, product)}
-                          />
-                        ))}
-                      </>
+                          </>
+                        )}
+                      </ProductsGrid>
                     )}
-                  </ProductsGrid>
-                )}
-              </ProductsPlaceholder>
-            </ProductsWrapper>
-          </PartnerContent>
-        </PartnerWrapper>
+                  </ProductsPlaceholder>
+                </ProductsWrapper>
+              </PartnerContent>
+            </PartnerWrapper>
 
-        <ProductModal
-          isOpen={isModalOpen}
-          onClose={onCloseModal}
-          product={productSelected}
-          onAccept={onAddProductToCart}
-        />
+            <ProductModal
+              isOpen={isModalOpen}
+              onClose={onCloseModal}
+              product={productSelected}
+              onAccept={onAddProductToCart}
+            />
+          </>
+        ) : (
+          <div>Tienda no encontrada :(</div>
+        )}
       </HomeWrapper>
 
       <Toolbar />

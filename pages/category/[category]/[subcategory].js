@@ -48,16 +48,6 @@ const SubCategory = ({
     }
   }, [isBrowser, router.query.subcategory]);
 
-  if (partner || router.isFallback) {
-    return (
-      <StorePage
-        showFallback={router.isFallback}
-        partner={partner}
-        address={address}
-      />
-    );
-  }
-
   return (
     <CategoryPage
       category={category}

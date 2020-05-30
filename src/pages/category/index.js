@@ -56,7 +56,7 @@ const Category = ({
 
       <TopCategoriesWrapper>
         <HorizontalCategories
-          categories={category.subcategories || []}
+          categories={(category || {}).subcategories || []}
           categorySlug={category.slug}
           currentUrl={currentUrl}
           shallow={true}
@@ -67,7 +67,7 @@ const Category = ({
         <div>
           <SidebarWrapper>
             <Sidebar
-              categories={category.subcategories || []}
+              categories={(category || {}).subcategories || []}
               categorySlug={category.slug}
               currentUrl={currentUrl}
               shallow={true}

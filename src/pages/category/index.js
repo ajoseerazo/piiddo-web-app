@@ -21,7 +21,7 @@ import Router from "next/router";
 import Toolbar from "../../components/Toolbar";
 
 const Category = ({
-  category,
+  category = {},
   partners,
   currentUrl,
   subcategory,

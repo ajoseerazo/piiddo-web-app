@@ -65,18 +65,20 @@ export const getStaticPaths = async () => {
   const categories = await API.Categories.getAll();
 
   const paths = categories.map((cat) => {
-    if (cat.subcategories) {
-      const catParams = [];
-      for (let i = 0; i < cat.subcategories.length; i++) {
-        catParams.push({
-          params: {
-            category: cat.slug,
-            subcategory: cat.subcategories[i].slug,
-          },
-        });
-      }
+    if (cat) {
+      if (cat.subcategories) {
+        const catParams = [];
+        for (let i = 0; i < cat.subcategories.length; i++) {
+          catParams.push({
+            params: {
+              category: cat.slug,
+              subcategory: cat.subcategories[i].slug,
+            },
+          });
+        }
 
-      return catParams;
+        return catParams;
+      }
     }
   });
 

@@ -128,7 +128,9 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
     };
   } else {
     return {
-      props: {},
+      props: {
+        category: {}
+      },
     };
   }
 });

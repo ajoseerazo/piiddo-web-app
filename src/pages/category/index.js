@@ -28,7 +28,7 @@ const Category = ({
   address,
   isLoadingPartners,
   onChangeSubcategory,
-  deliveryLocation
+  deliveryLocation,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -77,10 +77,10 @@ const Category = ({
           <ContentWrapper>
             <h1>
               {!subcategory ? (
-                `Restaurantes cerca de ti`
+                `${(category || {}).slug} cerca de ti`
               ) : (
                 <span>
-                  Restaurantes <ChevronRightIcon>></ChevronRightIcon>{" "}
+                  {(category || {}).slug} <ChevronRightIcon>></ChevronRightIcon>{" "}
                   {subcategory} cerca de ti
                 </span>
               )}
@@ -98,7 +98,10 @@ const Category = ({
                     // shallow
                   >
                     <a>
-                      <RestaurantSummary restaurant={partner} deliveryLocation={deliveryLocation} />
+                      <RestaurantSummary
+                        restaurant={partner}
+                        deliveryLocation={deliveryLocation}
+                      />
                     </a>
                   </Link>
                 ))}

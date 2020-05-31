@@ -67,8 +67,12 @@ function ShoppingBoxItem(props) {
             <div>
               <Collapse isOpen={collapse}>
                 <Additionals>
-                  {additionals.map((additional) => {
-                    return <li>{additional.name}</li>;
+                  {additionals.map((additional, index) => {
+                    return (
+                      <li key={`${additional.name}-${index}`}>
+                        {additional.name}
+                      </li>
+                    );
                   })}
                 </Additionals>
               </Collapse>

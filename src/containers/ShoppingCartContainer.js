@@ -6,7 +6,7 @@ import actions from "../redux/actions/shoppingCart";
 import ShoppingCart from "../components/ShoppingCart";
 import ShoppingBoxList from "../components/ShoppingBoxList";
 import ShoppingCartDetails from "../components/ShoppingCartDetails";
-import { calculatePriceFromPoints } from "../utils";
+import { getDataFromShoppingCart } from "../utils";
 
 const { removeFromCart, changeCount } = actions;
 
@@ -91,35 +91,10 @@ function mapDispatchToProps(dispatch, props) {
 function mapStateToProps(state, props) {
   const { stores } = state.ShoppingCart;
   const { deliveryLocation } = state.Location;
-
-  let length = 0;
-  // let items = [];
-  let total = 0;
-  let deliveryTotal = 0;
-  for (let key in stores) {
-    length =
-      length +
-      stores[key].items.reduce((a, b) => {
-        return a + b.count;
-      }, 0);
-
-    total =
-      total +
-      stores[key].items.reduce((a, b) => {
-        return a + b.totalAmount;
-      }, 0);
-
-    // items = items.concat(...stores[key].items);
-
-    if (deliveryLocation && deliveryLocation.lat && deliveryLocation.lng) {
-      deliveryTotal =
-        deliveryTotal +
-        calculatePriceFromPoints(deliveryLocation, stores[key].location);
-    }
-  }
+  
+  const [length, total, deliveryTotal] = getDataFromShoppingCart(stores, deliveryLocation);
 
   return {
-    // items,
     stores,
     length,
     total,

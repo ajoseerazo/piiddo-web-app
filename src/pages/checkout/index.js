@@ -46,12 +46,13 @@ import PaymentSuccessModal from "../../components/PaymentSuccessModal";
 import { PayPalButton } from "react-paypal-button-v2";
 import Toolbar from "../../components/Toolbar";
 import Router from "next/router";
+import { getDataFromShoppingCart } from "../../utils";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
 
 const CheckoutPage = ({
-  items,
+  stores,
   address,
   actions: { createOrder, setOrderPaymentSupport, doPayment },
   isCreatingOrder,
@@ -61,6 +62,9 @@ const CheckoutPage = ({
   paymentSupportSent,
   isDoingPayment,
   paymentSuccess,
+  length,
+  total,
+  deliveryTotal,
 }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
@@ -79,14 +83,6 @@ const CheckoutPage = ({
     setShouldOpenPaymentSuccessModal,
   ] = useState(false);
   const [paypalPaymentSuccess, setPaypalPaymentSuccess] = useState(false);
-
-  let total = (items || []).reduce((a, b) => {
-    return a + b.totalAmount;
-  }, 0);
-
-  let totalDelivery = (items || []).reduce((a, b) => {
-    return a + b.deliveryPrice;
-  }, 0);
 
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
@@ -120,7 +116,7 @@ const CheckoutPage = ({
       paymentMethodSelected,
       extraAddress,
       vuelto,
-      items,
+      stores
     };
 
     if (
@@ -137,7 +133,7 @@ const CheckoutPage = ({
           documentType: "dni",
           documentNumber: number,
         },
-        amount: total + totalDelivery,
+        amount: total + deliveryTotal,
       });
 
       if (result && result.success) {
@@ -160,11 +156,11 @@ const CheckoutPage = ({
     vuelto,
     isSamePerson,
     address,
-    items,
+    stores,
     createOrder,
     doPayment,
     total,
-    totalDelivery,
+    deliveryTotal,
     creditCard,
   ]);
 
@@ -188,7 +184,7 @@ const CheckoutPage = ({
           } else {
             if (paymentMethodSelected.value === "cryptocoins") {
               window.location = `https://payments.criptopagos.co?amount=${round(
-                total + totalDelivery,
+                total + deliveryTotal,
                 2
               )}&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
                 order.id
@@ -240,7 +236,7 @@ const CheckoutPage = ({
         paymentMethodSelected,
         extraAddress,
         vuelto,
-        items,
+        stores,
         paymentStatus: "COMPLETED",
         paymentDetails: details,
       };
@@ -258,11 +254,11 @@ const CheckoutPage = ({
       vuelto,
       isSamePerson,
       address,
-      items,
+      stores,
       createOrder,
       doPayment,
       total,
-      totalDelivery,
+      deliveryTotal,
       creditCard,
       setPaypalPaymentSuccess,
     ]
@@ -475,15 +471,17 @@ const CheckoutPage = ({
                 <CheckoutProductsSummary>
                   <CheckoutBoxTitle>Tu orden</CheckoutBoxTitle>
 
-                  {(items || []).map((item, index) => {
-                    return (
-                      <ShoppingBoxList
-                        key={index}
-                        order={item}
-                        forceActive={true}
-                        disableCounters
-                      />
-                    );
+                  {Object.keys(stores).map((storeId) => {
+                    return (stores[storeId].items || []).map((item, index) => {
+                      return (
+                        <ShoppingBoxList
+                          key={`${storeId}-${index}`}
+                          order={item}
+                          forceActive={true}
+                          disableCounters
+                        />
+                      );
+                    });
                   })}
                 </CheckoutProductsSummary>
               </CheckoutBox>
@@ -501,7 +499,7 @@ const CheckoutPage = ({
                 <CheckoutSummaryItem>
                   <CheckoutSummaryItemTitle>Delivery</CheckoutSummaryItemTitle>
                   <CheckoutSummaryItemPrice>
-                    ${parseFloat(totalDelivery).toFixed(2)}
+                    ${parseFloat(deliveryTotal).toFixed(2)}
                   </CheckoutSummaryItemPrice>
                 </CheckoutSummaryItem>
 
@@ -509,14 +507,17 @@ const CheckoutPage = ({
                   <div>
                     <CheckoutTotalTitle>Total</CheckoutTotalTitle>
                     <CheckoutTotalPrice>
-                      ${parseFloat(total + totalDelivery).toFixed(2)}
+                      ${parseFloat(total + deliveryTotal).toFixed(2)}
                     </CheckoutTotalPrice>
                   </div>
 
                   <div>
                     <CheckoutTotalTitle>Total Bs</CheckoutTotalTitle>
                     <CheckoutTotalPrice>
-                      Bs {`${new Intl.NumberFormat("es").format((total + totalDelivery) * 195800)}`}
+                      Bs{" "}
+                      {`${new Intl.NumberFormat("es").format(
+                        (total + deliveryTotal) * 195800
+                      )}`}
                     </CheckoutTotalPrice>
                   </div>
                 </CheckoutTotal>
@@ -529,7 +530,7 @@ const CheckoutPage = ({
                   <PaypalButtonWrapper>
                     {isCheckoutButtonDisabled && <PayPalButtonDisabling />}
                     <PayPalButton
-                      amount={total + totalDelivery}
+                      amount={total + deliveryTotal}
                       shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                       onSuccess={onPaypalPaymentSuccess}
                       options={{
@@ -603,7 +604,7 @@ function mapDispatchToProps(dispatch, props) {
 }
 
 function mapStateToProps(state, props) {
-  const { items } = state.ShoppingCart;
+  const { stores } = state.ShoppingCart;
   const {
     order,
     creatingOrder,
@@ -611,11 +612,16 @@ function mapStateToProps(state, props) {
     settingPaymentSupport,
     paymentSupportSent,
   } = state.Orders;
-
+  const { deliveryLocation } = state.Location;
   const { payment, paymentSuccess, isDoingPayment } = state.Payments;
 
+  const [length, total, deliveryTotal] = getDataFromShoppingCart(
+    stores,
+    deliveryLocation
+  );
+
   return {
-    items,
+    stores,
     order,
     creatingOrder,
     isCreatingOrder: creatingOrder,
@@ -625,6 +631,9 @@ function mapStateToProps(state, props) {
     payment,
     paymentSuccess,
     isDoingPayment,
+    length,
+    total,
+    deliveryTotal,
   };
 }
 

@@ -12,7 +12,7 @@ const ProductsPlaceholder = ({ rows = 1, children, ready }) => {
     return (
       <ProductsPlaceholderWrapper>
         {arr.map((a, index) => (
-          <PartnerPlaceholder />
+          <PartnerPlaceholder key={index} />
         ))}
       </ProductsPlaceholderWrapper>
     );

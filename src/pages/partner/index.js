@@ -99,10 +99,15 @@ const Store = ({
   const onAddProductToCart = useCallback(
     (order) => {
       onCloseModal();
-      console.log(partner);
       addToCart({
         ...order,
         deliveryPrice,
+        partner: {
+          id: partner.id,
+          slug: partner.slug,
+          logo: partner.logo,
+          location: partner.location
+        }
       });
     },
     [setIsModalOpen, deliveryPrice, partner]

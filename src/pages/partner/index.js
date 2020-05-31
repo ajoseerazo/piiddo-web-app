@@ -101,7 +101,6 @@ const Store = ({
       onCloseModal();
       addToCart({
         ...order,
-        deliveryPrice,
         partner: {
           id: partner.id,
           slug: partner.slug,
@@ -110,7 +109,7 @@ const Store = ({
         }
       });
     },
-    [setIsModalOpen, deliveryPrice, partner]
+    [setIsModalOpen, partner]
   );
 
   useEffect(() => {
@@ -264,7 +263,7 @@ const Store = ({
                   >
                     {catalogCategories ? (
                       catalogCategories.map((cat) => (
-                        <>
+                        <div key={cat.id}>
                           {products[cat.id] && products[cat.id].length !== 0 && (
                             <CategoryWrapper id={cat.id}>
                               <CategoryName key={cat.id}>
@@ -285,7 +284,7 @@ const Store = ({
                               </ProductsGrid>
                             </CategoryWrapper>
                           )}
-                        </>
+                        </div>
                       ))
                     ) : (
                       <ProductsGrid>

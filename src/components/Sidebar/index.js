@@ -80,8 +80,9 @@ const Sidebar = ({
               </MenuLink>
             </WrapperLink>
           </li>
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <li
+              key={index}
               className={
                 `/${categorySlug}/${category.slug}` === currentUrl
                   ? "active"

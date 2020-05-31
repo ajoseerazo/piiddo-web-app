@@ -99,12 +99,13 @@ const Store = ({
   const onAddProductToCart = useCallback(
     (order) => {
       onCloseModal();
+      console.log(partner);
       addToCart({
         ...order,
         deliveryPrice,
       });
     },
-    [setIsModalOpen, deliveryPrice]
+    [setIsModalOpen, deliveryPrice, partner]
   );
 
   useEffect(() => {

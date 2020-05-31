@@ -147,11 +147,11 @@ const Store = ({
                           name: "Inicio",
                         },
                         {
-                          url: `/restaurantes`,
-                          name: "Restaurantes",
+                          url: `/${partner.mainCategory}`,
+                          name: partner.mainCategory,
                         },
                         {
-                          url: `/restaurantes/v/${partner.slug}`,
+                          url: `/${partner.mainCategory}/v/${partner.slug}`,
                           name: partner.name,
                         },
                       ]}

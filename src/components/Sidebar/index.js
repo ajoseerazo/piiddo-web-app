@@ -21,7 +21,7 @@ const Sidebar = ({
   scrollSpy,
   shallow,
   withPlaceholder,
-  isLoading
+  isLoading,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -54,7 +54,12 @@ const Sidebar = ({
     >
       {showTitle && <div className="category-name">Categorías</div>}
 
-      <SidebarPlaceholder rows={10} ready={withPlaceholder ? categories && categories.length && !isLoading : true}>
+      <SidebarPlaceholder
+        rows={10}
+        ready={
+          withPlaceholder ? categories && categories.length && !isLoading : true
+        }
+      >
         <ul
           className={showTitle ? "with-title" : "no-title"}
           /*style={{
@@ -63,13 +68,11 @@ const Sidebar = ({
         */
         >
           <li
-            className={
-              `/restaurantes` === currentUrl ? "active" : undefined
-            }
+            className={`/${categorySlug}` === currentUrl ? "active" : undefined}
           >
             <WrapperLink
-              href="/restaurantes"
-              as={`/restaurantes`}
+              href="/[category]"
+              as={`/${categorySlug}`}
               shallow={shallow}
             >
               <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
@@ -80,15 +83,15 @@ const Sidebar = ({
           {categories.map((category) => (
             <li
               className={
-                `/restaurantes/${category.slug}` === currentUrl
+                `/${categorySlug}/${category.slug}` === currentUrl
                   ? "active"
                   : undefined
               }
             >
               <WrapperLink
                 key={category.id || category.slug}
-                href="/restaurantes/[subcategory]"
-                as={`/restaurantes/${category.slug}`}
+                href="/[category]/[subcategory]"
+                as={`/${categorySlug}/${category.slug}`}
                 shallow={shallow}
               >
                 <MenuLink

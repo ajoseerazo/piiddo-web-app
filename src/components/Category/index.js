@@ -7,10 +7,10 @@ const Category = ({ name, image, slug }) => {
     <CategoryWrapper>
       <Link
         href={
-          slug === "restaurantes" ? "/restaurantes" : "/category/[category]"
+          slug === "restaurantes" ? "/restaurantes" : "/[category]"
         }
         as={`${
-          slug === "restaurantes" ? "/restaurantes" : `/category/${slug}`
+          slug === "restaurantes" ? "/restaurantes" : `/${slug}`
         }`}
       >
         <a>

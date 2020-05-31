@@ -1,9 +1,9 @@
 import React from "react";
-import StorePage from "../../../../src/pages/partner";
-import partnersActions from "../../../../src/redux/actions/partners";
+import StorePage from "../../../src/pages/partner";
+import partnersActions from "../../../src/redux/actions/partners";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { wrapper } from "../../../../src/redux/store";
+import { wrapper } from "../../../src/redux/store";
 
 const { fetchPartner } = partnersActions;
 

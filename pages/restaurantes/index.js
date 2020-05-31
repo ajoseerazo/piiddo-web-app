@@ -48,6 +48,7 @@ const Restaurantes = ({
       isLoadingPartners={isLoadingPartners}
       onChangeSubcategory={changeSubcategory}
       deliveryLocation={deliveryLocation}
+      currentUrl={currentUrl}
     />
   );
 };

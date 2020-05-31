@@ -66,7 +66,7 @@ const HorizontalCategories = ({
         <li
           className={
             !scrollSpy
-              ? currentUrl === undefined
+              ? currentUrl === `/${categorySlug}`
                 ? "selected"
                 : undefined
               : selected === "all"
@@ -75,8 +75,8 @@ const HorizontalCategories = ({
           }
         >
           <WrapperLink
-            href="/restaurantes"
-            as={`/restaurantes`}
+            href="/[category]"
+            as={`/${categorySlug}`}
             onClick={scrollSpy ? setSelectedMenu.bind(this, "all") : undefined}
             shallow={shallow}
           >
@@ -90,7 +90,7 @@ const HorizontalCategories = ({
           <li
             className={
               !scrollSpy
-                ? `/restaurantes/${category.slug}` === currentUrl
+                ? `/${categorySlug}/${category.slug}` === currentUrl
                   ? "selected"
                   : undefined
                 : selected === category.id
@@ -100,8 +100,8 @@ const HorizontalCategories = ({
             key={category.id || category.slug}
           >
             <WrapperLink
-              href="/restaurantes/[subcategory]"
-              as={`/restaurantes/${category.slug}`}
+              href="/[category]/[subcategory]"
+              as={`/${categorySlug}/${category.slug}`}
               onClick={
                 scrollSpy ? setSelectedMenu.bind(this, category.id) : undefined
               }

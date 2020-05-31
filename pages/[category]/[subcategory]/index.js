@@ -42,7 +42,7 @@ const SubCategory = ({
         fetchPartners(category.slug, router.query.subcategory);
         setInnerSubcategory(router.query.subcategory);
         setInnerCurrentURL(
-          `/category/${category.slug}/${router.query.subcategory}`
+          `/${category.slug}/${router.query.subcategory}`
         );
       }
     }
@@ -120,7 +120,7 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
       props: {
         category,
         partners,
-        currentUrl: `/category/${categoryQuery}/${subcategory}`,
+        currentUrl: `/${categoryQuery}/${subcategory}`,
         subcategory,
         partner,
         address,

@@ -4,7 +4,10 @@
     "target": {
       "namespace": "android_app",
       "package_name": "com.piiddo",
-      "sha256_cert_fingerprints": ["3E:AA:EE:6F:95:74:AA:09:07:73:21:E7:5F:83:5C:DF:E6:48:B7:69:E7:C6:08:EB:81:8A:C4:35:17:B1:D2:07"]
+      "sha256_cert_fingerprints": [
+        "3E:AA:EE:6F:95:74:AA:09:07:73:21:E7:5F:83:5C:DF:E6:48:B7:69:E7:C6:08:EB:81:8A:C4:35:17:B1:D2:07",
+        "67:45:19:E0:4D:C8:02:0B:9C:81:6A:51:1C:B5:FB:83:17:C3:96:28:CD:09:77:D7:65:5F:83:71:07:B2:FA:33"
+      ]
     }
   }
 ]

@@ -3,7 +3,12 @@ import { Collapse } from "reactstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import { LinkButtonStyled, Additionals, ProductItemRight, ProductItemLeft } from "./styled";
+import {
+  LinkButtonStyled,
+  Additionals,
+  ProductItemRight,
+  ProductItemLeft,
+} from "./styled";
 import ProductCounterTiny from "../ProductCounterTiny";
 
 library.add([faChevronUp, faChevronDown]);
@@ -24,17 +29,30 @@ function ShoppingBoxItem(props) {
     companions,
     onClickDelete,
     onChangeCount,
-    disableCounters
+    disableCounters,
+    variations,
   } = props;
   let amout = price;
 
   let activeName = "";
 
+  const variationsArr = [];
+  if (variations) {
+    for (let key in variations) {
+      variationsArr.push({
+        name: `${key}: ${variations[key].name}`,
+      });
+    }
+  }
+
   const additionals = [
+    ...variationsArr,
     ...(options || []),
     ...(extras || []),
     ...(companions || []),
   ];
+
+  console.log(variations);
 
   const toggle = () => setCollapse(!collapse);
 
@@ -57,7 +75,7 @@ function ShoppingBoxItem(props) {
                 </Additionals>
               </Collapse>
               <LinkButtonStyled onClick={toggle}>
-                <span>{collapse ? "Ocultar" : "Adicionales"}</span>
+                <span>{collapse ? "Ocultar" : "Opciones"}</span>
                 <FontAwesomeIcon
                   icon={collapse ? "chevron-up" : "chevron-down"}
                 />
@@ -68,11 +86,13 @@ function ShoppingBoxItem(props) {
       </ProductItemLeft>
 
       <ProductItemRight>
-        {!disableCounters && <ProductCounterTiny
-          amount={length}
-          onChangeCount={onChangeCount}
-          onClickDelete={onClickDelete}
-        />}
+        {!disableCounters && (
+          <ProductCounterTiny
+            amount={length}
+            onChangeCount={onChangeCount}
+            onClickDelete={onClickDelete}
+          />
+        )}
         <div className="shoppingItems-amount">
           {`$ ${parseFloat(amout).toFixed(2)}`}
         </div>

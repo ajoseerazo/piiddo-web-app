@@ -160,6 +160,7 @@ const ProductModal = (props) => {
           totalAmount,
           count,
           basePrice,
+          variations: variations || null
         });
       } else {
         for (let key in notifications) {

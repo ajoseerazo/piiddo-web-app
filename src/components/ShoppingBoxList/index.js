@@ -32,7 +32,7 @@ class ShoppingBoxList extends PureComponent {
     let slugId = this.props.slugId;
 
     const {
-      order: { product, options, companions, extras, totalAmount, count },
+      order: { product, options, companions, extras, totalAmount, count, variations },
       onClickDelete,
       onChangeCount,
       disableCounters
@@ -58,6 +58,7 @@ class ShoppingBoxList extends PureComponent {
             onChangeCount={onChangeCount}
             onClickDelete={onClickDelete}
             disableCounters={disableCounters}
+            variations={variations}
           />
         </div>
       </div>

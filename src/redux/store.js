@@ -20,13 +20,25 @@ const reducer = (state, action) => {
       ...action.payload, // apply delta from hydration
     };
 
-    if (state.Categories.categories)
+    if (state.Categories.categories) {
       nextState.Categories.categories = state.Categories.categories; // preserve count value on client side navigation
-    if (state.Orders.order) nextState.Orders.order = state.Orders.order;
-    if (state.Location.deliveryAddress)
+    }
+
+    if (state.Orders.order) {
+      nextState.Orders.order = state.Orders.order;
+    }
+
+    if (state.Location.deliveryAddress) {
       nextState.Location.deliveryAddress = state.Location.deliveryAddress;
-    if (state.Location.deliveryLocation)
+    }
+
+    if (state.Location.deliveryLocation) {
       nextState.Location.deliveryLocation = state.Location.deliveryLocation;
+    }
+
+    if (state.ShoppingCart.items) {
+      nextState.ShoppingCart.items = state.ShoppingCart.items;
+    }
 
     return nextState;
   } else {

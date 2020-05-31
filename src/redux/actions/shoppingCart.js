@@ -8,17 +8,19 @@ const shoppingCartActions = {
       order
     }
   },
-  removeFromCart: (index) => {
+  removeFromCart: (storeId, index) => {
     return {
       type: shoppingCartActions.REMOVE_FROM_CART,
-      index
+      index,
+      storeId
     } 
   },
-  changeCount: (index, count) => {
+  changeCount: (storeId, index, count) => {
     return {
       type: shoppingCartActions.CHANGE_COUNT,
       index,
-      count
+      count,
+      storeId
     }
   }
 }

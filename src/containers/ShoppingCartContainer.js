@@ -6,6 +6,7 @@ import actions from "../redux/actions/shoppingCart";
 import ShoppingCart from "../components/ShoppingCart";
 import ShoppingBoxList from "../components/ShoppingBoxList";
 import ShoppingCartDetails from "../components/ShoppingCartDetails";
+import { calculatePriceFromPoints } from "../utils";
 
 const { removeFromCart, changeCount } = actions;
 
@@ -22,38 +23,26 @@ class ShoppingCartContainer extends Component {
     this.props.actions.setAmount(itemId, slugId, addeds, amount);
   };
 
-  onChangeOrderCount = (index, count) => {
+  onChangeOrderCount = (index, storeId, count) => {
     const {
       actions: { changeCount },
     } = this.props;
 
-    changeCount(index, count);
+    changeCount(index, storeId, count);
   };
 
-  deleteFromCart = (index) => {
+  deleteFromCart = (storeId, index) => {
     const {
       actions: { removeFromCart },
     } = this.props;
 
-    removeFromCart(index);
+    removeFromCart(storeId, index);
   };
 
   render() {
     let mobile = this.props.mobile;
 
-    const { items } = this.props;
-
-    let length = items.reduce((a, b) => {
-      return a + b.count;
-    }, 0);
-
-    let total = items.reduce((a, b) => {
-      return a + b.totalAmount;
-    }, 0);
-
-    let deliveryTotal = items.reduce((a, b) => {
-      return a + b.deliveryPrice;
-    }, 0);
+    const { items, length, total, deliveryTotal, stores } = this.props;
 
     return (
       <>
@@ -70,16 +59,22 @@ class ShoppingCartContainer extends Component {
           deliveryTotal={deliveryTotal}
           amount={total}
         >
-          {(items || []).map((item, index) => {
-            return (
-              <ShoppingBoxList
-                key={index}
-                order={item}
-                forceActive={true}
-                onClickDelete={this.deleteFromCart.bind(this, index)}
-                onChangeCount={this.onChangeOrderCount.bind(this, index)}
-              />
-            );
+          {Object.keys(stores).map((storeId) => {
+            return (stores[storeId].items || []).map((item, index) => {
+              return (
+                <ShoppingBoxList
+                  key={`${storeId}-${index}`}
+                  order={item}
+                  forceActive={true}
+                  onClickDelete={this.deleteFromCart.bind(this, storeId, index)}
+                  onChangeCount={this.onChangeOrderCount.bind(
+                    this,
+                    storeId,
+                    index
+                  )}
+                />
+              );
+            });
           })}
         </ShoppingCartDetails>
       </>
@@ -94,10 +89,41 @@ function mapDispatchToProps(dispatch, props) {
 }
 
 function mapStateToProps(state, props) {
-  const { items } = state.ShoppingCart;
+  const { stores } = state.ShoppingCart;
+  const { deliveryLocation } = state.Location;
+
+  let length = 0;
+  // let items = [];
+  let total = 0;
+  let deliveryTotal = 0;
+  for (let key in stores) {
+    length =
+      length +
+      stores[key].items.reduce((a, b) => {
+        return a + b.count;
+      }, 0);
+
+    total =
+      total +
+      stores[key].items.reduce((a, b) => {
+        return a + b.totalAmount;
+      }, 0);
+
+    // items = items.concat(...stores[key].items);
+
+    if (deliveryLocation && deliveryLocation.lat && deliveryLocation.lng) {
+      deliveryTotal =
+        deliveryTotal +
+        calculatePriceFromPoints(deliveryLocation, stores[key].location);
+    }
+  }
 
   return {
-    items,
+    // items,
+    stores,
+    length,
+    total,
+    deliveryTotal,
   };
 }
 

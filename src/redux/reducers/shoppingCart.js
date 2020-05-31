@@ -1,40 +1,65 @@
 import actions from "../actions/shoppingCart";
 
 const initialState = {
-  items: [],
+  stores: {},
 };
 
 export default function shoppingCartReducer(state = initialState, action) {
   switch (action.type) {
     case actions.ADD_TO_CART:
-      const oldItems = state.items;
+      const {
+        order,
+        order: { partner },
+      } = action;
+
+      const { stores } = state;
+
+      if (!stores[partner.id]) {
+        stores[partner.id] = {
+          ...partner,
+          items: [],
+        };
+      }
+
+      delete order.partner;
+      stores[partner.id].items.push(order);
 
       return {
         ...state,
-        items: oldItems.concat([action.order]),
+        stores: stores,
       };
     case actions.REMOVE_FROM_CART:
+      const { stores: storesToRemove } = state;
+
       const newItems = [];
 
-      for (let i = 0; i < state.items.length; i++) {
+      for (let i = 0; i < storesToRemove[action.storeId].items.length; i++) {
         if (i !== action.index) {
-          newItems.push(state.items[i]);
+          newItems.push(storesToRemove[action.storeId].items[i]);
         }
+      }
+
+      storesToRemove[action.storeId].items = newItems;
+
+      if (!storesToRemove[action.storeId].items.length) {
+        delete storesToRemove[action.storeId];
       }
 
       return {
         ...state,
-        items: newItems,
+        stores: Object.assign({}, storesToRemove),
       };
     case actions.CHANGE_COUNT:
-      const newOrder = state.items[action.index];
+      const { stores: storesToChange } = state;
+
+      const newOrder = storesToChange[action.storeId].items[action.index];
 
       const newOrdersUpdated = [];
 
       if (newOrder) {
-        for (let i = 0; i < state.items.length; i++) {
+        for (let i = 0; i < storesToChange[action.storeId].items.length; i++) {
           if (i !== action.index) {
-            newOrdersUpdated.push(state.items[i]);
+            newOrdersUpdated.push(storesToChange[action.storeId].items[i]);
           } else {
             newOrder.count = action.count;
             newOrder.totalAmount = newOrder.basePrice * action.count;
@@ -43,9 +68,11 @@ export default function shoppingCartReducer(state = initialState, action) {
           }
         }
 
+        storesToChange[action.storeId].items = newOrdersUpdated;
+
         return {
           ...state,
-          items: newOrdersUpdated,
+          stores: Object.assign({}, storesToChange),
         };
       } else {
         return state;

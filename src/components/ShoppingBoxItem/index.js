@@ -52,8 +52,6 @@ function ShoppingBoxItem(props) {
     ...(companions || []),
   ];
 
-  console.log(variations);
-
   const toggle = () => setCollapse(!collapse);
 
   return (

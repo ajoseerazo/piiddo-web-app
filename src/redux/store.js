@@ -36,8 +36,8 @@ const reducer = (state, action) => {
       nextState.Location.deliveryLocation = state.Location.deliveryLocation;
     }
 
-    if (state.ShoppingCart.items) {
-      nextState.ShoppingCart.items = state.ShoppingCart.items;
+    if (state.ShoppingCart.stores) {
+      nextState.ShoppingCart.stores = state.ShoppingCart.stores;
     }
 
     return nextState;

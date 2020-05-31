@@ -7,13 +7,14 @@ const PrettyRadioButton = ({
   onChange,
   checked,
   disabled,
+  name,
 }) => {
   return (
     <CheckboxStyled className="pretty p-default p-round p-smooth">
       <input
         type="radio"
         onChange={onChange}
-        name="p-r-b"
+        name={name || "p-r-b"}
         checked={checked}
         disabled={disabled}
       />

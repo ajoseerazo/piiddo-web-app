@@ -14,19 +14,23 @@ import {
   CloseButton,
 } from "./styled";
 import PrettyCheckbox from "../PrettyCheckbox";
+import PrettyRadioButton from "../PrettyRadioButton";
 import ProductOperator from "../ProductOperator";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { useToasts } from "react-toast-notifications";
 
 library.add([faTimes]);
 
 const ProductModal = (props) => {
+  const { addToast } = useToasts();
   const { buttonLabel, className, product } = props;
   const [options, setOptions] = useState([]);
   const [extras, setExtras] = useState([]);
   const [companions, setCompanions] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
+  const [variations, setVariations] = useState({});
 
   const onChangeOptions = useCallback(
     (selected, opt) => {
@@ -102,6 +106,10 @@ const ProductModal = (props) => {
 
   useEffect(() => {
     if (product) {
+      setOptions([]);
+      setExtras([])
+      setCompanions([]);
+      setVariations({});
       setTotalPrice(product.usdPrice);
     }
   }, [product]);
@@ -128,18 +136,70 @@ const ProductModal = (props) => {
 
   const onAddToCart = useCallback(
     (totalAmount, count, basePrice) => {
-      props.onAccept({
-        product,
-        options,
-        companions,
-        extras,
-        totalAmount,
-        count,
-        basePrice,
-      });
+      // If has variations
+      let canAddToCart = true;
+      let notifications = {};
+      if (product.variations && product.variations.length) {
+        // If no variations selected
+        for (let i = 0; i < product.variations.length; i++) {
+          if (!product.variations[i].isNotRequired) {
+            if (!variations[product.variations[i].name]) {
+              notifications[product.variations[i].name] = true;
+              canAddToCart = false;
+            }
+          }
+        }
+      }
+
+      if (canAddToCart) {
+        props.onAccept({
+          product,
+          options,
+          companions,
+          extras,
+          totalAmount,
+          count,
+          basePrice,
+        });
+      } else {
+        for (let key in notifications) {
+          addToast(`Debe seleccionar al menos un ${key}`, {
+            appearance: "error",
+            autoDismiss: true,
+          });
+        }
+      }
     },
-    [options, extras, companions, product]
+    [options, extras, companions, product, variations]
   );
+
+  const onChangeVariationOption = useCallback(
+    (checked, variation, opt) => {
+      if (checked) {
+        let previousPrice = 0;
+        if (!variations[variation.name]) {
+          variations[variation.name] = {};
+        } else {
+          previousPrice = parseFloat(variations[variation.name].price);
+        }
+
+        variations[variation.name] = opt;
+
+        setTotalPrice(totalPrice + parseFloat(opt.price) - previousPrice);
+
+        setVariations({
+          ...variations,
+        });
+      }
+    },
+    [variations, totalPrice]
+  );
+
+  const onCloseModal = () => {
+    const { onClose } = props;
+
+    onClose();
+  }
 
   if (!product) {
     return <></>;
@@ -149,11 +209,11 @@ const ProductModal = (props) => {
     <div>
       <ModalStyled
         isOpen={props.isOpen}
-        toggle={props.onClose}
+        toggle={onCloseModal}
         className={className}
       >
         <ModalBodyStyled>
-          <CloseButton onClick={props.onClose}>
+          <CloseButton onClick={onCloseModal}>
             <FontAwesomeIcon icon="times" />
           </CloseButton>
           <ModalBodyLeftStyled>
@@ -164,6 +224,43 @@ const ProductModal = (props) => {
             <ProductDescriptionStyled>
               {product.description}
             </ProductDescriptionStyled>
+
+            {product.variations && product.variations.length && (
+              <>
+                {product.variations.map((variation) => {
+                  return (
+                    <ProductCustomSection>
+                      <ProductCustomSectionTitle>
+                        {variation.name}
+                      </ProductCustomSectionTitle>
+
+                      <ProductCustomSectionBody>
+                        <ul>
+                          {variation.options.map((opt) => {
+                            return (
+                              <ProductCustomItemStyled key={opt.name}>
+                                <PrettyRadioButton
+                                  label={opt.name}
+                                  name={variation.name}
+                                  rightLabel={`+ ${opt.price}$`}
+                                  onChange={({ target }) => {
+                                    onChangeVariationOption(
+                                      target.checked,
+                                      variation,
+                                      opt
+                                    );
+                                  }}
+                                />
+                              </ProductCustomItemStyled>
+                            );
+                          })}
+                        </ul>
+                      </ProductCustomSectionBody>
+                    </ProductCustomSection>
+                  );
+                })}
+              </>
+            )}
 
             {product.options && product.options.length && (
               <ProductCustomSection>

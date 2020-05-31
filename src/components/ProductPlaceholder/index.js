@@ -34,20 +34,6 @@ const ProductPlaceholder = () => {
           />
         </ContentLoader>
       </DesktopPlaceholder>
-
-      <MobilePlaceholder>
-        <ContentLoader
-          width="100%"
-          height="230px"
-          backgroundColor="rgba(229,237,239,.35)"
-        >
-          <rect x="0" y="0" rx="8" ry="8" width="100%" height="160px" />
-
-          <rect x="0" y="170px" rx="8" ry="8" width="50%" height="12" />
-
-          <rect x="0" y="215px" rx="8" ry="8" width="20%" height="12" />
-        </ContentLoader>
-      </MobilePlaceholder>
     </PlaceholderWrapper>
   );
 };

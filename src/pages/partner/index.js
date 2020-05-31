@@ -93,11 +93,12 @@ const Store = ({
 
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
+    setProductSelect(null);
   }, [setIsModalOpen]);
 
   const onAddProductToCart = useCallback(
     (order) => {
-      setIsModalOpen(false);
+      onCloseModal();
       addToCart({
         ...order,
         deliveryPrice,

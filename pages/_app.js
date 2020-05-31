@@ -9,7 +9,8 @@ import NProgress from "nprogress";
 import "../src/shop-styles.scss";
 import "../src/styles.scss";
 import { wrapper } from "../src/redux/store";
-import 'bootstrap/dist/css/bootstrap.css'
+import "bootstrap/dist/css/bootstrap.css";
+import { ToastProvider } from "react-toast-notifications";
 
 /*const makeStore = (initialState, options) => {
   return createStore(
@@ -36,15 +37,17 @@ class MyApp extends App {
 
     return (
       <>
-        <Head>
-          <link rel="stylesheet" type="text/css" href="/nprogress.css" />
-          <title>
-            {" "}
-            Piiddo | Compra lo que quieras y te lo llevamos en minutos
-          </title>
-        </Head>
+        <ToastProvider>
+          <Head>
+            <link rel="stylesheet" type="text/css" href="/nprogress.css" />
+            <title>
+              {" "}
+              Piiddo | Compra lo que quieras y te lo llevamos en minutos
+            </title>
+          </Head>
 
-        <Component {...pageProps} />
+          <Component {...pageProps} />
+        </ToastProvider>
       </>
     );
   }

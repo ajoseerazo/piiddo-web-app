@@ -11,9 +11,6 @@ export const PlaceholderWrapper = styled.div`
 `;
 
 export const DesktopPlaceholder = styled.div`
-  @media screen and (max-width: 768px) {
-    display: none;
-  }
 `;
 
 export const MobilePlaceholder = styled.div`

@@ -12,7 +12,7 @@ const Breadcumb = (props) => {
     <UlWrapper className="">
       {(props.items || []).map((it, index) => (
         <li className="" key={it.url}>
-          <Link href={it.url}>
+          <Link href={it.as} as={it.url}>
             <a className="link">{it.name}</a>
           </Link>
 

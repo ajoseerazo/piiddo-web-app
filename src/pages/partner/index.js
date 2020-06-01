@@ -168,14 +168,17 @@ const Store = ({
                     <Breadcumb
                       items={[
                         {
+                          as: "/",
                           url: "/",
                           name: "Inicio",
                         },
                         {
+                          as: `/[category]`,
                           url: `/${partner.mainCategory}`,
                           name: partner.mainCategory,
                         },
                         {
+                          as: `/[category]/v/[slug]`,
                           url: `/${partner.mainCategory}/v/${partner.slug}`,
                           name: partner.name,
                         },

@@ -71,7 +71,7 @@ class Partners {
       const data = p.data();
       delete data.createdAt;
       delete data.updatedAt;
-      
+
       if (data.location) {
         data.location = {
           lat: data.location.latitude,
@@ -154,7 +154,15 @@ class Partners {
       };
     });
 
-    return categories;
+    const categoriesSorted = categories.sort((a, b) => {
+      if (a.order > b.order) {
+        return 1;
+      }
+
+      return -1;
+    });
+
+    return categoriesSorted;
   };
 }
 

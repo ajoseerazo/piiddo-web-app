@@ -91,8 +91,13 @@ function mapDispatchToProps(dispatch, props) {
 function mapStateToProps(state, props) {
   const { stores } = state.ShoppingCart;
   const { deliveryLocation } = state.Location;
-  
-  const [length, total, deliveryTotal] = getDataFromShoppingCart(stores, deliveryLocation);
+
+  console.log("STORES", stores);
+
+  const [length, total, deliveryTotal] = getDataFromShoppingCart(
+    stores,
+    deliveryLocation
+  );
 
   return {
     stores,

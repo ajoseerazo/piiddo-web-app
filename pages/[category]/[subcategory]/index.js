@@ -96,8 +96,6 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
 
   const category = await store.dispatch(fetchCategory(categoryQuery));
 
-  const address = cookies(ctx).deliveryAddress || null;
-
   if (category) {
     const subcat = category.subcategories.find((cat) => {
       if (cat.slug === subcategory) {
@@ -123,7 +121,6 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
         currentUrl: `/${categoryQuery}/${subcategory}`,
         subcategory,
         partner,
-        address,
       },
     };
   } else {

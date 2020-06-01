@@ -92,8 +92,6 @@ function mapStateToProps(state, props) {
   const { stores } = state.ShoppingCart;
   const { deliveryLocation } = state.Location;
 
-  console.log("STORES", stores);
-
   const [length, total, deliveryTotal] = getDataFromShoppingCart(
     stores,
     deliveryLocation

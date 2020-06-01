@@ -116,7 +116,7 @@ const CheckoutPage = ({
       paymentMethodSelected,
       extraAddress,
       vuelto,
-      stores
+      stores,
     };
 
     if (
@@ -188,9 +188,9 @@ const CheckoutPage = ({
                 2
               )}&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
                 order.id
-              }&callbackURL=${window.location.origin}/criptopayments/${
-                order.id
-              }`;
+              }&currency=DASH&callbackURL=${
+                window.location.origin
+              }/criptopayments/${order.id}`;
             } else {
               Router.push(`/orders/${order.id}/eta`);
             }

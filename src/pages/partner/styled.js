@@ -50,7 +50,7 @@ export const PartnerInfoMobile = styled.div`
   text-align: center;
   box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
   height: 200px;
-  background: rgba(255,255,255,0.97);
+  background: rgba(255, 255, 255, 0.97);
   padding: 20px 0 30px;
 `;
 
@@ -257,4 +257,11 @@ export const PartnerMobileDeliveryInfo = styled.div`
   width: 80%;
   margin: 0 auto;
   margin-top: 5px;rgba(255,255,255,0.97)
+`;
+
+export const NoDataWrapper = styled.div`
+  text-align: center;
+  margin-top: 50px;
+  font-size: 16px;
+  font-weight: 600;
 `;

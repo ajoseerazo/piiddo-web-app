@@ -20,6 +20,7 @@ const HorizontalCategories = ({
   shallow,
   withPlaceholder,
   isLoading,
+  isReady,
 }) => {
   const [selected, setSelected] = useState("all");
   const [mounted, setMounted] = useState(false);
@@ -58,9 +59,7 @@ const HorizontalCategories = ({
   return (
     <Placeholder
       rows={10}
-      ready={
-        withPlaceholder ? categories && categories.length && !isLoading : true
-      }
+      ready={withPlaceholder ? (isReady ? isReady : !isLoading) : true}
     >
       <Wrapper>
         <li

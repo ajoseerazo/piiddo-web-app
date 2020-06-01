@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, useMemo } from "react";
 import ShopHeader from "../../components/ShopHeader/ShopHeader";
 import Sidebar from "../../components/Sidebar";
 import Breadcumb from "../../components/Breadcumb";
@@ -38,6 +38,7 @@ import {
   PartnerLogoMobile,
   PartnerMobileAddress,
   PartnerMobileDeliveryInfo,
+  NoDataWrapper
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
@@ -105,8 +106,8 @@ const Store = ({
           id: partner.id,
           slug: partner.slug,
           logo: partner.logo,
-          location: partner.location
-        }
+          location: partner.location,
+        },
       });
     },
     [setIsModalOpen, partner]
@@ -134,6 +135,24 @@ const Store = ({
       );
     }
   }, [deliveryLocation, partner]);
+
+  const productsReady = useMemo(() => {
+    return (
+      !showFallback &&
+      !isLoadingProducts &&
+      !isLoadingCatalogCategories &&
+      !isLoadingCatalog
+    );
+  }, [
+    showFallback,
+    isLoadingProducts,
+    isLoadingCatalogCategories,
+    isLoadingCatalog,
+  ]);
+
+  const noData = useMemo(() => {
+    return productsReady && products.all && !products.all.length;
+  }, [productsReady, products, products.all]);
 
   return (
     <>
@@ -235,7 +254,10 @@ const Store = ({
                   currentUrl={currentUrl}
                   scrollSpy={true}
                   withPlaceholder={true}
-                  isLoading={showFallback || isLoadingCatalogCategories}
+                  isReady={productsReady}
+                  isLoading={
+                    !noData || showFallback || isLoadingCatalogCategories
+                  }
                 />
               </MobileCategoriesWrapper>
 
@@ -247,20 +269,13 @@ const Store = ({
                     showTitle={false}
                     scrollSpy
                     withPlaceholder={true}
-                    isLoading={showFallback || isLoadingCatalogCategories}
+                    isReady={productsReady}
+                    isLoading={!noData || showFallback || isLoadingCatalogCategories}
                   />
                 </SidebarWrapper>
 
                 <ProductsWrapper>
-                  <ProductsPlaceholder
-                    ready={
-                      !showFallback &&
-                      !isLoadingProducts &&
-                      !isLoadingCatalogCategories &&
-                      !isLoadingCatalog
-                    }
-                    rows={12}
-                  >
+                  <ProductsPlaceholder ready={productsReady} rows={12}>
                     {catalogCategories ? (
                       catalogCategories.map((cat) => (
                         <div key={cat.id}>
@@ -305,6 +320,12 @@ const Store = ({
                       </ProductsGrid>
                     )}
                   </ProductsPlaceholder>
+
+                  {noData && (
+                    <NoDataWrapper>
+                      Los productos de esta tienda estan en proceso de carga
+                    </NoDataWrapper>
+                  )}
                 </ProductsWrapper>
               </PartnerContent>
             </PartnerWrapper>

@@ -22,6 +22,7 @@ const Sidebar = ({
   shallow,
   withPlaceholder,
   isLoading,
+  isReady,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -56,9 +57,7 @@ const Sidebar = ({
 
       <SidebarPlaceholder
         rows={10}
-        ready={
-          withPlaceholder ? categories && categories.length && !isLoading : true
-        }
+        ready={withPlaceholder ? (isReady ? isReady : !isLoading) : true}
       >
         <ul
           className={showTitle ? "with-title" : "no-title"}

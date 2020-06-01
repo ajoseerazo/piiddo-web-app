@@ -15,8 +15,6 @@ class Orders {
   };
 
   static setPaymentSupport = async (orderId, url) => {
-    console.log(orderId);
-    console.log(url);
     await db.collection("orders").doc(orderId).update({
       paymentSupportURL: url,
       paymentStatus: 'PAYMENT_SUPPORT_SENT'

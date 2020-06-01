@@ -20,6 +20,9 @@ const reducer = (state, action) => {
       ...action.payload, // apply delta from hydration
     };
 
+    // console.log("Current State", state);
+    // console.log("Server State", action.payload);
+
     if (state.Categories.categories) {
       nextState.Categories.categories = state.Categories.categories; // preserve count value on client side navigation
     }
@@ -36,7 +39,7 @@ const reducer = (state, action) => {
       nextState.Location.deliveryLocation = state.Location.deliveryLocation;
     }
 
-    if (state.ShoppingCart.stores) {
+    if (Object.keys(state.ShoppingCart.stores).length) {
       nextState.ShoppingCart.stores = state.ShoppingCart.stores;
     }
 

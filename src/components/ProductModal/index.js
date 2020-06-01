@@ -31,6 +31,7 @@ const ProductModal = (props) => {
   const [companions, setCompanions] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
   const [variations, setVariations] = useState({});
+  const [variationsPrice, setVariationsPrice] = useState(0);
 
   const onChangeOptions = useCallback(
     (selected, opt) => {
@@ -47,7 +48,7 @@ const ProductModal = (props) => {
           }
         }
       } else {
-        opts = (options || []).splice();
+        opts = [...(options || [])];
         opts.push(opt);
       }
 
@@ -71,7 +72,7 @@ const ProductModal = (props) => {
           }
         }
       } else {
-        comp = (companions || []).splice();
+        comp = [...(companions || [])];
         comp.push(companion);
       }
 
@@ -95,7 +96,7 @@ const ProductModal = (props) => {
           }
         }
       } else {
-        ext = (extras || []).splice();
+        ext = [...(extras || [])];
         ext.push(extra);
       }
 
@@ -107,7 +108,7 @@ const ProductModal = (props) => {
   useEffect(() => {
     if (product) {
       setOptions([]);
-      setExtras([])
+      setExtras([]);
       setCompanions([]);
       setVariations({});
       setTotalPrice(product.usdPrice);
@@ -130,9 +131,11 @@ const ProductModal = (props) => {
         }
       }
 
-      setTotalPrice(product.usdPrice + extraPrices + companionPrices);
+      setTotalPrice(
+        product.usdPrice + extraPrices + companionPrices + variationsPrice
+      );
     }
-  }, [product, extras, companions]);
+  }, [product, extras, companions, variationsPrice]);
 
   const onAddToCart = useCallback(
     (totalAmount, count, basePrice) => {
@@ -160,7 +163,7 @@ const ProductModal = (props) => {
           totalAmount,
           count,
           basePrice,
-          variations: variations || null
+          variations: variations || null,
         });
       } else {
         for (let key in notifications) {
@@ -186,21 +189,26 @@ const ProductModal = (props) => {
 
         variations[variation.name] = opt;
 
-        setTotalPrice(totalPrice + parseFloat(opt.price) - previousPrice);
+        let variationsPrices = 0;
+        for (let key in variations) {
+          variationsPrices += parseFloat(variations[key].price);
+        }
+
+        setVariationsPrice(variationsPrices);
 
         setVariations({
           ...variations,
         });
       }
     },
-    [variations, totalPrice]
+    [variations]
   );
 
   const onCloseModal = () => {
     const { onClose } = props;
 
     onClose();
-  }
+  };
 
   if (!product) {
     return <></>;

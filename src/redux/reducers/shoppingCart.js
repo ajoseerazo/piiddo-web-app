@@ -22,11 +22,15 @@ export default function shoppingCartReducer(state = initialState, action) {
       }
 
       delete order.partner;
-      stores[partner.id].items.push(order);
+
+      let items = [...stores[partner.id].items];
+      items.push(order);
+
+      stores[partner.id].items = items;
 
       return {
         ...state,
-        stores: stores,
+        stores: Object.assign({}, stores),
       };
     case actions.REMOVE_FROM_CART:
       const { stores: storesToRemove } = state;

@@ -135,8 +135,6 @@ const partnersActions = {
         dispatch(partnersActions.fetchingCatalogCategories());
 
         const categories = await API.Partners.getCatalogCategories(catalogId);
-
-        console.log(categories);
         
         dispatch(partnersActions.fetchCatalogCategoriesSuccess(categories));
 

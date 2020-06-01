@@ -63,17 +63,27 @@ export const getDataFromShoppingCart = (stores, deliveryLocation) => {
           return a + b.count;
         }, 0);
 
-      total =
-        total +
-        stores[key].items.reduce((a, b) => {
-          return a + b.totalAmount;
-        }, 0);
+      const totalStore = stores[key].items.reduce((a, b) => {
+        return a + b.totalAmount;
+      }, 0);
+
+      total = total + totalStore;
+
+      let totalDeliveryStore = 0;
 
       if (deliveryLocation && deliveryLocation.lat && deliveryLocation.lng) {
-        deliveryTotal =
-          deliveryTotal +
-          calculatePriceFromPoints(deliveryLocation, stores[key].location);
+        totalDeliveryStore = calculatePriceFromPoints(
+          deliveryLocation,
+          stores[key].location
+        );
+
+        deliveryTotal = deliveryTotal + totalDeliveryStore;
       }
+
+      stores[key].totalDetails = {
+        total: totalStore,
+        delivery: totalDeliveryStore,
+      };
     }
   }
 

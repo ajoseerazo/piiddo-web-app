@@ -65,6 +65,7 @@ const CheckoutPage = ({
   length,
   total,
   deliveryTotal,
+  deliveryLocation,
 }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
@@ -107,7 +108,7 @@ const CheckoutPage = ({
 
   const confirmOrder = useCallback(async () => {
     const payload = {
-      address: address || "",
+      address: address,
       name,
       number,
       email,
@@ -117,7 +118,15 @@ const CheckoutPage = ({
       extraAddress,
       vuelto,
       stores,
+      deliveryLocation,
+      total,
+      deliveryTotal,
     };
+
+    if (!address) {
+      alert("Debes ingresar tu dirección. Ingresala en la barra superior");
+      return;
+    }
 
     if (
       paymentMethodSelected.value === "credit-card" ||
@@ -162,6 +171,7 @@ const CheckoutPage = ({
     total,
     deliveryTotal,
     creditCard,
+    deliveryLocation,
   ]);
 
   useEffect(() => {
@@ -634,6 +644,7 @@ function mapStateToProps(state, props) {
     length,
     total,
     deliveryTotal,
+    deliveryLocation,
   };
 }
 

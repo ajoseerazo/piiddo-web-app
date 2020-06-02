@@ -14,6 +14,7 @@
     "@fortawesome/react-fontawesome": "^0.1.7",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
+    "algoliasearch": "^4.2.0",
     "babel-plugin-inline-react-svg": "^1.1.1",
     "bootstrap": "^4.5.0",
     "cookies-js": "^1.2.3",

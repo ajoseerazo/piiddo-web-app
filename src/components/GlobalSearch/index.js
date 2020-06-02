@@ -15,7 +15,7 @@ const GlobalSearch = (props) => {
 };
 
 GlobalSearch.defaultProps = {
-  address: true,
+  address: "",
 };
 
 export default GlobalSearch;

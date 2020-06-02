@@ -3,6 +3,10 @@ import Categories from "./categories";
 import Cookies from "cookies-js";
 import Orders from "./orders";
 import Payments from "./payments";
+import algoliasearch from "algoliasearch/lite";
+
+const client = algoliasearch("VIM0LCZXZS", "92d89fdcbec4d67d6613a28560459d56");
+const productsIndex = client.initIndex("products");
 
 class Products {
   static getAll = async (parentId, type = "partner") => {
@@ -44,6 +48,12 @@ class Products {
       ...productRef.data(),
     };
   };
+
+  static search = async (searchText) => {
+    const { hits } = await productsIndex.search(searchText);
+
+    return hits;
+  }
 }
 
 class Partners {

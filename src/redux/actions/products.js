@@ -1,4 +1,4 @@
-import API from "../../api/index"
+import API from "../../api/index";
 
 const productsActions = {
   GET_ALL_PRODUCTS_REQUEST: "GET_ALL_PRODUCTS_REQUEST",
@@ -8,29 +8,32 @@ const productsActions = {
   GET_PRODUCT_REQUEST: "GET_PRODUCT_REQUEST",
   GET_PRODUCT_SUCCESS: "GET_PRODUCT_SUCCESS",
   GET_PRODUCT_FAIL: "GET_PRODUCT_FAIL",
+  SEARCH_PRODUCTS_REQUEST: "SEARCH_PRODUCTS_REQUEST",
+  SEARCH_PRODUCTS_SUCCESS: "SEARCH_PRODUCTS_SUCCESS",
+  SEARCH_PRODUCTS_FAILED: "SEARCH_PRODUCTS_FAILED",
   fetchingProducts: () => {
     return {
-      type: productsActions.GET_ALL_PRODUCTS_REQUEST
-    }
+      type: productsActions.GET_ALL_PRODUCTS_REQUEST,
+    };
   },
   fetchProductsSuccess: (products, extras, companions) => {
     return {
       type: productsActions.GET_ALL_PRODUCTS_SUCCESS,
       products,
       extras,
-      companions
-    }
+      companions,
+    };
   },
   fetchProductsFailed: (error) => {
     return {
       type: productsActions.GET_ALL_PRODUCTS_FAIL,
-      error
-    }
+      error,
+    };
   },
   fetchProducts: (parentId, type = "partner") => {
     return async (dispatch) => {
       try {
-        dispatch(productsActions.fetchingProducts())
+        dispatch(productsActions.fetchingProducts());
 
         const products = await API.Products.getAll(parentId, type);
 
@@ -50,52 +53,90 @@ const productsActions = {
           }
         }
 
-        dispatch(productsActions.fetchProductsSuccess(finalProducts, extras, companions))
+        dispatch(
+          productsActions.fetchProductsSuccess(
+            finalProducts,
+            extras,
+            companions
+          )
+        );
 
         return [finalProducts, extras, companions];
       } catch (error) {
-        dispatch(productsActions.fetchProductsFailed(error))
+        dispatch(productsActions.fetchProductsFailed(error));
       }
-    }
+    };
   },
   selectProduct: (product) => {
     return {
       type: productsActions.SELECT_PRODUCT,
-      product
-    }
+      product,
+    };
   },
   fetchingProduct: () => {
     return {
-      type: productsActions.GET_PRODUCT_REQUEST
-    }
+      type: productsActions.GET_PRODUCT_REQUEST,
+    };
   },
   fetchProductFailed: (error) => {
     return {
       type: productsActions.GET_PRODUCT_FAIL,
-      error
-    }
+      error,
+    };
   },
   fetchProductSuccess: (product) => {
     return {
       type: productsActions.GET_PRODUCT_SUCCESS,
-      product
-    }
+      product,
+    };
   },
   fetchProduct: (id) => {
     return async (dispatch) => {
       try {
-        dispatch(productsActions.fetchingProduct())
+        dispatch(productsActions.fetchingProduct());
 
-        const product = await API.Products.get(id)
+        const product = await API.Products.get(id);
 
-        dispatch(productsActions.fetchProductSuccess(product))
+        dispatch(productsActions.fetchProductSuccess(product));
 
-        return product
+        return product;
       } catch (error) {
-        dispatch(productsActions.fetchProductFailed(error))
+        dispatch(productsActions.fetchProductFailed(error));
       }
-    }
-  }
-}
+    };
+  },
+  searchingProducts: () => {
+    return {
+      type: productsActions.SEARCH_PRODUCTS_REQUEST,
+    };
+  },
+  searchProductsSuccess: (products) => {
+    return {
+      type: productsActions.SEARCH_PRODUCTS_SUCCESS,
+      products,
+    };
+  },
+  searchProductsFailed: (error) => {
+    return {
+      type: productsActions.SEARCH_PRODUCTS_FAILED,
+      error,
+    };
+  },
+  searchProducts: (searchText) => {
+    return async (dispatch) => {
+      try {
+        dispatch(productsActions.searchingProducts());
+
+        const products = await API.Products.search(searchText);
+
+        dispatch(productsActions.searchProductsSuccess(products));
+      } catch (error) {
+        dispatch(productsActions.searchProductsFailed(error));
+      }
+    };
+
+    return products;
+  },
+};
 
 export default productsActions;

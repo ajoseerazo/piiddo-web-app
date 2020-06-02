@@ -8,7 +8,6 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Autocomplete from "../Autocomplete";
 import Router from "next/router";
-// import API from "../../api";
 
 const SearchBox = (props) => {
   const { address } = props;
@@ -19,10 +18,7 @@ const SearchBox = (props) => {
   });
 
   const onClickSearchButton = useCallback(async () => {
-    Router.push(`/search?query=${searchText.toLowerCase()}`)
-    //const products = await API.Products.search(searchText);
-
-    //console.log(products);
+    Router.push(`/search?query=${searchText.toLowerCase()}`);
   }, [searchText]);
 
   return (

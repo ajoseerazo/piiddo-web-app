@@ -8,6 +8,8 @@ const initialState = {
   isLoading: false,
   product: null,
   isLoadingProduct: false,
+  isSearching: false,
+  productsResult: null
 };
 
 export default function productsReducer(state = initialState, action) {
@@ -57,6 +59,23 @@ export default function productsReducer(state = initialState, action) {
       return {
         ...state,
         isLoadingProduct: false
+      }
+    case actions.SEARCH_PRODUCTS_REQUEST:
+      return {
+        ...state,
+        isSearching: true,
+        productsResult: null
+      }
+    case actions.SEARCH_PRODUCTS_FAILED: 
+      return {
+        ...state,
+        isSearching: false
+      }
+    case actions.SEARCH_PRODUCTS_SUCCESS:
+      return {
+        ...state,
+        isSearching: false,
+        productsResult: action.products
       }
     default:
       return state;

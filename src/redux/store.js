@@ -43,6 +43,10 @@ const reducer = (state, action) => {
       nextState.ShoppingCart.stores = state.ShoppingCart.stores;
     }
 
+    if (state.Products.productsResult) {
+      nextState.Products.productsResult = state.Products.productsResult;
+    }
+
     return nextState;
   } else {
     return combinedReducer(state, action);

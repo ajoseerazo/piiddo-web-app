@@ -25,9 +25,8 @@ const StoreResult = ({ store }) => {
       {
         breakpoint: 768,
         settings: {
-          slidesToShow: 1,
+          slidesToShow: 1.5,
           slidesToScroll: 1,
-          centerMode: true
         },
       },
     ],

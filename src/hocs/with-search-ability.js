@@ -10,6 +10,10 @@ const withSearchAbility = (WrappedComponent, selectData) => {
     handleSearch = () => {
       const { searchText } = this.state;
 
+      if (typeof window !== "undefined") {
+        window.document.body.style.overflowY = "auto";
+      }
+
       Router.push(`/search?query=${searchText.toLowerCase()}`);
     };
 

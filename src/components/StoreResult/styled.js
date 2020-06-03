@@ -17,9 +17,15 @@ export const ProductsWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     .slick-list {
-      svg {
+      padding-left: 20px;
+      svg  {
         display: none !important;
       }
+    }
+
+    .slick-slider {
+      margin-left: 0px;
+      margin-right: 0px;
     }
   }
 `;

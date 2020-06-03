@@ -99,6 +99,7 @@ const CreditCardForm = ({ onChange }) => {
             required
             onChange={handleInputChange}
             onFocus={handleInputFocus}
+            inspectletIgnore
           />
         </div>
         <div className="form-group">
@@ -110,6 +111,7 @@ const CreditCardForm = ({ onChange }) => {
             required
             onChange={handleInputChange}
             onFocus={handleInputFocus}
+            inspectletIgnore
           />
         </div>
         <div className="row">
@@ -123,6 +125,7 @@ const CreditCardForm = ({ onChange }) => {
               required
               onChange={handleInputChange}
               onFocus={handleInputFocus}
+              inspectletIgnore
             />
           </div>
           <div className="col-6">
@@ -135,6 +138,7 @@ const CreditCardForm = ({ onChange }) => {
               required
               onChange={handleInputChange}
               onFocus={handleInputFocus}
+              inspectletIgnore
             />
           </div>
         </div>

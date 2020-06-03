@@ -43,19 +43,23 @@ class Products {
   static get = async (id) => {
     const productRef = await db.collection("products").doc(id).get();
 
+    const data = productRef.data();
+    delete data.createdAt;
+    delete data.updatedAt;
+
     return {
       id: productRef.id,
-      ...productRef.data(),
+      ...data,
     };
   };
 
   static search = async (searchText) => {
     const { hits } = await productsIndex.search(searchText, {
-      hitsPerPage: 30
+      hitsPerPage: 30,
     });
 
     return hits;
-  }
+  };
 }
 
 class Partners {

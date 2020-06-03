@@ -150,6 +150,14 @@ export const ProductsGrid = styled.div`
   max-width: 700px;
   grid-gap: 15px;
 
+  a {
+    color: black;
+    
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
   @media screen and (max-width: 768px) {
     grid-template-columns: repeat(1, 1fr);
   }

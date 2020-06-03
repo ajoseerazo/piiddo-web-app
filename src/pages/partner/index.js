@@ -54,6 +54,9 @@ import Toolbar from "../../components/Toolbar";
 import { calculatePriceFromPoints } from "../../utils";
 import GA from "../../utils/ga";
 import MetaTags from "../../components/MetaTags";
+import Link from "next/link";
+import getSlug from "speakingurl";
+import { useRouter } from "next/router";
 
 const {
   fetchPartners,
@@ -79,11 +82,16 @@ const Store = ({
   isLoadingProducts,
   isLoadingCatalog,
   deliveryLocation,
+  modalOpened = false,
+  defaultProductSelected,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productSelected, setProductSelect] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(modalOpened);
+  const [productSelected, setProductSelect] = useState(defaultProductSelected);
   const [deliveryPrice, setDeliveryPrice] = useState(null);
+  const router = useRouter();
+
+  console.log(modalOpened);
 
   const openProduct = useCallback(
     (product) => {
@@ -97,7 +105,13 @@ const Store = ({
   const onCloseModal = useCallback(() => {
     setIsModalOpen(false);
     setProductSelect(null);
-  }, [setIsModalOpen]);
+
+    window.history.pushState(
+      `/${partner.mainCategory}/v/${partner.slug}`,
+      partner.slug,
+      `/${partner.mainCategory}/v/${partner.slug}`
+    );
+  }, [partner, setIsModalOpen]);
 
   const onAddProductToCart = useCallback(
     (order) => {
@@ -158,12 +172,35 @@ const Store = ({
     return productsReady && products.all && !products.all.length;
   }, [productsReady, products, products.all]);
 
+  const onClickProduct = useCallback(
+    (product) => {
+      window.history.pushState(
+        `/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`,
+        product.id,
+        `/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`
+      );
+    },
+    [partner]
+  );
+
   return (
     <>
       <MetaTags
-        title={`Piiddo | Pide de ${partner.name} y te lo llevamos en minutos`}
-        description={`Haz tu pedido de ${partner.name} con Piiddo y recíbelo en minutos`}
-        url={`https://piiddo.com/${partner.mainCategory}/v/${partner.slug}`}
+        title={
+          defaultProductSelected
+            ? `Piiddo | Pide ${defaultProductSelected.name} de ${partner.name}`
+            : `Piiddo | Pide de ${partner.name} y te lo llevamos en minutos`
+        }
+        description={
+          defaultProductSelected
+            ? `Pide ${defaultProductSelected.name} de ${partner.name} y recíbelo en minutos en la puerta de tu casa`
+            : `Haz tu pedido de ${partner.name} con Piiddo y recíbelo en minutos`
+        }
+        url={
+          defaultProductSelected
+            ? `https://piiddo.com/${partner.mainCategory}/v/${partner.slug}/products/${defaultProductSelected.id}`
+            : `https://piiddo.com/${partner.mainCategory}/v/${partner.slug}`
+        }
       />
 
       <ShopHeader address={address} />
@@ -302,14 +339,23 @@ const Store = ({
 
                               <ProductsGrid>
                                 {products[cat.id].map((product) => (
-                                  <ProductItem
-                                    key={product.id}
-                                    product={product}
-                                    onSelectProduct={openProduct.bind(
-                                      this,
-                                      product
-                                    )}
-                                  />
+                                  <a
+                                    href={`/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`}
+                                    onClick={(e) => {
+                                      e.preventDefault();
+
+                                      onClickProduct(product);
+                                    }}
+                                  >
+                                    <ProductItem
+                                      key={product.id}
+                                      product={product}
+                                      onSelectProduct={openProduct.bind(
+                                        this,
+                                        product
+                                      )}
+                                    />
+                                  </a>
                                 ))}
                               </ProductsGrid>
                             </CategoryWrapper>

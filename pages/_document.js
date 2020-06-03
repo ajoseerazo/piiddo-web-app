@@ -44,10 +44,7 @@ export default class MyDocument extends Document {
             content="default"
           />
           <meta name="apple-mobile-web-app-title" content="Piiddo" />
-          <meta
-            name="description"
-            content="Pide lo que necesites y recíbelo en tu casa en minutos"
-          />
+
           <meta name="format-detection" content="telephone=no" />
           <meta name="mobile-web-app-capable" content="yes" />
           <meta
@@ -87,44 +84,9 @@ export default class MyDocument extends Document {
           />
           <link rel="shortcut icon" href="/static/icons/favicon.ico" />
 
-          <meta name="twitter:card" content="summary" />
-          <meta name="twitter:url" content="https://piiddo.com" />
-          <meta
-            name="twitter:title"
-            content="Piiddo - Delivery de comida, mercados y más"
-          />
-          <meta
-            name="twitter:description"
-            content="Pide lo que necesites y recíbelo en tu casa en minutos"
-          />
-          <meta name="twitter:creator" content="@piiddo" />
-          <meta property="og:type" content="website" />
-          <meta
-            property="og:title"
-            content="Piiddo - Delivery de comida, mercados y más"
-          />
-          <meta
-            property="og:description"
-            content="Pide lo que necesites y recíbelo en tu casa en minutos"
-          />
-          <meta property="og:site_name" content="Piiddo" />
-          <meta property="og:url" content="https://piiddo.com" />
-
           <link
             href="https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,900"
             rel="stylesheet"
-          />
-          <meta
-            name="twitter:image"
-            content="https://piiddo.com/static/images/piiddo-512x512.png"
-          />
-
-          <meta property="fb:app_id" content="581544162797490" />
-          <meta property="og:locale" content="es_VE" />
-          <meta property="og:type" content="website" />
-          <meta
-            property="og:image"
-            content="https://piiddo.com/static/images/piiddo-512x512.png"
           />
 
           <script

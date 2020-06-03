@@ -11,6 +11,7 @@ import {
 } from "./styled";
 import PrevArrow from "./PrevArrow";
 import NextArrow from "./NextArrow";
+import Link from "next/link";
 
 const StoreResult = ({ store }) => {
   var settings = {
@@ -34,10 +35,17 @@ const StoreResult = ({ store }) => {
 
   return (
     <StoreWrapper>
-      <StoreInfo>
-        <StoreLogo src={store.logo} />
-        <StoreName>{store.name}</StoreName>
-      </StoreInfo>
+      <Link
+        href="/[category]/v/[slug]"
+        as={`/${store.mainCategory}/v/${store.slug}`}
+      >
+        <a>
+          <StoreInfo>
+            <StoreLogo src={store.logo} />
+            <StoreName>{store.name}</StoreName>
+          </StoreInfo>
+        </a>
+      </Link>
       <ProductsWrapper>
         <Slider {...settings}>
           {store.products.map((product, index) => {

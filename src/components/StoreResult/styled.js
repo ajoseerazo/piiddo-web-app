@@ -1,6 +1,19 @@
 import styled from "styled-components";
 
-export const StoreWrapper = styled.div``;
+export const StoreWrapper = styled.div`
+  a {
+    color: black;
+    text-decoration: none;
+
+    &:hover,
+    &:active,
+    &:visited,
+    &:focus {
+      color: black;
+      text-decoration: none;
+    }
+  }
+`;
 
 export const ProductsWrapper = styled.div`
   padding: 25px 0px 40px 0px;

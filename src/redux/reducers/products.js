@@ -77,6 +77,9 @@ export default function productsReducer(state = initialState, action) {
 
       for (let i = 0; i < action.products.length; i++) {
         if (!productsHash[action.products[i].partner.slug]) {
+          const partner = action.products[i].partner;
+          partner.mainCategory = action.products[i].partnerMainCategory
+          
           productsHash[action.products[i].partner.slug] = {
             ...action.products[i].partner,
           };

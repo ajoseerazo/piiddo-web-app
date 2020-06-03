@@ -38,7 +38,7 @@ import {
   PartnerLogoMobile,
   PartnerMobileAddress,
   PartnerMobileDeliveryInfo,
-  NoDataWrapper
+  NoDataWrapper,
 } from "./styled";
 import ProductItem from "../../components/ProductItem";
 import ProductModal from "../../components/ProductModal";
@@ -52,6 +52,7 @@ import ProductsPlaceholder from "../../components/ProductsPlaceholder";
 import PartnerBannerPlaceholder from "../../components/PartnerBannerPlaceholder";
 import Toolbar from "../../components/Toolbar";
 import { calculatePriceFromPoints } from "../../utils";
+import MetaTags from "../../components/MetaTags";
 
 const {
   fetchPartners,
@@ -156,6 +157,12 @@ const Store = ({
 
   return (
     <>
+      <MetaTags
+        title={`Piiddo | Pide de ${partner.name} y te lo llevamos en minutos`}
+        description={`Haz tu pedido de ${partner.name} con Piiddo y recíbelo en minutos`}
+        url={`https://piiddo.com/${partner.mainCategory}/v/${partner.slug}`}
+      />
+
       <ShopHeader address={address} />
 
       <HomeWrapper>
@@ -273,7 +280,9 @@ const Store = ({
                     scrollSpy
                     withPlaceholder={true}
                     isReady={productsReady}
-                    isLoading={!noData || showFallback || isLoadingCatalogCategories}
+                    isLoading={
+                      !noData || showFallback || isLoadingCatalogCategories
+                    }
                   />
                 </SidebarWrapper>
 

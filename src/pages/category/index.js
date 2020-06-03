@@ -19,6 +19,8 @@ import HorizontalCategories from "../../components/HorizontalCategories";
 import PartnersPlaceholder from "../../components/PartnersPlaceholder";
 import Router from "next/router";
 import Toolbar from "../../components/Toolbar";
+import Head from "next/head";
+import MetaTags from "../../components/MetaTags";
 
 const Category = ({
   category = {},
@@ -52,6 +54,12 @@ const Category = ({
 
   return (
     <>
+      <MetaTags
+        title={`Piiddo | Haz tus compras de ${category.name} y te lo llevamos en minutos`}
+        description={`Haz tu pedido de ${category.name} con Piiddo y recíbelo en minutos`}
+        url={`https://piiddo.com/${category.slug}`}
+      />
+
       <ShopHeader address={address} />
 
       <TopCategoriesWrapper>

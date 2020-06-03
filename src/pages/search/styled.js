@@ -90,6 +90,10 @@ export const MobileSearchWrapper = styled.div`
   z-index: 1000;
 
   @media screen and (max-width: 768px) {
-    display: block;
+    display: block !important;
+
+    input {
+      display: block !important;
+    }
   }
 `;

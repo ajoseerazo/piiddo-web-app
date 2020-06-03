@@ -14,6 +14,14 @@ export const ProductsWrapper = styled.div`
   .slick-track {
     min-width: 100% !important;
   }
+
+  @media screen and (max-width: 768px) {
+    .slick-list {
+      svg {
+        display: none !important;
+      }
+    }
+  }
 `;
 
 export const StoreInfo = styled.div`

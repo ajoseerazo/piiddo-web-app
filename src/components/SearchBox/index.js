@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, useCallback } from "react";
 import {
   SearchBoxWrapper,
   SearchBoxInput,
@@ -7,40 +7,31 @@ import {
 } from "./styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Autocomplete from "../Autocomplete";
+import Router from "next/router";
+import withSearchAbility from "../../hocs/with-search-ability";
 
 const SearchBox = (props) => {
-  const { address } = props;
+  const {
+    address,
+    search: { onClickSearch, onChangeText, onKeyPress },
+  } = props;
 
   return (
     <SearchBoxWrapper>
-      {address ? (
-        <SearchBoxInput {...props} placeholder="Busca lo que quieras" />
-      ) : (
-        <Autocomplete
-          placeholder="Ingresa la dirección de envío o un punto cercano"
-          onSelect={async ({ lat, lng, value }) => {
-            props.onSelectPlace({
-              lat,
-              lng,
-              value,
-            });
-          }}
-          style={{
-            width: "100%",
-          }}
-          CustomComponent={SearchBoxInput}
-        />
-      )}
+      <SearchBoxInput
+        onChange={onChangeText}
+        onKeyPress={onKeyPress}
+        {...props}
+        placeholder="Busca lo que quieras"
+      />
 
       <SearchIconWrapper>
-        {address ? (
-          <FontAwesomeIcon icon="search" />
-        ) : (
-          <SearchAddressButton>Buscar</SearchAddressButton>
-        )}
+        <SearchAddressButton onClick={onClickSearch}>
+          Buscar
+        </SearchAddressButton>
       </SearchIconWrapper>
     </SearchBoxWrapper>
   );
 };
 
-export default SearchBox;
+export default withSearchAbility(SearchBox);

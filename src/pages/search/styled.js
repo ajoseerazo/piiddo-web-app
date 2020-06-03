@@ -94,6 +94,7 @@ export const MobileSearchWrapper = styled.div`
 
     input {
       display: block !important;
+      font-size: 14px !important; 
     }
   }
 `;

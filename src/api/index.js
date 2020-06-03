@@ -50,7 +50,9 @@ class Products {
   };
 
   static search = async (searchText) => {
-    const { hits } = await productsIndex.search(searchText);
+    const { hits } = await productsIndex.search(searchText, {
+      hitsPerPage: 30
+    });
 
     return hits;
   }

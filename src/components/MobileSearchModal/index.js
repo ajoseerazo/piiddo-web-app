@@ -9,11 +9,14 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft, faTimes } from "@fortawesome/free-solid-svg-icons";
 import debounce from "lodash.debounce";
+import withSearchAbility from "../../hocs/with-search-ability";
 
 library.add([faChevronLeft, faTimes]);
 
-const MobileSearchModal = ({ isOpen, onClose }) => {
+const MobileSearchModal = ({ isOpen, onClose, search }) => {
   const [searchText, setSearchText] = useState("");
+
+  const { onChangeText, onKeyPress } = search;
 
   useEffect(() => {
     if (isOpen) {
@@ -24,8 +27,10 @@ const MobileSearchModal = ({ isOpen, onClose }) => {
   }, [isOpen]);
 
   const onChangeSearch = useCallback(
-    ({ target }) => {
-      setSearchText(target.value);
+    (e) => {
+      setSearchText(e.target.value);
+
+      onChangeText(e);
     },
     [setSearchText]
   );
@@ -45,6 +50,7 @@ const MobileSearchModal = ({ isOpen, onClose }) => {
           placeholder="Buscar"
           value={searchText}
           onChange={onChangeSearch}
+          onKeyPress={onKeyPress}
         />
 
         {searchText && (
@@ -65,4 +71,4 @@ const MobileSearchModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default MobileSearchModal;
+export default withSearchAbility(MobileSearchModal);

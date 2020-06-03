@@ -20,6 +20,7 @@ export const FiltersContent = styled.ul`
   list-style: none;
   padding: 0;
   margin: 0;
+  margin-top: 15px;
 
   li {
     padding: 10px 20px;
@@ -30,6 +31,7 @@ export const FiltersContent = styled.ul`
     &:hover,
     &.active {
       border-left: 2px solid #f74342;
+      font-weight: 600;
     }
   }
 `;

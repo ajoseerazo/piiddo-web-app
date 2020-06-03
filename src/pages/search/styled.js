@@ -18,11 +18,13 @@ export const SearchPageWrapper = styled.div`
   }
 
   @media screen and (max-width: 768px) {
-    margin-top: 100px;
+    margin-top: 50px;
     min-height: calc(100vh - 100px);
+    padding-top: 0px;
 
     > div {
       padding: 0px;
+      flex-direction: column;
     }
   }
 `;
@@ -36,7 +38,7 @@ export const FiltersWrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  flex: 1;
+  width: calc(100% - 256px);
   padding: 30px 20px;
   margin-left: 20px;
 
@@ -55,6 +57,7 @@ export const ContentWrapper = styled.div`
   @media screen and (max-width: 768px) {
     margin: 0px;
     width: 100%;
+    padding: 0px;
 
     h1  {
       line-height: 25px;
@@ -71,4 +74,22 @@ export const ContentWrapper = styled.div`
 export const ResultsTitle = styled.div`
   font-size: 28px;
   font-weight: 600;
+
+  @media screen and (max-width: 768px) {
+    padding: 15px 20px 10px;
+    font-size: 16px;
+  }
+`;
+
+export const MobileSearchWrapper = styled.div`
+  display: none;
+  background: white;
+  padding: 10px;
+  position: sticky;
+  top: 50px;
+  z-index: 1000;
+
+  @media screen and (max-width: 768px) {
+    display: block;
+  }
 `;

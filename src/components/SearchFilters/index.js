@@ -6,7 +6,7 @@ const SearchFilters = () => {
       <FilterTitle>Filtrar por</FilterTitle>
 
       <FiltersContent>
-        <li>Productos</li>
+        <li className="active">Productos</li>
         <li>Tiendas</li>
       </FiltersContent>
     </Wrapper>

@@ -1,21 +1,8 @@
 import React, { Component } from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  Collapse,
-  Nav,
-  NavItem,
-  NavLink,
-  InputGroup,
-  Input,
-  InputGroupAddon,
-  Col,
-  NavbarToggler,
-} from "reactstrap";
+import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Col } from "reactstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faSearch,
   faShoppingBasket,
   faChevronLeft,
   faBars,
@@ -27,10 +14,11 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { BackButtonWrapper } from "./styled";
 import Router from "next/router";
+import HeaderSearchBox from "../HeaderSearchBox";
 
 const { selectCurrency } = appActions;
 
-library.add([faSearch, faShoppingBasket, faChevronLeft, faBars]);
+library.add([faShoppingBasket, faChevronLeft, faBars]);
 
 import "./ShopHeader.scss";
 import ShoppingCart from "../../containers/ShoppingCartContainer";
@@ -103,17 +91,7 @@ class ShopHeader extends Component {
         </Link>
 
         <Col md="5" className="hide-mobile">
-          <InputGroup>
-            <Input
-              className="search-input"
-              placeholder="¿Qué quieres pedir hoy?"
-            />
-            <InputGroupAddon className="search-button" addonType="append">
-              <span className="input-group-text">
-                <FontAwesomeIcon icon="search" />
-              </span>
-            </InputGroupAddon>
-          </InputGroup>
+          <HeaderSearchBox />
         </Col>
 
         <Nav className="ml-auto" navbar>

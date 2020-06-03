@@ -8,55 +8,30 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Autocomplete from "../Autocomplete";
 import Router from "next/router";
+import withSearchAbility from "../../hocs/with-search-ability";
 
 const SearchBox = (props) => {
-  const { address } = props;
-  const [searchText, setSearchText] = useState("");
-
-  const onChange = useCallback(({ target }) => {
-    setSearchText(target.value);
-  });
-
-  const onClickSearchButton = useCallback(async () => {
-    Router.push(`/search?query=${searchText.toLowerCase()}`);
-  }, [searchText]);
+  const {
+    address,
+    search: { onClickSearch, onChangeText, onKeyPress },
+  } = props;
 
   return (
     <SearchBoxWrapper>
-      {address === "" ? (
-        <SearchBoxInput
-          onChange={onChange}
-          {...props}
-          placeholder="Busca lo que quieras"
-        />
-      ) : (
-        <Autocomplete
-          placeholder="Ingresa la dirección de envío o un punto cercano"
-          onSelect={async ({ lat, lng, value }) => {
-            props.onSelectPlace({
-              lat,
-              lng,
-              value,
-            });
-          }}
-          style={{
-            width: "100%",
-          }}
-          CustomComponent={SearchBoxInput}
-        />
-      )}
+      <SearchBoxInput
+        onChange={onChangeText}
+        onKeyPress={onKeyPress}
+        {...props}
+        placeholder="Busca lo que quieras"
+      />
 
       <SearchIconWrapper>
-        {address ? (
-          <FontAwesomeIcon icon="search" />
-        ) : (
-          <SearchAddressButton onClick={onClickSearchButton}>
-            Buscar
-          </SearchAddressButton>
-        )}
+        <SearchAddressButton onClick={onClickSearch}>
+          Buscar
+        </SearchAddressButton>
       </SearchIconWrapper>
     </SearchBoxWrapper>
   );
 };
 
-export default SearchBox;
+export default withSearchAbility(SearchBox);

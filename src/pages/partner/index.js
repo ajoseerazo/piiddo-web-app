@@ -198,7 +198,7 @@ const Store = ({
         }
         url={
           defaultProductSelected
-            ? `https://piiddo.com/${partner.mainCategory}/v/${partner.slug}/products/${defaultProductSelected.id}`
+            ? `https://piiddo.com/${partner.mainCategory}/v/${partner.slug}/productos/${defaultProductSelected.id}`
             : `https://piiddo.com/${partner.mainCategory}/v/${partner.slug}`
         }
       />

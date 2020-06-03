@@ -52,6 +52,7 @@ import ProductsPlaceholder from "../../components/ProductsPlaceholder";
 import PartnerBannerPlaceholder from "../../components/PartnerBannerPlaceholder";
 import Toolbar from "../../components/Toolbar";
 import { calculatePriceFromPoints } from "../../utils";
+import GA from "../../utils/ga";
 import MetaTags from "../../components/MetaTags";
 
 const {
@@ -117,6 +118,8 @@ const Store = ({
   useEffect(() => {
     if (!isMounted && partner) {
       setIsMounted(true);
+
+      GA.registerPageView(partner.slug);
 
       fetchCatalog(partner.id);
       fetchProducts(partner.id, "partner");

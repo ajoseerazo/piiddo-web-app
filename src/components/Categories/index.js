@@ -36,23 +36,25 @@ const Categories = ({ categories }) => {
   return (
     <div className={!isBrowser ? "hidden" : undefined}>
       <CategoriesWrapper className="main-categories">
-        {mainCategories.map((cat) => (
+        {mainCategories.map((cat, index) => (
           <Category
             name={cat.name}
             image={cat.image}
             slug={cat.slug}
             id={cat.id}
+            key={index}
           />
         ))}
       </CategoriesWrapper>
 
       <CategoriesWrapper>
-        {lastCategories.map((cat) => (
+        {lastCategories.map((cat, index) => (
           <Category
             name={cat.name}
             image={cat.image}
             slug={cat.slug}
             id={cat.id}
+            key={index}
           />
         ))}
       </CategoriesWrapper>

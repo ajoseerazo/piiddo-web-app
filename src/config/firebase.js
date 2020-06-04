@@ -9,6 +9,7 @@ var config = {
   storageBucket: "genial-core-212201.appspot.com",
   messagingSenderId: "981763353916",
   appId: "1:981763353916:web:7e2e2e626040c2bf2b8239",
+  measurementId: "G-R51F73GHW0",
 };
 
 if (!firebase.apps.length) {

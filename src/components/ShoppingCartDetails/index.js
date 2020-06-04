@@ -20,8 +20,6 @@ import {
 
 library.add([faTimes, faShoppingBag]);
 
-// import "./styles.scss";
-
 class ShoppingCartDetails extends PureComponent {
   state = {
     active: false,

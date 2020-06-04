@@ -8,12 +8,16 @@ import {
   Additionals,
   ProductItemRight,
   ProductItemLeft,
+  ShoppingItem,
+  ItemImage,
+  ProductInfoWrapper,
+  ShoppingItemTitle,
+  ShoppingItemDescription,
+  ShoppingItemAmount,
 } from "./styled";
 import ProductCounterTiny from "../ProductCounterTiny";
 
 library.add([faChevronUp, faChevronDown]);
-
-import "./styles.scss";
 
 function ShoppingBoxItem(props) {
   const [collapse, setCollapse] = useState(false);
@@ -34,8 +38,6 @@ function ShoppingBoxItem(props) {
   } = props;
   let amout = price;
 
-  let activeName = "";
-
   const variationsArr = [];
   if (variations) {
     for (let key in variations) {
@@ -55,14 +57,14 @@ function ShoppingBoxItem(props) {
   const toggle = () => setCollapse(!collapse);
 
   return (
-    <div className="shoppingItems mount">
+    <ShoppingItem>
       <ProductItemLeft>
-        {image && <img className="gallery-img" src={image} />}
-        <div className="shoppingItems-box">
-          <div className="shoppingItems-title">{name}</div>
-          <div className="shoppingItems-extra">
-            <div className="shoppingItems-des">{description + activeName}</div>
-          </div>
+        {image && <ItemImage src={image} />}
+        <ProductInfoWrapper>
+          <ShoppingItemTitle>{name}</ShoppingItemTitle>
+          <ShoppingItemDescription>
+            <div>{description}</div>
+          </ShoppingItemDescription>
           {additionals.length !== 0 && (
             <div>
               <Collapse isOpen={collapse}>
@@ -84,7 +86,7 @@ function ShoppingBoxItem(props) {
               </LinkButtonStyled>
             </div>
           )}
-        </div>
+        </ProductInfoWrapper>
       </ProductItemLeft>
 
       <ProductItemRight>
@@ -95,11 +97,11 @@ function ShoppingBoxItem(props) {
             onClickDelete={onClickDelete}
           />
         )}
-        <div className="shoppingItems-amount">
+        <ShoppingItemAmount>
           {`$ ${parseFloat(amout).toFixed(2)}`}
-        </div>
+        </ShoppingItemAmount>
       </ProductItemRight>
-    </div>
+    </ShoppingItem>
   );
 }
 

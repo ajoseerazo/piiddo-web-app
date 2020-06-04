@@ -22,3 +22,17 @@ export const ButtonStyled = styled(Button)`
     color: #f74342;
   }
 `;
+
+export const ShoppingCartBubble = styled.span`
+  position: absolute;
+  top: 0px;
+  right: 2px;
+  background: #f74342;
+  border-radius: 50%;
+  font-size: 10px;
+  width: 18px;
+  height: 18px;
+  line-height: 14px;
+  padding: 2px;
+  color: white;
+`;

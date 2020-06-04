@@ -2,8 +2,7 @@ import React, { PureComponent } from "react";
 // import { removeSlug } from "../../actions/shopping";
 import { connect } from "react-redux";
 import ShoppingBoxItem from "../../containers/ShoppingBoxItemContainer";
-
-import "./styles.scss";
+import { ShoppingCartItemWrapper } from "./styled";
 
 class ShoppingBoxList extends PureComponent {
   componentWillMount() {
@@ -20,14 +19,7 @@ class ShoppingBoxList extends PureComponent {
     });
   };
 
-  handleTimes = () => {
-    // this.props.dispatch(removeSlug(this.props.slugId));
-  };
-
   render() {
-    let shoppingItemClassName = this.state.active
-      ? "shoppingItem active"
-      : "shoppingItem";
     let name = this.props.slugName;
     let slugId = this.props.slugId;
 
@@ -39,7 +31,7 @@ class ShoppingBoxList extends PureComponent {
     } = this.props;
 
     return (
-      <div className={shoppingItemClassName}>
+      <ShoppingCartItemWrapper>
         <div>
           <ShoppingBoxItem
             name={product.name}
@@ -61,7 +53,7 @@ class ShoppingBoxList extends PureComponent {
             variations={variations}
           />
         </div>
-      </div>
+      </ShoppingCartItemWrapper>
     );
   }
 }

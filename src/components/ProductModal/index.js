@@ -236,9 +236,9 @@ const ProductModal = (props) => {
 
             {product.variations && product.variations.length && (
               <>
-                {product.variations.map((variation) => {
+                {product.variations.map((variation, index) => {
                   return (
-                    <ProductCustomSection>
+                    <ProductCustomSection key={index}>
                       <ProductCustomSectionTitle>
                         {variation.name}
                       </ProductCustomSectionTitle>

@@ -11,7 +11,6 @@ module.exports = withCSS(
         dest: "public",
       },
       webpack(config, options) {
-        config.optimization.minimizer = [];
         config.optimization.minimizer.push(new OptimizeCSSAssetsPlugin({}));
 
         config.module.rules.push({

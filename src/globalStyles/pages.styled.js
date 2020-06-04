@@ -32,4 +32,8 @@ export const SectionNameStyled = styled.h1`
   padding: 0px 15px;
   font-weight: 600;
   margin-bottom: 20px;
+
+  @media (max-width: 768px) {
+    font-size: 18px;
+  }
 `;

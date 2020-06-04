@@ -12,7 +12,7 @@ import Link from "next/link";
 import AddressSelector from "../../containers/AddressSelector";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { BackButtonWrapper } from "./styled";
+import { BackButtonWrapper, NavbarStyled, SigninLinkStyled, SearchWrapper } from "./styled";
 import Router from "next/router";
 import HeaderSearchBox from "../HeaderSearchBox";
 
@@ -20,7 +20,6 @@ const { selectCurrency } = appActions;
 
 library.add([faShoppingBasket, faChevronLeft, faBars]);
 
-import "./ShopHeader.scss";
 import ShoppingCart from "../../containers/ShoppingCartContainer";
 
 class ShopHeader extends Component {
@@ -62,15 +61,7 @@ class ShopHeader extends Component {
     } = this.props;
 
     return (
-      <Navbar
-        light
-        expand="md"
-        fixed="top"
-        style={{
-          backgroundColor: "#FFF",
-          borderBottom: bordered ? "1px solid #e5edef" : undefined,
-        }}
-      >
+      <NavbarStyled light expand="md" fixed="top" bordered={bordered}>
         <BackButtonWrapper onClick={hideBackButton ? null : this.goBack}>
           <FontAwesomeIcon
             icon={hideBackButton ? "bars" : "chevron-left"}
@@ -90,9 +81,9 @@ class ShopHeader extends Component {
           </NavbarBrand>
         </Link>
 
-        <Col md="5" className="hide-mobile">
+        <SearchWrapper md="5">
           <HeaderSearchBox />
-        </Col>
+        </SearchWrapper>
 
         <Nav className="ml-auto" navbar>
           <NavItem className="address-selector-wrapper">
@@ -104,9 +95,7 @@ class ShopHeader extends Component {
           </NavItem>
 
           <NavItem style={{ marginRight: 10 }}>
-            <NavLink className="ingresar-link" href="/ingresar">
-              Ingresar
-            </NavLink>
+            <SigninLinkStyled href="/ingresar">Ingresar</SigninLinkStyled>
           </NavItem>
           {/*<NavItem style={{marginRight: 10}}>
             <NavLink className="cart-icon" href="/cart"><FontAwesomeIcon icon="shopping-basket" /></NavLink>
@@ -115,7 +104,7 @@ class ShopHeader extends Component {
             <CurrencySelector onChangeCurrency={this.changeCurrency} />
           </NavItem>*/}
         </Nav>
-      </Navbar>
+      </NavbarStyled>
     );
   }
 }

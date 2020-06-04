@@ -1,9 +1,9 @@
-import { useCallback } from "react";
-import { InputGroup, Input, InputGroupAddon } from "reactstrap";
+import { InputGroup,  } from "reactstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import withSearchAbility from "../../hocs/with-search-ability";
+import { InputStyled, SearchButtonWrapper } from "./styled";
 
 library.add([faSearch]);
 
@@ -12,13 +12,12 @@ const HeaderSearchBox = ({ search }) => {
 
   return (
     <InputGroup>
-      <Input
-        className="search-input"
+      <InputStyled
         placeholder="¿Qué quieres pedir hoy?"
         onChange={onChangeText}
         onKeyPress={onKeyPress}
       />
-      <InputGroupAddon
+      <SearchButtonWrapper
         className="search-button"
         addonType="append"
         onClick={onClickSearch}
@@ -26,7 +25,7 @@ const HeaderSearchBox = ({ search }) => {
         <span className="input-group-text">
           <FontAwesomeIcon icon="search" />
         </span>
-      </InputGroupAddon>
+      </SearchButtonWrapper>
     </InputGroup>
   );
 };

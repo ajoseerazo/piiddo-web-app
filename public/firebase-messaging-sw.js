@@ -25,18 +25,17 @@ if (!firebase.apps.length) {
       payload
     );
     // Customize notification here
-    /*var notificationTitle = payload.data.title; 
+    var notificationTitle = payload.data.title; 
     var notificationOptions = {
       body: payload.data.body,
-      icon: './images/launcher-sq-512x512.png',
+      icon: './static/images/piiddo-512x512.png',
       data: {
         link: payload.fcmOptions.link
       }
     };
 
     return self.registration.showNotification(notificationTitle,
-      notificationOptions);*/
-    console.log(payload);
+      notificationOptions);
   });
   //This is the "Offline page" service worker
 

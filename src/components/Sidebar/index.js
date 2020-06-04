@@ -2,8 +2,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { Link as AnimatedLink } from "react-scroll";
 import SidebarPlaceholder from "../SidebarPlaceholder";
-
-import "./styles.scss";
+import { SidebarWrapper } from "./styled";
 
 const Div = ({ children }) => {
   return <div>{children}</div>;
@@ -48,7 +47,7 @@ const Sidebar = ({
     : {};
 
   return (
-    <div
+    <SidebarWrapper
       className={`sidebar-wrapper sidebar is-sticky ${
         scrollSpy ? "is-scrollSpy" : undefined
       }`}
@@ -105,7 +104,7 @@ const Sidebar = ({
           ))}
         </ul>
       </SidebarPlaceholder>
-    </div>
+    </SidebarWrapper>
   );
 };
 

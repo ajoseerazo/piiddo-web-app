@@ -1,10 +1,10 @@
 import React from "react";
-import "./styles.scss";
 import { Row, Col } from "reactstrap";
+import { FooterWrapper } from "./styled";
 
 const Footer = props => {
   return (
-    <div className="footer">
+    <FooterWrapper>
       <Row style={{ width: "100%" }}>
         <Col md="4" className="v-center">
           <div className="logo">
@@ -49,7 +49,7 @@ const Footer = props => {
           </ul>
         </Col>
       </Row>
-    </div>
+    </FooterWrapper>
   );
 };
 

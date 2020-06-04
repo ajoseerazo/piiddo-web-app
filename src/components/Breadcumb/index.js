@@ -5,13 +5,11 @@ import { faChevronRight } from "@fortawesome/free-solid-svg-icons";
 
 library.add([faChevronRight]);
 
-import "./styles.scss";
-
 const Breadcumb = (props) => {
   return (
-    <UlWrapper className="">
+    <UlWrapper>
       {(props.items || []).map((it, index) => (
-        <li className="" key={it.url}>
+        <li key={it.url}>
           <Link href={it.as} as={it.url}>
             <a className="link">{it.name}</a>
           </Link>

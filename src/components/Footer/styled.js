@@ -1,4 +1,6 @@
-.footer {
+import styled from "styled-components";
+
+export const FooterWrapper = styled.div`
   height: 200px;
   padding: 50px;
   z-index: 100;
@@ -6,7 +8,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  border-top: 1px solid #F4F7F8;
+  border-top: 1px solid #f4f7f8;
 
   ul {
     list-style: none;
@@ -37,11 +39,10 @@
   .logo {
     font-size: 40px;
   }
-}
 
-@media screen and (max-width: 768px) {
-  .footer {
+  @media screen and (max-width: 768px) {
     height: auto;
+    padding: 20px 20px 80px 20px;
 
     .row {
       margin: 0px;
@@ -57,36 +58,4 @@
       }
     }
   }
-}
-/*.footer {
-  padding: 80px 0px;
-  a {
-    color: #3d4246;
-
-    &:hover {
-      color: #3d4246;
-    }
-  }
-
-  .links-container {
-    display: flex;
-    justify-content: space-around;
-    width: 70%;
-    margin: 0 auto;
-  }
-
-  .copyright {
-    text-align: center;
-    margin: 50px 0px 0px 0px;
-  }
-
-  .social-networks {
-    margin-top: 50px;
-    text-align: center;
-    font-size: 30px;
-
-    .fa {
-      margin: 0px 10px;
-    }
-  }
-}*/
+`;

@@ -1,18 +1,19 @@
-.whatsapp-button-wrapper {
+import styled from "styled-components";
+
+export const WhatsappButtonWrapper = styled.a`
   &:hover {
     text-decoration: none;
     color: white;
   }
-}
+`;
 
-.whatsapp-button {
+export const WhatsappButtonStyled = styled.button`
   box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 9px;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 40px;
-  font-family: Roboto, sans-serif;
   font-size: 14px;
   border-radius: 6px;
   border-width: initial;
@@ -24,31 +25,28 @@
   padding-left: 15px;
   padding-right: 15px;
 
-
   &:hover {
     box-shadow: rgba(0, 0, 0, 0.14) 0px 4px 9px;
   }
 
   span {
-    font-size: 24px; 
-    margin-right: 5px
+    font-size: 24px;
+    margin-right: 5px;
   }
 
   p {
     margin: 0px;
     margin-left: 10px;
   }
-}
 
-@media screen and (max-width: 768px) {
-  .whatsapp-button {
+  @media screen and (max-width: 768px) {
     font-size: 12px;
     padding-left: 15px;
     padding-right: 15px;
     height: 35px;
-    
+
     span {
       font-size: 20px;
     }
   }
-}
+`;

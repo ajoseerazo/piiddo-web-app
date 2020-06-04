@@ -93,7 +93,7 @@ export const getDataFromShoppingCart = (stores, deliveryLocation) => {
 
 export const askForPermissionToReceiveNotifications = async (callback) => {
   try {
-    const messaging = firebase.messaging();;
+    const messaging = firebase.messaging();
 
     messaging.usePublicVapidKey(
       "BMgNayp7MoTXVElfNy2KYT2_nh9iJBB4bnzfdts2m_MIaw93DG4wdOdgvCSuUorWN_b8RxlA6f_GBRWkGYUFzxc"

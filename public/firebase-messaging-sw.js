@@ -12,7 +12,7 @@ if (!firebase.apps.length) {
     storageBucket: "genial-core-212201.appspot.com",
     messagingSenderId: "981763353916",
     appId: "1:981763353916:web:7e2e2e626040c2bf2b8239",
-    measurementId: "G-R51F73GHW0"
+    measurementId: "G-R51F73GHW0",
   };
 
   firebase.initializeApp(config);
@@ -25,17 +25,19 @@ if (!firebase.apps.length) {
       payload
     );
     // Customize notification here
-    var notificationTitle = payload.data.title; 
+    var notificationTitle = payload.data.title;
     var notificationOptions = {
-      body: payload.data.body,
-      icon: './static/images/piiddo-512x512.png',
+      body: payload.data.description,
+      icon: "./static/images/piiddo-512x512.png",
       data: {
-        link: payload.fcmOptions.link
-      }
+        link: payload.data.link,
+      },
     };
 
-    return self.registration.showNotification(notificationTitle,
-      notificationOptions);
+    return self.registration.showNotification(
+      notificationTitle,
+      notificationOptions
+    );
   });
   //This is the "Offline page" service worker
 

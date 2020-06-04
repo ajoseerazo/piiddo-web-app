@@ -540,7 +540,12 @@ const CheckoutPage = ({
                   <PaypalButtonWrapper>
                     {isCheckoutButtonDisabled && <PayPalButtonDisabling />}
                     <PayPalButton
-                      amount={total + deliveryTotal}
+                      amount={
+                        total +
+                        deliveryTotal +
+                        (total + deliveryTotal) * 0.06 +
+                        0.3
+                      }
                       shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                       onSuccess={onPaypalPaymentSuccess}
                       options={{
@@ -579,7 +584,9 @@ const CheckoutPage = ({
               isOpened={shouldOpenSupportModal}
               type={paymentMethodSelected.value}
               amount={
-                paymentMethodSelected.value === "zelle" ? (total + deliveryTotal) : (total + deliveryTotal) * 193820
+                paymentMethodSelected.value === "zelle"
+                  ? total + deliveryTotal
+                  : (total + deliveryTotal) * 193820
               }
               orderId={order.id}
               onFinishPayment={onFinishPayment}

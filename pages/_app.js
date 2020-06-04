@@ -6,8 +6,6 @@ import Router from "next/router";
 import { fromJS } from "immutable";
 import Head from "next/head";
 import NProgress from "nprogress";
-import "../src/shop-styles.scss";
-import "../src/styles.scss";
 import { wrapper } from "../src/redux/store";
 import "bootstrap/dist/css/bootstrap.css";
 import { ToastProvider } from "react-toast-notifications";
@@ -101,8 +99,21 @@ class MyApp extends App {
               content="https://piiddo.com/static/images/piiddo-512x512.png"
               key="og_image"
             />
-          </Head>
+            <style
+              dangerouslySetInnerHTML={{
+                __html: `
+            body {
+              font-family: "Poppins", sans-serif !important;
+              overflow-x: hidden;
+            }
 
+            .react-toast-notifications__container {
+              z-index: 2000 !important;
+            }
+          `,
+              }}
+            />
+          </Head>
           <Component {...pageProps} />
         </ToastProvider>
       </>

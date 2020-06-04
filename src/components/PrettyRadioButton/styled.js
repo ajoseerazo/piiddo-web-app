@@ -9,4 +9,26 @@ export const CheckboxStyled = styled.div`
     justify-content: space-between;
     font-size: 14px;
   }
+
+  input:checked ~ .state.p-danger label:after {
+    background-color: #f74342 !important;
+  }
+
+  .state label:before {
+    border-color: #e5edef !important;
+    border-width: 2px;
+  }
+
+  .state label {
+    padding-left: 5px;
+  }
+
+  i {
+    left: 0.5px;
+  }
+
+  .pretty label {
+    display: flex;
+    justify-content: space-between;
+  }
 `;

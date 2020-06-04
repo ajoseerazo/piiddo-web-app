@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckboxStyled } from "./styled";
+import 'pretty-checkbox/src/pretty-checkbox.scss';
 
 const PrettyRadioButton = ({
   label,

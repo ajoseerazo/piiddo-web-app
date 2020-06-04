@@ -13,8 +13,6 @@ import {
 } from "./styled";
 import RestaurantSummary from "../../components/RestaurantSummary";
 import Footer from "../../components/Footer";
-import "../../styles.scss";
-import "../../shop-styles.scss";
 import HorizontalCategories from "../../components/HorizontalCategories";
 import PartnersPlaceholder from "../../components/PartnersPlaceholder";
 import Router from "next/router";

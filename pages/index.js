@@ -11,8 +11,11 @@ import ProductModal from "../src/components/ProductModal";
 import GlobalSearch from "../src/components/GlobalSearch";
 import Categories from "../src/components/Categories";
 import { MainContainerWrapper } from "../src/globalStyles/styled.index";
-import cookies from "next-cookies";
-import "../src/shop-styles.scss";
+import {
+  PageMainContainerStyled,
+  ProductsContainer,
+  SectionNameStyled
+} from "../src/globalStyles/pages.styled";
 import { wrapper } from "../src/redux/store";
 import Toolbar from "../src/components/Toolbar";
 
@@ -58,57 +61,19 @@ class Shop extends Component {
     } = this.props;
 
     selectProduct(product);
-
-    /*this.setState({
-      isModalOpen: true
-    })*/
   };
 
   onSelectPlace = (place) => {
     this.setState({
       place,
       isPlacePickerModalOpened: true,
-      showAutocomplete: false
+      showAutocomplete: false,
     });
   };
-
-  /*setSidebarHeight = (isVisible) => {
-    if (isVisible) {
-      let height =
-        window.innerHeight -
-        this.footer.current.node.getBoundingClientRect().top;
-
-      if (height > 0) {
-        this.setState({
-          sidebarHeight: window.innerHeight - 54 - height,
-        });
-      } else {
-        this.setState({
-          sidebarHeight: window.innerHeight - 54,
-        });
-      }
-    } else {
-      this.setState({
-        sidebarHeight: window.innerHeight - 54,
-      });
-    }
-  };*/
 
   onFooterVisibiltyChange = (isVisible) => {
     // this.setSidebarHeight(isVisible);
   };
-
-  /*componentDidMount = () => {
-    if (typeof window !== "undefined") {
-      const place = API.DeliveryLocation.get();
-
-      if (place) {
-        this.setState({
-          address: place.address,
-        });
-      }
-    }
-  };*/
 
   onCloseModal = () => {
     this.setState({
@@ -139,7 +104,7 @@ class Shop extends Component {
   onClickAddressSelector = () => {
     this.setState({
       isPlacePickerModalOpened: true,
-      showAutocomplete: true
+      showAutocomplete: true,
     });
   };
 
@@ -152,7 +117,7 @@ class Shop extends Component {
       isPlacePickerModalOpened,
       place,
       address,
-      showAutocomplete
+      showAutocomplete,
     } = this.state;
     const { categories } = this.props;
 
@@ -164,15 +129,8 @@ class Shop extends Component {
           onClickAddressSelector={this.onClickAddressSelector}
         />
 
-        {/*<div style={{marginTop: 57}}>
-          <Banner />
-    </div>*/}
-
-        <div className="main-container">
-          {/*<Sidebar isSticky={isSticky} height={sidebarHeight} />*/}
-
-          <div
-            className="products-container"
+        <PageMainContainerStyled>
+          <ProductsContainer
             style={{
               minHeight:
                 typeof window !== "undefined"
@@ -186,14 +144,14 @@ class Shop extends Component {
             />
 
             <MainContainerWrapper>
-              <h1 className="section-name">
-                ¿Qué clase de producto deseas comprar?
-              </h1>
+              <SectionNameStyled>
+                ¿Qué clase de producto deseas pedir hoy?
+              </SectionNameStyled>
 
               <Categories categories={categories || []} />
             </MainContainerWrapper>
-          </div>
-        </div>
+          </ProductsContainer>
+        </PageMainContainerStyled>
 
         <Toolbar />
 

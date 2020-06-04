@@ -10,8 +10,6 @@ import {
 } from "../category/styled";
 import RestaurantSummary from "../../components/RestaurantSummary";
 import Footer from "../../components/Footer";
-import "../../styles.scss";
-import "../../shop-styles.scss";
 import {
   PartnerMediaWrapper,
   PartnerBanner,

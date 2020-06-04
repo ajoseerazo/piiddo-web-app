@@ -5,17 +5,29 @@ import Link from "next/link";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
+import {
+  ShoppingCartHeader,
+  ShoppingCartWrapper,
+  Overlay,
+  CartContainer,
+  EmptyCartContainer,
+  CartSummary,
+  DeliverySummary,
+  Amount,
+  TotalSummary,
+  CheckoutButtonStyled,
+} from "./styled";
 
 library.add([faTimes, faShoppingBag]);
 
-import "./styles.scss";
+// import "./styles.scss";
 
 class ShoppingCartDetails extends PureComponent {
   state = {
     active: false,
     autoplay: false,
-    overlayClass: "cardOverlay",
-    mainClass: "card",
+    overlayClass: "",
+    mainClass: "",
   };
 
   openAction = () => {
@@ -24,8 +36,8 @@ class ShoppingCartDetails extends PureComponent {
       return {
         active: true,
         autoplay: true,
-        overlayClass: `cardOverlay overflow`,
-        mainClass: `card show`,
+        overlayClass: `overflow`,
+        mainClass: `show`,
       };
     });
   };
@@ -36,8 +48,8 @@ class ShoppingCartDetails extends PureComponent {
       return {
         active: false,
         autoplay: true,
-        mainClass: `card`,
-        overlayClass: `cardOverlay`,
+        mainClass: ``,
+        overlayClass: ``,
       };
     });
   };
@@ -64,8 +76,8 @@ class ShoppingCartDetails extends PureComponent {
 
     return (
       <div>
-        <div className={mainClass}>
-          <div className="card-header">
+        <ShoppingCartWrapper className={mainClass}>
+          <ShoppingCartHeader>
             <span className="title">Tu pedido</span>
 
             <span onClick={this.closeAction}>
@@ -75,61 +87,59 @@ class ShoppingCartDetails extends PureComponent {
                 <FontAwesomeIcon icon="times" />
               </Button>
             </span>
-          </div>
-          <div className="card-items card-center">
-            <div>
-              {length === 0 ? (
-                <h3 className="card-title">
+          </ShoppingCartHeader>
+          <CartContainer>
+            {length === 0 ? (
+              <EmptyCartContainer>
+                <h3>
                   <FontAwesomeIcon icon="shopping-bag" color="#443" size="2x" />
                   <div>Tu carrito está vacío</div>
                 </h3>
-              ) : (
-                <div className="containerShoppingArticles">
-                  <Scrollbars
-                    autoHeight
-                    autoHeightMax={"100%"}
-                    autoHeightMin={0}
-                    ref="scrollbars"
-                    style={{
-                      overflow: "hidden",
-                    }}
-                  >
-                    <div className="articles-shoppingBox">
-                      {this.props.children}
-                    </div>
-                  </Scrollbars>
-                </div>
-              )}
-            </div>
-          </div>
-          {length !== 0 && (
-            <div className="card-result align">
+              </EmptyCartContainer>
+            ) : (
               <div>
-                <div className="card-adm">
+                <Scrollbars
+                  autoHeight
+                  autoHeightMax={"100%"}
+                  autoHeightMin={0}
+                  ref="scrollbars"
+                  style={{
+                    overflow: "hidden",
+                  }}
+                >
+                  <div className="articles-shoppingBox">
+                    {this.props.children}
+                  </div>
+                </Scrollbars>
+              </div>
+            )}
+          </CartContainer>
+          {length !== 0 && (
+            <CartSummary>
+              <div>
+                <DeliverySummary>
                   Costo delivery
-                  <span className="card-mount">
-                    $ {parseFloat(deliveryTotal).toFixed(2)}
-                  </span>
-                </div>
-                <span className="card-total">
+                  <Amount>$ {parseFloat(deliveryTotal).toFixed(2)}</Amount>
+                </DeliverySummary>
+                <TotalSummary>
                   Total
-                  <span className="card-mount">
+                  <Amount>
                     $ {parseFloat(amount + deliveryTotal).toFixed(2)}
-                  </span>
-                </span>
+                  </Amount>
+                </TotalSummary>
               </div>
               <div onClick={this.closeAction}>
                 <Link href="/checkout" as="/checkout">
-                  <Button block className="checkout-btn">
+                  <CheckoutButtonStyled block className="checkout-btn">
                     Pagar
-                  </Button>
+                  </CheckoutButtonStyled>
                 </Link>
               </div>
-            </div>
+            </CartSummary>
           )}
-        </div>
+        </ShoppingCartWrapper>
 
-        <div className={overlayClass} onClick={this.closeAction}></div>
+        <Overlay className={overlayClass} onClick={this.closeAction}></Overlay>
       </div>
     );
   }

@@ -1,4 +1,5 @@
 import moment from "moment";
+import firebase from "firebase";
 import { getDistance } from "geolib";
 
 export const getCategoryName = (category) => {
@@ -88,4 +89,27 @@ export const getDataFromShoppingCart = (stores, deliveryLocation) => {
   }
 
   return [length, total, deliveryTotal];
+};
+
+export const askForPermissionToReceiveNotifications = async (callback) => {
+  try {
+    const messaging = firebase.messaging();;
+
+    messaging.usePublicVapidKey(
+      "BMgNayp7MoTXVElfNy2KYT2_nh9iJBB4bnzfdts2m_MIaw93DG4wdOdgvCSuUorWN_b8RxlA6f_GBRWkGYUFzxc"
+    );
+
+    await messaging.requestPermission();
+    const token = await messaging.getToken();
+
+    if (token) {
+      messaging.onMessage(function (payload) {
+        // console.log('Message received. ', payload);
+        // callback(payload)
+      });
+    }
+    return token;
+  } catch (error) {
+    console.error("Error", error);
+  }
 };

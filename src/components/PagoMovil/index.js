@@ -16,20 +16,12 @@ import ImagesAPI from "../../api/images";
 const bankAccounts = [
   {
     name: "Banco de Venezuela",
-    accountNumber: "0102-0121-8912-1928-1921-2891",
+    accountNumber: "0102-0437-2600-0107-7870",
     accountType: "Ahorros",
-    accountName: "Juana Pérez",
+    accountName: "Miglenys Adrian",
     accountDocumentType: "Cédula",
-    accountDocumnetNumber: "8.055.385",
-  },
-  {
-    name: "Banco Banesco",
-    accountNumber: "0102-0121-8912-1928-1921-2891",
-    accountType: "Ahorros",
-    accountName: "Juana Pérez",
-    accountDocumentType: "Cédula",
-    accountDocumnetNumber: "8.055.385",
-  },
+    accountDocumnetNumber: "8.981.562",
+  }
 ];
 
 const PagoMovil = ({ amount, onClickPayButton, loading, type }) => {

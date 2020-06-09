@@ -166,6 +166,9 @@ export default class MyDocument extends Document {
         `,
             }}
           />
+
+          <meta property="al:android:app_name" content="Piiddo" />
+          <meta property="al:android:package" content="com.piiddo" />
         </Head>
         <body>
           <noscript>You need to enable JavaScript to run this app.</noscript>

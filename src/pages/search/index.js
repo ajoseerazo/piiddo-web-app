@@ -6,7 +6,7 @@ import {
   MobileSearchWrapper,
 } from "./styled";
 import Filters from "../../components/SearchFilters";
-import StoreResult from "../../components/StoreResult";
+import StoreResult from "../../containers/StoreResult";
 import HeaderSearchBox from "../../components/HeaderSearchBox";
 
 const Search = ({ products, searchText }) => {
@@ -17,7 +17,7 @@ const Search = ({ products, searchText }) => {
           <MobileSearchWrapper>
             <HeaderSearchBox />
           </MobileSearchWrapper>
-          
+
           <FiltersWrapper>
             <Filters />
           </FiltersWrapper>

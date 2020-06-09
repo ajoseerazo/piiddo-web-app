@@ -7,7 +7,7 @@ import {
   ProductAddButton,
 } from "./styled";
 
-const ProductItemResult = ({ product }) => {
+const ProductItemResult = ({ product, onAddProduct }) => {
   return (
     <ProductWrapper>
       <ProductImage src={product.image} />
@@ -16,7 +16,7 @@ const ProductItemResult = ({ product }) => {
         <ProductPrice>{product.usdPrice} $</ProductPrice>
       </ProductInfoWrapper>
 
-      <ProductAddButton>Agregar</ProductAddButton>
+      <ProductAddButton onClick={onAddProduct}>Agregar</ProductAddButton>
     </ProductWrapper>
   );
 };

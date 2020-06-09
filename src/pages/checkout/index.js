@@ -526,7 +526,7 @@ const CheckoutPage = ({
                     <CheckoutTotalPrice>
                       Bs{" "}
                       {`${new Intl.NumberFormat("es").format(
-                        (total + deliveryTotal) * 193820
+                        (total + deliveryTotal) * 210000
                       )}`}
                     </CheckoutTotalPrice>
                   </div>
@@ -588,7 +588,7 @@ const CheckoutPage = ({
               amount={
                 paymentMethodSelected.value === "zelle"
                   ? total + deliveryTotal
-                  : (total + deliveryTotal) * 193820
+                  : (total + deliveryTotal) * 210000
               }
               orderId={order.id}
               onFinishPayment={onFinishPayment}

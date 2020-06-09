@@ -54,7 +54,10 @@ const StoreResult = ({ store, onShowProduct, product, onAddProductToCart }) => {
       id: store.id,
       logo: store.logo,
       slug: store.slug,
-      location: store.location,
+      location: {
+        lat: store.location._latitude,
+        lng: store.location._longitude,
+      },
     });
   });
 
@@ -64,10 +67,13 @@ const StoreResult = ({ store, onShowProduct, product, onAddProductToCart }) => {
     setStoreSelected(null);
   });
 
-  const addProductToCart = useCallback((order) => {
-    onAddProductToCart(order, storeSelected);
-    onCloseModal();
-  }, [storeSelected]);
+  const addProductToCart = useCallback(
+    (order) => {
+      onAddProductToCart(order, storeSelected);
+      onCloseModal();
+    },
+    [storeSelected]
+  );
 
   return (
     <StoreWrapper>

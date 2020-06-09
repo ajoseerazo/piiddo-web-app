@@ -9,14 +9,14 @@ import {
 
 const ProductItemResult = ({ product, onAddProduct }) => {
   return (
-    <ProductWrapper>
+    <ProductWrapper onClick={onAddProduct}>
       <ProductImage src={product.image} />
       <ProductInfoWrapper>
         <ProductName>{product.name}</ProductName>
         <ProductPrice>{product.usdPrice} $</ProductPrice>
       </ProductInfoWrapper>
 
-      <ProductAddButton onClick={onAddProduct}>Agregar</ProductAddButton>
+      <ProductAddButton>Agregar</ProductAddButton>
     </ProductWrapper>
   );
 };

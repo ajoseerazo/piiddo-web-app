@@ -56,6 +56,8 @@ const MetaTags = ({ title, description, url }) => {
         content="https://piiddo.com/static/images/piiddo-512x512.png"
         key="twitter_image"
       />
+      <meta property="al:android:app_name" content="Piiddo" />
+      <meta property="al:android:package" content="com.piiddo" />
     </Head>
   );
 };

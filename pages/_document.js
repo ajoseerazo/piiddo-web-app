@@ -167,6 +167,7 @@ export default class MyDocument extends Document {
             }}
           />
 
+          <meta property="al:android:url" content="piiddo://home" />
           <meta property="al:android:app_name" content="Piiddo" />
           <meta property="al:android:package" content="com.piiddo" />
         </Head>

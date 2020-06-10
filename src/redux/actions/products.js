@@ -97,8 +97,6 @@ const productsActions = {
 
         const product = await API.Products.get(id);
 
-        console.log(product);
-
         dispatch(productsActions.fetchProductSuccess(product));
 
         return product;

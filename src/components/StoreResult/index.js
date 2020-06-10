@@ -1,4 +1,3 @@
-import { useCallback, useState, useEffect } from "react";
 import Slider from "react-slick";
 import ProductItemResult from "../ProductItemResult";
 import "slick-carousel/slick/slick.scss";
@@ -13,13 +12,8 @@ import {
 import PrevArrow from "./PrevArrow";
 import NextArrow from "./NextArrow";
 import Link from "next/link";
-import ProductModal from "../ProductModal";
 
-const StoreResult = ({ store, onShowProduct, product, onAddProductToCart }) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [productSelected, setProductSelect] = useState();
-  const [storeSelected, setStoreSelected] = useState();
-
+const StoreResult = ({ store, onShowProduct }) => {
   var settings = {
     dots: false,
     infinite: false,
@@ -38,42 +32,6 @@ const StoreResult = ({ store, onShowProduct, product, onAddProductToCart }) => {
       },
     ],
   };
-
-  useEffect(() => {
-    if (product) {
-      setIsModalOpen(true);
-      setProductSelect(product);
-    }
-  }, [product]);
-
-  const onAddProduct = useCallback((product, store) => {
-    onShowProduct(product);
-    setIsModalOpen(true);
-    setProductSelect(product);
-    setStoreSelected({
-      id: store.id,
-      logo: store.logo,
-      slug: store.slug,
-      location: {
-        lat: store.location._latitude,
-        lng: store.location._longitude,
-      },
-    });
-  });
-
-  const onCloseModal = useCallback(() => {
-    setIsModalOpen(false);
-    setProductSelect(null);
-    setStoreSelected(null);
-  });
-
-  const addProductToCart = useCallback(
-    (order) => {
-      onAddProductToCart(order, storeSelected);
-      onCloseModal();
-    },
-    [storeSelected]
-  );
 
   return (
     <StoreWrapper>
@@ -95,19 +53,12 @@ const StoreResult = ({ store, onShowProduct, product, onAddProductToCart }) => {
               <ProductItemResult
                 product={product}
                 key={product.id}
-                onAddProduct={onAddProduct.bind(this, product, store)}
+                onAddProduct={onShowProduct.bind(this, product, store)}
               />
             );
           })}
         </Slider>
       </ProductsWrapper>
-
-      <ProductModal
-        isOpen={isModalOpen}
-        onClose={onCloseModal}
-        product={productSelected}
-        onAccept={addProductToCart}
-      />
     </StoreWrapper>
   );
 };

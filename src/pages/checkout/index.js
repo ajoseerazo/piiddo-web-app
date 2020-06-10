@@ -84,6 +84,10 @@ const CheckoutPage = ({
     setShouldOpenPaymentSuccessModal,
   ] = useState(false);
   const [paypalPaymentSuccess, setPaypalPaymentSuccess] = useState(false);
+  const [billName, setBillName] = useState();
+  const [billLastName, setBillLastName] = useState();
+  const [billDNI, setBillDNI] = useState();
+  const [billAddress, setBillAddress] = useState();
 
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
@@ -132,15 +136,16 @@ const CheckoutPage = ({
       paymentMethodSelected.value === "credit-card" ||
       paymentMethodSelected.value === "debit-card"
     ) {
+      const [firstName, lastName] = creditCard.name.split(" ");
       const result = await doPayment({
         card: creditCard,
         bill: {
-          firstName: name,
-          lastName: name,
-          address: address || extraAddress,
+          firstName: billName,
+          lastName: billLastName,
+          address: billAddress,
           email,
           documentType: "dni",
-          documentNumber: number,
+          documentNumber: billDNI,
         },
         amount: total + deliveryTotal,
       });
@@ -172,6 +177,10 @@ const CheckoutPage = ({
     deliveryTotal,
     creditCard,
     deliveryLocation,
+    billName,
+    billAddress,
+    billDNI,
+    billLastName,
   ]);
 
   useEffect(() => {
@@ -465,7 +474,63 @@ const CheckoutPage = ({
                       <>
                         {(paymentMethodSelected.value === "credit-card" ||
                           paymentMethodSelected.value === "debit-card") && (
-                          <CreditCardForm onChange={onChangeCreditCardData} />
+                          <>
+                            <CreditCardForm onChange={onChangeCreditCardData} />
+
+                            <div
+                              style={{
+                                marginTop: 30,
+                              }}
+                            >
+                              <CheckoutBoxTitle>
+                                Datos de facturación de la tarjeta
+                              </CheckoutBoxTitle>
+
+                              <CheckoutPersonalDataGroup>
+                                <label>Nombre *</label>
+                                <CheckoutInput
+                                  placeholder="Nombre"
+                                  onChange={handleInputChange.bind(
+                                    this,
+                                    "billName"
+                                  )}
+                                />
+                              </CheckoutPersonalDataGroup>
+
+                              <CheckoutPersonalDataGroup>
+                                <label>Apellido *</label>
+                                <CheckoutInput
+                                  placeholder="Apellido"
+                                  onChange={handleInputChange.bind(
+                                    this,
+                                    "billLastName"
+                                  )}
+                                />
+                              </CheckoutPersonalDataGroup>
+
+                              <CheckoutPersonalDataGroup>
+                                <label>Número de documento *</label>
+                                <CheckoutInput
+                                  placeholder="Numero de documento"
+                                  onChange={handleInputChange.bind(
+                                    this,
+                                    "billDNI"
+                                  )}
+                                />
+                              </CheckoutPersonalDataGroup>
+
+                              <CheckoutPersonalDataGroup>
+                                <label>Dirección *</label>
+                                <CheckoutInput
+                                  placeholder="Dirección de facturación"
+                                  onChange={handleInputChange.bind(
+                                    this,
+                                    "billAddress"
+                                  )}
+                                />
+                              </CheckoutPersonalDataGroup>
+                            </div>
+                          </>
                         )}
                       </>
                     </>

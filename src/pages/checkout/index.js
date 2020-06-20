@@ -45,6 +45,7 @@ import paymentsActions from "../../redux/actions/payments";
 import PaymentSuccessModal from "../../components/PaymentSuccessModal";
 import { PayPalButton } from "react-paypal-button-v2";
 import Toolbar from "../../components/Toolbar";
+import QRModal from "../../components/QRModal";
 import Router from "next/router";
 import { getDataFromShoppingCart } from "../../utils";
 
@@ -88,6 +89,7 @@ const CheckoutPage = ({
   const [billLastName, setBillLastName] = useState();
   const [billDNI, setBillDNI] = useState();
   const [billAddress, setBillAddress] = useState();
+  const [qrModalOpened, setQrModalOpened] = useState(false);
 
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
@@ -157,7 +159,11 @@ const CheckoutPage = ({
         alert("Ocurrió un error procesando el pago");
       }
     } else {
-      createOrder(payload);
+      if (paymentMethodSelected.value === "remepagos") {
+        setQrModalOpened(true);
+      } else {
+        createOrder(payload);
+      }
     }
   }, [
     name,
@@ -330,8 +336,10 @@ const CheckoutPage = ({
     vuelto,
     creditCard,
   ]);
-  // console.log(order);
-  // console.log(paypalPaymentSuccess);
+
+  const closeQRModal = useCallback(() => {
+    setQrModalOpened(false);
+  }, []);
 
   return (
     <>
@@ -672,6 +680,12 @@ const CheckoutPage = ({
             <PaymentSuccessModal isOpened={shouldOpenPaymentSuccessModal} />
           )}
       </Wrapper>
+
+      <QRModal
+        isOpened={qrModalOpened}
+        onCloseModal={closeQRModal}
+        amount={total + deliveryTotal}
+      />
 
       <Toolbar />
     </>

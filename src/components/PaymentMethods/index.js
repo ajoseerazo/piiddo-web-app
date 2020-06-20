@@ -9,6 +9,10 @@ const paymentMethods = [
     disabled: true,
   },
   {
+    name: "Remepagos",
+    value: "remepagos",
+  },
+  {
     name: "Tarjeta de crédito/débito internacional",
     value: "credit-card",
   },
@@ -30,11 +34,6 @@ const paymentMethods = [
   {
     name: "Transferencia bancaria",
     value: "bank-transfer",
-  },
-  {
-    name: "Remepagos",
-    value: "remepagos",
-    disabled: true,
   },
   {
     name: "Zelle",

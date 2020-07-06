@@ -14,10 +14,11 @@ import { MainContainerWrapper } from "../src/globalStyles/styled.index";
 import {
   PageMainContainerStyled,
   ProductsContainer,
-  SectionNameStyled
+  SectionNameStyled,
 } from "../src/globalStyles/pages.styled";
 import { wrapper } from "../src/redux/store";
 import Toolbar from "../src/components/Toolbar";
+import CityModal from "../src/components/CityModal";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchCategories } = categoriesActions;
@@ -30,6 +31,7 @@ class Shop extends Component {
     footerIsVisible: false,
     address: this.props.address,
     sidebarHeight: "auto",
+    cityModalOpened: false,
   };
 
   constructor(props) {
@@ -108,6 +110,18 @@ class Shop extends Component {
     });
   };
 
+  componentDidMount = () => {
+    this.setState({
+      cityModalOpened: true,
+    });
+  };
+
+  closeCityModal = () => {
+    this.setState({
+      cityModalOpened: false,
+    });
+  };
+
   render() {
     const {
       itemsInCart,
@@ -118,6 +132,7 @@ class Shop extends Component {
       place,
       address,
       showAutocomplete,
+      cityModalOpened,
     } = this.state;
     const { categories } = this.props;
 
@@ -170,6 +185,11 @@ class Shop extends Component {
         </InView>
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
+
+        <CityModal
+          isOpen={cityModalOpened}
+          onCloseModal={this.closeCityModal}
+        />
       </>
     );
   }

@@ -10,9 +10,15 @@ import {
 import appActions from "../../redux/actions/app";
 import Link from "next/link";
 import AddressSelector from "../../containers/AddressSelector";
+import CitySelector from "../../components/CitySelector";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { BackButtonWrapper, NavbarStyled, SigninLinkStyled, SearchWrapper } from "./styled";
+import {
+  BackButtonWrapper,
+  NavbarStyled,
+  SigninLinkStyled,
+  SearchWrapper,
+} from "./styled";
 import Router from "next/router";
 import HeaderSearchBox from "../HeaderSearchBox";
 
@@ -86,6 +92,10 @@ class ShopHeader extends Component {
         </SearchWrapper>
 
         <Nav className="ml-auto" navbar>
+          {/*<NavItem className="address-selector-wrapper">
+            <CitySelector address={address} disabled={disableAddress} />
+            </NavItem>*/}
+
           <NavItem className="address-selector-wrapper">
             <AddressSelector address={address} disabled={disableAddress} />
           </NavItem>

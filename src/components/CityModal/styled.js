@@ -19,13 +19,18 @@ export const ModalStyled = styled(Modal)`
     margin: 0px;
     min-width: 100% !important;
     max-width: 100%;
-    padding: 80px 20px;
+    padding: 0px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 
     .modal-content {
       max-height: 100%;
       margin: 0px;
       border-radius: 20px;
       min-height: 400px;
+      max-height: 400px;
     }
   }
 `;
@@ -64,6 +69,10 @@ export const CityItem = styled.li`
   border-bottom: 1px solid #f2f2f2;
   cursor: pointer;
   font-weight: 500;
+
+  @media screen and (max-width: 768px) {
+    padding: 15px 20px;
+  }
 `;
 
 export const CloseButton = styled(Button)`

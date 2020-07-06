@@ -24,7 +24,11 @@ const CityModal = ({ isOpen, onCloseModal }) => {
 
   useEffect(() => {
     if (typeof window !== "undefined") {
-      setHeight(window.innerHeight - 100);
+      if (window.innerWidth > 768) {
+        setHeight("calc(100vh - 130px)");
+      } else {
+        setHeight(300);
+      }
     }
   }, []);
 
@@ -37,11 +41,7 @@ const CityModal = ({ isOpen, onCloseModal }) => {
 
         <ModalTitle>Selecciona tu ciudad</ModalTitle>
 
-        <Scrollbars
-          autoHeight
-          autoHeightMin={100}
-          autoHeightMax={"calc(100vh - 130px)"}
-        >
+        <Scrollbars autoHeight autoHeightMin={100} autoHeightMax={height}>
           <CityList>
             {/*<Link href={"/[city]"} as={"/merida"}>
               <a>*/}

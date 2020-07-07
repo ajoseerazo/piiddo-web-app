@@ -29,6 +29,7 @@ const Category = ({
   isLoadingPartners,
   onChangeSubcategory,
   deliveryLocation,
+  city,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -73,6 +74,7 @@ const Category = ({
         <div>
           <SidebarWrapper>
             <Sidebar
+              city={city}
               categories={(category || {}).subcategories || []}
               categorySlug={category.slug}
               currentUrl={currentUrl}
@@ -99,8 +101,10 @@ const Category = ({
               <RestaurantsGrid>
                 {(partners || []).map((partner) => (
                   <Link
-                    href="/[category]/v/[slug]"
-                    as={`/${partner.mainCategory}/v/${getSlug(partner.name)}`}
+                    href="/[city]/[category]/v/[slug]"
+                    as={`/${city}/${partner.mainCategory}/v/${getSlug(
+                      partner.name
+                    )}`}
                     // shallow
                   >
                     <a>

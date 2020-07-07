@@ -2,15 +2,17 @@ import React from "react";
 import { CategoryWrapper, ImageWrapper } from "./styled";
 import Link from "next/link";
 
-const Category = ({ name, image, slug }) => {
+const Category = ({ name, image, slug, city = "merida" }) => {
   return (
     <CategoryWrapper>
       <Link
         href={
-          slug === "restaurantes" ? "/restaurantes" : "/[category]"
+          slug === "restaurantes"
+            ? "/[city]/restaurantes"
+            : "/[city]/[category]"
         }
         as={`${
-          slug === "restaurantes" ? "/restaurantes" : `/${slug}`
+          slug === "restaurantes" ? `/${city}/restaurantes` : `/${city}/${slug}`
         }`}
       >
         <a>

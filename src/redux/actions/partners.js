@@ -30,12 +30,13 @@ const partnersActions = {
       partners,
     };
   },
-  fetchPartners: (categorySlug, subcategorySlug) => {
+  fetchPartners: (city, categorySlug, subcategorySlug) => {
     return async (dispatch) => {
       try {
         dispatch(partnersActions.fetchingPartners());
 
         const partners = await API.Partners.getAll(
+          city,
           categorySlug,
           subcategorySlug
         );
@@ -114,20 +115,20 @@ const partnersActions = {
   },
   fetchingCatalogCategories: () => {
     return {
-      type: partnersActions.GET_CATALOG_CATEGORIES_REQUEST
-    }
+      type: partnersActions.GET_CATALOG_CATEGORIES_REQUEST,
+    };
   },
   fetchCatalogCaegoriesFailed: (error) => {
     return {
       type: partnersActions.GET_CATALOG_CATEGORIES_FAILED,
-      error
-    }
+      error,
+    };
   },
   fetchCatalogCategoriesSuccess: (categories) => {
     return {
       type: partnersActions.GET_CATALOG_CATEGORIES_SUCCESS,
-      categories
-    }
+      categories,
+    };
   },
   fetchCatalogCategories: (catalogId) => {
     return async (dispatch) => {
@@ -135,7 +136,7 @@ const partnersActions = {
         dispatch(partnersActions.fetchingCatalogCategories());
 
         const categories = await API.Partners.getCatalogCategories(catalogId);
-        
+
         dispatch(partnersActions.fetchCatalogCategoriesSuccess(categories));
 
         return categories;
@@ -143,7 +144,7 @@ const partnersActions = {
         dispatch(partnersActions.fetchCatalogFailed(error));
       }
     };
-  } 
+  },
 };
 
 export default partnersActions;

@@ -1,17 +1,18 @@
 import React from "react";
-import StorePage from "../../../../../src/pages/partner";
-import partnersActions from "../../../../../src/redux/actions/partners";
-import productsActions from "../../../../../src/redux/actions/products";
+import StorePage from "../../../../../../src/pages/partner";
+import partnersActions from "../../../../../../src/redux/actions/partners";
+import productsActions from "../../../../../../src/redux/actions/products";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { wrapper } from "../../../../../src/redux/store";
+import { wrapper } from "../../../../../../src/redux/store";
 
 const { fetchPartner } = partnersActions;
 const { fetchProduct } = productsActions;
 
-const Partner = ({ partner, address, product }) => {
+const Partner = ({ partner, address, product, city }) => {
   return (
     <StorePage
+      city={city}
       partner={partner}
       address={address}
       modalOpened={true}
@@ -23,7 +24,7 @@ const Partner = ({ partner, address, product }) => {
 export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
   const {
     store,
-    params: { slug, id },
+    params: { slug, id, city },
   } = ctx;
 
   const partner = await store.dispatch(fetchPartner(slug));
@@ -33,6 +34,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
     props: {
       partner,
       product,
+      city,
     },
   };
 });

@@ -1,24 +1,25 @@
 import React, { Component, Suspense } from "react";
-import ShopHeader from "../src/components/ShopHeader/ShopHeader";
-import Footer from "../src/components/Footer";
+import ShopHeader from "../../src/components/ShopHeader/ShopHeader";
+import Footer from "../../src/components/Footer";
 import { InView } from "react-intersection-observer";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import productsActions from "../src/redux/actions/products";
-import categoriesActions from "../src/redux/actions/categories";
-import locationActions from "../src/redux/actions/location";
-import ProductModal from "../src/components/ProductModal";
-import GlobalSearch from "../src/components/GlobalSearch";
-import Categories from "../src/components/Categories";
-import { MainContainerWrapper } from "../src/globalStyles/styled.index";
+import productsActions from "../../src/redux/actions/products";
+import categoriesActions from "../../src/redux/actions/categories";
+import locationActions from "../../src/redux/actions/location";
+import ProductModal from "../../src/components/ProductModal";
+import GlobalSearch from "../../src/components/GlobalSearch";
+import Categories from "../../src/components/Categories";
+import { MainContainerWrapper } from "../../src/globalStyles/styled.index";
 import {
   PageMainContainerStyled,
   ProductsContainer,
   SectionNameStyled,
-} from "../src/globalStyles/pages.styled";
-import { wrapper } from "../src/redux/store";
-import Toolbar from "../src/components/Toolbar";
-import CityModal from "../src/components/CityModal";
+} from "../../src/globalStyles/pages.styled";
+import { wrapper } from "../../src/redux/store";
+import Toolbar from "../../src/components/Toolbar";
+import CityModal from "../../src/components/CityModal";
+import { CITIES } from "../../src/utils/constants";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchCategories } = categoriesActions;
@@ -122,12 +123,6 @@ class Shop extends Component {
     });
   };
 
-  onSelectCity = (city) => {
-    this.setState({
-      city,
-    });
-  };
-
   render() {
     const {
       itemsInCart,
@@ -139,10 +134,11 @@ class Shop extends Component {
       address,
       showAutocomplete,
       cityModalOpened,
-      city,
     } = this.state;
 
-    const { categories } = this.props;
+    const { categories, city } = this.props;
+
+    console.log("City inside", city);
 
     return (
       <>
@@ -194,11 +190,12 @@ class Shop extends Component {
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
 
-        <CityModal
-          isOpen={cityModalOpened}
-          onCloseModal={this.closeCityModal}
-          onSelectCityHandler={this.onSelectCity}
-        />
+        {!city && (
+          <CityModal
+            isOpen={cityModalOpened}
+            onCloseModal={this.closeCityModal}
+          />
+        )}
       </>
     );
   }
@@ -221,10 +218,30 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
+export const getStaticPaths = async () => {
+  const paths = CITIES.map((city) => {
+    return {
+      params: { city },
+    };
+  });
+
+  return {
+    paths,
+    fallback: true,
+  };
+};
+
 export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
-  const { store } = ctx;
+  const {
+    store,
+    params: { city },
+  } = ctx;
 
   await store.dispatch(fetchCategories());
+
+  return {
+    props: { city },
+  };
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Shop);

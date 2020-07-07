@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Category from "../Category";
 import { CategoriesWrapper } from "./styled";
 
-const Categories = ({ categories }) => {
+const Categories = ({ categories, city }) => {
   const [isBrowser, setIsBrowser] = useState(false);
   const [breakPoint, setBreakPoint] = useState(0);
 
@@ -38,6 +38,7 @@ const Categories = ({ categories }) => {
       <CategoriesWrapper className="main-categories">
         {mainCategories.map((cat, index) => (
           <Category
+            city={city}
             name={cat.name}
             image={cat.image}
             slug={cat.slug}
@@ -50,6 +51,7 @@ const Categories = ({ categories }) => {
       <CategoriesWrapper>
         {lastCategories.map((cat, index) => (
           <Category
+            city={city}
             name={cat.name}
             image={cat.image}
             slug={cat.slug}

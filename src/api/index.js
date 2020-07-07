@@ -63,7 +63,7 @@ class Products {
 }
 
 class Partners {
-  static getAll = async (category, subCategory) => {
+  static getAll = async (city, category, subCategory) => {
     let partnersRef;
 
     if (category) {
@@ -71,11 +71,13 @@ class Partners {
         partnersRef = await db
           .collection("partners")
           .where("mainCategory", "==", category)
+          .where("city", "==", city)
           .get();
       } else {
         partnersRef = await db
           .collection("partners")
           .where("mainCategory", "==", category)
+          .where("city", "==", city)
           .where("categories", "array-contains", subCategory)
           .get();
       }

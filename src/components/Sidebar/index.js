@@ -22,6 +22,7 @@ const Sidebar = ({
   withPlaceholder,
   isLoading,
   isReady,
+  city,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -66,11 +67,13 @@ const Sidebar = ({
         */
         >
           <li
-            className={`/${categorySlug}` === currentUrl ? "active" : undefined}
+            className={
+              `/${city}/${categorySlug}` === currentUrl ? "active" : undefined
+            }
           >
             <WrapperLink
-              href="/[category]"
-              as={`/${categorySlug}`}
+              href="/[city]/[category]"
+              as={`/${city}/${categorySlug}`}
               shallow={shallow}
             >
               <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
@@ -82,15 +85,15 @@ const Sidebar = ({
             <li
               key={index}
               className={
-                `/${categorySlug}/${category.slug}` === currentUrl
+                `/${city}/${categorySlug}/${category.slug}` === currentUrl
                   ? "active"
                   : undefined
               }
             >
               <WrapperLink
                 key={category.id || category.slug}
-                href="/[category]/[subcategory]"
-                as={`/${categorySlug}/${category.slug}`}
+                href="/[city]/[category]/[subcategory]"
+                as={`/${city}/${categorySlug}/${category.slug}`}
                 shallow={shallow}
               >
                 <MenuLink

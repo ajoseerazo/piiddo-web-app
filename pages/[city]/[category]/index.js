@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useCallback } from "react";
-import CategoryPage from "../../src/pages/category";
-import categoriesActions from "../../src/redux/actions/categories";
-import partnersActions from "../../src/redux/actions/partners";
+import CategoryPage from "../../../src/pages/category";
+import categoriesActions from "../../../src/redux/actions/categories";
+import partnersActions from "../../../src/redux/actions/partners";
 import cookies from "next-cookies";
-import { wrapper } from "../../src/redux/store";
+import { wrapper } from "../../../src/redux/store";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import API from "../../src/api";
+import API from "../../../src/api";
+import { CITIES } from "../../../src/utils/constants";
 
 const { fetchCategory } = categoriesActions;
 const { fetchPartners } = partnersActions;
@@ -19,6 +20,7 @@ const Category = ({
   actions: { fetchPartners },
   isLoadingPartners,
   deliveryLocation,
+  city,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -27,21 +29,21 @@ const Category = ({
       if (typeof window !== "undefined") {
         setIsBrowser(true);
 
-        fetchPartners(category.slug);
+        fetchPartners(city, category.slug);
       }
     }
   }, [isBrowser, category]);
 
   const changeSubcategory = useCallback(
     (subcategory) => {
-      console.log("emtra");
-      fetchPartners(subcategory);
+      fetchPartners(city, subcategory);
     },
     [fetchPartners]
   );
 
   return (
     <CategoryPage
+      city={city}
       category={category}
       partners={partners}
       address={address}
@@ -57,13 +59,17 @@ export const getStaticPaths = async () => {
   const categories = await API.Categories.getAll();
 
   const paths = categories.map((cat) => {
-    return {
-      params: { category: cat.slug },
-    };
+    const partialPaths = CITIES.map((city) => {
+      return {
+        params: { city, category: cat.slug },
+      };
+    });
+
+    return partialPaths;
   });
 
   return {
-    paths: paths,
+    paths: paths.flat(),
     fallback: false,
   };
 };
@@ -71,7 +77,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   const {
     store,
-    params: { category: categoryQuery },
+    params: { category: categoryQuery, city },
   } = ctx;
 
   const category = await store.dispatch(fetchCategory(categoryQuery));
@@ -82,8 +88,9 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   return {
     props: {
       category,
-      currentUrl: `/${categoryQuery}`,
+      currentUrl: `/${city}/${categoryQuery}`,
       address,
+      city,
     },
   };
 });

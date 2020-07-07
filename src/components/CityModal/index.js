@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import {
   ModalStyled,
   ModalBodyStyled,
@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Scrollbars } from "react-custom-scrollbars";
 import Link from "next/link";
 
-const CityModal = ({ isOpen, onCloseModal }) => {
+const CityModal = ({ isOpen, onCloseModal, onSelectCityHandler }) => {
   const [height, setHeight] = useState(0);
 
   useEffect(() => {
@@ -32,6 +32,11 @@ const CityModal = ({ isOpen, onCloseModal }) => {
     }
   }, []);
 
+  const onSelectCity = useCallback((city) => {
+    window.history.pushState(`/${city}`, city, `/${city}`);
+    onSelectCityHandler(city);
+  }, []);
+
   return (
     <ModalStyled isOpen={isOpen} toggle={onCloseModal}>
       <ModalBodyStyled>
@@ -43,50 +48,92 @@ const CityModal = ({ isOpen, onCloseModal }) => {
 
         <Scrollbars autoHeight autoHeightMin={100} autoHeightMax={height}>
           <CityList>
-            {/*<Link href={"/[city]"} as={"/merida"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>Mérida</CityItem>
-            {/*</CityList></a>
-            </Link>*/}
-            {/*<Link href={"/[city]"} as={"/barquisimeto"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>Barquisimeto - Cabudare</CityItem>
-            {/*</a>
-            </Link>
-            {/*<Link href={"/[city]"} as={"/maracaibo"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>Maracaibo</CityItem>
-            {/*</a>
-            </Link>*/}
-            {/*<Link href={"/[city]"} as={"/caracas"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>Caracas</CityItem>
-            {/*</a>
-            </Link>*/}
+            <a
+              href="/merida"
+              onClick={(e) => {
+                e.preventDefault();
 
-            {/*<Link href={"/[city]"} as={"/san-cristobal"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>San Cristóbal</CityItem>
-            {/*</a>
-            </Link>*/}
+                onSelectCity("merida");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>Mérida</CityItem>
+            </a>
+            <a
+              href="/barquisimeto"
+              onClick={(e) => {
+                e.preventDefault();
 
-            {/*<Link href={"/[city]"} as={"/valencia"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>Valencia</CityItem>
-            {/*</a>
-            </Link>*/}
+                onSelectCity("barquisimeto");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>
+                Barquisimeto - Cabudare
+              </CityItem>
+            </a>
+            <a
+              href="/maracaibo"
+              onClick={(e) => {
+                e.preventDefault();
 
-            {/*<Link href={"/[city]"} as={"/barinas"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>Barinas</CityItem>
-            {/*</a>
-            </Link>*/}
+                onSelectCity("maracaibo");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>Maracaibo</CityItem>
+            </a>
+            <a
+              href="/caracas"
+              onClick={(e) => {
+                e.preventDefault();
 
-            {/*<Link href={"/[city]"} as={"/guanare"}>
-              <a>*/}
-            <CityItem onClick={onCloseModal}>Guanare</CityItem>
-            {/*</a>
-            </Link>*/}
+                onSelectCity("caracas");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>Caracas</CityItem>
+            </a>
+
+            <a
+              href="/san-cristobal"
+              onClick={(e) => {
+                e.preventDefault();
+
+                onSelectCity("san-cristobal");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>San Cristóbal</CityItem>
+            </a>
+
+            <a
+              href="/valencia"
+              onClick={(e) => {
+                e.preventDefault();
+
+                onSelectCity("valencia");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>Valencia</CityItem>
+            </a>
+
+            <a
+              href="/barinas"
+              onClick={(e) => {
+                e.preventDefault();
+
+                onSelectCity("barinas");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>Barinas</CityItem>
+            </a>
+
+            <a
+              href="/guanare"
+              onClick={(e) => {
+                e.preventDefault();
+
+                onSelectCity("guanare");
+              }}
+            >
+              <CityItem onClick={onCloseModal}>Guanare</CityItem>
+            </a>
           </CityList>
         </Scrollbars>
       </ModalBodyStyled>

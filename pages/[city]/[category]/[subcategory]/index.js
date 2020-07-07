@@ -1,15 +1,16 @@
 import React, { useCallback, useEffect, useState } from "react";
-import CategoryPage from "../../../src/pages/category";
-import StorePage from "../../../src/pages/partner";
-import categoriesActions from "../../../src/redux/actions/categories";
-import partnersActions from "../../../src/redux/actions/partners";
-import productsActions from "../../../src/redux/actions/products";
+import CategoryPage from "../../../../src/pages/category";
+import StorePage from "../../../../src/pages/partner";
+import categoriesActions from "../../../../src/redux/actions/categories";
+import partnersActions from "../../../../src/redux/actions/partners";
+import productsActions from "../../../../src/redux/actions/products";
 import cookies from "next-cookies";
 import { useRouter } from "next/router";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { wrapper } from "../../../src/redux/store";
-import API from "../../../src/api";
+import { wrapper } from "../../../../src/redux/store";
+import API from "../../../../src/api";
+import { CITIES } from "../../../../src/utils/constants";
 
 const { fetchCategory } = categoriesActions;
 const {
@@ -30,6 +31,7 @@ const SubCategory = ({
   isLoadingPartners,
   actions: { fetchPartners },
   deliveryLocation,
+  city,
 }) => {
   const router = useRouter();
   const [innerSubcategory, setInnerSubcategory] = useState();
@@ -39,17 +41,16 @@ const SubCategory = ({
   useEffect(() => {
     if (!isBrowser && category && !partner) {
       if (typeof window !== "undefined") {
-        fetchPartners(category.slug, router.query.subcategory);
+        fetchPartners(city, category.slug, router.query.subcategory);
         setInnerSubcategory(router.query.subcategory);
-        setInnerCurrentURL(
-          `/${category.slug}/${router.query.subcategory}`
-        );
+        setInnerCurrentURL(`/${city}/${category.slug}/${router.query.subcategory}`);
       }
     }
   }, [isBrowser, router.query.subcategory]);
 
   return (
     <CategoryPage
+      city={city}
       category={category}
       partners={partners}
       currentUrl={innerCurrentURL ? innerCurrentURL : currentUrl}
@@ -69,11 +70,14 @@ export const getStaticPaths = async () => {
       if (cat.subcategories) {
         const catParams = [];
         for (let i = 0; i < cat.subcategories.length; i++) {
-          catParams.push({
-            params: {
-              category: cat.slug,
-              subcategory: cat.subcategories[i].slug,
-            },
+          CITIES.forEach((city) => {
+            catParams.push({
+              params: {
+                city,
+                category: cat.slug,
+                subcategory: cat.subcategories[i].slug,
+              },
+            });
           });
         }
 
@@ -91,7 +95,7 @@ export const getStaticPaths = async () => {
 export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
   const {
     store,
-    params: { category: categoryQuery, subcategory },
+    params: { category: categoryQuery, subcategory, city },
   } = ctx;
 
   const category = await store.dispatch(fetchCategory(categoryQuery));
@@ -108,7 +112,7 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
 
     if (subcat) {
       partners = await store.dispatch(
-        fetchPartners(categoryQuery, subcategory)
+        fetchPartners(city, categoryQuery, subcategory)
       );
     } else {
       partner = await store.dispatch(fetchPartner(subcategory));
@@ -118,15 +122,16 @@ export const getStaticProps = wrapper.getStaticProps(async (ctx) => {
       props: {
         category,
         partners,
-        currentUrl: `/${categoryQuery}/${subcategory}`,
+        currentUrl: `/${city}/${categoryQuery}/${subcategory}`,
         subcategory,
         partner,
+        city,
       },
     };
   } else {
     return {
       props: {
-        category: {}
+        category: {},
       },
     };
   }

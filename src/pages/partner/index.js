@@ -82,6 +82,7 @@ const Store = ({
   deliveryLocation,
   modalOpened = false,
   defaultProductSelected,
+  city
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(modalOpened);
@@ -105,9 +106,9 @@ const Store = ({
     setProductSelect(null);
 
     window.history.pushState(
-      `/${partner.mainCategory}/v/${partner.slug}`,
+      `/${city}/${partner.mainCategory}/v/${partner.slug}`,
       partner.slug,
-      `/${partner.mainCategory}/v/${partner.slug}`
+      `/${city}/${partner.mainCategory}/v/${partner.slug}`
     );
   }, [partner, setIsModalOpen]);
 
@@ -173,9 +174,9 @@ const Store = ({
   const onClickProduct = useCallback(
     (product) => {
       window.history.pushState(
-        `/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`,
+        `/${city}/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`,
         product.id,
-        `/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`
+        `/${city}/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`
       );
     },
     [partner]
@@ -196,8 +197,8 @@ const Store = ({
         }
         url={
           defaultProductSelected
-            ? `https://piiddo.com/${partner.mainCategory}/v/${partner.slug}/productos/${defaultProductSelected.id}`
-            : `https://piiddo.com/${partner.mainCategory}/v/${partner.slug}`
+            ? `https://piiddo.com/${city}/${partner.mainCategory}/v/${partner.slug}/productos/${defaultProductSelected.id}`
+            : `https://piiddo.com/${city}/${partner.mainCategory}/v/${partner.slug}`
         }
       />
 
@@ -213,18 +214,18 @@ const Store = ({
                     <Breadcumb
                       items={[
                         {
-                          as: "/",
-                          url: "/",
+                          as: "/[city]",
+                          url: `/${city}`,
                           name: "Inicio",
                         },
                         {
-                          as: `/[category]`,
-                          url: `/${partner.mainCategory}`,
+                          as: `/[city]/[category]`,
+                          url: `/${city}/${partner.mainCategory}`,
                           name: partner.mainCategory,
                         },
                         {
-                          as: `/[category]/v/[slug]`,
-                          url: `/${partner.mainCategory}/v/${partner.slug}`,
+                          as: `/[city]/[category]/v/[slug]`,
+                          url: `/${city}/${partner.mainCategory}/v/${partner.slug}`,
                           name: partner.name,
                         },
                       ]}
@@ -312,6 +313,7 @@ const Store = ({
               <PartnerContent>
                 <SidebarWrapper>
                   <Sidebar
+                    city={city}
                     categories={catalogCategories ? catalogCategories : []}
                     currentUrl={currentUrl}
                     showTitle={false}
@@ -338,7 +340,7 @@ const Store = ({
                               <ProductsGrid>
                                 {products[cat.id].map((product) => (
                                   <a
-                                    href={`/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`}
+                                    href={`/${city}/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`}
                                     onClick={(e) => {
                                       e.preventDefault();
 

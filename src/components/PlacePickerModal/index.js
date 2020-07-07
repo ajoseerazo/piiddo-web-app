@@ -15,7 +15,7 @@ import { CloseButton } from "../ProductModal/styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import { DEFAULT_LOCATION } from "../../utils/constants";
+import { DEFAULT_LOCATIONS } from "../../utils/constants";
 import Autocomplete from "../Autocomplete";
 import MyPositionButton from "../MyPositionButton";
 
@@ -31,10 +31,12 @@ const PlacePickerModal = ({
   showAutocomplete,
 }) => {
   const [isBrowser, setIsBrowser] = useState();
-  const [address, setAddress] = useState(DEFAULT_LOCATION.address);
+  const [address, setAddress] = useState(DEFAULT_LOCATIONS["merida"].address);
   const [location, setLocation] = useState();
   const [notificationOpened, setNotificationOpened] = useState(true);
-  const [defaultPosition, setDefaultPosition] = useState(DEFAULT_LOCATION);
+  const [defaultPosition, setDefaultPosition] = useState(
+    DEFAULT_LOCATIONS["merida"]
+  );
 
   useEffect(() => {
     if (!isBrowser) {
@@ -66,11 +68,11 @@ const PlacePickerModal = ({
             lat:
               place && place.location
                 ? place.location.lat
-                : DEFAULT_LOCATION.lat,
+                : DEFAULT_LOCATIONS["merida"].lat,
             lng:
               place && place.location
                 ? place.location.lng
-                : DEFAULT_LOCATION.lng,
+                : DEFAULT_LOCATIONS["merida"].lng,
           },
     });
   }, [onAccept, address, location, place]);

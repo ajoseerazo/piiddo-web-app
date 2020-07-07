@@ -1,11 +1,14 @@
 import React from "react";
 import Document, { Head, Main, NextScript } from "next/document";
 import { ServerStyleSheet } from "styled-components";
+import cookies from "next-cookies";
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx) {
     const sheet = new ServerStyleSheet();
     const originalRenderPage = ctx.renderPage;
+
+    const city = cookies(ctx).city;
 
     try {
       ctx.renderPage = () =>
@@ -17,6 +20,7 @@ export default class MyDocument extends Document {
       const initialProps = await Document.getInitialProps(ctx);
       return {
         ...initialProps,
+        city,
         styles: (
           <>
             {initialProps.styles}

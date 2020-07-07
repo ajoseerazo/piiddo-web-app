@@ -138,11 +138,10 @@ class Shop extends Component {
 
     const { categories, city } = this.props;
 
-    console.log("City inside", city);
-
     return (
       <>
         <ShopHeader
+          city={city}
           address={address}
           hideBackButton
           onClickAddressSelector={this.onClickAddressSelector}
@@ -190,12 +189,12 @@ class Shop extends Component {
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
 
-        {!city && (
+        {/*!city && (
           <CityModal
             isOpen={cityModalOpened}
             onCloseModal={this.closeCityModal}
           />
-        )}
+        )*/}
       </>
     );
   }

@@ -59,7 +59,7 @@ const Category = ({
         url={`https://piiddo.com/${category.slug}`}
       />
 
-      <ShopHeader address={address} />
+      <ShopHeader address={address} city={city} />
 
       <TopCategoriesWrapper>
         <HorizontalCategories

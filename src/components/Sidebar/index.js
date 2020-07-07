@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import Link from "next/link";
+import DynamicLink from "../DynamicLink";
 import { Link as AnimatedLink } from "react-scroll";
 import SidebarPlaceholder from "../SidebarPlaceholder";
 import { SidebarWrapper } from "./styled";
@@ -22,7 +22,6 @@ const Sidebar = ({
   withPlaceholder,
   isLoading,
   isReady,
-  city,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
@@ -34,7 +33,7 @@ const Sidebar = ({
     }
   });
 
-  const WrapperLink = !scrollSpy ? Link : Div;
+  const WrapperLink = !scrollSpy ? DynamicLink : Div;
   const MenuLink = scrollSpy ? AnimatedLink : A;
 
   const menuLinkOptions = scrollSpy
@@ -68,12 +67,12 @@ const Sidebar = ({
         >
           <li
             className={
-              `/${city}/${categorySlug}` === currentUrl ? "active" : undefined
+              `/${categorySlug}` === currentUrl ? "active" : undefined
             }
           >
             <WrapperLink
-              href="/[city]/[category]"
-              as={`/${city}/${categorySlug}`}
+              href="/[category]"
+              as={`/${categorySlug}`}
               shallow={shallow}
             >
               <MenuLink to={scrollSpy ? "all" : undefined} {...menuLinkOptions}>
@@ -85,15 +84,15 @@ const Sidebar = ({
             <li
               key={index}
               className={
-                `/${city}/${categorySlug}/${category.slug}` === currentUrl
+                `/${categorySlug}/${category.slug}` === currentUrl
                   ? "active"
                   : undefined
               }
             >
               <WrapperLink
                 key={category.id || category.slug}
-                href="/[city]/[category]/[subcategory]"
-                as={`/${city}/${categorySlug}/${category.slug}`}
+                href="/[category]/[subcategory]"
+                as={`/${categorySlug}/${category.slug}`}
                 shallow={shallow}
               >
                 <MenuLink

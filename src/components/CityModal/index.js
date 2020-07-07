@@ -9,7 +9,6 @@ import {
 } from "./styled";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Scrollbars } from "react-custom-scrollbars";
-import Link from "next/link";
 
 const CityModal = ({ isOpen, onCloseModal, onSelectCityHandler }) => {
   const [height, setHeight] = useState(0);
@@ -33,7 +32,6 @@ const CityModal = ({ isOpen, onCloseModal, onSelectCityHandler }) => {
   }, []);
 
   const onSelectCity = useCallback((city) => {
-    window.history.pushState(`/${city}`, city, `/${city}`);
     onSelectCityHandler(city);
   }, []);
 

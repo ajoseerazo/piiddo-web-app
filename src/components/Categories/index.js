@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Category from "../Category";
 import { CategoriesWrapper } from "./styled";
+import { useSelector } from "react-redux";
 
 const Categories = ({ categories, city }) => {
   const [isBrowser, setIsBrowser] = useState(false);
   const [breakPoint, setBreakPoint] = useState(0);
+  const { city: cityState } = useSelector((state) => state.App);
 
   useEffect(() => {
     if (!isBrowser) {
@@ -38,7 +40,7 @@ const Categories = ({ categories, city }) => {
       <CategoriesWrapper className="main-categories">
         {mainCategories.map((cat, index) => (
           <Category
-            city={city}
+            city={cityState || city}
             name={cat.name}
             image={cat.image}
             slug={cat.slug}
@@ -51,7 +53,7 @@ const Categories = ({ categories, city }) => {
       <CategoriesWrapper>
         {lastCategories.map((cat, index) => (
           <Category
-            city={city}
+            city={cityState || city}
             name={cat.name}
             image={cat.image}
             slug={cat.slug}

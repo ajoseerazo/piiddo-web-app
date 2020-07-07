@@ -8,7 +8,7 @@ import {
   faBars,
 } from "@fortawesome/free-solid-svg-icons";
 import appActions from "../../redux/actions/app";
-import Link from "next/link";
+import DynamicLink from "../DynamicLink";
 import AddressSelector from "../../containers/AddressSelector";
 import CitySelector from "../../components/CitySelector";
 import { bindActionCreators } from "redux";
@@ -64,6 +64,7 @@ class ShopHeader extends Component {
       hideBackButton,
       onClickAddressSelector,
       disableAddress,
+      city,
     } = this.props;
 
     return (
@@ -75,26 +76,31 @@ class ShopHeader extends Component {
           />
         </BackButtonWrapper>
 
-        <Link href="/" as="/">
-          <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/piddo-color.png?alt=media&token=22e13946-57a0-490d-8b2b-42282273e88a"
-              style={{
-                width: 104,
-              }}
-              alt="Piiddo-Logo"
-            />
-          </NavbarBrand>
-        </Link>
+        <DynamicLink
+          href={""}
+          as={""}
+        >
+          <a>
+            <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
+              <img
+                src="https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/piddo-color.png?alt=media&token=22e13946-57a0-490d-8b2b-42282273e88a"
+                style={{
+                  width: 104,
+                }}
+                alt="Piiddo-Logo"
+              />
+            </NavbarBrand>
+          </a>
+        </DynamicLink>
 
         <SearchWrapper md="5">
           <HeaderSearchBox />
         </SearchWrapper>
 
         <Nav className="ml-auto" navbar>
-          {/*<NavItem className="address-selector-wrapper">
-            <CitySelector address={address} disabled={disableAddress} />
-            </NavItem>*/}
+          <NavItem className="address-selector-wrapper">
+            <CitySelector city={city} />
+          </NavItem>
 
           <NavItem className="address-selector-wrapper">
             <AddressSelector address={address} disabled={disableAddress} />

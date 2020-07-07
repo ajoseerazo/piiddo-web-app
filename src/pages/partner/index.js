@@ -82,7 +82,7 @@ const Store = ({
   deliveryLocation,
   modalOpened = false,
   defaultProductSelected,
-  city
+  city,
 }) => {
   const [isMounted, setIsMounted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(modalOpened);
@@ -202,7 +202,7 @@ const Store = ({
         }
       />
 
-      <ShopHeader address={address} />
+      <ShopHeader address={address} city={city} />
 
       <HomeWrapper>
         {partner ? (

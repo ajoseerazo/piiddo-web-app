@@ -19,10 +19,12 @@ import {
 import { wrapper } from "../src/redux/store";
 import Toolbar from "../src/components/Toolbar";
 import CityModal from "../src/components/CityModal";
+import appActions from "../src/redux/actions/app";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchCategories } = categoriesActions;
 const { setDeliveryPlace } = locationActions;
+const { initApp } = appActions;
 
 class Shop extends Component {
   state = {
@@ -111,10 +113,24 @@ class Shop extends Component {
   };
 
   componentDidMount = () => {
-    this.setState({
-      cityModalOpened: true,
-    });
+    const {
+      actions: { initApp },
+    } = this.props;
+
+    initApp();
   };
+
+  /*componentWillUpdate = (nextProps, nextState) => {
+    if (!nextProps.city) {
+      this.setState({
+        cityModalOpened: true,
+      });
+    } else {
+      this.setState({
+        city: nextProps.city,
+      });
+    }
+  };*/
 
   closeCityModal = () => {
     this.setState({
@@ -123,9 +139,20 @@ class Shop extends Component {
   };
 
   onSelectCity = (city) => {
+    window.history.pushState(`/${city}`, city, `/${city}`);
     this.setState({
       city,
     });
+  };
+
+  componentDidUpdate = () => {
+    if (this.props.city && this.props.city !== "not-set") {
+      window.history.pushState(
+        `/${this.props.city}`,
+        this.props.city,
+        `/${this.props.city}`
+      );
+    }
   };
 
   render() {
@@ -139,14 +166,17 @@ class Shop extends Component {
       address,
       showAutocomplete,
       cityModalOpened,
-      city,
+      // city,
     } = this.state;
 
-    const { categories } = this.props;
+    const { categories, city } = this.props;
+
+    console.log(!city || city === "not-set");
 
     return (
       <>
         <ShopHeader
+          city={city}
           address={address}
           hideBackButton
           onClickAddressSelector={this.onClickAddressSelector}
@@ -194,11 +224,11 @@ class Shop extends Component {
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
 
-        <CityModal
-          isOpen={cityModalOpened}
-          onCloseModal={this.closeCityModal}
+        {/*<CityModal}
+          isOpen={!city || city === "not-set"}
+          // onCloseModal={this.closeCityModal}
           onSelectCityHandler={this.onSelectCity}
-        />
+        />*/}
       </>
     );
   }
@@ -206,16 +236,18 @@ class Shop extends Component {
 
 function mapStateToProps(state, props) {
   const { categories } = state.Categories;
+  const { city } = state.App;
 
   return {
     categories,
+    city,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(
-      { fetchProducts, selectProduct, setDeliveryPlace },
+      { fetchProducts, selectProduct, setDeliveryPlace, initApp },
       dispatch
     ),
   };

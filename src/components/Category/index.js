@@ -1,19 +1,14 @@
 import React from "react";
 import { CategoryWrapper, ImageWrapper } from "./styled";
 import Link from "next/link";
+import DynamicLink from "../DynamicLink";
 
-const Category = ({ name, image, slug, city = "merida" }) => {
+const Category = ({ name, image, slug }) => {
   return (
     <CategoryWrapper>
-      <Link
-        href={
-          slug === "restaurantes"
-            ? "/[city]/restaurantes"
-            : "/[city]/[category]"
-        }
-        as={`${
-          slug === "restaurantes" ? `/${city}/restaurantes` : `/${city}/${slug}`
-        }`}
+      <DynamicLink
+        href={slug === "restaurantes" ? "/restaurantes" : "/[category]"}
+        as={`${slug === "restaurantes" ? `/restaurantes` : `/${slug}`}`}
       >
         <a>
           <ImageWrapper category={name}>
@@ -21,7 +16,7 @@ const Category = ({ name, image, slug, city = "merida" }) => {
           </ImageWrapper>
           <p>{name}</p>
         </a>
-      </Link>
+      </DynamicLink>
     </CategoryWrapper>
   );
 };

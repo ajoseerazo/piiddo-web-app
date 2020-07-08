@@ -41,12 +41,14 @@ const SubCategory = ({
   useEffect(() => {
     if (!isBrowser && category && !partner) {
       if (typeof window !== "undefined") {
-        fetchPartners(city, category.slug, router.query.subcategory);
-        setInnerSubcategory(router.query.subcategory);
-        setInnerCurrentURL(`/${city}/${category.slug}/${router.query.subcategory}`);
+        const { city, subcategory } = router.query;
+
+        fetchPartners(city, category.slug, subcategory);
+        setInnerSubcategory(subcategory);
+        setInnerCurrentURL(`/${city}/${category.slug}/${subcategory}`);
       }
     }
-  }, [isBrowser, router.query.subcategory]);
+  }, [isBrowser, router.query.subcategory, router.query.city]);
 
   return (
     <CategoryPage

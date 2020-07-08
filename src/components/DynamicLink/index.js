@@ -7,8 +7,6 @@ const DynamicLink = ({ as, href, ...props }) => {
   const router = useRouter();
   const { city: queryCity } = router.query;
 
-  console.log(queryCity);
-
   return (
     <Link
       as={city || queryCity ? `/${city || queryCity}${as}` : as}

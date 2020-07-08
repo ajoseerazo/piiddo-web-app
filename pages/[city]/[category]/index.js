@@ -24,9 +24,12 @@ const Category = ({
   deliveryLocation,
   city,
 }) => {
-  console.log("Category", category);
+  console.log("City", city);
   const [isBrowser, setIsBrowser] = useState(false);
-  const { partners, isLoading: isLoadingPartners } = usePartners(category);
+  const { partners, isLoading: isLoadingPartners } = usePartners(
+    city,
+    category
+  );
 
   useEffect(() => {
     if (!isBrowser && category) {

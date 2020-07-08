@@ -26,7 +26,14 @@ const CitySelector = () => {
   }, [modalOpened]);
 
   const onSelectCity = useCallback((city) => {
-    window.history.pushState(`/${city}`, city, `/${city}`);
+    const params = router.asPath.split("/");
+    params[1] = city;
+    const newPath = params.join("/");
+
+    router.push(router.pathname, newPath, {
+      shallow: true,
+    });
+
     dispatch(appActions.selectCity(city));
   }, []);
 

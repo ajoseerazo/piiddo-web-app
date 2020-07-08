@@ -4,21 +4,20 @@ import partnersActions from "../redux/actions/partners";
 
 const { fetchPartners } = partnersActions;
 
-const usePartners = (category) => {
-  const { city } = useSelector((state) => state.App);
+const usePartners = (initialCity, category) => {
+  let { city } = useSelector((state) => state.App);
   const { partners, isLoading } = useSelector((state) => state.Partners);
   const dispatch = useDispatch();
 
+  if (!city) {
+    city = initialCity;
+  }
+
   useEffect(() => {
     if (city && category) {
-      console.log(category);
-      console.log(category.slug);
-      console.log(city);
       dispatch(fetchPartners(city, category.slug));
     }
   }, [city]);
-
-  console.log(partners);
 
   return { partners, isLoading };
 };

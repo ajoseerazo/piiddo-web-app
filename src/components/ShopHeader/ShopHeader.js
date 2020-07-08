@@ -65,6 +65,7 @@ class ShopHeader extends Component {
       onClickAddressSelector,
       disableAddress,
       city,
+      hideCitySelector,
     } = this.props;
 
     return (
@@ -76,10 +77,7 @@ class ShopHeader extends Component {
           />
         </BackButtonWrapper>
 
-        <DynamicLink
-          href={""}
-          as={""}
-        >
+        <DynamicLink href={""} as={""}>
           <a>
             <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
               <img
@@ -98,9 +96,11 @@ class ShopHeader extends Component {
         </SearchWrapper>
 
         <Nav className="ml-auto" navbar>
-          <NavItem className="address-selector-wrapper">
-            <CitySelector city={city} />
-          </NavItem>
+          {!hideCitySelector && (
+            <NavItem className="address-selector-wrapper">
+              <CitySelector city={city} />
+            </NavItem>
+          )}
 
           <NavItem className="address-selector-wrapper">
             <AddressSelector address={address} disabled={disableAddress} />

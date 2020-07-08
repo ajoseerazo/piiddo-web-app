@@ -202,7 +202,7 @@ const Store = ({
         }
       />
 
-      <ShopHeader address={address} city={city} />
+      <ShopHeader address={address} city={city} hideCitySelector />
 
       <HomeWrapper>
         {partner ? (

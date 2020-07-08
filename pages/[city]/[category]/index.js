@@ -24,7 +24,6 @@ const Category = ({
   deliveryLocation,
   city,
 }) => {
-  console.log("City", city);
   const [isBrowser, setIsBrowser] = useState(false);
   const { partners, isLoading: isLoadingPartners } = usePartners(
     city,

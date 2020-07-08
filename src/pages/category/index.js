@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import getSlug from "speakingurl";
-import Link from "next/link";
+import DynamicLink from "../../components/DynamicLink";
 import ShopHeader from "../../components/ShopHeader/ShopHeader";
 import Sidebar from "../../components/Sidebar";
 import {
@@ -100,11 +100,9 @@ const Category = ({
             >
               <RestaurantsGrid>
                 {(partners || []).map((partner) => (
-                  <Link
-                    href="/[city]/[category]/v/[slug]"
-                    as={`/${city}/${partner.mainCategory}/v/${getSlug(
-                      partner.name
-                    )}`}
+                  <DynamicLink
+                    href="/[category]/v/[slug]"
+                    as={`/${partner.mainCategory}/v/${getSlug(partner.name)}`}
                     // shallow
                   >
                     <a>
@@ -113,7 +111,7 @@ const Category = ({
                         deliveryLocation={deliveryLocation}
                       />
                     </a>
-                  </Link>
+                  </DynamicLink>
                 ))}
               </RestaurantsGrid>
             </PartnersPlaceholder>

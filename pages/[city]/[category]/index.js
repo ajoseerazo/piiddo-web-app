@@ -8,6 +8,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import API from "../../../src/api";
 import { CITIES } from "../../../src/utils/constants";
+import { useSelector } from "react-redux";
+import { usePartners } from "../../../src/hooks";
 
 const { fetchCategory } = categoriesActions;
 const { fetchPartners } = partnersActions;
@@ -15,28 +17,30 @@ const { fetchPartners } = partnersActions;
 const Category = ({
   category,
   currentUrl,
-  partners,
+  // partners,
   address,
   actions: { fetchPartners },
-  isLoadingPartners,
+  // isLoadingPartners,
   deliveryLocation,
   city,
 }) => {
+  console.log("Category", category);
   const [isBrowser, setIsBrowser] = useState(false);
+  const { partners, isLoading: isLoadingPartners } = usePartners(category);
 
   useEffect(() => {
     if (!isBrowser && category) {
       if (typeof window !== "undefined") {
         setIsBrowser(true);
 
-        fetchPartners(city, category.slug);
+        // fetchPartners(city, category.slug);
       }
     }
   }, [isBrowser, category]);
 
   const changeSubcategory = useCallback(
     (subcategory) => {
-      fetchPartners(city, subcategory);
+      // fetchPartners(city, subcategory);
     },
     [fetchPartners]
   );
@@ -102,8 +106,8 @@ function mapStateToProps(state, props) {
 
   return {
     categories,
-    partners,
-    isLoadingPartners: isLoading,
+    // partners,
+    // isLoadingPartners: isLoading,
     deliveryLocation,
   };
 }

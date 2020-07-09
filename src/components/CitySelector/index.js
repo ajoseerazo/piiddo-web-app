@@ -60,8 +60,8 @@ const CitySelector = () => {
           {!cityState || cityState === "not-set"
             ? !city || city === "not-set"
               ? "Selecciona tu ciudad"
-              : CITIES_LABELS[city].name
-            : CITIES_LABELS[cityState].name}
+              : (CITIES_LABELS[city] || {}).name
+            : (CITIES_LABELS[cityState] || {}).name}
         </span>
 
         <FontAwesomeIcon icon="chevron-down" />

@@ -9,14 +9,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import { ToastProvider } from "react-toast-notifications";
 import { askForPermissionToReceiveNotifications } from "../src/utils";
 
-/*const makeStore = (initialState, options) => {
-  return createStore(
-    rootReducer,
-    fromJS(initialState),
-    applyMiddleware(...[thunk])
-  );
-};*/
-
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);
   NProgress.start();

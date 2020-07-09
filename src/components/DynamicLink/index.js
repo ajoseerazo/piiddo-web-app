@@ -9,8 +9,8 @@ const DynamicLink = ({ as, href, ...props }) => {
 
   return (
     <Link
-      as={city || queryCity ? `/${city || queryCity}${as}` : as}
-      href={city || queryCity ? `/[city]${href}` : href}
+      as={city || queryCity ? `/${city || queryCity}${as}` : `/merida${as}`}
+      href={city || queryCity ? `/[city]${href}` : `/[city]${href}`}
       {...props}
     />
   );

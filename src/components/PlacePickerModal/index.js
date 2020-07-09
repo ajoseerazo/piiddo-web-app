@@ -19,6 +19,7 @@ import { DEFAULT_LOCATIONS } from "../../utils/constants";
 import Autocomplete from "../Autocomplete";
 import MyPositionButton from "../MyPositionButton";
 import { useSelector } from "react-redux";
+import useCity from "../../hooks/useCity";
 
 library.add([faTimes, faMapMarkerAlt]);
 
@@ -33,7 +34,7 @@ const PlacePickerModal = ({
   city: cityQuery,
 }) => {
   const [isBrowser, setIsBrowser] = useState();
-  const { city } = useSelector((state) => state.App);
+  const city = useCity();
   const [address, setAddress] = useState(
     (DEFAULT_LOCATIONS[city || cityQuery] || {}).address
   );
@@ -42,8 +43,6 @@ const PlacePickerModal = ({
   const [defaultPosition, setDefaultPosition] = useState(
     DEFAULT_LOCATIONS[city || cityQuery] || {}
   );
-
-  console.log("City", city);
 
   useEffect(() => {
     setDefaultPosition(DEFAULT_LOCATIONS[city || cityQuery]);

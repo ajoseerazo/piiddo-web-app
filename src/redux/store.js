@@ -44,6 +44,10 @@ const reducer = (state, action) => {
       nextState.Products.productsResult = state.Products.productsResult;
     }
 
+    if (state.App.city) {
+      nextState.App.city = state.App.city;
+    }
+
     return nextState;
   } else {
     return combinedReducer(state, action);

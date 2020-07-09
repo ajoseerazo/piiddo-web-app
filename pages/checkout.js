@@ -21,7 +21,7 @@ const Checkout = ({ actions: { getDeliveryPlace }, place }) => {
 
   return (
     <>
-      <ShopHeader hideShoppingCart bordered />
+      <ShopHeader hideShoppingCart bordered hideCitySelector />
 
       <CheckoutPage address={(place || {}).address} />
     </>

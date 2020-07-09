@@ -42,8 +42,6 @@ const CitySelector = () => {
     params[1] = city;
     const newPath = params.join("/");
 
-    console.log(params);
-
     router.push(router.pathname, newPath, {
       shallow: true,
     });

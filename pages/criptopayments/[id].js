@@ -4,7 +4,7 @@ import CriptopaymentsPage from "../../src/pages/criptopayments";
 const Cryptopayments = () => {
   return (
     <>
-      <ShopHeader />
+      <ShopHeader hideCitySelector />
       
       <CriptopaymentsPage />
     </>

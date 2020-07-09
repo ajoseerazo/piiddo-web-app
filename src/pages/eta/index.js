@@ -131,7 +131,7 @@ const ETA = () => {
 
   return (
     <>
-      <ShopHeader disableAddress hideShoppingCart />
+      <ShopHeader disableAddress hideShoppingCart hideCitySelector />
 
       <EtaWrapper>
         <GoogleMaps

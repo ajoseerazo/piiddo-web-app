@@ -96,18 +96,12 @@ class ShopHeader extends Component {
         </SearchWrapper>
 
         <Nav className="ml-auto" navbar>
-          {!hideCitySelector && (
-            <NavItem className="address-selector-wrapper">
-              <CitySelector city={city} />
-            </NavItem>
-          )}
+          <NavItem className="address-selector-wrapper">
+            <CitySelector city={city} disabled={hideCitySelector} />
+          </NavItem>
 
           <NavItem className="address-selector-wrapper">
-            <AddressSelector
-              city={city}
-              address={address}
-              disabled={disableAddress}
-            />
+            <AddressSelector address={address} disabled={disableAddress} />
           </NavItem>
 
           <NavItem style={{ marginRight: 15 }}>

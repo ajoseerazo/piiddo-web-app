@@ -43,6 +43,8 @@ const PlacePickerModal = ({
     DEFAULT_LOCATIONS[city || cityQuery] || {}
   );
 
+  console.log("City", city);
+
   useEffect(() => {
     setDefaultPosition(DEFAULT_LOCATIONS[city || cityQuery]);
     setAddress((DEFAULT_LOCATIONS[city || cityQuery] || {}).address);

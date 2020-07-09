@@ -12,7 +12,7 @@ library.add([faCity, faChevronCircleDown]);
 
 import { CitySelectorWrapper } from "./styled";
 
-const CitySelector = () => {
+const CitySelector = ({ disabled }) => {
   const router = useRouter();
   const { city } = router.query;
 
@@ -35,7 +35,7 @@ const CitySelector = () => {
 
   useEffect(() => {
     dispatch(appActions.initApp());
-  }, []); 
+  }, []);
 
   const onSelectCity = useCallback((city) => {
     const params = window.location.pathname.split("/");
@@ -51,7 +51,7 @@ const CitySelector = () => {
 
   return (
     <>
-      <CitySelectorWrapper onClick={toggleModal}>
+      <CitySelectorWrapper onClick={!disabled ? toggleModal : undefined}>
         <FontAwesomeIcon icon="city" color="#f74342" />
 
         <span>
@@ -62,7 +62,7 @@ const CitySelector = () => {
             : (CITIES_LABELS[cityState] || {}).name}
         </span>
 
-        <FontAwesomeIcon icon="chevron-down" />
+        {!disabled && <FontAwesomeIcon icon="chevron-down" />}
       </CitySelectorWrapper>
 
       <CityModal

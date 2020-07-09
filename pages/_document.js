@@ -112,6 +112,22 @@ export default class MyDocument extends Document {
           />
 
           <script
+            dangerouslySetInnerHTML={{
+              __html: `
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '202447117794825');
+            fbq('track', 'PageView');`,
+            }}
+          />
+
+          <script
             type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyAX1z89iahv9s6jVeH1dixt0Ey0hZW9teo&libraries=places"
           />
@@ -177,6 +193,14 @@ export default class MyDocument extends Document {
         </Head>
         <body>
           <noscript>You need to enable JavaScript to run this app.</noscript>
+          <noscript>
+            <img
+              height="1"
+              width="1"
+              style={{ display: "none" }}
+              src="https://www.facebook.com/tr?id=202447117794825&ev=PageView&noscript=1"
+            />
+          </noscript>
           <Main />
           <NextScript />
         </body>

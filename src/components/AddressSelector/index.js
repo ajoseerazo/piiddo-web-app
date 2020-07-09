@@ -56,9 +56,11 @@ const AddressSelector = ({
           <span>{address ? address : "Ingresa dirección"}</span>
         </LeftContent>
 
-        <ChevronIconWrapper>
-          <FontAwesomeIcon icon="chevron-down" />
-        </ChevronIconWrapper>
+        {!disabled && (
+          <ChevronIconWrapper>
+            <FontAwesomeIcon icon="chevron-down" />
+          </ChevronIconWrapper>
+        )}
       </AddressSelectorWrapper>
 
       <PlacePickerModal

@@ -113,6 +113,10 @@ export const NavbarStyled = styled(Navbar)`
 
     li.address-selector-wrapper {
       max-width: calc(100% - 45px);
+
+      &.mobile {
+        display: none;
+      }
     }
   }
 `;

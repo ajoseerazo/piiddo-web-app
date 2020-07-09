@@ -1,8 +1,10 @@
 import { useState, useCallback, useEffect } from "react";
-import Link from "next/link";
+import DynamicLink from "../DynamicLink";
 import { Link as AnimatedLink, Events } from "react-scroll";
 import { Wrapper } from "./styled";
 import Placeholder from "./placeholder";
+import { useRouter } from "next/router";
+import useCity from "../../hooks/useCity";
 
 const Div = (props) => {
   return <div {...props} />;
@@ -15,7 +17,6 @@ const A = (props) => {
 const HorizontalCategories = ({
   categories,
   categorySlug,
-  currentUrl,
   scrollSpy,
   shallow,
   withPlaceholder,
@@ -24,8 +25,13 @@ const HorizontalCategories = ({
 }) => {
   const [selected, setSelected] = useState("all");
   const [mounted, setMounted] = useState(false);
+  const router = useRouter();
+  const currentUrl = router.asPath;
+  const city = useCity();
 
-  const WrapperLink = !scrollSpy ? Link : Div;
+  console.log(router.asPath);
+
+  const WrapperLink = !scrollSpy ? DynamicLink : Div;
   const MenuLink = scrollSpy ? AnimatedLink : A;
 
   useEffect(() => {
@@ -65,7 +71,7 @@ const HorizontalCategories = ({
         <li
           className={
             !scrollSpy
-              ? currentUrl === `/${categorySlug}`
+              ? currentUrl === `/${city}/${categorySlug}`
                 ? "selected"
                 : undefined
               : selected === "all"
@@ -89,7 +95,7 @@ const HorizontalCategories = ({
           <li
             className={
               !scrollSpy
-                ? `/${categorySlug}/${category.slug}` === currentUrl
+                ? `/${city}/${categorySlug}/${category.slug}` === currentUrl
                   ? "selected"
                   : undefined
                 : selected === category.id

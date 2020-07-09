@@ -3,6 +3,7 @@ import DynamicLink from "../DynamicLink";
 import { Link as AnimatedLink } from "react-scroll";
 import SidebarPlaceholder from "../SidebarPlaceholder";
 import { SidebarWrapper } from "./styled";
+import useCity from "../../hooks/useCity";
 
 const Div = ({ children }) => {
   return <div>{children}</div>;
@@ -24,6 +25,7 @@ const Sidebar = ({
   isReady,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
+  const city = useCity();
 
   useEffect(() => {
     if (!isBrowser) {
@@ -67,7 +69,7 @@ const Sidebar = ({
         >
           <li
             className={
-              `/${categorySlug}` === currentUrl ? "active" : undefined
+              `/${city}/${categorySlug}` === currentUrl ? "active" : undefined
             }
           >
             <WrapperLink
@@ -84,7 +86,7 @@ const Sidebar = ({
             <li
               key={index}
               className={
-                `/${categorySlug}/${category.slug}` === currentUrl
+                `/${city}/${categorySlug}/${category.slug}` === currentUrl
                   ? "active"
                   : undefined
               }

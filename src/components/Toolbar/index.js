@@ -1,10 +1,11 @@
 import { useCallback, useState } from "react";
-import { ToolbarWrapper } from "./styled";
+import { ToolbarWrapper, MenuItemWrapper } from "./styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHome, faSearch } from "@fortawesome/free-solid-svg-icons";
 import Router from "next/router";
 import MobileSearchModal from "../MobileSearchModal";
+import CitySelector from "../CitySelector";
 
 library.add([faHome, faSearch]);
 
@@ -15,13 +16,18 @@ const items = [
     value: "home",
   },
   {
+    name: "CitySelector",
+    icon: "city",
+    value: "city",
+  },
+  {
     name: "Search",
     icon: "search",
     value: "search",
   },
 ];
 
-const Toolbar = () => {
+const Toolbar = ({ disableCitySelector }) => {
   const [searchModalOpened, setSearchModalOpened] = useState(false);
 
   const onPressItem = useCallback(
@@ -49,15 +55,23 @@ const Toolbar = () => {
     <>
       <ToolbarWrapper>
         {items.map((item, index) => {
-          return (
-            <div key={index}>
-              <FontAwesomeIcon
-                icon={item.icon}
-                color="#f74342"
-                onClick={onPressItem.bind(this, item.value)}
-              />
-            </div>
-          );
+          if (item.value === "city") {
+            return (
+              <MenuItemWrapper>
+                <CitySelector disabled={disableCitySelector} />
+              </MenuItemWrapper>
+            );
+          } else {
+            return (
+              <MenuItemWrapper key={index}>
+                <FontAwesomeIcon
+                  icon={item.icon}
+                  color="#f74342"
+                  onClick={onPressItem.bind(this, item.value)}
+                />
+              </MenuItemWrapper>
+            );
+          }
         })}
       </ToolbarWrapper>
 

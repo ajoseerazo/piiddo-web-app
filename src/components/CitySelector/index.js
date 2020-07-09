@@ -61,7 +61,7 @@ const CitySelector = ({ disabled }) => {
 
         <span>{!city ? "Selecciona tu ciudad" : CITIES_LABELS[city].name}</span>
 
-        {!disabled && <FontAwesomeIcon icon="chevron-down" />}
+        {!disabled && <FontAwesomeIcon className="chevron-icon" icon="chevron-down" />}
       </CitySelectorWrapper>
 
       <CityModal

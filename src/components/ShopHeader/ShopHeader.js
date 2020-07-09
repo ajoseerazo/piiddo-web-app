@@ -96,7 +96,7 @@ class ShopHeader extends Component {
         </SearchWrapper>
 
         <Nav className="ml-auto" navbar>
-          <NavItem className="address-selector-wrapper">
+          <NavItem className="address-selector-wrapper mobile">
             <CitySelector city={city} disabled={hideCitySelector} />
           </NavItem>
 

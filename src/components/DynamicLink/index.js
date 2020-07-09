@@ -1,9 +1,9 @@
-import { useSelector } from "react-redux";
 import Link from "next/link";
+import useCity from "../../hooks/useCity";
 import { useRouter } from "next/router";
 
 const DynamicLink = ({ as, href, ...props }) => {
-  const { city } = useSelector((state) => state.App);
+  const city = useCity();
   const router = useRouter();
   const { city: queryCity } = router.query;
 

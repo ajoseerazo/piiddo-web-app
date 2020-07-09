@@ -19,4 +19,18 @@ export const CitySelectorWrapper = styled.div`
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  @media screen and (max-width: 768px) {
+    box-shadow: none;
+    flex-direction: column;
+    padding: 0px;
+    width: auto;
+    height: 100%;
+    margin: 0px;
+    justify-content: space-between;
+
+    .chevron-icon {
+      display: none;
+    }
+  }
 `;

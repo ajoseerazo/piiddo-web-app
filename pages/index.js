@@ -117,31 +117,12 @@ class Shop extends Component {
       actions: { initApp },
     } = this.props;
 
-    initApp();
+    // initApp();
   };
-
-  /*componentWillUpdate = (nextProps, nextState) => {
-    if (!nextProps.city) {
-      this.setState({
-        cityModalOpened: true,
-      });
-    } else {
-      this.setState({
-        city: nextProps.city,
-      });
-    }
-  };*/
 
   closeCityModal = () => {
     this.setState({
       cityModalOpened: false,
-    });
-  };
-
-  onSelectCity = (city) => {
-    window.history.pushState(`/${city}`, city, `/${city}`);
-    this.setState({
-      city,
     });
   };
 
@@ -166,12 +147,9 @@ class Shop extends Component {
       address,
       showAutocomplete,
       cityModalOpened,
-      // city,
     } = this.state;
 
     const { categories, city } = this.props;
-
-    console.log(!city || city === "not-set");
 
     return (
       <>
@@ -223,12 +201,6 @@ class Shop extends Component {
         </InView>
 
         <ProductModal isOpen={isModalOpen} onClose={this.onCloseModal} />
-
-        {/*<CityModal}
-          isOpen={!city || city === "not-set"}
-          // onCloseModal={this.closeCityModal}
-          onSelectCityHandler={this.onSelectCity}
-        />*/}
       </>
     );
   }

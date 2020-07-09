@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCity, faChevronCircleDown } from "@fortawesome/free-solid-svg-icons";
 import { library } from "@fortawesome/fontawesome-svg-core";
@@ -17,7 +17,7 @@ const CitySelector = () => {
   const { city } = router.query;
 
   const { city: cityState } = useSelector((state) => state.App);
-  const [modalOpened, setModalOpened] = useState(!city || city === "not-set");
+  const [modalOpened, setModalOpened] = useState(false);
 
   const dispatch = useDispatch();
 
@@ -25,10 +25,24 @@ const CitySelector = () => {
     setModalOpened(!modalOpened);
   }, [modalOpened]);
 
+  useEffect(() => {
+    if (!city) {
+      if (cityState === undefined) {
+        setModalOpened(true);
+      }
+    }
+  }, [cityState]);
+
+  useEffect(() => {
+    dispatch(appActions.initApp());
+  }, []); 
+
   const onSelectCity = useCallback((city) => {
-    const params = router.asPath.split("/");
+    const params = window.location.pathname.split("/");
     params[1] = city;
     const newPath = params.join("/");
+
+    console.log(params);
 
     router.push(router.pathname, newPath, {
       shallow: true,

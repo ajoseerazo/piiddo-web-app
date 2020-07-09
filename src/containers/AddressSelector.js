@@ -11,6 +11,7 @@ const AddressSelectorContainer = ({
   actions: { setDeliveryPlace, getDeliveryPlace },
   place,
   disabled,
+  city,
 }) => {
   const [mounted, setMounted] = useState(false);
 
@@ -23,6 +24,7 @@ const AddressSelectorContainer = ({
 
   return (
     <AddressSelector
+      city={city}
       disabled={disabled}
       place={place}
       showAutocomplete={showAutocomplete}

@@ -18,6 +18,7 @@ import { faTimes, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 import { DEFAULT_LOCATIONS } from "../../utils/constants";
 import Autocomplete from "../Autocomplete";
 import MyPositionButton from "../MyPositionButton";
+import { useSelector } from "react-redux";
 
 library.add([faTimes, faMapMarkerAlt]);
 
@@ -29,14 +30,24 @@ const PlacePickerModal = ({
   onClose,
   onAccept,
   showAutocomplete,
+  city: cityQuery,
 }) => {
   const [isBrowser, setIsBrowser] = useState();
-  const [address, setAddress] = useState(DEFAULT_LOCATIONS["merida"].address);
+  const { city } = useSelector((state) => state.App);
+  const [address, setAddress] = useState(
+    (DEFAULT_LOCATIONS[city || cityQuery] || {}).address
+  );
   const [location, setLocation] = useState();
   const [notificationOpened, setNotificationOpened] = useState(true);
   const [defaultPosition, setDefaultPosition] = useState(
-    DEFAULT_LOCATIONS["merida"]
+    DEFAULT_LOCATIONS[city || cityQuery] || {}
   );
+
+  useEffect(() => {
+    setDefaultPosition(DEFAULT_LOCATIONS[city || cityQuery]);
+    setAddress((DEFAULT_LOCATIONS[city || cityQuery] || {}).address);
+    setLocation((DEFAULT_LOCATIONS[city || cityQuery] || {}).location);
+  }, [city]);
 
   useEffect(() => {
     if (!isBrowser) {
@@ -68,11 +79,11 @@ const PlacePickerModal = ({
             lat:
               place && place.location
                 ? place.location.lat
-                : DEFAULT_LOCATIONS["merida"].lat,
+                : (DEFAULT_LOCATIONS[city || cityQuery] || {}).lat,
             lng:
               place && place.location
                 ? place.location.lng
-                : DEFAULT_LOCATIONS["merida"].lng,
+                : (DEFAULT_LOCATIONS[city || cityQuery] || {}).lng,
           },
     });
   }, [onAccept, address, location, place]);
@@ -91,10 +102,21 @@ const PlacePickerModal = ({
 
   const onClosePicker = useCallback(() => {
     onClose();
-    setAddress(place.address);
-    setLocation(place.location);
-    setDefaultPosition(place.location);
+
+    if (place.address && place.location) {
+      setAddress(place.address);
+      setLocation(place.location);
+      setDefaultPosition(place.location);
+    }
   }, [place]);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflowY = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [isOpen]);
 
   return (
     <ModalStyled isOpen={isOpen}>

@@ -103,7 +103,11 @@ class ShopHeader extends Component {
           )}
 
           <NavItem className="address-selector-wrapper">
-            <AddressSelector address={address} disabled={disableAddress} />
+            <AddressSelector
+              city={city}
+              address={address}
+              disabled={disableAddress}
+            />
           </NavItem>
 
           <NavItem style={{ marginRight: 15 }}>

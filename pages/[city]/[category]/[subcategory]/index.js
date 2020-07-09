@@ -43,6 +43,9 @@ const SubCategory = ({
       if (typeof window !== "undefined") {
         const { city, subcategory } = router.query;
 
+        console.log(city);
+        console.log(subcategory);
+
         fetchPartners(city, category.slug, subcategory);
         setInnerSubcategory(subcategory);
         setInnerCurrentURL(`/${city}/${category.slug}/${subcategory}`);

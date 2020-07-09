@@ -20,6 +20,7 @@ const AddressSelector = ({
   showAutocomplete = true,
   onSetAddress,
   disabled = false,
+  city,
 }) => {
   const [isPlacePickerModalOpened, setIsPlacePickerModalOpened] = useState(
     false
@@ -62,6 +63,7 @@ const AddressSelector = ({
       </AddressSelectorWrapper>
 
       <PlacePickerModal
+        city={city}
         place={place}
         isOpen={isPlacePickerModalOpened}
         onClose={closePlacePickerModal}

@@ -66,6 +66,9 @@ class ShopHeader extends Component {
       disableAddress,
       city,
       hideCitySelector,
+      hideLoginButton,
+      hideAddressSelector,
+      hideSarchBar
     } = this.props;
 
     return (
@@ -91,26 +94,30 @@ class ShopHeader extends Component {
           </a>
         </DynamicLink>
 
-        <SearchWrapper md="5">
+        {!hideSarchBar && <SearchWrapper md="5">
           <HeaderSearchBox />
-        </SearchWrapper>
+        </SearchWrapper>}
 
         <Nav className="ml-auto" navbar>
           <NavItem className="address-selector-wrapper mobile">
             <CitySelector city={city} disabled={hideCitySelector} />
           </NavItem>
 
-          <NavItem className="address-selector-wrapper">
-            <AddressSelector address={address} disabled={disableAddress} />
-          </NavItem>
+          {!hideAddressSelector && (
+            <NavItem className="address-selector-wrapper">
+              <AddressSelector address={address} disabled={disableAddress} />
+            </NavItem>
+          )}
 
           <NavItem style={{ marginRight: 15 }}>
             {!hideShoppingCart && <ShoppingCart />}
           </NavItem>
 
-          <NavItem style={{ marginRight: 10 }}>
-            <SigninLinkStyled href="/ingresar">Ingresar</SigninLinkStyled>
-          </NavItem>
+          {!hideLoginButton && (
+            <NavItem style={{ marginRight: 10 }}>
+              <SigninLinkStyled href="/ingresar">Ingresar</SigninLinkStyled>
+            </NavItem>
+          )}
           {/*<NavItem style={{marginRight: 10}}>
             <NavLink className="cart-icon" href="/cart"><FontAwesomeIcon icon="shopping-basket" /></NavLink>
     </NavItem>*/}

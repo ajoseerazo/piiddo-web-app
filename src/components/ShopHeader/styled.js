@@ -1,5 +1,15 @@
 import styled from "styled-components";
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Col } from "reactstrap";
+import {
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Col,
+  DropdownToggle,
+  DropdownMenu,
+  DropdownItem,
+} from "reactstrap";
 
 export const BackButtonWrapper = styled.div`
   position: absolute;
@@ -143,4 +153,42 @@ export const SearchWrapper = styled(Col)`
   @media (max-width: 768px) {
     display: none;
   }
+`;
+
+export const DropdownToggleStyled = styled(DropdownToggle)`
+  background: transparent;
+  border: none;
+  padding: 0px;
+
+  &:hover,
+  &:active,
+  &:focus {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+  }
+`;
+
+export const DropdownMenuStyled = styled(DropdownMenu)`
+  top: 19px !important;
+  left: 6px !important;
+  border-radius: 0px !important;
+  border: none;
+  border-left: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f2;
+  border-bottom-left-radius: 12px !important;
+  box-shadow: 0 6px 10px 0 rgba(128, 98, 96, 0.16);
+
+  button {
+    &:active,
+    &:hover {
+      background: #f74342 !important;
+      color: #fff !important;
+    }
+  }
+`;
+
+export const DropdownItemStyled = styled(DropdownItem)`
+  font-size: 14px;
 `;

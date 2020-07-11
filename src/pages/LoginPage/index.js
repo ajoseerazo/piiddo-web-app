@@ -1,7 +1,23 @@
+import { useEffect } from 'react';
 import { LoginPageWrapper } from "./styled";
 import firebase from "firebase";
+import useUser from "../../hooks/useUser";
+import { useRouter } from "next/router";
 
 const LoginPage = () => {
+  const user = useUser();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (user !== undefined) { 
+      if (user) {
+        router.push('/merida');
+      }
+    }
+  }, [user]);
+
+  console.log(user);
+
   const loginWithFacebook = () => {
     const provider = new firebase.auth.FacebookAuthProvider();
 

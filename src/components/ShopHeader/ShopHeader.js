@@ -1,5 +1,13 @@
-import React, { Component } from "react";
-import { Navbar, NavbarBrand, Nav, NavItem, NavLink, Col } from "reactstrap";
+import React, { useState } from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  Nav,
+  NavItem,
+  NavLink,
+  Col,
+  Dropdown,
+} from "reactstrap";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -18,129 +26,118 @@ import {
   NavbarStyled,
   SigninLinkStyled,
   SearchWrapper,
+  DropdownToggleStyled,
+  DropdownMenuStyled,
+  DropdownItemStyled,
 } from "./styled";
 import Router from "next/router";
 import HeaderSearchBox from "../HeaderSearchBox";
+import useUser from "../../hooks/useUser";
+import Avatar from "../Avatar";
+import { useDispatch } from "react-redux";
 
-const { selectCurrency } = appActions;
+const { logout } = appActions;
 
 library.add([faShoppingBasket, faChevronLeft, faBars]);
 
 import ShoppingCart from "../../containers/ShoppingCartContainer";
 
-class ShopHeader extends Component {
-  constructor(props) {
-    super(props);
+const ShopHeader = ({
+  hideShoppingCart,
+  address,
+  bordered,
+  hideBackButton,
+  onClickAddressSelector,
+  disableAddress,
+  city,
+  hideCitySelector,
+  hideLoginButton,
+  hideAddressSelector,
+  hideSarchBar,
+}) => {
+  const dispatch = useDispatch();
 
-    this.toggle = this.toggle.bind(this);
-    this.state = {
-      isOpen: false,
-    };
-  }
+  const user = useUser();
 
-  toggle() {
-    this.setState({
-      isOpen: !this.state.isOpen,
-    });
-  }
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const toggle = () => setDropdownOpen((prevState) => !prevState);
 
-  changeCurrency = (currency) => {
-    const {
-      actions: { selectCurrency },
-    } = this.props;
-
-    selectCurrency(currency);
-  };
-
-  goBack = () => {
+  const goBack = () => {
     Router.back();
   };
 
-  render() {
-    const {
-      hideShoppingCart,
-      address,
-      bordered,
-      hideBackButton,
-      onClickAddressSelector,
-      disableAddress,
-      city,
-      hideCitySelector,
-      hideLoginButton,
-      hideAddressSelector,
-      hideSarchBar
-    } = this.props;
-
-    return (
-      <NavbarStyled light expand="md" fixed="top" bordered={bordered}>
-        <BackButtonWrapper onClick={hideBackButton ? null : this.goBack}>
-          <FontAwesomeIcon
-            icon={hideBackButton ? "bars" : "chevron-left"}
-            color="#f74342"
-          />
-        </BackButtonWrapper>
-
-        <DynamicLink href={""} as={""}>
-          <a>
-            <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
-              <img
-                src="https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/piddo-color.png?alt=media&token=22e13946-57a0-490d-8b2b-42282273e88a"
-                style={{
-                  width: 104,
-                }}
-                alt="Piiddo-Logo"
-              />
-            </NavbarBrand>
-          </a>
-        </DynamicLink>
-
-        {!hideSarchBar && <SearchWrapper md="5">
-          <HeaderSearchBox />
-        </SearchWrapper>}
-
-        <Nav className="ml-auto" navbar>
-          <NavItem className="address-selector-wrapper mobile">
-            <CitySelector city={city} disabled={hideCitySelector} />
-          </NavItem>
-
-          {!hideAddressSelector && (
-            <NavItem className="address-selector-wrapper">
-              <AddressSelector address={address} disabled={disableAddress} />
-            </NavItem>
-          )}
-
-          <NavItem style={{ marginRight: 15 }}>
-            {!hideShoppingCart && <ShoppingCart />}
-          </NavItem>
-
-          {!hideLoginButton && (
-            <NavItem style={{ marginRight: 10 }}>
-              <SigninLinkStyled href="/ingresar">Ingresar</SigninLinkStyled>
-            </NavItem>
-          )}
-          {/*<NavItem style={{marginRight: 10}}>
-            <NavLink className="cart-icon" href="/cart"><FontAwesomeIcon icon="shopping-basket" /></NavLink>
-    </NavItem>*/}
-          {/*<NavItem>
-            <CurrencySelector onChangeCurrency={this.changeCurrency} />
-          </NavItem>*/}
-        </Nav>
-      </NavbarStyled>
-    );
-  }
-}
-
-function mapStateToProps(state, props) {
-  const { cop_rate } = state.App;
-
-  return {
-    rate: cop_rate,
-    currency_code: "COP",
+  const doLogout = () => {
+    dispatch(logout());
   };
-}
 
-function mapDispatchToProps(dispatch) {
-  return { actions: bindActionCreators({ selectCurrency }, dispatch) };
-}
+  return (
+    <NavbarStyled light expand="md" fixed="top" bordered={bordered}>
+      <BackButtonWrapper onClick={hideBackButton ? null : goBack}>
+        <FontAwesomeIcon
+          icon={hideBackButton ? "bars" : "chevron-left"}
+          color="#f74342"
+        />
+      </BackButtonWrapper>
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShopHeader);
+      <DynamicLink href={""} as={""}>
+        <a>
+          <NavbarBrand style={{ fontWeight: 300, color: "#FFF" }}>
+            <img
+              src="https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/piddo-color.png?alt=media&token=22e13946-57a0-490d-8b2b-42282273e88a"
+              style={{
+                width: 104,
+              }}
+              alt="Piiddo-Logo"
+            />
+          </NavbarBrand>
+        </a>
+      </DynamicLink>
+
+      {!hideSarchBar && (
+        <SearchWrapper md="5">
+          <HeaderSearchBox />
+        </SearchWrapper>
+      )}
+
+      <Nav className="ml-auto" navbar>
+        <NavItem className="address-selector-wrapper mobile">
+          <CitySelector city={city} disabled={hideCitySelector} />
+        </NavItem>
+
+        {!hideAddressSelector && (
+          <NavItem className="address-selector-wrapper">
+            <AddressSelector address={address} disabled={disableAddress} />
+          </NavItem>
+        )}
+
+        <NavItem style={{ marginRight: 15 }}>
+          {!hideShoppingCart && <ShoppingCart />}
+        </NavItem>
+
+        {!hideLoginButton && user === null && (
+          <NavItem style={{ marginRight: 10 }}>
+            <SigninLinkStyled href="/ingresar">Ingresar</SigninLinkStyled>
+          </NavItem>
+        )}
+
+        {!!user && (
+          <NavItem style={{ marginRight: 10 }}>
+            <Dropdown isOpen={dropdownOpen} toggle={toggle}>
+              <DropdownToggleStyled>
+                <Avatar />
+              </DropdownToggleStyled>
+              <DropdownMenuStyled>
+                <DropdownItemStyled header>Cuenta</DropdownItemStyled>
+                <DropdownItemStyled onClick={doLogout}>
+                  Salir de mi cuenta
+                </DropdownItemStyled>
+              </DropdownMenuStyled>
+            </Dropdown>
+          </NavItem>
+        )}
+      </Nav>
+    </NavbarStyled>
+  );
+};
+
+export default ShopHeader;

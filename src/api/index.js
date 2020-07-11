@@ -205,6 +205,12 @@ class DeliveryLocation {
   };
 }
 
+class Auth {
+  static logout = async () => {
+    await firebase.auth().signOut();
+  };
+}
+
 export default {
   Products,
   Partners,
@@ -212,4 +218,5 @@ export default {
   DeliveryLocation,
   Orders,
   Payments,
+  Auth,
 };

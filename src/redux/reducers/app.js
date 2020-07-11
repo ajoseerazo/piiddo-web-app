@@ -60,6 +60,10 @@ const appReducer = (state = initialState, action) => {
         ...state,
         city
       }
+    case actions.LOGOUT: 
+      return {
+        ...state
+      }
     default:
       return state;
   }

@@ -4,27 +4,31 @@ import {
   FacebookButton,
   GoogleButton,
   LoginFormWrapper,
+  TitleWrapper,
 } from "./styled";
 import firebase from "firebase";
 import useUser from "../../hooks/useUser";
+import useCity from "../../hooks/useCity";
 import { useRouter } from "next/router";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+import { ProductCustomItemStyled } from "../../components/ProductModal/styled";
 
 library.add([faFacebook, faGoogle]);
 
 const LoginPage = () => {
   const user = useUser();
   const router = useRouter();
+  const city = useCity();
 
   useEffect(() => {
     if (user !== undefined) {
-      if (user) {
-        router.push("/merida");
+      if (user && city) {
+        router.push(`/${city}`);
       }
     }
-  }, [user]);
+  }, [user, ProductCustomItemStyled]);
 
   console.log(user);
 
@@ -83,15 +87,18 @@ const LoginPage = () => {
   return (
     <LoginPageWrapper>
       <LoginFormWrapper>
-        <h3>Inicia sesión</h3>
+        <TitleWrapper>
+          <h3>Inicia sesión</h3>
+          <h6>Para continuar comprando</h6>
+        </TitleWrapper>
 
         <FacebookButton onClick={loginWithFacebook}>
-          <FontAwesomeIcon icon={["fab", "facebook"]} color="#fff" size={36} />
+          <FontAwesomeIcon icon={["fab", "facebook"]} color="#fff" size="2x" />
           <span>Ingresar con Facebook</span>
         </FacebookButton>
 
         <GoogleButton onClick={loginWithGoogle}>
-          <FontAwesomeIcon icon={["fab", "google"]} color="#fff" size={36} />
+          <FontAwesomeIcon icon={["fab", "google"]} color="#fff" size="2x" />
           <span>Ingresar con Google</span>
         </GoogleButton>
       </LoginFormWrapper>

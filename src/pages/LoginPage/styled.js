@@ -8,12 +8,22 @@ export const LoginPageWrapper = styled.div`
   align-items: center;
   display: flex;
 
-  h3 {
+  button {
     margin-bottom: 20px;
   }
 
-  button {
-    margin-bottom: 20px;
+  h6 {
+    color: #999;
+    font-weight: 100;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-top: 50px;
+    height: calc(100vh - 50px);
+
+    h3  {
+      font-size: 25px;
+    }
   }
 `;
 
@@ -84,4 +94,14 @@ export const LoginFormWrapper = styled.div`
   background: white;
   border-radius: 16px;
   box-shadow: 0 6px 10px 0 rgba(128, 98, 96, 0.16);
+
+  @media screen and (max-width: 768px) {
+    box-shadow: none;
+    background: transparent;
+    padding: 0px 40px;
+  }
+`;
+
+export const TitleWrapper = styled.div`
+  margin-bottom: 20px;
 `;

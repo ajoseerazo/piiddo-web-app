@@ -124,7 +124,7 @@ const ShopHeader = ({
           <NavItem style={{ marginRight: 10 }}>
             <Dropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggleStyled>
-                <Avatar />
+                <Avatar src={user.photoURL} />
               </DropdownToggleStyled>
               <DropdownMenuStyled>
                 <DropdownItemStyled header>Cuenta</DropdownItemStyled>

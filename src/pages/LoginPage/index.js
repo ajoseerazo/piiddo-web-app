@@ -1,17 +1,27 @@
-import { useEffect } from 'react';
-import { LoginPageWrapper } from "./styled";
+import { useEffect } from "react";
+import {
+  LoginPageWrapper,
+  FacebookButton,
+  GoogleButton,
+  LoginFormWrapper,
+} from "./styled";
 import firebase from "firebase";
 import useUser from "../../hooks/useUser";
 import { useRouter } from "next/router";
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faGoogle } from "@fortawesome/free-brands-svg-icons";
+
+library.add([faFacebook, faGoogle]);
 
 const LoginPage = () => {
   const user = useUser();
   const router = useRouter();
 
   useEffect(() => {
-    if (user !== undefined) { 
+    if (user !== undefined) {
       if (user) {
-        router.push('/merida');
+        router.push("/merida");
       }
     }
   }, [user]);
@@ -72,11 +82,19 @@ const LoginPage = () => {
 
   return (
     <LoginPageWrapper>
-      <h3>Inicia sesión</h3>
+      <LoginFormWrapper>
+        <h3>Inicia sesión</h3>
 
-      <button onClick={loginWithFacebook}>Ingresar con Facebook</button>
+        <FacebookButton onClick={loginWithFacebook}>
+          <FontAwesomeIcon icon={["fab", "facebook"]} color="#fff" size={36} />
+          <span>Ingresar con Facebook</span>
+        </FacebookButton>
 
-      <button onClick={loginWithGoogle}>Ingresar con Google</button>
+        <GoogleButton onClick={loginWithGoogle}>
+          <FontAwesomeIcon icon={["fab", "google"]} color="#fff" size={36} />
+          <span>Ingresar con Google</span>
+        </GoogleButton>
+      </LoginFormWrapper>
     </LoginPageWrapper>
   );
 };

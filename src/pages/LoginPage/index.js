@@ -22,10 +22,16 @@ const LoginPage = () => {
   const router = useRouter();
   const city = useCity();
 
+  const { query } = router;
+
   useEffect(() => {
     if (user !== undefined) {
       if (user && city) {
-        router.push(`/${city}`);
+        if (query && query.redirect_to) {
+          router.push(`/${query.redirect_to}`);
+        } else {
+          router.push(`/${city}`);
+        }
       }
     }
   }, [user, ProductCustomItemStyled]);
@@ -91,7 +97,7 @@ const LoginPage = () => {
       <LoginFormWrapper>
         <TitleWrapper>
           <h3>Inicia sesión</h3>
-          <h6>Para continuar comprando</h6>
+          {query && !!query.redirect_to && <h6>Para continuar comprando</h6>}
         </TitleWrapper>
 
         <FacebookButton onClick={loginWithFacebook}>

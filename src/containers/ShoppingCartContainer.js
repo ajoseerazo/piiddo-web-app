@@ -11,8 +11,14 @@ import { getDataFromShoppingCart } from "../utils";
 const { removeFromCart, changeCount } = actions;
 
 class ShoppingCartContainer extends Component {
+  state = {
+    isOpen: false,
+  };
+
   handleOpen = (event) => {
-    this.refs.ShoppingCartDetails.openAction();
+    this.setState({
+      isOpen: true,
+    });
   };
 
   handleRemoveSlug = (slugId) => {
@@ -39,10 +45,18 @@ class ShoppingCartContainer extends Component {
     removeFromCart(storeId, index);
   };
 
+  onClose = () => {
+    this.setState({
+      isOpen: false
+    })
+  }
+
   render() {
     let mobile = this.props.mobile;
 
     const { items, length, total, deliveryTotal, stores } = this.props;
+
+    const { isOpen } = this.state;
 
     return (
       <>
@@ -55,9 +69,10 @@ class ShoppingCartContainer extends Component {
         <ShoppingCartDetails
           id={this.props.id}
           length={length}
-          ref="ShoppingCartDetails"
           deliveryTotal={deliveryTotal}
           amount={total}
+          isOpen={isOpen}
+          onRequestClose={this.onClose}
         >
           {Object.keys(stores).map((storeId) => {
             return (stores[storeId].items || []).map((item, index) => {

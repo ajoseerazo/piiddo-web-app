@@ -48,6 +48,7 @@ import Toolbar from "../../components/Toolbar";
 import QRModal from "../../components/QRModal";
 import Router from "next/router";
 import { getDataFromShoppingCart } from "../../utils";
+import useUser from "../../hooks/useUser";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -90,6 +91,9 @@ const CheckoutPage = ({
   const [billDNI, setBillDNI] = useState();
   const [billAddress, setBillAddress] = useState();
   const [qrModalOpened, setQrModalOpened] = useState(false);
+  const user = useUser();
+
+  console.log(user);
 
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
@@ -109,8 +113,14 @@ const CheckoutPage = ({
 
       eval(func);
     },
-    [setName]
   );
+
+  useEffect(() => {
+    if (user) {
+      setName(user.displayName);
+      setEmail(user.email);
+    }
+  }, [user])
 
   const confirmOrder = useCallback(async () => {
     const payload = {
@@ -377,8 +387,10 @@ const CheckoutPage = ({
                 <CheckoutPersonalDataGroup>
                   <label>Nombre *</label>
                   <CheckoutInput
+                    defaultValue={user ? user.displayName : undefined}
                     placeholder="Tu nombre"
                     onChange={handleInputChange.bind(this, "name")}
+                    readOnly={!!user}
                   />
                 </CheckoutPersonalDataGroup>
 
@@ -393,6 +405,7 @@ const CheckoutPage = ({
                 <CheckoutPersonalDataGroup>
                   <label>Correo *</label>
                   <CheckoutInput
+                    defaultValue={user ? user.email : undefined}
                     placeholder="Tu correo electrónico"
                     onChange={handleInputChange.bind(this, "email")}
                   />

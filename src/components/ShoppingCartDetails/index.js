@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "reactstrap";
 import { Scrollbars } from "react-custom-scrollbars";
 import Link from "next/link";
@@ -17,20 +17,23 @@ import {
   TotalSummary,
   CheckoutButtonStyled,
 } from "./styled";
+import useUser from "../../hooks/useUser";
 
 library.add([faTimes, faShoppingBag]);
 
-class ShoppingCartDetails extends PureComponent {
-  state = {
+const ShoppingCartDetails = (props) => {
+  const user = useUser();
+
+  const [state, setState] = useState({
     active: false,
     autoplay: false,
     overlayClass: "",
     mainClass: "",
-  };
+  });
 
-  openAction = () => {
+  const openAction = () => {
     document.body.style.overflowY = "hidden";
-    this.setState((prevState, props) => {
+    setState((prevState, props) => {
       return {
         active: true,
         autoplay: true,
@@ -40,9 +43,17 @@ class ShoppingCartDetails extends PureComponent {
     });
   };
 
-  closeAction = () => {
+  useEffect(() => {
+    if (props.isOpen) {
+      openAction();
+    } else {
+      closeAction();
+    }
+  }, [props.isOpen]);
+
+  const closeAction = () => {
     document.body.style.overflowY = "auto";
-    this.setState((prevState, props) => {
+    setState((prevState, props) => {
       return {
         active: false,
         autoplay: true,
@@ -52,95 +63,92 @@ class ShoppingCartDetails extends PureComponent {
     });
   };
 
-  componentWillReceiveProps() {
-    this.setState({ autoplay: false });
+  /*componentWillReceiveProps() {
+    setState({ autoplay: false });
   }
 
-  checkoutAction = () => {};
+  checkoutAction = () => {};*/
 
-  onClose = () => {
-    if (!this.state.active) {
+  /*onClose = () => {
+    if (!state.active) {
     }
-  };
+  };*/
+  let length = props.length;
+  let amount = props.amount;
+  let domicilio = state.domicilio || 1000;
 
-  render() {
-    let length = this.props.length;
-    let amount = this.props.amount;
-    let domicilio = this.state.domicilio || 1000;
+  const { overlayClass, mainClass } = state;
 
-    const { overlayClass, mainClass } = this.state;
+  const { deliveryTotal, onRequestClose } = props;
 
-    const { deliveryTotal } = this.props;
+  return (
+    <div>
+      <ShoppingCartWrapper className={mainClass}>
+        <ShoppingCartHeader>
+          <span className="title">Tu pedido</span>
 
-    return (
-      <div>
-        <ShoppingCartWrapper className={mainClass}>
-          <ShoppingCartHeader>
-            <span className="title">Tu pedido</span>
+          <span onClick={onRequestClose}>
+            <Button className="btn-close">
+              <span>Cerrar</span>
 
-            <span onClick={this.closeAction}>
-              <Button className="btn-close">
-                <span>Cerrar</span>
-
-                <FontAwesomeIcon icon="times" />
-              </Button>
-            </span>
-          </ShoppingCartHeader>
-          <CartContainer>
-            {length === 0 ? (
-              <EmptyCartContainer>
-                <h3>
-                  <FontAwesomeIcon icon="shopping-bag" color="#443" size="2x" />
-                  <div>Tu carrito está vacío</div>
-                </h3>
-              </EmptyCartContainer>
-            ) : (
-              <div>
-                <Scrollbars
-                  autoHeight
-                  autoHeightMax={"100%"}
-                  autoHeightMin={0}
-                  ref="scrollbars"
-                  style={{
-                    overflow: "hidden",
-                  }}
-                >
-                  <div className="articles-shoppingBox">
-                    {this.props.children}
-                  </div>
-                </Scrollbars>
-              </div>
-            )}
-          </CartContainer>
-          {length !== 0 && (
-            <CartSummary>
-              <div>
-                <DeliverySummary>
-                  Costo delivery
-                  <Amount>$ {parseFloat(deliveryTotal).toFixed(2)}</Amount>
-                </DeliverySummary>
-                <TotalSummary>
-                  Total
-                  <Amount>
-                    $ {parseFloat(amount + deliveryTotal).toFixed(2)}
-                  </Amount>
-                </TotalSummary>
-              </div>
-              <div onClick={this.closeAction}>
-                <Link href="/checkout" as="/checkout">
-                  <CheckoutButtonStyled block className="checkout-btn">
-                    Pagar
-                  </CheckoutButtonStyled>
-                </Link>
-              </div>
-            </CartSummary>
+              <FontAwesomeIcon icon="times" />
+            </Button>
+          </span>
+        </ShoppingCartHeader>
+        <CartContainer>
+          {length === 0 ? (
+            <EmptyCartContainer>
+              <h3>
+                <FontAwesomeIcon icon="shopping-bag" color="#443" size="2x" />
+                <div>Tu carrito está vacío</div>
+              </h3>
+            </EmptyCartContainer>
+          ) : (
+            <div>
+              <Scrollbars
+                autoHeight
+                autoHeightMax={"100%"}
+                autoHeightMin={0}
+                style={{
+                  overflow: "hidden",
+                }}
+              >
+                <div className="articles-shoppingBox">{props.children}</div>
+              </Scrollbars>
+            </div>
           )}
-        </ShoppingCartWrapper>
+        </CartContainer>
+        {length !== 0 && (
+          <CartSummary>
+            <div>
+              <DeliverySummary>
+                Costo delivery
+                <Amount>$ {parseFloat(deliveryTotal).toFixed(2)}</Amount>
+              </DeliverySummary>
+              <TotalSummary>
+                Total
+                <Amount>
+                  $ {parseFloat(amount + deliveryTotal).toFixed(2)}
+                </Amount>
+              </TotalSummary>
+            </div>
+            <div onClick={onRequestClose}>
+              <Link
+                href={user ? "/checkout" : "/ingresar"}
+                as={user ? "/checkout" : "/ingresar?redirect_to=checkout"}
+              >
+                <CheckoutButtonStyled block className="checkout-btn">
+                  Pagar
+                </CheckoutButtonStyled>
+              </Link>
+            </div>
+          </CartSummary>
+        )}
+      </ShoppingCartWrapper>
 
-        <Overlay className={overlayClass} onClick={this.closeAction}></Overlay>
-      </div>
-    );
-  }
-}
+      <Overlay className={overlayClass} onClick={onRequestClose}></Overlay>
+    </div>
+  );
+};
 
 export default ShoppingCartDetails;

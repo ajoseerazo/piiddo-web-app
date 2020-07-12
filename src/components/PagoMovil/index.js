@@ -21,7 +21,7 @@ const bankAccounts = [
     accountName: "Miglenys Adrian",
     accountDocumentType: "Cédula",
     accountDocumnetNumber: "8.981.562",
-  }
+  },
 ];
 
 const PagoMovil = ({ amount, onClickPayButton, loading, type }) => {
@@ -99,8 +99,8 @@ const PagoMovil = ({ amount, onClickPayButton, loading, type }) => {
         )}
         {type === "zelle" && (
           <div>
-            <div>Correo: douglaserazo978@gmail.com</div>
-            <div>Nombre: Douglas Erazo</div>
+            <div>Correo: johyamer@gmail.com</div>
+            <div>Nombre: Juhayna abou amer Keyssieh</div>
           </div>
         )}
       </PagoMovilData>

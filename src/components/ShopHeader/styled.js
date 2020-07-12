@@ -192,3 +192,9 @@ export const DropdownMenuStyled = styled(DropdownMenu)`
 export const DropdownItemStyled = styled(DropdownItem)`
   font-size: 14px;
 `;
+
+export const UserNavItem = styled(NavItem)`
+  @media (max-width: 768px) {
+    display: none !important;
+  }
+`;

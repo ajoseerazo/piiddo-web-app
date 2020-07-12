@@ -29,12 +29,14 @@ import {
   DropdownToggleStyled,
   DropdownMenuStyled,
   DropdownItemStyled,
+  UserNavItem,
 } from "./styled";
 import Router from "next/router";
 import HeaderSearchBox from "../HeaderSearchBox";
 import useUser from "../../hooks/useUser";
 import Avatar from "../Avatar";
 import { useDispatch } from "react-redux";
+import Link from "next/link";
 
 const { logout } = appActions;
 
@@ -72,12 +74,23 @@ const ShopHeader = ({
 
   return (
     <NavbarStyled light expand="md" fixed="top" bordered={bordered}>
-      <BackButtonWrapper onClick={hideBackButton ? null : goBack}>
-        <FontAwesomeIcon
-          icon={hideBackButton ? "bars" : "chevron-left"}
-          color="#f74342"
-        />
-      </BackButtonWrapper>
+      {!hideBackButton ? (
+        <BackButtonWrapper onClick={goBack}>
+          <FontAwesomeIcon icon={"chevron-left"} color="#f74342" />
+        </BackButtonWrapper>
+      ) : (
+        <BackButtonWrapper>
+          {!user ? (
+            <Link href="/ingresar" as="/ingresar">
+              <a>
+                <Avatar />
+              </a>
+            </Link>
+          ) : (
+            <Avatar src={(user || {}).photoURL} />
+          )}
+        </BackButtonWrapper>
+      )}
 
       <DynamicLink href={""} as={""}>
         <a>
@@ -121,7 +134,7 @@ const ShopHeader = ({
         )}
 
         {!!user && (
-          <NavItem style={{ marginRight: 10 }}>
+          <UserNavItem style={{ marginRight: 10 }}>
             <Dropdown isOpen={dropdownOpen} toggle={toggle}>
               <DropdownToggleStyled>
                 <Avatar src={user.photoURL} />
@@ -133,7 +146,7 @@ const ShopHeader = ({
                 </DropdownItemStyled>
               </DropdownMenuStyled>
             </Dropdown>
-          </NavItem>
+          </UserNavItem>
         )}
       </Nav>
     </NavbarStyled>

@@ -47,6 +47,7 @@ const LoginPage = () => {
         // ...
       })
       .catch(function (error) {
+        console.log(error);
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;
@@ -73,6 +74,7 @@ const LoginPage = () => {
         // ...
       })
       .catch(function (error) {
+        console.log(error);
         // Handle Errors here.
         var errorCode = error.code;
         var errorMessage = error.message;

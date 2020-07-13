@@ -72,6 +72,7 @@ class Partners {
           .collection("partners")
           .where("mainCategory", "==", category)
           .where("city", "==", city)
+          .where("enabled", "==", true)
           .get();
       } else {
         partnersRef = await db
@@ -79,10 +80,14 @@ class Partners {
           .where("mainCategory", "==", category)
           .where("city", "==", city)
           .where("categories", "array-contains", subCategory)
+          .where("enabled", "==", true)
           .get();
       }
     } else {
-      partnersRef = await db.collection("partners").get();
+      partnersRef = await db
+        .collection("partners")
+        .where("enabled", "==", true)
+        .get();
     }
 
     const partners = partnersRef.docs.map((p) => {

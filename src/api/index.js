@@ -210,6 +210,27 @@ class DeliveryLocation {
   };
 }
 
+class Coupons {
+  static get = async (code) => {
+    const couponsRef = await db
+      .collection("coupons")
+      .where("code", "==", code)
+      .where("expireAt", ">", new Date())
+      .get();
+
+    if (couponsRef.size === 1) {
+      const couponRef = couponsRef.docs[0];
+
+      return {
+        id: couponRef.id,
+        ...couponRef.data(),
+      };
+    }
+
+    return null;
+  };
+}
+
 class Auth {
   static logout = async () => {
     await firebase.auth().signOut();
@@ -224,4 +245,5 @@ export default {
   Orders,
   Payments,
   Auth,
+  Coupons,
 };

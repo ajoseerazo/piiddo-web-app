@@ -2,7 +2,7 @@ import { useState, useCallback, useEffect, useMemo } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ordersActions from "../../redux/actions/orders";
-import actions from "../../redux/actions/shoppingCart";
+import couponsActions from "../../redux/actions/coupons";
 import { round } from "../../utils";
 import {
   Wrapper,
@@ -34,6 +34,8 @@ import {
   CheckboxWrapper,
   PaypalButtonWrapper,
   PayPalButtonDisabling,
+  CouponForm,
+  Coupon,
 } from "./styled";
 import PrettyCheckbox from "../../components/PrettyCheckbox";
 import PaymentMethods from "../../components/PaymentMethods";
@@ -49,14 +51,17 @@ import QRModal from "../../components/QRModal";
 import Router from "next/router";
 import { getDataFromShoppingCart } from "../../utils";
 import useUser from "../../hooks/useUser";
+import { useToasts } from "react-toast-notifications";
+import { useRouter } from "next/router";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
+const { getCoupon } = couponsActions;
 
 const CheckoutPage = ({
   stores,
   address,
-  actions: { createOrder, setOrderPaymentSupport, doPayment },
+  actions: { createOrder, setOrderPaymentSupport, doPayment, getCoupon },
   isCreatingOrder,
   order,
   orderCreated,
@@ -68,6 +73,8 @@ const CheckoutPage = ({
   total,
   deliveryTotal,
   deliveryLocation,
+  loadingCoupon,
+  coupon,
 }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
@@ -91,9 +98,14 @@ const CheckoutPage = ({
   const [billDNI, setBillDNI] = useState();
   const [billAddress, setBillAddress] = useState();
   const [qrModalOpened, setQrModalOpened] = useState(false);
+  const [couponCode, setCouponCode] = useState();
+  const [finalTotal, setFinalTotal] = useState(total || 0);
+  const [finalDelivery, setFinalDelivery] = useState(deliveryTotal);
+  const [finalAmount, setFinalAmount] = useState(total + deliveryTotal);
   const user = useUser();
+  const router = useRouter();
 
-  console.log(user);
+  const { addToast } = useToasts();
 
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
@@ -107,20 +119,22 @@ const CheckoutPage = ({
     setIsSamePerson(!isSamePerson);
   }, [isSamePerson]);
 
-  const handleInputChange = useCallback(
-    (key, { target: { value } }) => {
-      const func = `set${key[0].toUpperCase()}${key.substr(1)}('${value}')`;
+  const handleInputChange = useCallback((key, { target: { value } }) => {
+    const func = `set${key[0].toUpperCase()}${key.substr(1)}('${value}')`;
 
-      eval(func);
-    },
-  );
+    eval(func);
+  });
 
   useEffect(() => {
     if (user) {
       setName(user.displayName);
       setEmail(user.email);
+    } else {
+      if (user === null) {
+        router.push("/ingresar?redirect_to=checkout");
+      }
     }
-  }, [user])
+  }, [user]);
 
   const confirmOrder = useCallback(async () => {
     const payload = {
@@ -144,6 +158,10 @@ const CheckoutPage = ({
       return;
     }
 
+    if (coupon) {
+      payload.coupon = coupon;
+    }
+
     if (
       paymentMethodSelected.value === "credit-card" ||
       paymentMethodSelected.value === "debit-card"
@@ -159,7 +177,7 @@ const CheckoutPage = ({
           documentType: "dni",
           documentNumber: billDNI,
         },
-        amount: total + deliveryTotal,
+        amount: finalAmount,
       });
 
       if (result && result.success) {
@@ -197,6 +215,7 @@ const CheckoutPage = ({
     billAddress,
     billDNI,
     billLastName,
+    coupon,
   ]);
 
   useEffect(() => {
@@ -219,7 +238,7 @@ const CheckoutPage = ({
           } else {
             if (paymentMethodSelected.value === "cryptocoins") {
               window.location = `https://payments.criptopagos.co?amount=${round(
-                total + deliveryTotal,
+                finalAmount,
                 2
               )}&apiKey=${"960d52033f7a2e5b28d272b83be43aa4aee6646a570a909d6dc37972a0ea4cee"}&accountID=${`41513570`}&merchantID=${`90361928`}&invoice=${
                 order.id
@@ -351,6 +370,57 @@ const CheckoutPage = ({
     setQrModalOpened(false);
   }, []);
 
+  const verifyCoupon = useCallback(() => {
+    getCoupon(couponCode);
+  }, [couponCode]);
+
+  useEffect(() => {
+    if (coupon === "not-valid" && !loadingCoupon) {
+      addToast(`Cupón no válido`, {
+        appearance: "error",
+        autoDismiss: true,
+      });
+    } else {
+      if (coupon && coupon.id && !loadingCoupon) {
+        addToast(`Cupón aplicado exitosamente`, {
+          appearance: "success",
+          autoDismiss: true,
+        });
+      }
+    }
+  }, [coupon, loadingCoupon]);
+
+  useEffect(() => {
+    if (coupon && coupon.id) {
+      switch (coupon.type) {
+        case "DELIVERY":
+          if (coupon.discount.type === "percentage") {
+            setFinalDelivery(
+              deliveryTotal - (deliveryTotal * coupon.discount.amount) / 100
+            );
+          } else {
+            setFinalDelivery(deliveryTotal - coupon.discount.amount);
+          }
+          break;
+        case "TOTAL":
+          if (coupon.discount.type === "percentage") {
+            setFinalAmount(
+              finalAmout - (finalAmout * coupon.discount.amount) / 100
+            );
+          } else {
+            setFinalAmount(finalAmout - coupon.discount.amount);
+          }
+          break;
+        default:
+          break;
+      }
+    }
+  }, [total, deliveryTotal, coupon]);
+
+  useEffect(() => {
+    setFinalAmount(finalTotal + finalDelivery);
+  }, [finalTotal, finalDelivery]);
+
   return (
     <>
       <Wrapper>
@@ -446,6 +516,35 @@ const CheckoutPage = ({
                     </CheckoutPersonalDataGroup>
                   </>
                 )}
+              </CheckoutBox>
+
+              <CheckoutBox>
+                <CheckoutBoxTitle>Cupón de descuento</CheckoutBoxTitle>
+
+                <CheckoutPersonalDataGroup>
+                  <CouponForm>
+                    <label>Cupón</label>
+
+                    {!coupon || coupon === "not-valid" ? (
+                      <>
+                        <CheckoutInput
+                          placeholder="Ingresa un cupón"
+                          onChange={handleInputChange.bind(this, "couponCode")}
+                        />
+
+                        <CheckoutButton
+                          disabled={!couponCode || loadingCoupon}
+                          onClick={verifyCoupon}
+                          loading={loadingCoupon}
+                        >
+                          {!loadingCoupon ? "Validar" : <LoadingSpinner />}
+                        </CheckoutButton>
+                      </>
+                    ) : (
+                      <Coupon>{coupon.name}</Coupon>
+                    )}
+                  </CouponForm>
+                </CheckoutPersonalDataGroup>
               </CheckoutBox>
 
               <CheckoutBox>
@@ -588,14 +687,14 @@ const CheckoutPage = ({
                 <CheckoutSummaryItem>
                   <CheckoutSummaryItemTitle>Productos</CheckoutSummaryItemTitle>
                   <CheckoutSummaryItemPrice>
-                    ${parseFloat(total || 0).toFixed(2)}
+                    ${parseFloat(finalTotal).toFixed(2)}
                   </CheckoutSummaryItemPrice>
                 </CheckoutSummaryItem>
 
                 <CheckoutSummaryItem>
                   <CheckoutSummaryItemTitle>Delivery</CheckoutSummaryItemTitle>
                   <CheckoutSummaryItemPrice>
-                    ${parseFloat(deliveryTotal).toFixed(2)}
+                    ${parseFloat(finalDelivery).toFixed(2)}
                   </CheckoutSummaryItemPrice>
                 </CheckoutSummaryItem>
 
@@ -603,7 +702,7 @@ const CheckoutPage = ({
                   <div>
                     <CheckoutTotalTitle>Total</CheckoutTotalTitle>
                     <CheckoutTotalPrice>
-                      ${parseFloat(total + deliveryTotal).toFixed(2)}
+                      ${parseFloat(finalAmount).toFixed(2)}
                     </CheckoutTotalPrice>
                   </div>
 
@@ -612,7 +711,7 @@ const CheckoutPage = ({
                     <CheckoutTotalPrice>
                       Bs{" "}
                       {`${new Intl.NumberFormat("es").format(
-                        (total + deliveryTotal) * 210000
+                        finalAmount * 230000
                       )}`}
                     </CheckoutTotalPrice>
                   </div>
@@ -627,12 +726,7 @@ const CheckoutPage = ({
                     {isCheckoutButtonDisabled && <PayPalButtonDisabling />}
                     <PayPalButton
                       amount={parseFloat(
-                        `${
-                          total +
-                          deliveryTotal +
-                          (total + deliveryTotal) * 0.06 +
-                          0.3
-                        }`
+                        `${finalAmount + finalAmount * 0.06 + 0.3}`
                       ).toFixed(2)}
                       shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                       onSuccess={onPaypalPaymentSuccess}
@@ -673,8 +767,8 @@ const CheckoutPage = ({
               type={paymentMethodSelected.value}
               amount={
                 paymentMethodSelected.value === "zelle"
-                  ? total + deliveryTotal
-                  : (total + deliveryTotal) * 210000
+                  ? finalAmount
+                  : finalAmount * 230000
               }
               orderId={order.id}
               onFinishPayment={onFinishPayment}
@@ -697,7 +791,7 @@ const CheckoutPage = ({
       <QRModal
         isOpened={qrModalOpened}
         onCloseModal={closeQRModal}
-        amount={total + deliveryTotal}
+        amount={finalAmount}
       />
 
       <Toolbar />
@@ -708,7 +802,7 @@ const CheckoutPage = ({
 function mapDispatchToProps(dispatch, props) {
   return {
     actions: bindActionCreators(
-      { createOrder, setOrderPaymentSupport, doPayment },
+      { createOrder, setOrderPaymentSupport, doPayment, getCoupon },
       dispatch
     ),
   };
@@ -725,6 +819,7 @@ function mapStateToProps(state, props) {
   } = state.Orders;
   const { deliveryLocation } = state.Location;
   const { payment, paymentSuccess, isDoingPayment } = state.Payments;
+  const { coupon, loadingCoupon } = state.Coupons;
 
   const [length, total, deliveryTotal] = getDataFromShoppingCart(
     stores,
@@ -743,9 +838,11 @@ function mapStateToProps(state, props) {
     paymentSuccess,
     isDoingPayment,
     length,
-    total,
-    deliveryTotal,
+    total: 25,
+    deliveryTotal: 2,
     deliveryLocation,
+    loadingCoupon,
+    coupon,
   };
 }
 

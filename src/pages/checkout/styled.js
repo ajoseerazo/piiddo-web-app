@@ -248,3 +248,25 @@ export const PayPalButtonDisabling = styled.div`
   background: rgba(255, 255, 255, 0.7);
   z-index: 1000;
 `;
+
+export const CouponForm = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+  input {
+    margin-left: 20px;
+    margin-right: 20px;
+    flex: 1;
+  }
+
+  button {
+    width: 100px;
+    height: 35px;
+  }
+`;
+
+export const Coupon = styled.div`
+  font-weight: 700;
+`;

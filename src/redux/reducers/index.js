@@ -7,6 +7,7 @@ import ShoppingCart from "./shoppingCart";
 import Location from "./location";
 import Orders from "./orders";
 import Payments from "./payments";
+import Coupons from "./coupons";
 
 const rootReducer = {
   Products,
@@ -17,6 +18,7 @@ const rootReducer = {
   Location,
   Orders,
   Payments,
+  Coupons,
 };
 
 export default rootReducer;

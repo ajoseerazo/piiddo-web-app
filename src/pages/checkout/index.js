@@ -414,6 +414,9 @@ const CheckoutPage = ({
         default:
           break;
       }
+    } else {
+      setFinalDelivery(deliveryTotal);
+      setFinalTotal(total);
     }
   }, [total, deliveryTotal, coupon]);
 

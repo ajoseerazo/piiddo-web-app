@@ -34,7 +34,7 @@ const LoginPage = () => {
         }
       }
     }
-  }, [user, ProductCustomItemStyled]);
+  }, [query, user, ProductCustomItemStyled]);
 
   const loginWithFacebook = () => {
     const provider = new firebase.auth.FacebookAuthProvider();

@@ -149,8 +149,8 @@ const CheckoutPage = ({
       vuelto,
       stores,
       deliveryLocation,
-      total,
-      deliveryTotal,
+      total: finalTotal,
+      deliveryTotal: finalDelivery,
     };
 
     if (!address) {
@@ -216,6 +216,8 @@ const CheckoutPage = ({
     billDNI,
     billLastName,
     coupon,
+    finalDelivery,
+    finalTotal,
   ]);
 
   useEffect(() => {
@@ -313,6 +315,8 @@ const CheckoutPage = ({
       doPayment,
       total,
       deliveryTotal,
+      finalDelivery,
+      finalTotal,
       creditCard,
       setPaypalPaymentSuccess,
     ]

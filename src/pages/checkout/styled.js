@@ -53,6 +53,7 @@ export const CheckoutBox = styled.div`
   margin: 15px 0px;
   background: white;
   border-radius: 16px;
+  min-width: 350px;
 `;
 
 export const CheckoutContentRight = styled.div`

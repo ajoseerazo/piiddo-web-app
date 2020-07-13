@@ -134,7 +134,7 @@ const ShoppingCartDetails = (props) => {
             </div>
             <div onClick={onRequestClose}>
               <Link
-                href={user ? "/checkout" : "/ingresar"}
+                href={user ? "/checkout" : "/ingresar?redirect_to=checkout"}
                 as={user ? "/checkout" : "/ingresar?redirect_to=checkout"}
               >
                 <CheckoutButtonStyled block className="checkout-btn">

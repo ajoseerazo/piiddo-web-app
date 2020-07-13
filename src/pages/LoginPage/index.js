@@ -24,6 +24,8 @@ const LoginPage = () => {
 
   const { query } = router;
 
+  console.log(query);
+
   useEffect(() => {
     if (user !== undefined) {
       if (user && city) {

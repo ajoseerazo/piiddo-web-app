@@ -53,16 +53,23 @@ export const CheckoutBox = styled.div`
   margin: 15px 0px;
   background: white;
   border-radius: 16px;
-  min-width: 350px;
 `;
 
 export const CheckoutContentRight = styled.div`
-  flex: 1;
+  width: 350px;
+  min-width: 350px;
+  max-width: 350px;
 
   ${CheckoutBox} {
     box-shadow: 0 6px 10px 0 rgba(128, 98, 96, 0.16);
     position: sticky;
     top: 90px;
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
   }
 `;
 

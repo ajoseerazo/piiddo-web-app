@@ -38,8 +38,8 @@ export const CheckoutContent = styled.div`
 `;
 
 export const CheckoutContentLeft = styled.div`
-  min-width: 660px;
   margin-right: 40px;
+  flex: 1;
 
   @media screen and (max-width: 768px) {
     max-width: 100%;

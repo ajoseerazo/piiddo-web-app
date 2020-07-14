@@ -45,6 +45,7 @@ const partnersActions = {
 
         return partners;
       } catch (error) {
+        console.log(error);
         dispatch(partnersActions.fetchPartnersFailed(error));
       }
     };

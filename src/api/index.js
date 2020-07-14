@@ -37,7 +37,18 @@ class Products {
       };
     });
 
-    return products;
+    const productsSorted = products.sort((a, b) => {
+      let ap = a.order ? a.order : 1000;
+      let bp = b.order ? b.order : 1000;
+
+      if (ap > bp) {
+        return 1;
+      }
+
+      return -1;
+    });
+
+    return productsSorted;
   };
 
   static get = async (id) => {
@@ -73,6 +84,7 @@ class Partners {
           .where("mainCategory", "==", category)
           .where("city", "==", city)
           .where("enabled", "==", true)
+          .orderBy("priority", "desc")
           .get();
       } else {
         partnersRef = await db
@@ -81,12 +93,14 @@ class Partners {
           .where("city", "==", city)
           .where("categories", "array-contains", subCategory)
           .where("enabled", "==", true)
+          .orderBy("priority", "desc")
           .get();
       }
     } else {
       partnersRef = await db
         .collection("partners")
         .where("enabled", "==", true)
+        .orderBy("priority", "desc")
         .get();
     }
 

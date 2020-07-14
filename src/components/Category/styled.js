@@ -70,6 +70,9 @@ export const CategoryWrapper = styled.div`
     margin-bottom: 0px;
     margin-top: 20px;
     font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 `;
 

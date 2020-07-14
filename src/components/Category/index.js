@@ -7,8 +7,16 @@ const Category = ({ name, image, slug }) => {
   return (
     <CategoryWrapper>
       <DynamicLink
-        href={slug === "restaurantes" ? "/restaurantes" : "/[category]"}
-        as={`${slug === "restaurantes" ? `/restaurantes` : `/${slug}`}`}
+        href={slug === "restaurantes" ? "/restaurantes" : slug !== "compralo-en-colombia" ? "/[category]" : "/[category]/v/[slug]"}
+        as={`${
+          slug === "restaurantes"
+            ? `/restaurantes`
+            : `/${
+                slug !== "compralo-en-colombia"
+                  ? slug
+                  : `${slug}/v/compralo-en-colombia`
+              }`
+        }`}
       >
         <a>
           <ImageWrapper category={name}>

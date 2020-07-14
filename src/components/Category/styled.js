@@ -30,6 +30,8 @@ const getCategoryColor = (category) => {
       return "#cfcfc4";
     case "Hogar":
       return "rgb(217, 240, 251)";
+    case "Comida precongelada lista para servir":
+      return "#E2EBFD";
   }
 }
 

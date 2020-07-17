@@ -56,6 +56,7 @@ import Link from "next/link";
 import getSlug from "speakingurl";
 import { useRouter } from "next/router";
 import moment from "moment";
+import { getDistance } from "geolib";
 
 const {
   fetchPartners,
@@ -89,9 +90,8 @@ const Store = ({
   const [isModalOpen, setIsModalOpen] = useState(modalOpened);
   const [productSelected, setProductSelect] = useState(defaultProductSelected);
   const [deliveryPrice, setDeliveryPrice] = useState(null);
+  const [distance, setDistance] = useState();
   const router = useRouter();
-
-  console.log(modalOpened);
 
   const openProduct = useCallback(
     (product) => {
@@ -182,6 +182,17 @@ const Store = ({
     },
     [partner]
   );
+
+  useEffect(() => {
+    if (partner && partner.location && deliveryLocation) {
+      setDistance(
+        getDistance(
+          { latitude: partner.location.lat, longitude: partner.location.lng },
+          { latitude: deliveryLocation.lat, longitude: deliveryLocation.lng }
+        )
+      );
+    }
+  }, [partner, deliveryLocation]);
 
   return (
     <>
@@ -353,16 +364,52 @@ const Store = ({
                                     onClick={(e) => {
                                       e.preventDefault();
 
-                                      onClickProduct(product);
+                                      if (deliveryLocation) {
+                                        if (partner.maxDeliveryDistance) {
+                                          if (
+                                            distance <
+                                            partner.maxDeliveryDistance
+                                          ) {
+                                            onClickProduct(product);
+                                          }
+                                        } else {
+                                          onClickProduct(product);
+                                        }
+                                      }
                                     }}
                                   >
                                     <ProductItem
                                       key={product.id}
                                       product={product}
-                                      onSelectProduct={openProduct.bind(
-                                        this,
-                                        product
-                                      )}
+                                      onSelectProduct={() => {
+                                        if (deliveryLocation) {
+                                          if (partner.maxDeliveryDistance) {
+                                            if (
+                                              distance <
+                                              partner.maxDeliveryDistance
+                                            ) {
+                                              onClickProduct(product);
+                                              openProduct(product);
+                                            } else {
+                                              alert(
+                                                `Lo sentimos, no puedes pedir de esta tienda. ${
+                                                  partner.name
+                                                } solo permite deliveries hasta un máximo de ${parseFloat(
+                                                  partner.maxDeliveryDistance /
+                                                    1000
+                                                ).toFixed(2)}km`
+                                              );
+                                            }
+                                          } else {
+                                            onClickProduct(product);
+                                            openProduct(product);
+                                          }
+                                        } else {
+                                          alert(
+                                            "Antes de realizar un pedido, debes ingresar tu dirección en la barra superior"
+                                          );
+                                        }
+                                      }}
                                     />
                                   </a>
                                 ))}

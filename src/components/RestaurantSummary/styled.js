@@ -80,3 +80,19 @@ export const BottomText = styled.span`
   font-size: 11px;
   color: #9faab7;
 `;
+
+export const ClosedTag = styled.div`
+  position: absolute;
+  top: 10px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  background-color: #f74342;
+  padding: 0px 5px;
+  color: white;
+  font-size: 12px;
+  font-weight: 400;
+`;
+
+export const BannerWrapper = styled.div`
+  position: relative;
+`;

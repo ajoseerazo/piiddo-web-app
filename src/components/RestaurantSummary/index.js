@@ -9,8 +9,11 @@ import {
   RestaurantTags,
   RestaurantFilters,
   BottomText,
+  ClosedTag,
+  BannerWrapper,
 } from "./styled";
 import { calculatePriceFromPoints } from "../../utils";
+import moment from "moment";
 
 const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
   const [deliveryPrice, setDeliveryPrice] = useState(null);
@@ -23,9 +26,19 @@ const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
     }
   }, [deliveryLocation, restaurant]);
 
+  const now = moment();
+
+  const closed =
+    !restaurant.isOpen ||
+    (now.isBefore(moment(restaurant.openAt, "HH:mm")) &&
+      now.isAfter(moment(restaurant.closeAt, "HH:mm")));
+
   return (
     <RestaurantWrapper>
-      <RestaurantBanner src={restaurant.banner} />
+      <BannerWrapper>
+        <RestaurantBanner src={restaurant.banner} />
+        {closed && <ClosedTag>Ya cerró</ClosedTag>}
+      </BannerWrapper>
 
       <RestaurantInfoWrapper>
         <RestaurantName>{restaurant.name}</RestaurantName>

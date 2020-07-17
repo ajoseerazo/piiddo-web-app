@@ -55,6 +55,7 @@ import MetaTags from "../../components/MetaTags";
 import Link from "next/link";
 import getSlug from "speakingurl";
 import { useRouter } from "next/router";
+import moment from "moment";
 
 const {
   fetchPartners,
@@ -245,7 +246,15 @@ const Store = ({
 
                       <PartnerInfo>
                         <PartnerName>{partner.name}</PartnerName>
-                        <PartnerHourly>7:30am - 2:00pm</PartnerHourly>
+                        <PartnerHourly>
+                          {partner.openAt
+                            ? moment(partner.openAt, "HH:mm").format("hh:mm a")
+                            : "07:00 am"}{" "}
+                          -{" "}
+                          {partner.closeAt
+                            ? moment(partner.closeAt, "HH:mm").format("hh:mm a")
+                            : "02:00 pm"}
+                        </PartnerHourly>
 
                         <PartnerDeliveryInfo>
                           <div>

@@ -38,6 +38,7 @@ export const ContentWrapper = styled.div`
     font-family: "Poppins";
     font-size: 20px;
     margin-bottom: 30px;
+    z-index: 1;
 
     span {
       display: flex;

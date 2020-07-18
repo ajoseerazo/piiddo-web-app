@@ -431,7 +431,7 @@ const CheckoutPage = ({
   let deliveryEta = 0;
   for (let key in stores) {
     console.log(stores[key]);
-    deliveryEta = stores[key].eta || 40;
+    deliveryEta = deliveryEta + stores[key].eta || 40;
   }
 
   deliveryEta = deliveryEta / Object.keys(stores).length;

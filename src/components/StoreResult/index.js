@@ -11,7 +11,7 @@ import {
 } from "./styled";
 import PrevArrow from "./PrevArrow";
 import NextArrow from "./NextArrow";
-import Link from "next/link";
+import DynamicLink from "../DynamicLink";
 
 const StoreResult = ({ store, onShowProduct }) => {
   var settings = {
@@ -35,7 +35,7 @@ const StoreResult = ({ store, onShowProduct }) => {
 
   return (
     <StoreWrapper>
-      <Link
+      <DynamicLink
         href="/[category]/v/[slug]"
         as={`/${store.mainCategory}/v/${store.slug}`}
       >
@@ -45,7 +45,7 @@ const StoreResult = ({ store, onShowProduct }) => {
             <StoreName>{store.name}</StoreName>
           </StoreInfo>
         </a>
-      </Link>
+      </DynamicLink>
       <ProductsWrapper>
         <Slider {...settings}>
           {store.products.map((product, index) => {

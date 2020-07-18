@@ -123,6 +123,7 @@ const Store = ({
           slug: partner.slug,
           logo: partner.logo,
           location: partner.location,
+          eta: partner.eta || 40
         },
       });
     },
@@ -279,7 +280,7 @@ const Store = ({
 
                           <div>
                             <PartnerDeliveryText>Entrega</PartnerDeliveryText>
-                            <div>40 min</div>
+                            <div>{partner.eta || 40} min</div>
                           </div>
                         </PartnerDeliveryInfo>
                       </PartnerInfo>
@@ -309,7 +310,7 @@ const Store = ({
                               : null}
                           </div>
 
-                          <div>Entrega: 40 min</div>
+                          <div>Entrega: {partner.eta || 40} min</div>
                         </PartnerMobileDeliveryInfo>
                       </PartnerInfoMobile>
                     </>

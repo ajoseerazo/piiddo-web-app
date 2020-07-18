@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import firebase from "firebase";
 import {
   RestaurantName,
   RestaurantBanner,
@@ -13,7 +14,7 @@ import {
   BannerWrapper,
 } from "./styled";
 import { calculatePriceFromPoints } from "../../utils";
-import moment from "moment";
+import moment from "moment-timezone";
 
 const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
   const [deliveryPrice, setDeliveryPrice] = useState(null);
@@ -26,12 +27,12 @@ const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
     }
   }, [deliveryLocation, restaurant]);
 
-  const now = moment();
+  const now = moment.tz("America/Caracas");
 
   const closed =
     !restaurant.isOpen ||
-    (now.isBefore(moment(restaurant.openAt, "HH:mm")) &&
-      now.isAfter(moment(restaurant.closeAt, "HH:mm")));
+    now.isBefore(moment(restaurant.openAt, "HH:mm")) ||
+    now.isAfter(moment(restaurant.closeAt, "HH:mm"));
 
   return (
     <RestaurantWrapper>
@@ -62,7 +63,7 @@ const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
 
           <span>
             <RestaurantDeliveryETA>
-              <BottomText>Entrega en:</BottomText> 40 mins
+              <BottomText>Entrega en:</BottomText> {restaurant.eta || 40} mins
             </RestaurantDeliveryETA>
           </span>
         </RestaurantFilters>

@@ -428,6 +428,14 @@ const CheckoutPage = ({
     setFinalAmount(finalTotal + finalDelivery);
   }, [finalTotal, finalDelivery]);
 
+  let deliveryEta = 0;
+  for (let key in stores) {
+    console.log(stores[key]);
+    deliveryEta = stores[key].eta || 40;
+  }
+
+  deliveryEta = deliveryEta / Object.keys(stores).length;
+
   return (
     <>
       <Wrapper>
@@ -452,8 +460,8 @@ const CheckoutPage = ({
                   </CheckoutPersonalDataGroup>
 
                   <CheckoutTimeContainer>
-                    <span>Tiempo de entrega</span>
-                    <span>40mins</span>
+                    <span>Tiempo aprox. de entrega</span>
+                    <span>{parseFloat(deliveryEta).toFixed(2)} mins</span>
                   </CheckoutTimeContainer>
                 </CheckoutAddress>
               </CheckoutBox>

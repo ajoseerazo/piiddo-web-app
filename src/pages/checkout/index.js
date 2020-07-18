@@ -461,7 +461,7 @@ const CheckoutPage = ({
 
                   <CheckoutTimeContainer>
                     <span>Tiempo aprox. de entrega</span>
-                    <span>{parseFloat(deliveryEta).toFixed(2)} mins</span>
+                    <span>{parseFloat(deliveryEta).toFixed(0)} mins</span>
                   </CheckoutTimeContainer>
                 </CheckoutAddress>
               </CheckoutBox>

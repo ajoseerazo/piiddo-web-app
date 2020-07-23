@@ -33,7 +33,7 @@ export const FiltersWrapper = styled.div`
   width: 256px;
 
   @media screen and (max-width: 768px) {
-    display: none;
+    width: 100%;
   }
 `;
 
@@ -58,6 +58,7 @@ export const ContentWrapper = styled.div`
     margin: 0px;
     width: 100%;
     padding: 0px;
+    margin-top: 37px;
 
     h1  {
       line-height: 25px;
@@ -94,7 +95,7 @@ export const MobileSearchWrapper = styled.div`
 
     input {
       display: block !important;
-      font-size: 14px !important; 
+      font-size: 14px !important;
     }
   }
 `;

@@ -14,7 +14,19 @@ const withSearchAbility = (WrappedComponent, selectData) => {
         window.document.body.style.overflowY = "auto";
       }
 
-      Router.push(`/search?query=${searchText.toLowerCase()}`);
+      const { type } = Router.query;
+
+      Router.push(
+        type !== "store"
+          ? `/search?query=${searchText.toLowerCase()}`
+          : `/search?query=${searchText.toLowerCase()}&type=${type}`,
+        type !== "store"
+          ? `/search?query=${searchText.toLowerCase()}`
+          : `/search?query=${searchText.toLowerCase()}&type=${type}`,
+        {
+          shallow: true,
+        }
+      );
     };
 
     onClickSearch = () => {

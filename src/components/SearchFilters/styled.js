@@ -8,12 +8,26 @@ export const Wrapper = styled.div`
   border-radius: 12px;
   overflow-y: hidden;
   height: 100%;
+
+  @media screen and (max-width: 768px) {
+    padding: 0px;
+    border-radius: 0px;
+    position: fixed;
+    top: 100px;
+    z-index: 1000;
+    height: 43px;
+    width: 100%;
+  }
 `;
 
 export const FilterTitle = styled.div`
   font-weight: 600;
   margin-left: 15px;
   margin-right: 15px;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const FiltersContent = styled.ul`
@@ -32,6 +46,26 @@ export const FiltersContent = styled.ul`
     &.active {
       border-left: 2px solid #f74342;
       font-weight: 600;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    flex-direction: row;
+    margin-top: 0px;
+
+    li {
+      flex: 1;
+      border-left: 0px;
+      text-align: center;
+      border-bottom: 2px solid #fff;
+
+      &:hover,
+      &.active {
+        border-left: 0px;
+        font-weight: 600;
+        border-bottom: 2px solid #f74342;
+      }
     }
   }
 `;

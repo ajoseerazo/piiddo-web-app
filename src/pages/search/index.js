@@ -14,19 +14,24 @@ import shoppingCartActions from "../../redux/actions/shoppingCart";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ProductModal from "../../components/ProductModal";
+import { useRouter } from "next/router";
 
-const { fetchProduct } = productsActions;
+const { fetchProduct, searchProducts } = productsActions;
 const { addToCart } = shoppingCartActions;
 
 const Search = ({
   product,
-  products,
+  results,
   searchText,
-  actions: { fetchProduct, addToCart },
+  type,
+  actions: { fetchProduct, addToCart, searchProducts },
+  partners,
 }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [productSelected, setProductSelect] = useState();
   const [storeSelected, setStoreSelected] = useState();
+  const router = useRouter();
+  const { query } = router.query;
 
   useEffect(() => {
     if (product) {
@@ -43,10 +48,12 @@ const Search = ({
       id: store.id,
       logo: store.logo,
       slug: store.slug,
-      location: {
-        lat: store.location._latitude,
-        lng: store.location._longitude,
-      },
+      location: store.location
+        ? {
+            lat: store.location._latitude,
+            lng: store.location._longitude,
+          }
+        : {},
     });
   });
 
@@ -72,6 +79,25 @@ const Search = ({
     [storeSelected]
   );
 
+  const onSelectFilter = useCallback(
+    (filterType) => {
+      if (filterType === "products") {
+        router.push(`/search?query=${query}`, `/search?query=${query}`, {
+          shallow: true,
+        });
+      } else {
+        router.push(
+          `/search?query=${query}&type=store`,
+          `/search?query=${query}&type=store`,
+          {
+            shallow: true,
+          }
+        );
+      }
+    },
+    [query]
+  );
+
   return (
     <>
       <SearchPageWrapper>
@@ -81,17 +107,17 @@ const Search = ({
           </MobileSearchWrapper>
 
           <FiltersWrapper>
-            <Filters />
+            <Filters onSelectFilter={onSelectFilter} typeSelected={type} />
           </FiltersWrapper>
 
           <ContentWrapper>
-            <ResultsTitle>Resultados para: {searchText}</ResultsTitle>
+            <ResultsTitle>Resultados para: {query}</ResultsTitle>
 
-            {products &&
-              Object.keys(products).map((key, index) => {
+            {results &&
+              Object.keys(results).map((key, index) => {
                 return (
                   <StoreResult
-                    store={products[key]}
+                    store={results[key]}
                     key={index}
                     onShowProduct={onAddProduct}
                   />
@@ -113,7 +139,10 @@ const Search = ({
 
 function mapDispatchToProps(dispatch, props) {
   return {
-    actions: bindActionCreators({ fetchProduct, addToCart }, dispatch),
+    actions: bindActionCreators(
+      { fetchProduct, addToCart, searchProducts },
+      dispatch
+    ),
   };
 }
 

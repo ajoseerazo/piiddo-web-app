@@ -7,6 +7,7 @@ import algoliasearch from "algoliasearch/lite";
 
 const client = algoliasearch("VIM0LCZXZS", "92d89fdcbec4d67d6613a28560459d56");
 const productsIndex = client.initIndex("products");
+const storesIndex = client.initIndex("stores");
 
 class Products {
   static getAll = async (parentId, type = "partner") => {
@@ -201,6 +202,18 @@ class Partners {
 
     return categoriesSorted;
   };
+
+  static search = async (searchText) => {
+    console.log(searchText);
+
+    const { hits } = await storesIndex.search(searchText, {
+      hitsPerPage: 30,
+    });
+
+    console.log(hits);
+
+    return hits;
+  }
 }
 
 class DeliveryLocation {

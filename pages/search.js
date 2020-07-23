@@ -1,24 +1,29 @@
 import { useEffect, useState } from "react";
 import productsActions from "../src/redux/actions/products";
+import partnersActions from "../src/redux/actions/partners";
 import { wrapper } from "../src/redux/store";
 import ShopHeader from "../src/components/ShopHeader/ShopHeader";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import SearchPage from "../src/pages/search";
 import { useRouter } from "next/router";
-import Toolbar from "../src/components/Toolbar";
 
 const { searchProducts } = productsActions;
+const { searchPartners } = partnersActions;
 
 const Search = ({
   address,
   products,
   searchText,
-  actions: { searchProducts },
+  actions: { searchProducts, searchPartners },
+  partners,
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
   const router = useRouter();
   const [currentQuery, setCurrentQuery] = useState(searchText);
+  const {
+    query: { query, type },
+  } = router;
 
   useEffect(() => {
     if (!isBrowser) {
@@ -27,21 +32,29 @@ const Search = ({
       }
     } else {
       const {
-        query: { query },
+        query: { query, type },
       } = router;
 
-      if (query !== currentQuery) {
-        searchProducts(query);
-        setCurrentQuery(query);
+      if (type !== "store") {
+        if (query /* !== currentQuery*/) {
+          searchProducts(query);
+          setCurrentQuery(query);
+        }
+      } else {
+        searchPartners(query);
       }
     }
-  }, [currentQuery, isBrowser, router.query]);
+  }, [currentQuery, isBrowser, router, router.query]);
 
   return (
     <>
       <ShopHeader address={address} />
 
-      <SearchPage products={products} searchText={searchText} />
+      <SearchPage
+        results={type === "store" ? partners : products}
+        searchText={searchText}
+        type={type}
+      />
     </>
   );
 };
@@ -49,10 +62,14 @@ const Search = ({
 export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
   const {
     store,
-    query: { query },
+    query: { query, type },
   } = ctx;
 
-  await store.dispatch(searchProducts(query));
+  if (type !== "store") {
+    await store.dispatch(searchProducts(query));
+  } else {
+    await store.dispatch(searchPartners(query));
+  }
 
   return {
     props: {
@@ -64,17 +81,19 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
 function mapStateToProps(state, props) {
   const { isSearching, productsResult } = state.Products;
   const { deliveryAddress } = state.Location;
+  const { partnersResult } = state.Partners;
 
   return {
     isSearching,
     products: productsResult,
     address: deliveryAddress,
+    partners: partnersResult,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators({ searchProducts }, dispatch),
+    actions: bindActionCreators({ searchProducts, searchPartners }, dispatch),
   };
 }
 

@@ -1,13 +1,25 @@
 import { Wrapper, FilterTitle, FiltersContent } from "./styled";
 
-const SearchFilters = () => {
+const SearchFilters = ({ onSelectFilter, typeSelected = "products" }) => {
   return (
     <Wrapper>
       <FilterTitle>Filtrar por</FilterTitle>
 
       <FiltersContent>
-        <li className="active">Productos</li>
-        <li>Tiendas</li>
+        <li
+          className={
+            typeSelected === "products" || !typeSelected ? "active" : undefined
+          }
+          onClick={() => onSelectFilter("products")}
+        >
+          Productos
+        </li>
+        <li
+          className={typeSelected === "store" ? "active" : undefined}
+          onClick={() => onSelectFilter("stores")}
+        >
+          Tiendas
+        </li>
       </FiltersContent>
     </Wrapper>
   );

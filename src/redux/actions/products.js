@@ -134,8 +134,6 @@ const productsActions = {
         dispatch(productsActions.searchProductsFailed(error));
       }
     };
-
-    return products;
   },
 };
 

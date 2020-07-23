@@ -10,6 +10,8 @@ const initialState = {
   isLoadingCatalogCategories: false,
   catalogCategories: null,
   catalogLoaded: false,
+  partnersResult: null,
+  isSearchingPartners: false,
 };
 
 export default function partnersReducer(state = initialState, action) {
@@ -80,6 +82,35 @@ export default function partnersReducer(state = initialState, action) {
         isLoadingCatalogCategories: false,
         catalogCategories: action.categories,
         catalogLoaded: true,
+      };
+    case actions.SEARCH_PARTNERS_REQUEST:
+      return {
+        ...state,
+        isSearchingPartners: true,
+      };
+    case actions.SEARCH_PARTNERS_FAILED:
+      return {
+        ...state,
+        isSearchingPartners: false,
+      };
+    case actions.SEARCH_PARTNERS_SUCCESS:
+      const storesHash = {};
+
+      for (let i = 0; i < action.partners.length; i++) {
+        if (!storesHash[action.partners[i].slug]) {
+          const partner = action.partners[i];
+
+          storesHash[partner.slug] = {
+            ...partner,
+          };
+          storesHash[partner.slug].products = [];
+        }
+      }
+
+      return {
+        ...state,
+        isSearchingPartners: false,
+        partnersResult: storesHash,
       };
     default:
       return state;

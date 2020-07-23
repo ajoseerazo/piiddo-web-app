@@ -13,6 +13,9 @@ const partnersActions = {
   GET_CATALOG_CATEGORIES_REQUEST: "GET_CATALOG_CATEGORIES_REQUEST",
   GET_CATALOG_CATEGORIES_SUCCESS: "GET_CATALOG_CATEGORIES_SUCCESS",
   GET_CATALOG_CATEGORIES_FAILED: "GET_CATALOG_CATEGORIES_FAILED",
+  SEARCH_PARTNERS_REQUEST: "SEARCH_PARTNERS_REQUEST",
+  SEARCH_PARTNERS_SUCCESS: "SEARCH_PARTNERS_SUCCESS",
+  SEARCH_PARTNERS_FAILED: "SEARCH_PARTNERS_FAILED",
   fetchingPartners: () => {
     return {
       type: partnersActions.GET_ALL_PARTNERS_REQUEST,
@@ -143,6 +146,36 @@ const partnersActions = {
         return categories;
       } catch (error) {
         dispatch(partnersActions.fetchCatalogFailed(error));
+      }
+    };
+  },
+  searchingPartners: () => {
+    return {
+      type: partnersActions.SEARCH_PARTNERS_REQUEST,
+    };
+  },
+  searchPartnersFailed: (error) => {
+    return {
+      type: partnersActions.SEARCH_PARTNERS_FAILED,
+      error,
+    };
+  },
+  searchPartnersSuccess: (partners) => {
+    return {
+      type: partnersActions.SEARCH_PARTNERS_SUCCESS,
+      partners,
+    };
+  },
+  searchPartners: (searchText) => {
+    return async (dispatch) => {
+      try {
+        dispatch(partnersActions.searchingPartners());
+
+        const partners = await API.Partners.search(searchText);
+
+        dispatch(partnersActions.searchPartnersSuccess(partners));
+      } catch (error) {
+        dispatch(partnersActions.searchPartnersFailed(error));
       }
     };
   },

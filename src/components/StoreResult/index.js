@@ -46,19 +46,21 @@ const StoreResult = ({ store, onShowProduct }) => {
           </StoreInfo>
         </a>
       </DynamicLink>
-      <ProductsWrapper>
-        <Slider {...settings}>
-          {store.products.map((product, index) => {
-            return (
-              <ProductItemResult
-                product={product}
-                key={product.id}
-                onAddProduct={onShowProduct.bind(this, product, store)}
-              />
-            );
-          })}
-        </Slider>
-      </ProductsWrapper>
+      {store.products && store.products.length !== 0 && (
+        <ProductsWrapper>
+          <Slider {...settings}>
+            {store.products.map((product, index) => {
+              return (
+                <ProductItemResult
+                  product={product}
+                  key={product.id}
+                  onAddProduct={onShowProduct.bind(this, product, store)}
+                />
+              );
+            })}
+          </Slider>
+        </ProductsWrapper>
+      )}
     </StoreWrapper>
   );
 };

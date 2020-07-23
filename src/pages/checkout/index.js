@@ -159,7 +159,7 @@ const CheckoutPage = ({
     }
 
     if (coupon) {
-      payload.coupon = coupon;
+      payload.coupon = coupon.code;
     }
 
     if (
@@ -297,6 +297,10 @@ const CheckoutPage = ({
         paymentDetails: details,
       };
 
+      if (coupon) {
+        payload.coupon = coupon.code;
+      }
+
       createOrder(payload);
     },
     [
@@ -319,6 +323,7 @@ const CheckoutPage = ({
       finalTotal,
       creditCard,
       setPaypalPaymentSuccess,
+      coupon,
     ]
   );
 

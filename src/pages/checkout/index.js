@@ -386,10 +386,19 @@ const CheckoutPage = ({
       });
     } else {
       if (coupon && coupon.id && !loadingCoupon) {
-        addToast(`Cupón aplicado exitosamente`, {
-          appearance: "success",
-          autoDismiss: true,
-        });
+        if (coupon.maxLimit) {
+          if (finalAmount <= coupon.maxLimit) {
+            addToast(`Cupón aplicado exitosamente`, {
+              appearance: "success",
+              autoDismiss: true,
+            });
+          }
+        } else {
+          addToast(`Cupón aplicado exitosamente`, {
+            appearance: "success",
+            autoDismiss: true,
+          });
+        }
       }
     }
   }, [coupon, loadingCoupon]);
@@ -408,11 +417,24 @@ const CheckoutPage = ({
           break;
         case "TOTAL":
           if (coupon.discount.type === "percentage") {
+            if (coupon.maxLimit) {
+              if (finalAmount > coupon.maxLimit) {
+                addToast(
+                  `El valor del pedido supera el monto máximo del cupón que son ${coupon.maxLimit}$`,
+                  {
+                    appearance: "error",
+                    autoDismiss: true,
+                  }
+                );
+                break;
+              }
+            }
+
             setFinalAmount(
-              finalAmout - (finalAmout * coupon.discount.amount) / 100
+              finalAmount - (finalAmount * coupon.discount.amount) / 100
             );
           } else {
-            setFinalAmount(finalAmout - coupon.discount.amount);
+            setFinalAmount(finalAmount - coupon.discount.amount);
           }
           break;
         default:
@@ -422,7 +444,7 @@ const CheckoutPage = ({
       setFinalDelivery(deliveryTotal);
       setFinalTotal(total);
     }
-  }, [total, deliveryTotal, coupon]);
+  }, [total, deliveryTotal, coupon, finalAmount]);
 
   useEffect(() => {
     setFinalAmount(finalTotal + finalDelivery);
@@ -540,7 +562,9 @@ const CheckoutPage = ({
                   <CouponForm>
                     <label>Cupón</label>
 
-                    {!coupon || coupon === "not-valid" ? (
+                    {!coupon ||
+                    coupon === "not-valid" ||
+                    (coupon.maxLimit && finalAmount > coupon.maxLimit) ? (
                       <>
                         <CheckoutInput
                           placeholder="Ingresa un cupón"

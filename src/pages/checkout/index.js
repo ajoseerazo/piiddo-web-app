@@ -160,7 +160,7 @@ const CheckoutPage = ({
       return;
     }
 
-    if (coupon && !couponApplied && !invalidCoupon) {
+    if (coupon && couponApplied && !invalidCoupon) {
       payload.coupon = coupon.code;
     }
 
@@ -301,7 +301,7 @@ const CheckoutPage = ({
         paymentDetails: details,
       };
 
-      if (coupon && !couponApplied && !invalidCoupon) {
+      if (coupon && couponApplied && !invalidCoupon) {
         payload.coupon = coupon.code;
       }
 

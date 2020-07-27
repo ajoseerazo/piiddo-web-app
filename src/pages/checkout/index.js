@@ -160,7 +160,7 @@ const CheckoutPage = ({
       return;
     }
 
-    if (coupon) {
+    if (coupon && !couponApplied && !invalidCoupon) {
       payload.coupon = coupon.code;
     }
 
@@ -220,6 +220,8 @@ const CheckoutPage = ({
     coupon,
     finalDelivery,
     finalTotal,
+    couponApplied,
+    invalidCoupon,
   ]);
 
   useEffect(() => {
@@ -299,7 +301,7 @@ const CheckoutPage = ({
         paymentDetails: details,
       };
 
-      if (coupon) {
+      if (coupon && !couponApplied && !invalidCoupon) {
         payload.coupon = coupon.code;
       }
 
@@ -326,6 +328,8 @@ const CheckoutPage = ({
       creditCard,
       setPaypalPaymentSuccess,
       coupon,
+      couponApplied,
+      invalidCoupon,
     ]
   );
 
@@ -489,11 +493,8 @@ const CheckoutPage = ({
         default:
           break;
       }
-    } else {
-      setFinalDelivery(deliveryTotal);
-      setFinalTotal(total);
     }
-  }, [total, deliveryTotal, coupon, finalAmount, invalidCoupon]);
+  }, [total, deliveryTotal, coupon, finalAmount, invalidCoupon, couponApplied]);
 
   useEffect(() => {
     setFinalAmount(finalTotal + finalDelivery);
@@ -501,13 +502,10 @@ const CheckoutPage = ({
 
   let deliveryEta = 0;
   for (let key in stores) {
-    console.log(stores[key]);
     deliveryEta = deliveryEta + stores[key].eta || 40;
   }
 
   deliveryEta = deliveryEta / Object.keys(stores).length;
-
-  console.log("User", user);
 
   return (
     <>

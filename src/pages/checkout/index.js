@@ -102,6 +102,8 @@ const CheckoutPage = ({
   const [finalTotal, setFinalTotal] = useState(total || 0);
   const [finalDelivery, setFinalDelivery] = useState(deliveryTotal);
   const [finalAmount, setFinalAmount] = useState(total + deliveryTotal);
+  const [couponApplied, setCouponApplied] = useState(false);
+  const [invalidCoupon, setInvalidCoupon] = useState(false);
   const user = useUser();
   const router = useRouter();
 
@@ -389,41 +391,44 @@ const CheckoutPage = ({
         appearance: "error",
         autoDismiss: true,
       });
+      setInvalidCoupon(true);
     } else {
       if (coupon && coupon.id && !loadingCoupon) {
-        if (coupon.maxLimit) {
-          if (finalAmount <= coupon.maxLimit) {
+        if (!coupon.isPersonal) {
+          if (coupon.maxLimit) {
+            if (finalAmount <= coupon.maxLimit) {
+              addToast(`Cupón aplicado exitosamente`, {
+                appearance: "success",
+                autoDismiss: true,
+              });
+              setInvalidCoupon(false);
+            } else {
+              addToast(
+                `El valor del pedido supera el monto máximo del cupón que son ${coupon.maxLimit}$`,
+                {
+                  appearance: "error",
+                  autoDismiss: true,
+                }
+              );
+              setInvalidCoupon(true);
+            }
+          } else {
             addToast(`Cupón aplicado exitosamente`, {
               appearance: "success",
               autoDismiss: true,
             });
+            setInvalidCoupon(false);
           }
         } else {
-          addToast(`Cupón aplicado exitosamente`, {
-            appearance: "success",
-            autoDismiss: true,
-          });
-        }
-      }
-    }
-  }, [coupon, loadingCoupon]);
-
-  useEffect(() => {
-    if (coupon && coupon.id) {
-      switch (coupon.type) {
-        case "DELIVERY":
-          if (coupon.discount.type === "percentage") {
-            setFinalDelivery(
-              deliveryTotal - (deliveryTotal * coupon.discount.amount) / 100
-            );
-          } else {
-            setFinalDelivery(deliveryTotal - coupon.discount.amount);
-          }
-          break;
-        case "TOTAL":
-          if (coupon.discount.type === "percentage") {
+          if (coupon.uid === user.uid) {
             if (coupon.maxLimit) {
-              if (finalAmount > coupon.maxLimit) {
+              if (finalAmount <= coupon.maxLimit) {
+                addToast(`Cupón aplicado exitosamente`, {
+                  appearance: "success",
+                  autoDismiss: true,
+                });
+                setInvalidCoupon(false);
+              } else {
                 addToast(
                   `El valor del pedido supera el monto máximo del cupón que son ${coupon.maxLimit}$`,
                   {
@@ -431,15 +436,54 @@ const CheckoutPage = ({
                     autoDismiss: true,
                   }
                 );
-                break;
+                setInvalidCoupon(true);
               }
+            } else {
+              addToast(`Cupón aplicado exitosamente`, {
+                appearance: "success",
+                autoDismiss: true,
+              });
+              setInvalidCoupon(false);
             }
+          } else {
+            addToast(`Cupón no válido para este usuario`, {
+              appearance: "error",
+              autoDismiss: true,
+            });
+            setInvalidCoupon(true);
+          }
+        }
+      }
+    }
+  }, [user, coupon, loadingCoupon]);
 
+  useEffect(() => {
+    if (coupon && coupon.id && !couponApplied && !invalidCoupon) {
+      switch (coupon.type) {
+        case "DELIVERY":
+          if (coupon.discount.type === "percentage") {
+            setCouponApplied(true);
+            setFinalDelivery(
+              deliveryTotal - (deliveryTotal * coupon.discount.amount) / 100
+            );
+          } else {
+            setCouponApplied(true);
+            setFinalDelivery(deliveryTotal - coupon.discount.amount);
+          }
+          break;
+        case "TOTAL":
+          if (coupon.discount.type === "percentage") {
+            setCouponApplied(true);
             setFinalAmount(
               finalAmount - (finalAmount * coupon.discount.amount) / 100
             );
           } else {
-            setFinalAmount(finalAmount - coupon.discount.amount);
+            setCouponApplied(true);
+            setFinalAmount(
+              coupon.discount.amount > finalAmount
+                ? 0
+                : finalAmount - coupon.discount.amount
+            );
           }
           break;
         default:
@@ -449,7 +493,7 @@ const CheckoutPage = ({
       setFinalDelivery(deliveryTotal);
       setFinalTotal(total);
     }
-  }, [total, deliveryTotal, coupon, finalAmount]);
+  }, [total, deliveryTotal, coupon, finalAmount, invalidCoupon]);
 
   useEffect(() => {
     setFinalAmount(finalTotal + finalDelivery);
@@ -462,6 +506,8 @@ const CheckoutPage = ({
   }
 
   deliveryEta = deliveryEta / Object.keys(stores).length;
+
+  console.log("User", user);
 
   return (
     <>
@@ -567,9 +613,7 @@ const CheckoutPage = ({
                   <CouponForm>
                     <label>Cupón</label>
 
-                    {!coupon ||
-                    coupon === "not-valid" ||
-                    (coupon.maxLimit && finalAmount > coupon.maxLimit) ? (
+                    {!couponApplied || invalidCoupon ? (
                       <>
                         <CheckoutInput
                           placeholder="Ingresa un cupón"

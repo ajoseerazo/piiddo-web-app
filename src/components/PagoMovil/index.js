@@ -15,12 +15,12 @@ import ImagesAPI from "../../api/images";
 
 const bankAccounts = [
   {
-    name: "Banco de Venezuela",
-    accountNumber: "0102-0437-2600-0107-7870",
-    accountType: "Ahorros",
-    accountName: "Miglenys Adrian",
-    accountDocumentType: "Cédula",
-    accountDocumnetNumber: "8.981.562",
+    name: "Banco Provincial",
+    accountNumber: "0108-0334-9701-0037-9275",
+    accountType: "Corriente",
+    accountName: "Piiddo C.A",
+    accountDocumentType: "NIT",
+    accountDocumnetNumber: "J-500258933",
   },
 ];
 

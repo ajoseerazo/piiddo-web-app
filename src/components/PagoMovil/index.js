@@ -76,9 +76,9 @@ const PagoMovil = ({ amount, onClickPayButton, loading, type }) => {
       <PagoMovilData>
         {type === "pago-movil" && (
           <div>
-            <div>Numero de teléfono: 04145745049</div>
-            <div>Cédula: 8055385</div>
-            <div>Banco: Mercantil</div>
+            <div>Numero de teléfono: 04121003427</div>
+            <div>NIT: J-50025893-3</div>
+            <div>Banco: Provincial</div>
           </div>
         )}
         {type === "bank-transfer" && (

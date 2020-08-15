@@ -123,7 +123,7 @@ const Store = ({
           slug: partner.slug,
           logo: partner.logo,
           location: partner.location,
-          eta: partner.eta || 40
+          eta: partner.eta || 40,
         },
       });
     },
@@ -382,6 +382,7 @@ const Store = ({
                                     <ProductItem
                                       key={product.id}
                                       product={product}
+                                      commision={partner.commision}
                                       onSelectProduct={() => {
                                         if (deliveryLocation) {
                                           if (partner.maxDeliveryDistance) {
@@ -427,6 +428,7 @@ const Store = ({
                               <ProductItem
                                 key={product.id}
                                 product={product}
+                                commision={partner.commision}
                                 onSelectProduct={openProduct.bind(
                                   this,
                                   product
@@ -468,6 +470,7 @@ const Store = ({
 };
 
 function mapStateToProps(state, props) {
+  const { partner } = props;
   const { products, isLoading } = state.Products;
   const {
     catalog,
@@ -483,13 +486,23 @@ function mapStateToProps(state, props) {
 
   if (products) {
     for (let i = 0; i < products.length; i++) {
-      if (products[i].categories) {
-        for (let j = 0; j < products[i].categories.length; j++) {
-          if (!productsHash[products[i].categories[j]]) {
-            productsHash[products[i].categories[j]] = [];
+      const product = products[i];
+      if (product.categories) {
+        for (let j = 0; j < product.categories.length; j++) {
+          if (!productsHash[product.categories[j]]) {
+            productsHash[product.categories[j]] = [];
           }
 
-          productsHash[products[i].categories[j]].push(products[i]);
+          productsHash[product.categories[j]].push(
+            !partner.commisionIncluded
+              ? {
+                  ...product,
+                  usdPrice: partner.commision
+                    ? product.usdPrice + product.usdPrice * partner.commision
+                    : product.usdPrice,
+                }
+              : product
+          );
         }
       }
     }

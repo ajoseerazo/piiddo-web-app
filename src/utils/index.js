@@ -2,6 +2,8 @@ import moment from "moment";
 import firebase from "firebase";
 import { getDistance } from "geolib";
 
+const IVA = 0.16;
+
 export const getCategoryName = (category) => {
   if (!category) return "Todos";
   if (category === "para-cumpleanos") return "Para Cumpleaños";
@@ -35,10 +37,10 @@ export const calculatePrice = (distance) => {
   if (distance <= MIN_DISTANCE_IN_METERS) {
     const basePrice = dynamicBase + 0.5;
 
-    return basePrice;
+    return basePrice + basePrice * IVA;
   } else {
     const p = distance * METER_VALUE;
-    return p;
+    return p + p * IVA;
   }
 };
 
@@ -48,7 +50,7 @@ export const calculatePriceFromPoints = (source, target) => {
     { latitude: target.lat, longitude: target.lng }
   );
 
-  return round(calculatePrice(distance), 1);
+  return round(calculatePrice(distance), 2);
 };
 
 export const getDataFromShoppingCart = (stores, deliveryLocation) => {

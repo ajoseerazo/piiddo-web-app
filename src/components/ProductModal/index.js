@@ -30,6 +30,7 @@ const ProductModal = (props) => {
   const [extras, setExtras] = useState([]);
   const [companions, setCompanions] = useState([]);
   const [totalPrice, setTotalPrice] = useState();
+  const [totalStorePrice, setTotalStorePrice] = useState();
   const [variations, setVariations] = useState({});
   const [variationsPrice, setVariationsPrice] = useState(0);
 
@@ -111,7 +112,8 @@ const ProductModal = (props) => {
       setExtras([]);
       setCompanions([]);
       setVariations({});
-      setTotalPrice(product.usdPrice);
+      setTotalPrice(product.finalPrice);
+      setTotalStorePrice(product.usdPrice);
     }
   }, [product]);
 
@@ -132,13 +134,16 @@ const ProductModal = (props) => {
       }
 
       setTotalPrice(
+        product.finalPrice + extraPrices + companionPrices + variationsPrice
+      );
+      setTotalStorePrice(
         product.usdPrice + extraPrices + companionPrices + variationsPrice
       );
     }
   }, [product, extras, companions, variationsPrice]);
 
   const onAddToCart = useCallback(
-    (totalAmount, count, basePrice) => {
+    (totalAmount, count, basePrice, totalStoreAmount, baseStorePrice) => {
       // If has variations
       let canAddToCart = true;
       let notifications = {};
@@ -161,8 +166,10 @@ const ProductModal = (props) => {
           companions,
           extras,
           totalAmount,
+          totalStoreAmount,
           count,
           basePrice,
+          baseStorePrice,
           variations: variations || null,
         });
       } else {
@@ -349,7 +356,11 @@ const ProductModal = (props) => {
             )}
           </ModalBodyRightStyled>
 
-          <ProductOperator basePrice={totalPrice} onAddToCart={onAddToCart} />
+          <ProductOperator
+            basePrice={totalPrice}
+            baseStorePrice={totalStorePrice}
+            onAddToCart={onAddToCart}
+          />
         </ModalBodyStyled>
       </ModalStyled>
     </div>

@@ -124,6 +124,8 @@ const Store = ({
           logo: partner.logo,
           location: partner.location,
           eta: partner.eta || 40,
+          commision: partner.commision,
+          commisionIncluded: partner.commisionIncluded,
         },
       });
     },
@@ -497,11 +499,14 @@ function mapStateToProps(state, props) {
             !partner.commisionIncluded
               ? {
                   ...product,
-                  usdPrice: partner.commision
+                  finalPrice: partner.commision
                     ? product.usdPrice + product.usdPrice * partner.commision
                     : product.usdPrice,
                 }
-              : product
+              : {
+                  ...product,
+                  finalPrice: product.usePrice,
+                }
           );
         }
       }

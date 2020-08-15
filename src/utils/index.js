@@ -83,8 +83,13 @@ export const getDataFromShoppingCart = (stores, deliveryLocation) => {
         deliveryTotal = deliveryTotal + totalDeliveryStore;
       }
 
+      const finalTotalStore = stores[key].items.reduce((a, b) => {
+        return a + b.totalStoreAmount;
+      }, 0);
+
       stores[key].totalDetails = {
         total: totalStore,
+        totalStore: finalTotalStore,
         delivery: totalDeliveryStore,
       };
     }

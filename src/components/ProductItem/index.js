@@ -28,7 +28,7 @@ const ProductItem = ({ product, onSelectProduct }) => {
         <ProductPrice>
           ${" "}
           {`${new Intl.NumberFormat("es").format(
-            parseFloat(product.usdPrice).toFixed(2)
+            parseFloat(product.finalPrice).toFixed(2)
           )}`}
         </ProductPrice>
 

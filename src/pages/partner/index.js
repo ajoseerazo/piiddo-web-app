@@ -505,7 +505,7 @@ function mapStateToProps(state, props) {
                 }
               : {
                   ...product,
-                  finalPrice: product.usePrice,
+                  finalPrice: product.usdPrice,
                 }
           );
         }

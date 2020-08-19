@@ -38,7 +38,7 @@ const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
     <RestaurantWrapper>
       <BannerWrapper>
         <RestaurantBanner src={restaurant.banner} />
-        {closed && <ClosedTag>Ya cerró</ClosedTag>}
+        {closed && <ClosedTag>Cerrado</ClosedTag>}
       </BannerWrapper>
 
       <RestaurantInfoWrapper>

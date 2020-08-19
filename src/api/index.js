@@ -4,6 +4,7 @@ import Cookies from "cookies-js";
 import Orders from "./orders";
 import Payments from "./payments";
 import algoliasearch from "algoliasearch/lite";
+import moment from "moment";
 
 const client = algoliasearch("VIM0LCZXZS", "92d89fdcbec4d67d6613a28560459d56");
 const productsIndex = client.initIndex("products");
@@ -232,9 +233,11 @@ class DeliveryLocation {
   }
 
   static set = async (address, location) => {
-    Cookies.set("deliveryAddress", address, { expires: Infinity });
+    Cookies.set("deliveryAddress", address, {
+      expires: moment().add(1, "year").toDate(),
+    });
     Cookies.set("deliveryLocation", JSON.stringify(location), {
-      expires: Infinity,
+      expires: moment().add(1, "year").toDate(),
     });
   };
 }

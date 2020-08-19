@@ -1,5 +1,6 @@
 import actions from "../actions/app";
 import Cookies from "cookies-js";
+import moment from "moment";
 
 const initialState = {
   cop_rate: 3500,
@@ -8,7 +9,7 @@ const initialState = {
   currency: "colombia",
   rate: 3500,
   currency_code: "COP",
-  city: null
+  city: null,
 };
 
 const getRate = (state, currency) => {
@@ -47,7 +48,9 @@ const appReducer = (state = initialState, action) => {
         currency_code: currencyAbbr(action.currency),
       };
     case actions.SELECT_CITY:
-      Cookies.set("city", action.city);
+      Cookies.set("city", action.city, {
+        expires: moment().add(1, "year").toDate(),
+      });
 
       return {
         ...state,
@@ -58,12 +61,12 @@ const appReducer = (state = initialState, action) => {
 
       return {
         ...state,
-        city
-      }
-    case actions.LOGOUT: 
+        city,
+      };
+    case actions.LOGOUT:
       return {
-        ...state
-      }
+        ...state,
+      };
     default:
       return state;
   }

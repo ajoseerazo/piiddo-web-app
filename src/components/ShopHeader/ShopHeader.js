@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -37,6 +37,7 @@ import useUser from "../../hooks/useUser";
 import Avatar from "../Avatar";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
+import { isMobile } from "react-device-detect";
 
 const { logout } = appActions;
 
@@ -57,6 +58,14 @@ const ShopHeader = ({
   hideAddressSelector,
   hideSarchBar,
 }) => {
+  const [isBrowser, setIsBrowser] = useState(false);
+
+  useEffect(() => {
+    if (typeof window !== undefined) {
+      setIsBrowser(true);
+    }
+  }, []);
+
   const dispatch = useDispatch();
 
   const user = useUser();
@@ -114,7 +123,11 @@ const ShopHeader = ({
 
       <Nav className="ml-auto" navbar>
         <NavItem className="address-selector-wrapper mobile">
-          <CitySelector city={city} disabled={hideCitySelector} />
+          {isBrowser && !isMobile && (
+            <Suspense fallback={<div></div>}>
+              <CitySelector city={city} disabled={hideCitySelector} />
+            </Suspense>
+          )}
         </NavItem>
 
         {!hideAddressSelector && (

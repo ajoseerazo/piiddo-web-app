@@ -213,7 +213,7 @@ class Partners {
     console.log(hits);
 
     return hits;
-  }
+  };
 }
 
 class DeliveryLocation {
@@ -232,8 +232,10 @@ class DeliveryLocation {
   }
 
   static set = async (address, location) => {
-    Cookies.set("deliveryAddress", address);
-    Cookies.set("deliveryLocation", JSON.stringify(location));
+    Cookies.set("deliveryAddress", address, { expires: Infinity });
+    Cookies.set("deliveryLocation", JSON.stringify(location), {
+      expires: Infinity,
+    });
   };
 }
 
@@ -274,4 +276,3 @@ export default {
   Auth,
   Coupons,
 };
-

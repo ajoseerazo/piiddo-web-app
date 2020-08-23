@@ -34,6 +34,8 @@ const ProductModal = (props) => {
   const [variations, setVariations] = useState({});
   const [variationsPrice, setVariationsPrice] = useState(0);
 
+  const { isOpen } = props;
+
   const onChangeOptions = useCallback(
     (selected, opt) => {
       let opts = [];
@@ -107,15 +109,22 @@ const ProductModal = (props) => {
   );
 
   useEffect(() => {
-    if (product) {
+    /*if (product || isOpen) {
+      /*setTotalPrice(product.finalPrice);
+      setTotalStorePrice(product.usdPrice);*/
+    /*setOptions([]);
+      setExtras([]);
+      setCompanions([]);
+      setVariations({});*
+    }*/
+    if (!isOpen) {
       setOptions([]);
       setExtras([]);
       setCompanions([]);
       setVariations({});
-      setTotalPrice(product.finalPrice);
-      setTotalStorePrice(product.usdPrice);
+      setVariationsPrice(0);
     }
-  }, [product]);
+  }, [product, isOpen]);
 
   useEffect(() => {
     if (product) {
@@ -220,6 +229,8 @@ const ProductModal = (props) => {
   if (!product) {
     return <></>;
   }
+
+  console.log("TotalPRice", totalPrice);
 
   return (
     <div>

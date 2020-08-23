@@ -33,6 +33,7 @@ const ProductModal = (props) => {
   const [totalStorePrice, setTotalStorePrice] = useState();
   const [variations, setVariations] = useState({});
   const [variationsPrice, setVariationsPrice] = useState(0);
+  const [variationsStorePrice, setVariationsStorePrice] = useState(0);
 
   const { isOpen } = props;
 
@@ -109,36 +110,33 @@ const ProductModal = (props) => {
   );
 
   useEffect(() => {
-    /*if (product || isOpen) {
-      /*setTotalPrice(product.finalPrice);
-      setTotalStorePrice(product.usdPrice);*/
-    /*setOptions([]);
-      setExtras([]);
-      setCompanions([]);
-      setVariations({});*
-    }*/
     if (!isOpen) {
       setOptions([]);
       setExtras([]);
       setCompanions([]);
       setVariations({});
       setVariationsPrice(0);
+      setVariationsStorePrice(0);
     }
   }, [product, isOpen]);
 
   useEffect(() => {
     if (product) {
       let extraPrices = 0;
+      let extraStorePrices = 0;
       if (extras) {
         for (let i = 0; i < extras.length; i++) {
-          extraPrices += extras[i].usdPrice;
+          extraPrices += extras[i].finalPrice;
+          extraStorePrices += extras[i].usdPrice;
         }
       }
 
       let companionPrices = 0;
+      let companionStorePrices = 0;
       if (companions) {
         for (let i = 0; i < companions.length; i++) {
-          companionPrices += companions[i].usdPrice;
+          companionPrices += companions[i].finalPrice;
+          companionStorePrices += companions[i].usdPrice;
         }
       }
 
@@ -146,10 +144,13 @@ const ProductModal = (props) => {
         product.finalPrice + extraPrices + companionPrices + variationsPrice
       );
       setTotalStorePrice(
-        product.usdPrice + extraPrices + companionPrices + variationsPrice
+        product.usdPrice +
+          extraStorePrices +
+          companionStorePrices +
+          variationsStorePrice
       );
     }
-  }, [product, extras, companions, variationsPrice]);
+  }, [product, extras, companions, variationsPrice, variationsStorePrice]);
 
   const onAddToCart = useCallback(
     (totalAmount, count, basePrice, totalStoreAmount, baseStorePrice) => {
@@ -200,17 +201,20 @@ const ProductModal = (props) => {
         if (!variations[variation.name]) {
           variations[variation.name] = {};
         } else {
-          previousPrice = parseFloat(variations[variation.name].price);
+          previousPrice = parseFloat(variations[variation.name].finalPrice);
         }
 
         variations[variation.name] = opt;
 
         let variationsPrices = 0;
+        let variationsStorePrices = 0;
         for (let key in variations) {
-          variationsPrices += parseFloat(variations[key].price);
+          variationsPrices += parseFloat(variations[key].finalPrice);
+          variationsStorePrices += parseFloat(variations[key].price);
         }
 
         setVariationsPrice(variationsPrices);
+        setVariationsStorePrice(variationsStorePrices);
 
         setVariations({
           ...variations,
@@ -229,8 +233,6 @@ const ProductModal = (props) => {
   if (!product) {
     return <></>;
   }
-
-  console.log("TotalPRice", totalPrice);
 
   return (
     <div>
@@ -270,8 +272,8 @@ const ProductModal = (props) => {
                                   label={opt.name}
                                   name={variation.name}
                                   rightLabel={
-                                    parseFloat(opt.price) !== 0
-                                      ? `+ ${opt.price}$`
+                                    parseFloat(opt.finalPrice) !== 0
+                                      ? `+ ${opt.finalPrice}$`
                                       : undefined
                                   }
                                   onChange={({ target }) => {
@@ -331,7 +333,9 @@ const ProductModal = (props) => {
                         <ProductCustomItemStyled key={extra.id}>
                           <PrettyCheckbox
                             label={extra.name}
-                            rightLabel={`+ ${extra.usdPrice}$`}
+                            rightLabel={`+ ${parseFloat(
+                              extra.finalPrice
+                            ).toFixed(2)}$`}
                             onChange={({ target }) => {
                               onChangeExtras(target.checked, extra);
                             }}
@@ -357,7 +361,7 @@ const ProductModal = (props) => {
                         <ProductCustomItemStyled key={companion.id}>
                           <PrettyCheckbox
                             label={companion.name}
-                            rightLabel={`+ ${companion.usdPrice}$`}
+                            rightLabel={`+ ${companion.finalPrice}$`}
                             onChange={({ target }) => {
                               onChangeCompanions(target.checked, companion);
                             }}

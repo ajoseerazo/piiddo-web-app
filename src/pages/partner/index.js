@@ -489,6 +489,53 @@ function mapStateToProps(state, props) {
   if (products) {
     for (let i = 0; i < products.length; i++) {
       const product = products[i];
+
+      if (product.extras) {
+        let finalExtras = product.extras.map((extra) => {
+          return {
+            ...extra,
+            finalPrice: partner.commision
+              ? extra.usdPrice + extra.usdPrice * partner.commision
+              : extra.usdPrice,
+          };
+        });
+
+        product.extras = finalExtras;
+      }
+
+      if (product.companions) {
+        let finalCompanions = product.companions.map((companion) => {
+          return {
+            ...companion,
+            finalPrice: partner.commision
+              ? companion.usdPrice + companion.usdPrice * partner.commision
+              : companion.usdPrice,
+          };
+        });
+
+        product.companions = finalCompanions;
+      }
+
+      if (product.variations) {
+        let finalVariations = product.variations.map((variation) => {
+          return {
+            ...variation,
+            options: variation.options.map((option) => {
+              console.log(option);
+              return {
+                ...option,
+                finalPrice: partner.commision
+                  ? parseFloat(option.price) +
+                    parseFloat(option.price) * partner.commision
+                  : parseFloat(option.price),
+              };
+            }),
+          };
+        });
+
+        product.variations = finalVariations;
+      }
+
       if (product.categories) {
         for (let j = 0; j < product.categories.length; j++) {
           if (!productsHash[product.categories[j]]) {

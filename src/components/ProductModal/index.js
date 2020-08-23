@@ -258,7 +258,11 @@ const ProductModal = (props) => {
                                 <PrettyRadioButton
                                   label={opt.name}
                                   name={variation.name}
-                                  rightLabel={`+ ${opt.price}$`}
+                                  rightLabel={
+                                    parseFloat(opt.price) !== 0
+                                      ? `+ ${opt.price}$`
+                                      : undefined
+                                  }
                                   onChange={({ target }) => {
                                     onChangeVariationOption(
                                       target.checked,

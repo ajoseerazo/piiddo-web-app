@@ -49,7 +49,7 @@ import productsActions from "../../redux/actions/products";
 import ProductsPlaceholder from "../../components/ProductsPlaceholder";
 import PartnerBannerPlaceholder from "../../components/PartnerBannerPlaceholder";
 import Toolbar from "../../components/Toolbar";
-import { calculatePriceFromPoints } from "../../utils";
+import { calculatePriceFromPoints, getPrice } from "../../utils";
 import GA from "../../utils/ga";
 import MetaTags from "../../components/MetaTags";
 import Link from "next/link";
@@ -494,9 +494,7 @@ function mapStateToProps(state, props) {
         let finalExtras = product.extras.map((extra) => {
           return {
             ...extra,
-            finalPrice: partner.commision
-              ? extra.usdPrice + extra.usdPrice * partner.commision
-              : extra.usdPrice,
+            finalPrice: getPrice(partner, extra.usdPrice),
           };
         });
 
@@ -507,9 +505,7 @@ function mapStateToProps(state, props) {
         let finalCompanions = product.companions.map((companion) => {
           return {
             ...companion,
-            finalPrice: partner.commision
-              ? companion.usdPrice + companion.usdPrice * partner.commision
-              : companion.usdPrice,
+            finalPrice: getPrice(partner, companion.usdPrice),
           };
         });
 
@@ -524,10 +520,7 @@ function mapStateToProps(state, props) {
               console.log(option);
               return {
                 ...option,
-                finalPrice: partner.commision
-                  ? parseFloat(option.price) +
-                    parseFloat(option.price) * partner.commision
-                  : parseFloat(option.price),
+                finalPrice: getPrice(partner, parseFloat(option.price)),
               };
             }),
           };
@@ -542,19 +535,10 @@ function mapStateToProps(state, props) {
             productsHash[product.categories[j]] = [];
           }
 
-          productsHash[product.categories[j]].push(
-            !partner.commisionIncluded
-              ? {
-                  ...product,
-                  finalPrice: partner.commision
-                    ? product.usdPrice + product.usdPrice * partner.commision
-                    : product.usdPrice,
-                }
-              : {
-                  ...product,
-                  finalPrice: product.usdPrice,
-                }
-          );
+          productsHash[product.categories[j]].push({
+            ...product,
+            finalPrice: getPrice(partner, product.usdPrice),
+          });
         }
       }
     }

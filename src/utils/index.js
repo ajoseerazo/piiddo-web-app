@@ -120,3 +120,11 @@ export const askForPermissionToReceiveNotifications = async (callback) => {
     console.error("Error", error);
   }
 };
+
+export const getPrice = (partner, basePrice) => {
+  return !partner.commisionIncluded
+    ? partner.commision
+      ? basePrice + basePrice * partner.commision
+      : basePrice
+    : basePrice;
+};

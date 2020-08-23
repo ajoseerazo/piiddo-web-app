@@ -5,6 +5,7 @@ import productsActions from "../../../../../../src/redux/actions/products";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { wrapper } from "../../../../../../src/redux/store";
+import { normalizeProduct } from "../../../../../../src/utils";
 
 const { fetchPartner } = partnersActions;
 const { fetchProduct } = productsActions;
@@ -33,7 +34,7 @@ export const getServerSideProps = wrapper.getServerSideProps(async (ctx) => {
   return {
     props: {
       partner,
-      product,
+      product: normalizeProduct(product, partner),
       city,
     },
   };

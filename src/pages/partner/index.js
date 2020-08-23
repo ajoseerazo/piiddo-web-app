@@ -49,7 +49,11 @@ import productsActions from "../../redux/actions/products";
 import ProductsPlaceholder from "../../components/ProductsPlaceholder";
 import PartnerBannerPlaceholder from "../../components/PartnerBannerPlaceholder";
 import Toolbar from "../../components/Toolbar";
-import { calculatePriceFromPoints, getPrice } from "../../utils";
+import {
+  calculatePriceFromPoints,
+  getPrice,
+  normalizeProduct,
+} from "../../utils";
 import GA from "../../utils/ga";
 import MetaTags from "../../components/MetaTags";
 import Link from "next/link";
@@ -364,6 +368,7 @@ const Store = ({
                                 {products[cat.id].map((product) => (
                                   <a
                                     href={`/${city}/${partner.mainCategory}/v/${partner.slug}/productos/${product.id}`}
+                                    key={`${product.id}`}
                                     onClick={(e) => {
                                       e.preventDefault();
 
@@ -488,46 +493,7 @@ function mapStateToProps(state, props) {
 
   if (products) {
     for (let i = 0; i < products.length; i++) {
-      const product = products[i];
-
-      if (product.extras) {
-        let finalExtras = product.extras.map((extra) => {
-          return {
-            ...extra,
-            finalPrice: getPrice(partner, extra.usdPrice),
-          };
-        });
-
-        product.extras = finalExtras;
-      }
-
-      if (product.companions) {
-        let finalCompanions = product.companions.map((companion) => {
-          return {
-            ...companion,
-            finalPrice: getPrice(partner, companion.usdPrice),
-          };
-        });
-
-        product.companions = finalCompanions;
-      }
-
-      if (product.variations) {
-        let finalVariations = product.variations.map((variation) => {
-          return {
-            ...variation,
-            options: variation.options.map((option) => {
-              console.log(option);
-              return {
-                ...option,
-                finalPrice: getPrice(partner, parseFloat(option.price)),
-              };
-            }),
-          };
-        });
-
-        product.variations = finalVariations;
-      }
+      const product = normalizeProduct(products[i], partner);
 
       if (product.categories) {
         for (let j = 0; j < product.categories.length; j++) {
@@ -535,10 +501,7 @@ function mapStateToProps(state, props) {
             productsHash[product.categories[j]] = [];
           }
 
-          productsHash[product.categories[j]].push({
-            ...product,
-            finalPrice: getPrice(partner, product.usdPrice),
-          });
+          productsHash[product.categories[j]].push(product);
         }
       }
     }

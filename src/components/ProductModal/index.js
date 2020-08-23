@@ -273,7 +273,9 @@ const ProductModal = (props) => {
                                   name={variation.name}
                                   rightLabel={
                                     parseFloat(opt.finalPrice) !== 0
-                                      ? `+ ${parseFloat(opt.finalPrice).toFixed(2)}$`
+                                      ? `+ ${parseFloat(opt.finalPrice).toFixed(
+                                          2
+                                        )}$`
                                       : undefined
                                   }
                                   onChange={({ target }) => {
@@ -361,7 +363,9 @@ const ProductModal = (props) => {
                         <ProductCustomItemStyled key={companion.id}>
                           <PrettyCheckbox
                             label={companion.name}
-                            rightLabel={`+ ${parseFloat(companion.finalPrice).toFixed(2)}$`}
+                            rightLabel={`+ ${parseFloat(
+                              companion.finalPrice
+                            ).toFixed(2)}$`}
                             onChange={({ target }) => {
                               onChangeCompanions(target.checked, companion);
                             }}

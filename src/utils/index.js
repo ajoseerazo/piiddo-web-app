@@ -124,7 +124,53 @@ export const askForPermissionToReceiveNotifications = async (callback) => {
 export const getPrice = (partner, basePrice) => {
   return !partner.commisionIncluded
     ? partner.commision
-      ? basePrice + basePrice * partner.commision
+      ? parseFloat(basePrice) + parseFloat(basePrice) * partner.commision
       : basePrice
     : basePrice;
+};
+
+export const normalizeProduct = (p, partner) => {
+  const product = p;
+
+  if (product.extras) {
+    let finalExtras = product.extras.map((extra) => {
+      return {
+        ...extra,
+        finalPrice: getPrice(partner, extra.usdPrice),
+      };
+    });
+
+    product.extras = finalExtras;
+  }
+
+  if (product.companions) {
+    let finalCompanions = product.companions.map((companion) => {
+      return {
+        ...companion,
+        finalPrice: getPrice(partner, companion.usdPrice),
+      };
+    });
+
+    product.companions = finalCompanions;
+  }
+
+  if (product.variations) {
+    let finalVariations = product.variations.map((variation) => {
+      return {
+        ...variation,
+        options: variation.options.map((option) => {
+          return {
+            ...option,
+            finalPrice: getPrice(partner, parseFloat(option.price)),
+          };
+        }),
+      };
+    });
+
+    product.variations = finalVariations;
+  }
+
+  product.finalPrice = getPrice(partner, product.usdPrice);
+
+  return product;
 };

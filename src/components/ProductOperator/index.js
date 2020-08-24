@@ -18,8 +18,14 @@ const ProductOperator = ({ basePrice, onAddToCart, baseStorePrice }) => {
   );
 
   const onAddToCartClick = useCallback(() => {
-    onAddToCart(totalPrice, totalCount, basePrice, totalStorePrice, baseStorePrice);
-  }, [totalPrice, totalCount, basePrice, baseStorePrice]);
+    onAddToCart(
+      totalPrice,
+      totalCount,
+      basePrice,
+      totalStorePrice,
+      baseStorePrice
+    );
+  }, [totalPrice, totalCount, basePrice, baseStorePrice, onAddToCart]);
 
   useEffect(() => {
     setTotalPrice(totalCount * basePrice);

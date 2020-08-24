@@ -197,26 +197,31 @@ const ProductModal = (props) => {
     (checked, variation, opt) => {
       if (checked) {
         let previousPrice = 0;
-        if (!variations[variation.name]) {
-          variations[variation.name] = {};
+
+        let newVariations = {
+          ...variations,
+        };
+
+        if (!newVariations[variation.name]) {
+          newVariations[variation.name] = {};
         } else {
-          previousPrice = parseFloat(variations[variation.name].finalPrice);
+          previousPrice = parseFloat(newVariations[variation.name].finalPrice);
         }
 
-        variations[variation.name] = opt;
+        newVariations[variation.name] = opt;
 
         let variationsPrices = 0;
         let variationsStorePrices = 0;
-        for (let key in variations) {
-          variationsPrices += parseFloat(variations[key].finalPrice);
-          variationsStorePrices += parseFloat(variations[key].price);
+        for (let key in newVariations) {
+          variationsPrices += parseFloat(newVariations[key].finalPrice);
+          variationsStorePrices += parseFloat(newVariations[key].price);
         }
 
         setVariationsPrice(variationsPrices);
         setVariationsStorePrice(variationsStorePrices);
 
         setVariations({
-          ...variations,
+          ...newVariations,
         });
       }
     },

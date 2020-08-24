@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import ProductItemResult from "../ProductItemResult";
 import "slick-carousel/slick/slick.scss";
@@ -12,8 +13,11 @@ import {
 import PrevArrow from "./PrevArrow";
 import NextArrow from "./NextArrow";
 import DynamicLink from "../DynamicLink";
+import { normalizeProduct } from "../../utils";
 
 const StoreResult = ({ store, onShowProduct }) => {
+  const [products, setProducts] = useState();
+
   var settings = {
     dots: false,
     infinite: false,
@@ -33,6 +37,18 @@ const StoreResult = ({ store, onShowProduct }) => {
     ],
   };
 
+  useEffect(() => {
+    if (store) {
+      setProducts(
+        store.products.map((product) => {
+          return {
+            ...normalizeProduct(product, store),
+          };
+        })
+      );
+    }
+  }, [store]);
+
   return (
     <StoreWrapper>
       <DynamicLink
@@ -46,10 +62,10 @@ const StoreResult = ({ store, onShowProduct }) => {
           </StoreInfo>
         </a>
       </DynamicLink>
-      {store.products && store.products.length !== 0 && (
+      {products && products.length !== 0 && (
         <ProductsWrapper>
           <Slider {...settings}>
-            {store.products.map((product, index) => {
+            {products.map((product, index) => {
               return (
                 <ProductItemResult
                   product={product}

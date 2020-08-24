@@ -15,6 +15,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import ProductModal from "../../components/ProductModal";
 import { useRouter } from "next/router";
+import { normalizeProduct } from "../../utils";
 
 const { fetchProduct, searchProducts } = productsActions;
 const { addToCart } = shoppingCartActions;
@@ -34,11 +35,11 @@ const Search = ({
   const { query } = router.query;
 
   useEffect(() => {
-    if (product) {
+    if (product && storeSelected) {
       setIsModalOpen(true);
-      setProductSelect(product);
+      setProductSelect(normalizeProduct(product, storeSelected));
     }
-  }, [product]);
+  }, [product, storeSelected]);
 
   const onAddProduct = useCallback((product, store) => {
     fetchProduct(product.id);
@@ -54,6 +55,8 @@ const Search = ({
             lng: store.location._longitude,
           }
         : {},
+      commision: store.commision,
+      commisionIncluded: store.commisionIncluded,
     });
   });
 

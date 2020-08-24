@@ -13,7 +13,7 @@ const ProductItemResult = ({ product, onAddProduct }) => {
       <ProductImage src={product.image} />
       <ProductInfoWrapper>
         <ProductName>{product.name}</ProductName>
-        <ProductPrice>{product.usdPrice} $</ProductPrice>
+        <ProductPrice>{product.finalPrice} $</ProductPrice>
       </ProductInfoWrapper>
 
       <ProductAddButton>Agregar</ProductAddButton>

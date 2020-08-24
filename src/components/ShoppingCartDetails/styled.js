@@ -91,7 +91,8 @@ export const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
   display: flex;
-  flex-grow: 1;
+  height: calc(100% - 196px);
+  overflow: auto;
 
   h3 {
     color: #443 !important;
@@ -104,6 +105,10 @@ export const CartContainer = styled.div`
     div {
       margin-top: 30px;
     }
+  }
+
+  @media screen and (max-width: 768px) {
+    height: calc(100% - 179px);
   }
 `;
 

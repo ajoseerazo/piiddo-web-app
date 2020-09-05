@@ -115,6 +115,10 @@ class Shop extends Component {
     this.setState({
       cityModalOpened: true,
     });
+
+    console.log(this.props);
+
+    // this.props.mixpanel.track("Hello mixpanel!");
   };
 
   closeCityModal = () => {

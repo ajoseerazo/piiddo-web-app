@@ -38,12 +38,12 @@ import Avatar from "../Avatar";
 import { useDispatch } from "react-redux";
 import Link from "next/link";
 import { isMobile } from "react-device-detect";
+import { useMixpanel } from "react-mixpanel-browser";
+import ShoppingCart from "../../containers/ShoppingCartContainer";
 
 const { logout } = appActions;
 
 library.add([faShoppingBasket, faChevronLeft, faBars]);
-
-import ShoppingCart from "../../containers/ShoppingCartContainer";
 
 const ShopHeader = ({
   hideShoppingCart,
@@ -60,9 +60,15 @@ const ShopHeader = ({
 }) => {
   const [isBrowser, setIsBrowser] = useState(false);
 
+  const mixpanel = useMixpanel();
+
   useEffect(() => {
     if (typeof window !== undefined) {
       setIsBrowser(true);
+
+      mixpanel.track("My Event", {
+        my_custom_prop: "foo",
+      });
     }
   }, []);
 

@@ -176,7 +176,7 @@ const CheckoutPage = ({
           lastName: billLastName,
           address: billAddress,
           email,
-          documentType: "dni",
+          documentType: "DNI",
           documentNumber: billDNI,
         },
         amount: finalAmount,

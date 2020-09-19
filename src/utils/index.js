@@ -18,7 +18,7 @@ export const getCurrencyCode = (currency) => {
   }
 };
 
-const METER_VALUE = 0.00035;
+const METER_VALUE = 0.0005;
 const MIN_DISTANCE_IN_METERS = 1500;
 
 const peakTimeRange = ["10:00", "13:00"];
@@ -35,11 +35,11 @@ export const calculatePrice = (distance) => {
     moment().isAfter(baseMin) && moment().isBefore(baseMax) ? 0 : 0;
 
   if (distance <= MIN_DISTANCE_IN_METERS) {
-    const basePrice = dynamicBase + 0.5;
+    const basePrice = dynamicBase + 1;
 
     return basePrice + basePrice * IVA;
   } else {
-    const p = distance * METER_VALUE;
+    const p = distance * METER_VALUE + 0.25;
     return p + p * IVA;
   }
 };

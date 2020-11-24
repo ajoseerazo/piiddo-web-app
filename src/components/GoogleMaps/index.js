@@ -48,9 +48,16 @@ const GoogleMaps = withGoogleMap(
     return (
       <GoogleMap
         defaultZoom={15}
-        defaultCenter={customerLocation}
+        defaultCenter={
+          customerLocation || {
+            lat: 8.580461,
+            lng: -71.1889844,
+          }
+        }
         ref={(map) => {
-          apiIsLoaded(map, [storeLocation, customerLocation]);
+          if (storeLocation && customerLocation) {
+            apiIsLoaded(map, [storeLocation, customerLocation]);
+          }
         }}
       >
         <Marker position={storeLocation} icon={storeMarker} />

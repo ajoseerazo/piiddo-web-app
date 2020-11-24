@@ -4,10 +4,18 @@ import Link from "next/link";
 import DynamicLink from "../DynamicLink";
 
 const Category = ({ name, image, slug }) => {
+  const LinkComponent = slug === "piiddo-go" ? Link : DynamicLink;
+
   return (
     <CategoryWrapper>
-      <DynamicLink
-        href={slug === "restaurantes" ? "/restaurantes" : slug !== "compralo-en-colombia" ? "/[category]" : "/[category]/v/[slug]"}
+      <LinkComponent
+        href={
+          slug === "restaurantes"
+            ? "/restaurantes"
+            : slug !== "compralo-en-colombia"
+            ? "/[category]"
+            : "/[category]/v/[slug]"
+        }
         as={`${
           slug === "restaurantes"
             ? `/restaurantes`
@@ -24,7 +32,7 @@ const Category = ({ name, image, slug }) => {
           </ImageWrapper>
           <p>{name}</p>
         </a>
-      </DynamicLink>
+      </LinkComponent>
     </CategoryWrapper>
   );
 };

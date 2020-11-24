@@ -58,6 +58,8 @@ const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
 const { getCoupon } = couponsActions;
 
+const DASH_DISCOUNT = 0.1;
+
 const CheckoutPage = ({
   stores,
   address,
@@ -106,6 +108,7 @@ const CheckoutPage = ({
   const [invalidCoupon, setInvalidCoupon] = useState(false);
   const user = useUser();
   const router = useRouter();
+  const [dashDiscount, setDashdiscount] = useState(false);
 
   const { addToast } = useToasts();
 
@@ -499,6 +502,16 @@ const CheckoutPage = ({
   useEffect(() => {
     setFinalAmount(finalTotal + finalDelivery);
   }, [finalTotal, finalDelivery]);
+
+  /*useEffect(() => {
+    const total = finalTotal + finalDelivery;
+
+    if (paymentMethodSelected && paymentMethodSelected.value === "cryptocoins") {
+      setFinalAmount(total - total * DASH_DISCOUNT);
+    } else {
+      setFinalAmount(total);
+    }
+  }, [paymentMethodSelected]);*/
 
   let deliveryEta = 0;
   for (let key in stores) {

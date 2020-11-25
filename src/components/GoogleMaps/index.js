@@ -59,6 +59,9 @@ const GoogleMaps = withGoogleMap(
             apiIsLoaded(map, [storeLocation, customerLocation]);
           }
         }}
+        defaultOptions={{
+          mapTypeControl: false
+        }}
       >
         <Marker position={storeLocation} icon={storeMarker} />
         <Marker position={customerLocation} icon={customerIcon} />

@@ -5,7 +5,7 @@ export const GlobalSearchWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 0 0 22px 22px;
+  border-radius: 22px;
   background-color: rgb(247, 67, 66, 0.5);
   flex-direction: column;
   box-shadow: 0 32px 32px 0 rgba(51, 41, 39, 0.05);

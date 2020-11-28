@@ -20,6 +20,7 @@ import { wrapper } from "../../src/redux/store";
 import Toolbar from "../../src/components/Toolbar";
 import CityModal from "../../src/components/CityModal";
 import { CITIES } from "../../src/utils/constants";
+import AdBanner from "../../src/components/AdBanner";
 
 const { fetchProducts, selectProduct } = productsActions;
 const { fetchCategories } = categoriesActions;
@@ -160,6 +161,8 @@ class Shop extends Component {
                   : "auto",
             }}
           >
+            <AdBanner />
+
             <GlobalSearch
               address={address}
               onSelectPlace={this.onSelectPlace}

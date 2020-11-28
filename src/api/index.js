@@ -79,31 +79,60 @@ class Partners {
   static getAll = async (city, category, subCategory) => {
     let partnersRef;
 
-    if (category) {
-      if (!subCategory) {
-        partnersRef = await db
-          .collection("partners")
-          .where("mainCategory", "==", category)
-          .where("city", "==", city)
-          .where("enabled", "==", true)
-          .orderBy("priority", "desc")
-          .get();
+    if (category === "promos-con-dash") {
+      if (category) {
+        if (!subCategory) {
+          partnersRef = await db
+            .collection("partners")
+            .where("specialCategory", "==", "promos-con-dash")
+            .where("city", "==", city)
+            .where("enabled", "==", true)
+            .orderBy("priority", "desc")
+            .get();
+        } else {
+          partnersRef = await db
+            .collection("partners")
+            .where("specialCategory", "==", "promos-con-dash")
+            .where("city", "==", city)
+            .where("categories", "array-contains", subCategory)
+            .where("enabled", "==", true)
+            .orderBy("priority", "desc")
+            .get();
+        }
       } else {
         partnersRef = await db
           .collection("partners")
-          .where("mainCategory", "==", category)
-          .where("city", "==", city)
-          .where("categories", "array-contains", subCategory)
           .where("enabled", "==", true)
           .orderBy("priority", "desc")
           .get();
       }
     } else {
-      partnersRef = await db
-        .collection("partners")
-        .where("enabled", "==", true)
-        .orderBy("priority", "desc")
-        .get();
+      if (category) {
+        if (!subCategory) {
+          partnersRef = await db
+            .collection("partners")
+            .where("mainCategory", "==", category)
+            .where("city", "==", city)
+            .where("enabled", "==", true)
+            .orderBy("priority", "desc")
+            .get();
+        } else {
+          partnersRef = await db
+            .collection("partners")
+            .where("mainCategory", "==", category)
+            .where("city", "==", city)
+            .where("categories", "array-contains", subCategory)
+            .where("enabled", "==", true)
+            .orderBy("priority", "desc")
+            .get();
+        }
+      } else {
+        partnersRef = await db
+          .collection("partners")
+          .where("enabled", "==", true)
+          .orderBy("priority", "desc")
+          .get();
+      }
     }
 
     const partners = partnersRef.docs.map((p) => {

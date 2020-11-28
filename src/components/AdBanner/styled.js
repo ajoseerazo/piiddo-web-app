@@ -14,6 +14,7 @@ export const AdBannerWrapper = styled.div`
   color: #fff;
   padding-left: 30px;
   padding-right: 30px;
+  cursor: pointer;
 
   @media screen and (max-width: 768px) {
     min-height: 120px;

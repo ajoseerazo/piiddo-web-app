@@ -7,6 +7,7 @@ import styled from "styled-components";
 import { Button } from "reactstrap";
 import LoadingSpinner from "../src/components/LoadingSpinner";
 import moment from "moment";
+import MetaTags from "../src/components/MetaTags";
 
 const peakTimeRange = ["10:00", "13:00"];
 const METER_VALUE = 0.00035;
@@ -101,6 +102,11 @@ const PiiddoGo = () => {
 
   return (
     <>
+      <MetaTags
+        title={`Piiddo | Pide transporte con PiiddoGo`}
+        description={`Piiddo | Pide transporte con PiiddoGo`}
+        url={"https://piiddo.com/piido-go"}
+      />
       <ShopHeader
         hideAddressSelector
         hideBackButton

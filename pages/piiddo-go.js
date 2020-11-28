@@ -8,6 +8,7 @@ import { Button } from "reactstrap";
 import LoadingSpinner from "../src/components/LoadingSpinner";
 import moment from "moment";
 import MetaTags from "../src/components/MetaTags";
+import { useRouter } from "next/router";
 
 const peakTimeRange = ["10:00", "13:00"];
 const METER_VALUE = 0.00035;
@@ -57,6 +58,7 @@ const STEPS = {
 };
 
 const PiiddoGo = () => {
+  const router = useRouter();
   const [fromPlace, setFromPlace] = useState();
   const [toPlace, setToPlace] = useState();
   const [step, setStep] = useState(STEPS.SELECT_PLACES);
@@ -99,6 +101,10 @@ const PiiddoGo = () => {
       setPrice(price);
     }
   }, [directions]);
+
+  const goToCheckout = useCallback(() => {
+    router.push("/checkout");
+  }, []);
 
   return (
     <>
@@ -198,9 +204,17 @@ const PiiddoGo = () => {
                 toPlace.lng
               )
             }
-            onClick={drawRoute}
+            onClick={step === STEPS.SELECT_PLACES ? drawRoute : goToCheckout}
           >
-            {!loading ? "Continuar" : <LoadingSpinner />}
+            {!loading ? (
+              step === STEPS.SELECT_PLACES ? (
+                "Continuar"
+              ) : (
+                "Solicitar y pagar"
+              )
+            ) : (
+              <LoadingSpinner />
+            )}
           </Styld.Button>
         </Styld.FormWrapper>
 
@@ -221,6 +235,7 @@ const Styld = {
 
     @media screen and (max-width: 768px) {
       height: calc(100vh - 252px);
+      margin-top: 252px;
     }
   `,
   PageWrapper: styled.div`
@@ -243,8 +258,7 @@ const Styld = {
     padding: 16px;
 
     @media screen and (max-width: 768px) {
-      top: auto;
-      bottom: 0px;
+      top: 50px;
       left: 0px;
       border-radius: 0px;
       width: 100%;

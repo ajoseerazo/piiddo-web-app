@@ -214,7 +214,7 @@ const Styld = {
     height: calc(100vh - 70px);
 
     @media screen and (max-width: 768px) {
-      height: calc(100vh - 50px);
+      height: calc(100vh - 252px);
     }
   `,
   PageWrapper: styled.div`
@@ -235,6 +235,14 @@ const Styld = {
     box-shadow: 0 6px 10px 0 rgba(128, 98, 96, 0.16);
     border-radius: 20px;
     padding: 16px;
+
+    @media screen and (max-width: 768px) {
+      top: auto;
+      bottom: 0px;
+      left: 0px;
+      border-radius: 0px;
+      width: 100%;
+    }
   `,
   Input: styled.input`
     width: 100%;
@@ -247,6 +255,10 @@ const Styld = {
     &:focus {
       box-shadow: none;
       outline: none;
+    }
+
+    @media screen and (max-width: 768px) {
+      font-size: 12px;
     }
   `,
   FormControl: styled.div`

@@ -17,10 +17,12 @@ export const AdBannerWrapper = styled.div`
 
   @media screen and (max-width: 768px) {
     min-height: 120px;
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 10px;
+    padding-right: 10px;
     margin-top: 0px;
     margin-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 `;
 
@@ -66,6 +68,6 @@ export const TextWrapperInner = styled.div`
   margin-bottom: 20px;
 
   @media screen and (max-width: 768px) {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
   }
 `;

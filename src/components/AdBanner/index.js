@@ -16,7 +16,8 @@ const AdBanner = () => {
 
         <TextWrapper>
           <TextWrapperInner>
-            ¡Realiza tus compras pagando con Dash en las tiendas
+            ¡Realiza tus compras pagando con <strong>Dash</strong> en las
+            tiendas
           </TextWrapperInner>
           <div>
             <strong>JyV Market</strong> y <strong>Mini Super</strong> y te

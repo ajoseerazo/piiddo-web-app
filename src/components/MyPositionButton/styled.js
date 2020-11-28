@@ -18,6 +18,6 @@ export const MyPositionButtonWrapper = styled(({ tiny, ...rest }) => (
 
   @media screen and (max-width: 768px) {
     font-size: 10px;
-    width: 95px;
+    width: ${({ tiny }) => (tiny ? "50px" : "95px")};
   }
 `;

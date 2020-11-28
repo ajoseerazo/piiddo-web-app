@@ -1,5 +1,10 @@
-import { useRef } from "react";
-import { withGoogleMap, GoogleMap, Marker } from "react-google-maps";
+import { useRef, useEffect, useState } from "react";
+import {
+  withGoogleMap,
+  GoogleMap,
+  Marker,
+  DirectionsRenderer,
+} from "react-google-maps";
 
 const getMapBounds = (locations) => {
   const bounds = new google.maps.LatLngBounds();
@@ -19,7 +24,13 @@ const apiIsLoaded = (map, locations) => {
 };
 
 const GoogleMaps = withGoogleMap(
-  ({ storeLocation, customerLocation, riderLocation }) => {
+  ({
+    storeLocation,
+    customerLocation,
+    riderLocation,
+    withAPIDirections,
+    directions,
+  }) => {
     //const map = useRef();
     let storeMarker = new window.google.maps.MarkerImage(
       "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/map-markers%2FSin%20ti%CC%81tulo-1.png?alt=media&token=a3c09338-474d-4e5f-a507-f5a3f4e7b6d2",
@@ -60,12 +71,16 @@ const GoogleMaps = withGoogleMap(
           }
         }}
         defaultOptions={{
-          mapTypeControl: false
+          mapTypeControl: false,
         }}
       >
         <Marker position={storeLocation} icon={storeMarker} />
         <Marker position={customerLocation} icon={customerIcon} />
         {riderLocation && <Marker position={riderLocation} icon={riderIcon} />}
+
+        {withAPIDirections && directions && (
+          <DirectionsRenderer directions={directions} />
+        )}
       </GoogleMap>
     );
   }

@@ -6,7 +6,7 @@ import { MyPositionButtonWrapper } from "./styled";
 
 library.add([faLocationArrow]);
 
-const MyPositionButton = ({ onLocationSuccess }) => {
+const MyPositionButton = ({ onLocationSuccess, tiny }) => {
   const onSuccess = useCallback((position) => {
     onLocationSuccess({
       lat: position.coords.latitude,
@@ -29,9 +29,9 @@ const MyPositionButton = ({ onLocationSuccess }) => {
   });
 
   return (
-    <MyPositionButtonWrapper onClick={requestLocation}>
+    <MyPositionButtonWrapper onClick={requestLocation} tiny={tiny}>
       <FontAwesomeIcon icon="location-arrow" />
-      <span>Mi ubicación</span>
+      {!tiny && <span>Mi ubicación</span>}
     </MyPositionButtonWrapper>
   );
 };

@@ -56,7 +56,7 @@ export default class Autocomplete extends Component {
     this.setState({ address });
 
     const { onChange } = this.props;
-    
+
     if (onChange) {
       onChange(address);
     }
@@ -85,7 +85,7 @@ export default class Autocomplete extends Component {
         });
 
         if (this.inputRef && blurOnSelect) {
-          this.inputRef.current.blur();
+          this.inputRef.current && this.inputRef.current.blur();
         }
 
         this.props.onSelect({
@@ -128,7 +128,7 @@ export default class Autocomplete extends Component {
                     placeholder: placeholder,
                     className: "Demo__search-input",
                   })}
-                  onBlur={this.onBlur}
+                  onBlur={this.onBlur.bind(this)}
                   onFocus={() =>
                     this.setState({
                       showSuggestions: true,

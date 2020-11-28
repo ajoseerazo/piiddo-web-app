@@ -83,6 +83,8 @@ const CheckoutPage = ({
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
   const [name, setName] = useState();
   const [extraAddress, setExtraAddress] = useState();
+  const [extraFromAddress, setExtraFromAddress] = useState();
+  const [extraToAddress, setExtraToAddress] = useState();
   const [number, setNumber] = useState();
   const [receiverName, setReceiverName] = useState();
   const [receiverNumber, setReceiverNumber] = useState();
@@ -145,25 +147,40 @@ const CheckoutPage = ({
   }, [user]);
 
   const confirmOrder = useCallback(async () => {
-    const payload = {
-      address: address,
-      name,
-      number,
-      email,
-      receiverName: isSamePerson ? name : receiverName,
-      receiverNumber: isSamePerson ? number : receiverNumber,
-      paymentMethodSelected,
-      extraAddress,
-      vuelto,
-      stores,
-      deliveryLocation,
-      total: finalTotal,
-      deliveryTotal: finalDelivery,
-    };
+    const payload =
+      type !== "piiddo-go"
+        ? {
+            address: address,
+            name,
+            number,
+            email,
+            receiverName: isSamePerson ? name : receiverName,
+            receiverNumber: isSamePerson ? number : receiverNumber,
+            paymentMethodSelected,
+            extraAddress,
+            vuelto,
+            stores,
+            deliveryLocation,
+            total: finalTotal,
+            deliveryTotal: finalDelivery,
+          }
+        : {
+            name,
+            paymentMethodSelected,
+            number,
+            email,
+            ...rideRequest,
+            vuelto,
+            extraFromAddress,
+            extraToAddress,
+            type: "piiddo-go",
+          };
 
-    if (!address) {
-      alert("Debes ingresar tu dirección. Ingresala en la barra superior");
-      return;
+    if (type !== "piiddo-go") {
+      if (!address) {
+        alert("Debes ingresar tu dirección. Ingresala en la barra superior");
+        return;
+      }
     }
 
     if (coupon && couponApplied && !invalidCoupon) {
@@ -228,6 +245,10 @@ const CheckoutPage = ({
     finalTotal,
     couponApplied,
     invalidCoupon,
+    rideRequest,
+    type,
+    extraFromAddress,
+    extraToAddress,
   ]);
 
   useEffect(() => {
@@ -292,20 +313,34 @@ const CheckoutPage = ({
 
       // console.log("Transaction completed by " + details.payer.name.given_name);
 
-      const payload = {
-        address: address || "",
-        name,
-        number,
-        email,
-        receiverName: isSamePerson ? name : receiverName,
-        receiverNumber: isSamePerson ? number : receiverNumber,
-        paymentMethodSelected,
-        extraAddress,
-        vuelto,
-        stores,
-        paymentStatus: "COMPLETED",
-        paymentDetails: details,
-      };
+      const payload =
+        type !== "piiddo-go"
+          ? {
+              address: address || "",
+              name,
+              number,
+              email,
+              receiverName: isSamePerson ? name : receiverName,
+              receiverNumber: isSamePerson ? number : receiverNumber,
+              paymentMethodSelected,
+              extraAddress,
+              vuelto,
+              stores,
+              paymentStatus: "COMPLETED",
+              paymentDetails: details,
+            }
+          : {
+              name,
+              number,
+              email,
+              paymentMethodSelected,
+              paymentStatus: "COMPLETED",
+              paymentDetails: details,
+              ...rideRequest,
+              type,
+              extraFromAddress,
+              extraToAddress,
+            };
 
       if (coupon && couponApplied && !invalidCoupon) {
         payload.coupon = coupon.code;
@@ -336,6 +371,10 @@ const CheckoutPage = ({
       coupon,
       couponApplied,
       invalidCoupon,
+      type,
+      rideRequest,
+      extraFromAddress,
+      extraToAddress,
     ]
   );
 
@@ -376,6 +415,10 @@ const CheckoutPage = ({
         }
       }
     } else {
+      if (!number) {
+        return true;
+      }
+
       if (!paymentMethodSelected) {
         return true;
       } else {
@@ -611,7 +654,10 @@ const CheckoutPage = ({
                       <label>¿Cómo llegar al punto de partida?</label>
                       <CheckoutInput
                         placeholder="Escribe la dirección exacta, puntos de referencias, etc"
-                        onChange={handleInputChange.bind(this, "extraAddress")}
+                        onChange={handleInputChange.bind(
+                          this,
+                          "extraFromAddress"
+                        )}
                       />
                     </CheckoutPersonalDataGroup>
 
@@ -626,7 +672,10 @@ const CheckoutPage = ({
                       <label>¿Cómo llegar al destino?</label>
                       <CheckoutInput
                         placeholder="Escribe la dirección exacta, puntos de referencias, etc"
-                        onChange={handleInputChange.bind(this, "extraAddress")}
+                        onChange={handleInputChange.bind(
+                          this,
+                          "extraToAddress"
+                        )}
                       />
                     </CheckoutPersonalDataGroup>
 

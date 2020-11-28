@@ -8,6 +8,7 @@ import Location from "./location";
 import Orders from "./orders";
 import Payments from "./payments";
 import Coupons from "./coupons";
+import PiiddoGo from "./piiddo-go";
 
 const rootReducer = {
   Products,
@@ -19,6 +20,7 @@ const rootReducer = {
   Orders,
   Payments,
   Coupons,
+  PiiddoGo,
 };
 
 export default rootReducer;

@@ -77,6 +77,7 @@ const CheckoutPage = ({
   deliveryLocation,
   loadingCoupon,
   coupon,
+  rideRequest,
 }) => {
   const [paymentMethodSelected, setPaymentMethodSelected] = useState();
   const [showPaymentMethods, setShowPaymentMethods] = useState(true);
@@ -343,34 +344,57 @@ const CheckoutPage = ({
   });
 
   const isCheckoutButtonDisabled = useMemo(() => {
-    if (!name || !number || !email || !extraAddress) {
-      return true;
-    }
-
-    if (!isSamePerson) {
-      if (!receiverNumber || !receiverName) {
+    if (!rideRequest) {
+      if (!name || !number || !email || !extraAddress) {
         return true;
       }
-    }
 
-    if (!paymentMethodSelected) {
-      return true;
-    } else {
-      switch (paymentMethodSelected.value) {
-        case "cash-bs":
-        case "cash-usd":
-          if (Number.isNaN(parseFloat(vuelto))) {
-            return true;
-          } else {
+      if (!isSamePerson) {
+        if (!receiverNumber || !receiverName) {
+          return true;
+        }
+      }
+
+      if (!paymentMethodSelected) {
+        return true;
+      } else {
+        switch (paymentMethodSelected.value) {
+          case "cash-bs":
+          case "cash-usd":
+            if (Number.isNaN(parseFloat(vuelto))) {
+              return true;
+            } else {
+              return false;
+            }
+          case "credit-card":
+          case "debit-card":
+            if (!creditCard) {
+              return true;
+            }
+          default:
             return false;
-          }
-        case "credit-card":
-        case "debit-card":
-          if (!creditCard) {
-            return true;
-          }
-        default:
-          return false;
+        }
+      }
+    } else {
+      if (!paymentMethodSelected) {
+        return true;
+      } else {
+        switch (paymentMethodSelected.value) {
+          case "cash-bs":
+          case "cash-usd":
+            if (Number.isNaN(parseFloat(vuelto))) {
+              return true;
+            } else {
+              return false;
+            }
+          case "credit-card":
+          case "debit-card":
+            if (!creditCard) {
+              return true;
+            }
+          default:
+            return false;
+        }
       }
     }
   }, [
@@ -384,6 +408,7 @@ const CheckoutPage = ({
     receiverNumber,
     vuelto,
     creditCard,
+    rideRequest,
   ]);
 
   const closeQRModal = useCallback(() => {
@@ -522,6 +547,14 @@ const CheckoutPage = ({
 
   deliveryEta = deliveryEta / Object.keys(stores).length;
 
+  useEffect(() => {
+    if (rideRequest) {
+      setFinalDelivery(rideRequest.price);
+    }
+  }, [rideRequest]);
+
+  console.log("RequestRide", rideRequest);
+
   return (
     <>
       <Wrapper>
@@ -533,33 +566,84 @@ const CheckoutPage = ({
           <CheckoutContent>
             <CheckoutContentLeft>
               <CheckoutBox>
-                <CheckoutAddress>
-                  <div>
-                    <CheckoutBoxTitle>Dirección</CheckoutBoxTitle>
-                    <CheckoutAddressText>{address}</CheckoutAddressText>
-                  </div>
+                {type !== "piiddo-go" ? (
+                  <CheckoutAddress>
+                    <div>
+                      <CheckoutBoxTitle>Dirección</CheckoutBoxTitle>
+                      <CheckoutAddressText>{address}</CheckoutAddressText>
+                    </div>
 
-                  <CheckoutPersonalDataGroup>
-                    <label>¿Cómo llegar? *</label>
-                    <CheckoutInput
-                      placeholder="Escribe la dirección exacta, puntos de referencias, etc"
-                      onChange={handleInputChange.bind(this, "extraAddress")}
-                    />
-                  </CheckoutPersonalDataGroup>
+                    <CheckoutPersonalDataGroup>
+                      <label>¿Cómo llegar? *</label>
+                      <CheckoutInput
+                        placeholder="Escribe la dirección exacta, puntos de referencias, etc"
+                        onChange={handleInputChange.bind(this, "extraAddress")}
+                      />
+                    </CheckoutPersonalDataGroup>
 
-                  <CheckoutTimeContainer>
-                    <span>
-                      Tiempo aprox. de{" "}
-                      {type === "piiddo-go" ? "recogida" : "entrega"}
-                    </span>
-                    <span>
-                      {type !== "piiddo-go"
-                        ? parseFloat(deliveryEta).toFixed(0)
-                        : "10"}{" "}
-                      mins
-                    </span>
-                  </CheckoutTimeContainer>
-                </CheckoutAddress>
+                    <CheckoutTimeContainer>
+                      <span>
+                        Tiempo aprox. de{" "}
+                        {type === "piiddo-go" ? "recogida" : "entrega"}
+                      </span>
+                      <span>
+                        {type !== "piiddo-go"
+                          ? parseFloat(deliveryEta).toFixed(0)
+                          : "10"}{" "}
+                        mins
+                      </span>
+                    </CheckoutTimeContainer>
+                  </CheckoutAddress>
+                ) : (
+                  <CheckoutAddress>
+                    <div>
+                      <CheckoutBoxTitle>Desde</CheckoutBoxTitle>
+                      <CheckoutAddressText>
+                        {rideRequest.fromPlace.value}
+                      </CheckoutAddressText>
+                    </div>
+
+                    <CheckoutPersonalDataGroup
+                      style={{
+                        marginBottom: 15,
+                      }}
+                    >
+                      <label>¿Cómo llegar al punto de partida?</label>
+                      <CheckoutInput
+                        placeholder="Escribe la dirección exacta, puntos de referencias, etc"
+                        onChange={handleInputChange.bind(this, "extraAddress")}
+                      />
+                    </CheckoutPersonalDataGroup>
+
+                    <div>
+                      <CheckoutBoxTitle>Hasta</CheckoutBoxTitle>
+                      <CheckoutAddressText>
+                        {rideRequest.toPlace.value}
+                      </CheckoutAddressText>
+                    </div>
+
+                    <CheckoutPersonalDataGroup>
+                      <label>¿Cómo llegar al destino?</label>
+                      <CheckoutInput
+                        placeholder="Escribe la dirección exacta, puntos de referencias, etc"
+                        onChange={handleInputChange.bind(this, "extraAddress")}
+                      />
+                    </CheckoutPersonalDataGroup>
+
+                    <CheckoutTimeContainer>
+                      <span>
+                        Tiempo aprox. de{" "}
+                        {type === "piiddo-go" ? "recogida" : "entrega"}
+                      </span>
+                      <span>
+                        {type !== "piiddo-go"
+                          ? parseFloat(deliveryEta).toFixed(0)
+                          : "10"}{" "}
+                        mins
+                      </span>
+                    </CheckoutTimeContainer>
+                  </CheckoutAddress>
+                )}
               </CheckoutBox>
 
               <CheckoutBox>
@@ -950,6 +1034,7 @@ function mapStateToProps(state, props) {
   const { deliveryLocation } = state.Location;
   const { payment, paymentSuccess, isDoingPayment } = state.Payments;
   const { coupon, loadingCoupon } = state.Coupons;
+  const { rideRequest } = state.PiiddoGo;
 
   const [length, total, deliveryTotal] = getDataFromShoppingCart(
     stores,
@@ -973,6 +1058,7 @@ function mapStateToProps(state, props) {
     deliveryLocation,
     loadingCoupon,
     coupon,
+    rideRequest,
   };
 }
 

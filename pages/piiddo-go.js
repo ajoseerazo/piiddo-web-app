@@ -9,6 +9,10 @@ import LoadingSpinner from "../src/components/LoadingSpinner";
 import moment from "moment";
 import MetaTags from "../src/components/MetaTags";
 import { useRouter } from "next/router";
+import { useDispatch } from "react-redux";
+import piiddoGoActions from "../src/redux/actions/piiddo-go";
+
+const { setRideRequest } = piiddoGoActions;
 
 const peakTimeRange = ["10:00", "13:00"];
 const METER_VALUE = 0.00035;
@@ -58,6 +62,8 @@ const STEPS = {
 };
 
 const PiiddoGo = () => {
+  const dispatch = useDispatch();
+
   const router = useRouter();
   const [fromPlace, setFromPlace] = useState();
   const [toPlace, setToPlace] = useState();
@@ -103,8 +109,17 @@ const PiiddoGo = () => {
   }, [directions]);
 
   const goToCheckout = useCallback(() => {
+    dispatch(
+      setRideRequest({
+        fromPlace,
+        toPlace,
+        distance,
+        price,
+      })
+    );
+
     router.push("/checkout?type=piiddo-go");
-  }, []);
+  }, [fromPlace, toPlace, distance, price]);
 
   return (
     <>

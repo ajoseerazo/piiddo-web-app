@@ -48,6 +48,10 @@ const reducer = (state, action) => {
       nextState.App.city = state.App.city;
     }
 
+    if (state.PiiddoGo.rideRequest) {
+      nextState.PiiddoGo.rideRequest = state.PiiddoGo.rideRequest;
+    }
+
     return nextState;
   } else {
     return combinedReducer(state, action);

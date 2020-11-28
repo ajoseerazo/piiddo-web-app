@@ -103,7 +103,7 @@ const PiiddoGo = () => {
   }, [directions]);
 
   const goToCheckout = useCallback(() => {
-    router.push("/checkout");
+    router.push("/checkout?type=piiddo-go");
   }, []);
 
   return (

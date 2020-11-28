@@ -110,6 +110,8 @@ const CheckoutPage = ({
   const router = useRouter();
   const [dashDiscount, setDashdiscount] = useState(false);
 
+  const { type } = router.query;
+
   const { addToast } = useToasts();
 
   const selectPaymentMethod = useCallback(
@@ -524,7 +526,9 @@ const CheckoutPage = ({
     <>
       <Wrapper>
         <div>
-          <CheckoutTitle>Confirmar orden</CheckoutTitle>
+          <CheckoutTitle>
+            Confirmar {type === "piiddo-go" ? "viaje" : "orden"}
+          </CheckoutTitle>
 
           <CheckoutContent>
             <CheckoutContentLeft>
@@ -544,8 +548,16 @@ const CheckoutPage = ({
                   </CheckoutPersonalDataGroup>
 
                   <CheckoutTimeContainer>
-                    <span>Tiempo aprox. de entrega</span>
-                    <span>{parseFloat(deliveryEta).toFixed(0)} mins</span>
+                    <span>
+                      Tiempo aprox. de{" "}
+                      {type === "piiddo-go" ? "recogida" : "entrega"}
+                    </span>
+                    <span>
+                      {type !== "piiddo-go"
+                        ? parseFloat(deliveryEta).toFixed(0)
+                        : "10"}{" "}
+                      mins
+                    </span>
                   </CheckoutTimeContainer>
                 </CheckoutAddress>
               </CheckoutBox>
@@ -581,41 +593,46 @@ const CheckoutPage = ({
                 </CheckoutPersonalDataGroup>
               </CheckoutBox>
 
-              <CheckoutBox>
-                <CheckoutBoxTitle>
-                  Datos de la persona que recibe
-                </CheckoutBoxTitle>
+              {type !== "piiddo-go" && (
+                <CheckoutBox>
+                  <CheckoutBoxTitle>
+                    Datos de la persona que recibe
+                  </CheckoutBoxTitle>
 
-                <CheckboxWrapper>
-                  <PrettyCheckbox
-                    label={"Quien recibe es la misma persona"}
-                    onChange={toggleSamePerson}
-                  />
-                </CheckboxWrapper>
+                  <CheckboxWrapper>
+                    <PrettyCheckbox
+                      label={"Quien recibe es la misma persona"}
+                      onChange={toggleSamePerson}
+                    />
+                  </CheckboxWrapper>
 
-                {!isSamePerson && (
-                  <>
-                    <CheckoutPersonalDataGroup>
-                      <label>Nombre *</label>
-                      <CheckoutInput
-                        placeholder="Nombre de la persona que recibe"
-                        onChange={handleInputChange.bind(this, "receiverName")}
-                      />
-                    </CheckoutPersonalDataGroup>
+                  {!isSamePerson && (
+                    <>
+                      <CheckoutPersonalDataGroup>
+                        <label>Nombre *</label>
+                        <CheckoutInput
+                          placeholder="Nombre de la persona que recibe"
+                          onChange={handleInputChange.bind(
+                            this,
+                            "receiverName"
+                          )}
+                        />
+                      </CheckoutPersonalDataGroup>
 
-                    <CheckoutPersonalDataGroup>
-                      <label>Número de teléfono *</label>
-                      <CheckoutInput
-                        placeholder="Número de teléfono de la persona que recibe"
-                        onChange={handleInputChange.bind(
-                          this,
-                          "receiverNumber"
-                        )}
-                      />
-                    </CheckoutPersonalDataGroup>
-                  </>
-                )}
-              </CheckoutBox>
+                      <CheckoutPersonalDataGroup>
+                        <label>Número de teléfono *</label>
+                        <CheckoutInput
+                          placeholder="Número de teléfono de la persona que recibe"
+                          onChange={handleInputChange.bind(
+                            this,
+                            "receiverNumber"
+                          )}
+                        />
+                      </CheckoutPersonalDataGroup>
+                    </>
+                  )}
+                </CheckoutBox>
+              )}
 
               <CheckoutBox>
                 <CheckoutBoxTitle>Cupón de descuento</CheckoutBoxTitle>
@@ -761,37 +778,47 @@ const CheckoutPage = ({
               <CheckoutCoupon>Cupón</CheckoutCoupon>
             </CheckoutBox>*/}
 
-              <CheckoutBox>
-                <CheckoutProductsSummary>
-                  <CheckoutBoxTitle>Tu orden</CheckoutBoxTitle>
+              {type !== "piiddo-go" && (
+                <CheckoutBox>
+                  <CheckoutProductsSummary>
+                    <CheckoutBoxTitle>Tu orden</CheckoutBoxTitle>
 
-                  {Object.keys(stores).map((storeId) => {
-                    return (stores[storeId].items || []).map((item, index) => {
-                      return (
-                        <ShoppingBoxList
-                          key={`${storeId}-${index}`}
-                          order={item}
-                          forceActive={true}
-                          disableCounters
-                        />
+                    {Object.keys(stores).map((storeId) => {
+                      return (stores[storeId].items || []).map(
+                        (item, index) => {
+                          return (
+                            <ShoppingBoxList
+                              key={`${storeId}-${index}`}
+                              order={item}
+                              forceActive={true}
+                              disableCounters
+                            />
+                          );
+                        }
                       );
-                    });
-                  })}
-                </CheckoutProductsSummary>
-              </CheckoutBox>
+                    })}
+                  </CheckoutProductsSummary>
+                </CheckoutBox>
+              )}
             </CheckoutContentLeft>
 
             <CheckoutContentRight>
               <CheckoutBox>
-                <CheckoutSummaryItem>
-                  <CheckoutSummaryItemTitle>Productos</CheckoutSummaryItemTitle>
-                  <CheckoutSummaryItemPrice>
-                    ${parseFloat(finalTotal).toFixed(2)}
-                  </CheckoutSummaryItemPrice>
-                </CheckoutSummaryItem>
+                {type !== "piiddo-go" && (
+                  <CheckoutSummaryItem>
+                    <CheckoutSummaryItemTitle>
+                      Productos
+                    </CheckoutSummaryItemTitle>
+                    <CheckoutSummaryItemPrice>
+                      ${parseFloat(finalTotal).toFixed(2)}
+                    </CheckoutSummaryItemPrice>
+                  </CheckoutSummaryItem>
+                )}
 
                 <CheckoutSummaryItem>
-                  <CheckoutSummaryItemTitle>Delivery</CheckoutSummaryItemTitle>
+                  <CheckoutSummaryItemTitle>
+                    {type !== "piiddo-go" ? "Delivery" : "Viaje"}
+                  </CheckoutSummaryItemTitle>
                   <CheckoutSummaryItemPrice>
                     ${parseFloat(finalDelivery).toFixed(2)}
                   </CheckoutSummaryItemPrice>
@@ -847,7 +874,11 @@ const CheckoutPage = ({
                   >
                     {(isCreatingOrder || isDoingPayment) && <LoadingSpinner />}
                     {!isCreatingOrder && !isDoingPayment && (
-                      <span>Realizar pedido</span>
+                      <span>
+                        {type !== "piiddo-go"
+                          ? "Realizar pedido"
+                          : "Confirmar viaje"}
+                      </span>
                     )}
                   </CheckoutButton>
                 )}

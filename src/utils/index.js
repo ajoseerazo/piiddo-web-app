@@ -4,6 +4,8 @@ import { getDistance } from "geolib";
 
 const IVA = 0.16;
 
+const DOLLAR_CORRECTION = 0.05;
+
 export const getCategoryName = (category) => {
   if (!category) return "Todos";
   if (category === "para-cumpleanos") return "Para Cumpleaños";
@@ -122,11 +124,12 @@ export const askForPermissionToReceiveNotifications = async (callback) => {
 };
 
 export const getPrice = (partner, basePrice) => {
-  return !partner.commisionIncluded
+  const _price = !partner.commisionIncluded
     ? partner.commision
       ? parseFloat(basePrice) + parseFloat(basePrice) * partner.commision
       : basePrice
     : basePrice;
+  return _price + _price * DOLLAR_CORRECTION;
 };
 
 export const normalizeProduct = (p, partner) => {

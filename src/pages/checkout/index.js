@@ -60,6 +60,9 @@ const { getCoupon } = couponsActions;
 
 const DASH_DISCOUNT = 0.1;
 
+const DOLLAR_BASE = 1150000;
+const DOLLAR_PRICE = DOLLAR_BASE + DOLLAR_BASE * 0.1;
+
 const CheckoutPage = ({
   stores,
   address,
@@ -970,7 +973,7 @@ const CheckoutPage = ({
                     <CheckoutTotalPrice>
                       Bs{" "}
                       {`${new Intl.NumberFormat("es").format(
-                        finalAmount * 1100000
+                        finalAmount * DOLLAR_PRICE
                       )}`}
                     </CheckoutTotalPrice>
                   </div>
@@ -1031,7 +1034,7 @@ const CheckoutPage = ({
               amount={
                 paymentMethodSelected.value === "zelle"
                   ? finalAmount
-                  : finalAmount * 1100000
+                  : finalAmount * DOLLAR_PRICE
               }
               orderId={order.id}
               onFinishPayment={onFinishPayment}

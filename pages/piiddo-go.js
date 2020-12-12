@@ -56,6 +56,18 @@ export const calculatePrice = (distance) => {
   }
 };
 
+const calculatePriceFix = (price) => {
+  if (price < 2) {
+    return 2.5;
+  } 
+
+  if (price < 4) {
+    return 5;
+  }
+
+  return 10;
+}
+
 const STEPS = {
   SELECT_PLACES: "SELECT_PLACES",
   DO_CALCULATION: "DO_CALCULATION",
@@ -101,7 +113,7 @@ const PiiddoGo = () => {
   useEffect(() => {
     if (directions) {
       const distance = directions.routes[0].legs[0].distance.value;
-      const price = calculatePrice(distance);
+      const price = calculatePriceFix(distance);
 
       setDistance(distance);
       setPrice(price);

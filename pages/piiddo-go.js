@@ -62,7 +62,7 @@ const calculatePriceFix = (price) => {
   }
 
   return price;
-}
+};
 
 const STEPS = {
   SELECT_PLACES: "SELECT_PLACES",
@@ -163,6 +163,9 @@ const PiiddoGo = () => {
                   />
                 )}
                 onSelect={({ lat, lng, value }) => {
+                  setDistance(undefined);
+                  setPrice(undefined);
+                  setStep(STEPS.SELECT_PLACES);
                   setFromPlace({
                     lat,
                     lng,
@@ -193,6 +196,9 @@ const PiiddoGo = () => {
               blurOnSelect={true}
               CustomComponent={(props) => <Styld.Input {...props} />}
               onSelect={({ lat, lng, value }) => {
+                setDistance(undefined);
+                setPrice(undefined);
+                setStep(STEPS.SELECT_PLACES);
                 setToPlace({
                   lat,
                   lng,

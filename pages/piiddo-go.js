@@ -15,7 +15,7 @@ import piiddoGoActions from "../src/redux/actions/piiddo-go";
 const { setRideRequest } = piiddoGoActions;
 
 const peakTimeRange = ["10:00", "13:00"];
-const METER_VALUE = 0.00035;
+const METER_VALUE = 0.0007;
 const MIN_DISTANCE_IN_METERS = 1500;
 
 export const getRouteCoordinates = async (l1, l2) => {
@@ -121,7 +121,7 @@ const PiiddoGo = () => {
   useEffect(() => {
     if (directions) {
       const distance = directions.routes[0].legs[0].distance.value;
-      const price = calculatePriceFix(calculatePrice(distance));
+      const price = calculatePrice(distance);
 
       setDistance(distance);
       setPrice(price);

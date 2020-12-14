@@ -126,7 +126,8 @@ export const askForPermissionToReceiveNotifications = async (callback) => {
 export const getPrice = (partner, basePrice) => {
   const _price = !partner.commisionIncluded
     ? partner.commision
-      ? parseFloat(basePrice) + parseFloat(basePrice) * partner.commision
+      ? parseFloat(basePrice) +
+        parseFloat(basePrice) * (partner.commision + 0.1)
       : basePrice
     : basePrice;
   return _price + _price * DOLLAR_CORRECTION;

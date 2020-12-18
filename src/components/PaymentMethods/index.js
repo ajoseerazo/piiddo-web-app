@@ -22,7 +22,7 @@ const paymentMethods = [
     name: "Bolívares en efectivo",
     icon: "cash",
     value: "cash-bs",
-    disabled: true,
+    disabled: false,
   },
   {
     name: "Dólares/Euros en efectivo",
@@ -33,12 +33,12 @@ const paymentMethods = [
     name: "Pago móvil",
     icon: "wire",
     value: "pago-movil",
-    disabled: true,
+    disabled: false,
   },
   {
     name: "Transferencia bancaria",
     value: "bank-transfer",
-    disabled: true,
+    disabled: false,
   },
   {
     name: "Zelle",

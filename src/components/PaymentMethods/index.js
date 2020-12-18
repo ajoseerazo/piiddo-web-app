@@ -47,7 +47,7 @@ const paymentMethods = [
   {
     name: "Paypal",
     value: "paypal",
-    disabled: true,
+    disabled: false,
   },
   {
     name: "Criptomonedas",

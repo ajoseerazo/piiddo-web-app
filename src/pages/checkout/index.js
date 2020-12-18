@@ -988,7 +988,7 @@ const CheckoutPage = ({
                     {isCheckoutButtonDisabled && <PayPalButtonDisabling />}
                     <PayPalButton
                       amount={parseFloat(
-                        `${finalAmount + finalAmount * 0.15 + 0.3}`
+                        `${((finalAmount + finalAmount * 0.1) * 4000) / 2800}`
                       ).toFixed(2)}
                       shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                       onSuccess={onPaypalPaymentSuccess}

@@ -52,7 +52,7 @@ const paymentMethods = [
   {
     name: "Criptomonedas",
     value: "cryptocoins",
-    disabled: true,
+    disabled: false,
   },
 ];
 

@@ -11,15 +11,18 @@ const paymentMethods = [
   {
     name: "Remepagos",
     value: "remepagos",
+    disabled: true,
   },
   {
     name: "Tarjeta de crédito/débito internacional",
     value: "credit-card",
+    disabled: true,
   },
   {
     name: "Bolívares en efectivo",
     icon: "cash",
     value: "cash-bs",
+    disabled: true,
   },
   {
     name: "Dólares/Euros en efectivo",
@@ -30,10 +33,12 @@ const paymentMethods = [
     name: "Pago móvil",
     icon: "wire",
     value: "pago-movil",
+    disabled: true,
   },
   {
     name: "Transferencia bancaria",
     value: "bank-transfer",
+    disabled: true,
   },
   {
     name: "Zelle",
@@ -42,11 +47,12 @@ const paymentMethods = [
   {
     name: "Paypal",
     value: "paypal",
+    disabled: true,
   },
   {
     name: "Criptomonedas",
     value: "cryptocoins",
-    disabled: false,
+    disabled: true,
   },
 ];
 

@@ -130,7 +130,7 @@ export const getPrice = (partner, basePrice) => {
         parseFloat(basePrice) * (partner.commision + 0.1)
       : basePrice
     : basePrice;
-  return _price + partner.commision ? _price * DOLLAR_CORRECTION : 0;
+  return _price;
 };
 
 export const normalizeProduct = (p, partner) => {

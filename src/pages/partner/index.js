@@ -157,7 +157,7 @@ const Store = ({
   useEffect(() => {
     if (deliveryLocation && partner && partner.location) {
       setDeliveryPrice(
-        calculatePriceFromPoints(deliveryLocation, partner.location)
+        partner.promoDeliveryPrice ?? calculatePriceFromPoints(deliveryLocation, partner.location)
       );
     }
   }, [deliveryLocation, partner]);

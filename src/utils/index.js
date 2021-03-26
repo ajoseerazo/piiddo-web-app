@@ -77,9 +77,9 @@ export const getDataFromShoppingCart = (stores, deliveryLocation) => {
       let totalDeliveryStore = 0;
 
       if (deliveryLocation && deliveryLocation.lat && deliveryLocation.lng) {
-        totalDeliveryStore = stores[key].promoDeliveryPrice
-          ? stores[key].promoDeliveryPrice
-          : calculatePriceFromPoints(deliveryLocation, stores[key].location);
+        totalDeliveryStore =
+          stores[key].promoDeliveryPrice ??
+          calculatePriceFromPoints(deliveryLocation, stores[key].location);
 
         deliveryTotal = deliveryTotal + totalDeliveryStore;
       }

@@ -77,6 +77,7 @@ const Search = ({
           location: storeSelected.location ? storeSelected.location : null,
           commision: storeSelected.commision,
           commisionIncluded: storeSelected.commisionIncluded,
+          promoDeliveryPrice: storeSelected.promoDeliveryPrice
         },
       });
       onCloseModal();

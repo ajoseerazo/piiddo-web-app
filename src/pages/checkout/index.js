@@ -60,7 +60,7 @@ const { getCoupon } = couponsActions;
 
 const DASH_DISCOUNT = 0.1;
 
-const DOLLAR_BASE = 1800000;
+const DOLLAR_BASE = 1950000;
 const DOLLAR_PRICE = DOLLAR_BASE + DOLLAR_BASE * 0.1;
 
 const CheckoutPage = ({

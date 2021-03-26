@@ -599,8 +599,6 @@ const CheckoutPage = ({
     }
   }, [rideRequest]);
 
-  console.log("RequestRide", rideRequest);
-
   return (
     <>
       <Wrapper>

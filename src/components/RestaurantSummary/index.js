@@ -22,7 +22,8 @@ const RestaurantSummary = ({ restaurant, deliveryLocation }) => {
   useEffect(() => {
     if (deliveryLocation && restaurant && restaurant.location) {
       setDeliveryPrice(
-        calculatePriceFromPoints(deliveryLocation, restaurant.location)
+        restaurant.promoDeliveryPrice ??
+          calculatePriceFromPoints(deliveryLocation, restaurant.location)
       );
     }
   }, [deliveryLocation, restaurant]);

@@ -130,7 +130,7 @@ const Store = ({
           eta: partner.eta || 40,
           commision: partner.commision,
           commisionIncluded: partner.commisionIncluded,
-          promoDeliveryPrice: partner.promoDeliveryPrice
+          promoDeliveryPrice: partner.promoDeliveryPrice || null
         },
       });
     },

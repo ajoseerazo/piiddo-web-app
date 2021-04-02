@@ -60,7 +60,7 @@ const { getCoupon } = couponsActions;
 
 const DASH_DISCOUNT = 0.1;
 
-const DOLLAR_BASE = 1950000;
+const DOLLAR_BASE = 2000000;
 const DOLLAR_PRICE = DOLLAR_BASE + DOLLAR_BASE * 0.1;
 
 const CheckoutPage = ({
@@ -986,7 +986,7 @@ const CheckoutPage = ({
                     {isCheckoutButtonDisabled && <PayPalButtonDisabling />}
                     <PayPalButton
                       amount={parseFloat(
-                        `${((finalAmount + finalAmount * 0.1) * 3500) / 3300}`
+                        `${(finalAmount * 4000) / 3200}`
                       ).toFixed(2)}
                       shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                       onSuccess={onPaypalPaymentSuccess}

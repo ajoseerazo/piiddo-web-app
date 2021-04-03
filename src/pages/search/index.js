@@ -55,8 +55,8 @@ const Search = ({
             lng: store.location._longitude,
           }
         : {},
-      commision: store.commision,
-      commisionIncluded: store.commisionIncluded,
+      commision: store.commision || null,
+      commisionIncluded: store.commisionIncluded || null,
     });
   });
 
@@ -75,8 +75,8 @@ const Search = ({
           slug: storeSelected.slug,
           logo: storeSelected.logo,
           location: storeSelected.location ? storeSelected.location : null,
-          commision: storeSelected.commision,
-          commisionIncluded: storeSelected.commisionIncluded,
+          commision: storeSelected.commision || null,
+          commisionIncluded: storeSelected.commisionIncluded || null,
           promoDeliveryPrice: storeSelected.promoDeliveryPrice || null
         },
       });

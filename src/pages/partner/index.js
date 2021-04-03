@@ -128,9 +128,9 @@ const Store = ({
           logo: partner.logo,
           location: partner.location,
           eta: partner.eta || 40,
-          commision: partner.commision,
-          commisionIncluded: partner.commisionIncluded,
-          promoDeliveryPrice: partner.promoDeliveryPrice || null
+          commision: partner.commision || null,
+          commisionIncluded: partner.commisionIncluded || null,
+          promoDeliveryPrice: partner.promoDeliveryPrice || null,
         },
       });
     },
@@ -157,7 +157,8 @@ const Store = ({
   useEffect(() => {
     if (deliveryLocation && partner && partner.location) {
       setDeliveryPrice(
-        partner.promoDeliveryPrice ?? calculatePriceFromPoints(deliveryLocation, partner.location)
+        partner.promoDeliveryPrice ??
+          calculatePriceFromPoints(deliveryLocation, partner.location)
       );
     }
   }, [deliveryLocation, partner]);

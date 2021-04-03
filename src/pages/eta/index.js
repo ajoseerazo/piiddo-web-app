@@ -105,7 +105,7 @@ const rider = {
   avatar:
     "https://www.pngkit.com/png/full/50-503951_profile-circle-profile-pic-in-circle.png",
   rating: 4.3,
-  whatsapp: "584140361000",
+  whatsapp: "584247151994",
 };
 
 const ETA = () => {
@@ -117,14 +117,14 @@ const ETA = () => {
 
   useInterval(() => {
     if (currentState + 1 < states.length) {
-      setCurrentState(currentState + 1);
+      // setCurrentState(currentState + 1);
     }
   }, 5000);
 
   useEffect(() => {
     if (currentState === states.length - 1) {
       setTimeout(() => {
-        setOpenRateServiceModal(true);
+        // setOpenRateServiceModal(true);
       }, 3000);
     }
   }, [currentState]);
@@ -201,14 +201,14 @@ const ETA = () => {
 
         <SupportWhatsappButton>
           <WhatsappButton
-            phone={"584145745049"}
+            phone={"584247151994"}
             text={`Hola Piiddo, necesito ayuda con mi orden. Orden Id: ${order}`}
             msg={"Contactar a soporte"}
           />
         </SupportWhatsappButton>
       </EtaWrapper>
 
-      <RateService isOpen={openRateServiceModal} rider={rider} />
+      {/*<RateService isOpen={openRateServiceModal} rider={rider} />*/}
     </>
   );
 };

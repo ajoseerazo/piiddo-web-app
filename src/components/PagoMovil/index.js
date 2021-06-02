@@ -99,8 +99,8 @@ const PagoMovil = ({ amount, onClickPayButton, loading, type }) => {
         )}
         {type === "zelle" && (
           <div>
-            <div>Correo: johyamer@gmail.com</div>
-            <div>Nombre: Juhayna abou amer Keyssieh</div>
+            <div>Correo: douglaserazo978@gmail.com</div>
+            <div>Nombre: Douglas Erazo</div>
           </div>
         )}
       </PagoMovilData>

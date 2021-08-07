@@ -11,7 +11,7 @@ const paymentMethods = [
   {
     name: "Remepagos",
     value: "remepagos",
-    disabled: true,
+    disabled: false,
   },
   {
     name: "Tarjeta de crédito/débito internacional",

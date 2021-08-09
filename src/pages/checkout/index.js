@@ -53,6 +53,7 @@ import { getDataFromShoppingCart } from "../../utils";
 import useUser from "../../hooks/useUser";
 import { useToasts } from "react-toast-notifications";
 import { useRouter } from "next/router";
+import Payment from "@remepagos/pay-button";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -96,10 +97,8 @@ const CheckoutPage = ({
   const [isSamePerson, setIsSamePerson] = useState(false);
   const [shouldOpenSupportModal, setShouldOpenSupportModal] = useState(false);
   const [creditCard, setCreditCard] = useState();
-  const [
-    shouldOpenPaymentSuccessModal,
-    setShouldOpenPaymentSuccessModal,
-  ] = useState(false);
+  const [shouldOpenPaymentSuccessModal, setShouldOpenPaymentSuccessModal] =
+    useState(false);
   const [paypalPaymentSuccess, setPaypalPaymentSuccess] = useState(false);
   const [billName, setBillName] = useState();
   const [billLastName, setBillLastName] = useState();
@@ -124,6 +123,13 @@ const CheckoutPage = ({
     (paymentMethod) => {
       setPaymentMethodSelected(paymentMethod);
       setShowPaymentMethods(false);
+
+      if (paymentMethod.value === "remepagos") {
+        const payment = new Payment({
+          clientId: "123",
+        });
+        payment.render("remepagos-button-container");
+      }
     },
     [setPaymentMethodSelected]
   );
@@ -997,25 +1003,34 @@ const CheckoutPage = ({
                       onError={onPayPalPaymentError}
                     />
                   </PaypalButtonWrapper>
-                ) : (
-                  <CheckoutButton
-                    onClick={confirmOrder}
-                    disabled={
-                      isCreatingOrder ||
-                      isCheckoutButtonDisabled ||
-                      orderCreated
-                    }
-                  >
-                    {(isCreatingOrder || isDoingPayment) && <LoadingSpinner />}
-                    {!isCreatingOrder && !isDoingPayment && (
-                      <span>
-                        {type !== "piiddo-go"
-                          ? "Realizar pedido"
-                          : "Confirmar viaje"}
-                      </span>
-                    )}
-                  </CheckoutButton>
+                ) : !isDoingPayment &&
+                  !paypalPaymentSuccess &&
+                  paymentMethodSelected &&
+                  paymentMethodSelected.value === "remepagos" ? null : (
+                  <>
+                    <CheckoutButton
+                      onClick={confirmOrder}
+                      disabled={
+                        isCreatingOrder ||
+                        isCheckoutButtonDisabled ||
+                        orderCreated
+                      }
+                    >
+                      {(isCreatingOrder || isDoingPayment) && (
+                        <LoadingSpinner />
+                      )}
+                      {!isCreatingOrder && !isDoingPayment && (
+                        <span>
+                          {type !== "piiddo-go"
+                            ? "Realizar pedido"
+                            : "Confirmar viaje"}
+                        </span>
+                      )}
+                    </CheckoutButton>{" "}
+                  </>
                 )}
+
+                <div id="remepagos-button-container"></div>
               </CheckoutBox>
             </CheckoutContentRight>
           </CheckoutContent>

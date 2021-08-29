@@ -94,7 +94,7 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
         </ReactTooltip>
       </PagoMovilData>
 
-      <p>Y agregar un capture de la transferencia</p>
+      <p>Y tomar un capture o foto de la transferencia y agregarla a continuación</p>
 
       <DropzoneWrapper>
         <Dropzone onAddFile={onAddCapture}>

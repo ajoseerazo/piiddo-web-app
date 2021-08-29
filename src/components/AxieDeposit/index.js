@@ -61,7 +61,7 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
   return (
     <PagoMovilWrapper>
       <h5>
-        <span>Para finalizar la orden debes transferir</span>
+        <span>Para finalizar el pedido debes transferir</span>
       </h5>
 
       <Wallet>

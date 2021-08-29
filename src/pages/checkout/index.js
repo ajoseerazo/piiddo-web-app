@@ -1067,11 +1067,7 @@ const CheckoutPage = ({
             <AxieSupportModal
               isOpened={shouldOpenSupportModal}
               type={paymentMethodSelected.value}
-              amount={
-                paymentMethodSelected.value === "zelle"
-                  ? finalAmount
-                  : finalAmount * DOLLAR_PRICE
-              }
+              amount={finalAmount}
               orderId={order.id}
               onFinishPayment={onFinishPayment}
               isLoading={settingPaymentSupport}

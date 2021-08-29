@@ -20,6 +20,8 @@ import ReactTooltip from "react-tooltip";
 
 const roninAddress = "ronin:50c886642f0944334fa09b45dfe6a3b98a664bc1";
 
+const SLP_USD = 0.1359;
+
 const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
   const [file, setFile] = useState();
   const [preview, setPreview] = useState();
@@ -65,8 +67,11 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
       </h5>
 
       <Wallet>
-        <AmountCrypto currency={"SLP"} value={0.45} />
-        <AmountCrypto currency={"USD"} value={10.5} size={"small"} />
+        <AmountCrypto
+          currency={"SLP"}
+          value={parseFloat(parseFloat(amount / SLP_USD).toFixed(2))}
+        />
+        <AmountCrypto currency={"USD"} value={amount} size={"small"} />
 
         <img src="https://skymavis.com/static/branding.6f33c446.png" />
       </Wallet>
@@ -94,7 +99,9 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
         </ReactTooltip>
       </PagoMovilData>
 
-      <p>Y tomar un capture o foto de la transferencia y agregarla a continuación</p>
+      <p>
+        Y tomar un capture o foto de la transferencia y agregarla a continuación
+      </p>
 
       <DropzoneWrapper>
         <Dropzone onAddFile={onAddCapture}>

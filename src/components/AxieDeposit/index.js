@@ -60,9 +60,9 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
 
   return (
     <PagoMovilWrapper>
-      <p>
+      <h5>
         <span>Para finalizar la orden debes transferir</span>
-      </p>
+      </h5>
 
       <Wallet>
         <AmountCrypto currency={"SLP"} value={0.45} />

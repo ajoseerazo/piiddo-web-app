@@ -4,9 +4,10 @@ import { PaymentMethodsWrapper } from "./styled";
 
 const paymentMethods = [
   {
-    name: "SLP (Axie)",
+    name: "SLP",
     value: "slp",
     disabled: false,
+    image: "https://apklatestversion.com/logo/axie-infinity-apk.png",
   },
   {
     name: "Piiddo Créditos",
@@ -85,6 +86,7 @@ const PaymentMethods = ({ onSelectOption, value }) => {
                 : false
             }
             disabled={pm.disabled}
+            image={pm.image}
           />
         </li>
       ))}

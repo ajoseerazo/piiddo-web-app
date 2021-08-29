@@ -823,6 +823,9 @@ const CheckoutPage = ({
                           <PaymentMethodSelected>
                             <PaymentMethodSelectedTitle>
                               {paymentMethodSelected.name}
+                              {paymentMethodSelected.image && (
+                                <img src={paymentMethodSelected.image} />
+                              )}
                             </PaymentMethodSelectedTitle>
 
                             <PaymentMethodChangeButton

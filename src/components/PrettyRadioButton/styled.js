@@ -10,6 +10,15 @@ export const CheckboxStyled = styled.div`
     font-size: 14px;
   }
 
+  img {
+    height: 50px;
+    object-fit: contain;
+    object-position: center;
+    margin-left: 10px;
+    position: absolute;
+    top: -16px;
+  }
+
   input:checked ~ .state.p-danger label:after {
     background-color: #f74342 !important;
   }

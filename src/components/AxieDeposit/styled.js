@@ -12,6 +12,12 @@ export const PagoMovilWrapper = styled.div`
   background-position: center;
   background-size: contain;
 
+  h5 {
+    margin: 0px;
+    text-align: center;
+    font-weight: 600;
+  }
+
   p {
     text-align: center;
     margin: 0;

@@ -175,6 +175,13 @@ export const PaymentMethodSelected = styled.div`
   justify-content: space-between;
   margin-top: 15px;
   align-items: center;
+
+  img {
+    height: 70px;
+    object-fit: contain;
+    object-position: center;
+    margin-left: 10px;
+  }
 `;
 
 export const PaymentMethodSelectedTitle = styled.div`

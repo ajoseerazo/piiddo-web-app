@@ -54,6 +54,7 @@ import useUser from "../../hooks/useUser";
 import { useToasts } from "react-toast-notifications";
 import { useRouter } from "next/router";
 import Payment from "@remepagos/pay-button";
+import AxieSupportModal from "../../components/AxieSupportModal";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -265,7 +266,8 @@ const CheckoutPage = ({
       if (
         paymentMethodSelected.value === "pago-movil" ||
         paymentMethodSelected.value === "bank-transfer" ||
-        paymentMethodSelected.value === "zelle"
+        paymentMethodSelected.value === "zelle" ||
+        paymentMethodSelected.value === "slp"
       ) {
         setShouldOpenSupportModal(true);
       } else {
@@ -1042,6 +1044,24 @@ const CheckoutPage = ({
             paymentMethodSelected.value === "bank-transfer" ||
             paymentMethodSelected.value === "zelle") && (
             <PaymentSupportModal
+              isOpened={shouldOpenSupportModal}
+              type={paymentMethodSelected.value}
+              amount={
+                paymentMethodSelected.value === "zelle"
+                  ? finalAmount
+                  : finalAmount * DOLLAR_PRICE
+              }
+              orderId={order.id}
+              onFinishPayment={onFinishPayment}
+              isLoading={settingPaymentSupport}
+              paymentSupportSent={paymentSupportSent}
+            />
+          )}
+
+        {order &&
+          paymentMethodSelected &&
+          paymentMethodSelected.value === "slp" && (
+            <AxieSupportModal
               isOpened={shouldOpenSupportModal}
               type={paymentMethodSelected.value}
               amount={

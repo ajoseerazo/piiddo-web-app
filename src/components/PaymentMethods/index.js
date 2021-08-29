@@ -4,6 +4,11 @@ import { PaymentMethodsWrapper } from "./styled";
 
 const paymentMethods = [
   {
+    name: "SLP (Axie)",
+    value: "slp",
+    disabled: false,
+  },
+  {
     name: "Piiddo Créditos",
     value: "piiddo-credits",
     disabled: true,

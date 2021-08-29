@@ -86,8 +86,9 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
           id="tooltip"
           effect="solid"
           type="dark"
-          data-event="click"
+          event="click"
           aria-haspopup="true"
+          isCapture
         >
           <span>Copiado al portapapeles</span>
         </ReactTooltip>

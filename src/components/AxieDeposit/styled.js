@@ -76,6 +76,10 @@ export const PaymentButton = styled(Button)`
     opacity: 0.5;
   }
 
+  &:hover {
+    background: #56acff !important;
+  }
+
   @media screen and (max-width: 768px) {
     position: fixed;
   }

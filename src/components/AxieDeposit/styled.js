@@ -22,6 +22,11 @@ export const PagoMovilWrapper = styled.div`
     text-align: center;
     margin: 0;
   }
+
+  @media screen and (max-width: 768px) {
+    height: 100vh;
+    overflow-y: auto;
+  }
 `;
 
 export const PagoMovilData = styled.div`
@@ -88,6 +93,8 @@ export const PaymentButton = styled(Button)`
 
   @media screen and (max-width: 768px) {
     position: fixed;
+    bottom: 15px;
+    width: calc(100% - 30px);
   }
 `;
 
@@ -120,7 +127,7 @@ export const Wallet = styled.div`
   position: relative;
   background: rgb(22, 122, 236);
   background: linear-gradient(
-    151deg,
+    151deg,maer
     rgba(22, 122, 236, 1) 0%,
     rgba(30, 142, 240, 1) 100%
   );
@@ -135,8 +142,17 @@ export const Wallet = styled.div`
     bottom: 5px;
     right: 10px;
     width: 100px;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
     height: 40px;
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-left: 0px;
+    margin-right: 0px;
+
+    img {
+      width: 80px;
+    }
   }
 `;

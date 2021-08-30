@@ -14,11 +14,22 @@ export const AmountStyled = styled(({ size, ...rest }) => <div {...rest} />)`
     size === "small"
       ? css`
           font-size: 20px;
-          color: #459AF1;
+          color: #459af1;
         `
       : css`
           font-size: 40px;
         `}
+
+  @media screen and (max-width: 768px) {
+    ${({ size }) =>
+      size === "small"
+        ? css`
+            font-size: 18px;
+          `
+        : css`
+            font-size: 35px;
+          `}
+  }
 `;
 
 export const CurrencyStyled = styled(({ size, ...rest }) => <div {...rest} />)`
@@ -29,9 +40,19 @@ export const CurrencyStyled = styled(({ size, ...rest }) => <div {...rest} />)`
     size === "small"
       ? css`
           font-size: 20px;
-          color: #459AF1;
+          color: #459af1;
         `
       : css`
           font-size: 40px;
         `}
+
+    @media screen and (max-width: 768px) {
+      ${({ size }) =>
+        size === "small"
+          ? css`
+              font-size: 18px;
+            `
+          : css`
+              font-size: 35px;
+            `}
 `;

@@ -20,7 +20,7 @@ import ReactTooltip from "react-tooltip";
 
 const roninAddress = "ronin:50c886642f0944334fa09b45dfe6a3b98a664bc1";
 
-const SLP_USD = 0.1359;
+const SLP_USD = 0.13;
 
 const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
   const [file, setFile] = useState();
@@ -81,7 +81,7 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
       <PagoMovilData>
         <input ref={inputRef} value={roninAddress} readOnly={true} />
 
-        <a data-tip data-for="tooltip">
+        <a data-tip data-for="tooltip" data-delay-hide="2000">
           <CopyToClipboard text={roninAddress} onCopy={onCopyAddress}>
             <FontAwesomeIcon icon={faCopy} color="#1578ed" />
           </CopyToClipboard>
@@ -94,6 +94,7 @@ const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
           event="click"
           aria-haspopup="true"
           isCapture
+          place="top"
         >
           <span>Copiado al portapapeles</span>
         </ReactTooltip>

@@ -607,6 +607,10 @@ const CheckoutPage = ({
     }
   }, [rideRequest]);
 
+  const onCloseModalAxie = useCallback(() => {
+    setShouldOpenSupportModal(false);
+  });
+
   return (
     <>
       <Wrapper>
@@ -1072,6 +1076,7 @@ const CheckoutPage = ({
               onFinishPayment={onFinishPayment}
               isLoading={settingPaymentSupport}
               paymentSupportSent={paymentSupportSent}
+              onRequestClose={onCloseModalAxie}
             />
           )}
 

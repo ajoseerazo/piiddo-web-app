@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AxieDeposit from "../AxieDeposit";
 import { ModalStyled, ModalBodyStyled } from "./styled";
 import PaymentSuccessScreen from "../PaymentSuccessScreen";
@@ -11,9 +11,17 @@ const AxieSupportModal = ({
   onFinishPayment,
   isLoading,
   paymentSupportSent,
+  onRequestClose
 }) => {
+  useEffect(() => {
+    if (isOpened) {
+      document.body.style = "overflow: hidden";
+    } else {
+      document.body.style = "";
+    }
+  }, [isOpened]);
   return (
-    <ModalStyled isOpen={isOpened}>
+    <ModalStyled isOpen={isOpened} onClose={onRequestClose}>
       <ModalBodyStyled>
         {!paymentSupportSent ? (
           <AxieDeposit

@@ -77,6 +77,7 @@ export const PaymentButton = styled(Button)`
   color: white;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 5px rgb(21 120 237 / 10%);
+  position: relative;
 
   > div {
     margin-right: 5px;

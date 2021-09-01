@@ -120,16 +120,48 @@ const CheckoutPage = ({
 
   const { addToast } = useToasts();
 
+  const itemsOrder = useMemo(() => {
+    return Object.keys(stores)
+      .map((storeId) => {
+        return (stores[storeId].items || []).map((item) => {
+          return {
+            title: item.product.name,
+            count: item.count,
+            amount: item.totalAmount,
+            image: item.product.image,
+          };
+        });
+      })
+      .flat();
+  }, [stores]);
+
+  let remepagosPaymentButton = null;
+
   const selectPaymentMethod = useCallback(
     (paymentMethod) => {
       setPaymentMethodSelected(paymentMethod);
       setShowPaymentMethods(false);
 
       if (paymentMethod.value === "remepagos") {
-        const payment = new Payment({
-          clientId: "123",
+        remepagosPaymentButton = new Payment({
+          merchantId: "209581",
+          items: [
+            ...itemsOrder,
+            {
+              title: "Delivery",
+              count: 1,
+              amount: finalDelivery,
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/moto.png?alt=media&token=1514fc99-5eb8-45c9-b76e-a30469e19f59",
+            },
+          ],
+          amount: finalAmount,
         });
-        payment.render("remepagos-button-container");
+        remepagosPaymentButton.render("remepagos-button-container");
+      } else {
+        if (remepagosPaymentButton) {
+          remepagosPaymentButton.remove();
+        }
       }
     },
     [setPaymentMethodSelected]

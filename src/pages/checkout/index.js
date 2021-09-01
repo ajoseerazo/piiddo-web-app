@@ -144,7 +144,7 @@ const CheckoutPage = ({
 
       if (paymentMethod.value === "remepagos") {
         remepagosPaymentButton = new Payment({
-          merchantId: "209581",
+          merchantId: "154656",
           items: [
             ...itemsOrder,
             {

@@ -20,7 +20,7 @@ import ReactTooltip from "react-tooltip";
 
 const roninAddress = "ronin:50c886642f0944334fa09b45dfe6a3b98a664bc1";
 
-const SLP_USD = 0.13;
+const SLP_USD = 0.119;
 
 const AxieDeposit = ({ amount, onClickPayButton, loading, type }) => {
   const [file, setFile] = useState();

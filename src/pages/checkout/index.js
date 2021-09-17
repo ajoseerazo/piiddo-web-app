@@ -137,35 +137,33 @@ const CheckoutPage = ({
 
   let remepagosPaymentButton = null;
 
-  const selectPaymentMethod = useCallback(
-    (paymentMethod) => {
-      setPaymentMethodSelected(paymentMethod);
-      setShowPaymentMethods(false);
+  const selectPaymentMethod = (paymentMethod) => {
+    setPaymentMethodSelected(paymentMethod);
+    setShowPaymentMethods(false);
 
-      if (paymentMethod.value === "remepagos") {
-        remepagosPaymentButton = new Payment({
-          merchantId: "154656",
-          items: [
-            ...itemsOrder,
-            {
-              title: "Delivery",
-              count: 1,
-              amount: finalDelivery,
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/moto.png?alt=media&token=1514fc99-5eb8-45c9-b76e-a30469e19f59",
-            },
-          ],
-          amount: finalAmount,
-        });
-        remepagosPaymentButton.render("remepagos-button-container");
-      } else {
-        if (remepagosPaymentButton) {
-          remepagosPaymentButton.remove();
-        }
+    if (paymentMethod.value === "remepagos") {
+      remepagosPaymentButton = new Payment({
+        merchantId: process.env.NODE_ENV === "production" ? "154656" : "209581",
+        items: [
+          ...itemsOrder,
+          {
+            title: "Delivery",
+            count: 1,
+            amount: finalDelivery,
+            image:
+              "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/moto.png?alt=media&token=1514fc99-5eb8-45c9-b76e-a30469e19f59",
+          },
+        ],
+        amount: finalAmount,
+        onPaymentSuccess: onRemepagosPaymentSuccess,
+      });
+      remepagosPaymentButton.render("remepagos-button-container");
+    } else {
+      if (remepagosPaymentButton) {
+        remepagosPaymentButton.remove();
       }
-    },
-    [setPaymentMethodSelected]
-  );
+    }
+  };
 
   const toggleSamePerson = useCallback(() => {
     setIsSamePerson(!isSamePerson);
@@ -347,6 +345,51 @@ const CheckoutPage = ({
     },
     [setCreditCard]
   );
+
+  const onRemepagosPaymentSuccess = (paymentData) => {
+    const payload =
+      type !== "piiddo-go"
+        ? {
+            address: address || "",
+            name,
+            number,
+            email,
+            receiverName: isSamePerson ? name : receiverName,
+            receiverNumber: isSamePerson ? number : receiverNumber,
+            paymentMethodSelected: {
+              name: "Remepagos",
+              value: "remepagos",
+            },
+            extraAddress,
+            vuelto,
+            stores,
+            paymentStatus: "COMPLETED",
+            paymentDetails: paymentData,
+          }
+        : {
+            name,
+            number,
+            email,
+            paymentMethodSelected: {
+              name: "Remepagos",
+              value: "remepagos",
+            },
+            paymentStatus: "COMPLETED",
+            paymentDetails: details,
+            ...rideRequest,
+            type,
+            extraFromAddress,
+            extraToAddress,
+          };
+
+    console.log(payload);
+
+    if (coupon && couponApplied && !invalidCoupon) {
+      payload.coupon = coupon.code;
+    }
+
+    createOrder(payload);
+  };
 
   const onPaypalPaymentSuccess = useCallback(
     (details, data) => {

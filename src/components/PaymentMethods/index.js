@@ -70,7 +70,7 @@ const PaymentMethods = ({ onSelectOption, value }) => {
       setPaymetnMethodSelected(paymentMethod);
       onSelectOption(paymentMethod);
     },
-    [paymentMethodSelected]
+    [paymentMethodSelected, onSelectOption, value]
   );
 
   return (

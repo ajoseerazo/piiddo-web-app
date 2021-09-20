@@ -7,8 +7,8 @@ export const AdBannerWrapper = styled.div`
   flex-direction: row;
   align-items: center;
   border-radius: 22px;
-  background-color: #1c8de4;
-  box-shadow: 0 32px 32px 0 rgba(51, 41, 39, 0.05);
+  background-color: #6843E3;
+  box-shadow: 0px 0px 15px 5px rgb(0 0 0 / 10%);
   margin-top: 20px;
   margin-bottom: 20px;
   color: #fff;

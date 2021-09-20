@@ -12,7 +12,7 @@ const AdBanner = () => {
   return (
     <AdBannerWrapper>
       <LeftWrapper>
-        <IconImage src="https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/categories%2Fdash-d.png?alt=media&token=b3c34673-a117-4b9c-b0b8-9a85e8cc45bb" />
+        {/*<IconImage src="https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/categories%2Fdash-d.png?alt=media&token=b3c34673-a117-4b9c-b0b8-9a85e8cc45bb" />*/}
 
         <TextWrapper>
           <TextWrapperInner>

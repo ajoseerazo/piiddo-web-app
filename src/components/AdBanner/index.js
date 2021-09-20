@@ -16,7 +16,8 @@ const AdBanner = () => {
 
         <TextWrapper>
           <TextWrapperInner>
-            ¡Realiza tus compras pagando con <strong>Remepagos</strong>
+            ¡Realiza tus compras pagando con <strong>Reme</strong>
+            <i>Pagos</i>
           </TextWrapperInner>
           <div>
             y recibe <strong>10% de descuento</strong> en tu compra!

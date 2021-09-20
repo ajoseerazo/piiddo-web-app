@@ -60,7 +60,7 @@ const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
 const { getCoupon } = couponsActions;
 
-const REMEPAGOS_DISCOUNT = 0.05;
+const REMEPAGOS_DISCOUNT = 0.1;
 
 const DOLLAR_BASE = 4500000;
 const DOLLAR_PRICE = DOLLAR_BASE + DOLLAR_BASE * 0;

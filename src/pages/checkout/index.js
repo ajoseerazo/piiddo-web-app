@@ -60,7 +60,7 @@ const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
 const { getCoupon } = couponsActions;
 
-const DASH_DISCOUNT = 0.1;
+const REMEPAGOS_DISCOUNT = 0.05;
 
 const DOLLAR_BASE = 4500000;
 const DOLLAR_PRICE = DOLLAR_BASE + DOLLAR_BASE * 0;
@@ -659,15 +659,15 @@ const CheckoutPage = ({
     setFinalAmount(finalTotal + finalDelivery);
   }, [finalTotal, finalDelivery]);
 
-  /*useEffect(() => {
+  useEffect(() => {
     const total = finalTotal + finalDelivery;
 
-    if (paymentMethodSelected && paymentMethodSelected.value === "cryptocoins") {
-      setFinalAmount(total - total * DASH_DISCOUNT);
+    if (paymentMethodSelected && paymentMethodSelected.value === "remepagos") {
+      setFinalAmount(total - total * REMEPAGOS_DISCOUNT);
     } else {
       setFinalAmount(total);
     }
-  }, [paymentMethodSelected]);*/
+  }, [paymentMethodSelected]);
 
   let deliveryEta = 0;
   for (let key in stores) {

@@ -4,6 +4,11 @@ import { PaymentMethodsWrapper } from "./styled";
 
 const paymentMethods = [
   {
+    name: "Remepagos",
+    value: "remepagos",
+    disabled: false,
+  },
+  {
     name: "SLP",
     value: "slp",
     disabled: false,
@@ -13,11 +18,6 @@ const paymentMethods = [
     name: "Piiddo Créditos",
     value: "piiddo-credits",
     disabled: true,
-  },
-  {
-    name: "Remepagos",
-    value: "remepagos",
-    disabled: false,
   },
   {
     name: "Tarjeta de crédito/débito internacional",

@@ -153,6 +153,13 @@ const CheckoutPage = ({
             image:
               "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/moto.png?alt=media&token=1514fc99-5eb8-45c9-b76e-a30469e19f59",
           },
+          {
+            title: "Descuento",
+            count: 1,
+            amount: finalAmount * 0.1 * -1,
+            image:
+              "https://lh3.googleusercontent.com/proxy/yoosM01ov1oz7HcDs6Xddper3L6rinkJDtqtBzdrLRKJCLE81Dh_9kM_DzcXXQvwowa4nk0X7L4nWAbKHCbTbK625ZLK-DMc",
+          },
         ],
         amount: finalAmount * 0.9,
         onPaymentSuccess: onRemepagosPaymentSuccess,

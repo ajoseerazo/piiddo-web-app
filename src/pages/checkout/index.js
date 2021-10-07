@@ -154,7 +154,7 @@ const CheckoutPage = ({
               "https://firebasestorage.googleapis.com/v0/b/genial-core-212201.appspot.com/o/moto.png?alt=media&token=1514fc99-5eb8-45c9-b76e-a30469e19f59",
           },
         ],
-        amount: finalAmount,
+        amount: finalAmount * 0.9,
         onPaymentSuccess: onRemepagosPaymentSuccess,
       });
       remepagosPaymentButton.render("remepagos-button-container");
@@ -1075,9 +1075,7 @@ const CheckoutPage = ({
                   <PaypalButtonWrapper>
                     {isCheckoutButtonDisabled && <PayPalButtonDisabling />}
                     <PayPalButton
-                      amount={parseFloat(
-                        `${finalAmount * 1.1}`
-                      ).toFixed(2)}
+                      amount={parseFloat(`${finalAmount * 1.1}`).toFixed(2)}
                       shippingPreference="NO_SHIPPING" // default is "GET_FROM_FILE"
                       onSuccess={onPaypalPaymentSuccess}
                       options={{

@@ -62,7 +62,7 @@ const { getCoupon } = couponsActions;
 
 const REMEPAGOS_DISCOUNT = 0.1;
 
-const DOLLAR_BASE = 4.09;
+const DOLLAR_BASE = 5.34;
 const DOLLAR_PRICE = DOLLAR_BASE + DOLLAR_BASE * 0;
 
 const CheckoutPage = ({

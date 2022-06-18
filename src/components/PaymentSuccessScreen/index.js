@@ -20,23 +20,7 @@ const SuccessScreen = ({ orderId, type, title, redirect = true }) => {
 
   return (
     <SuccessWrapper>
-      {type !== "inner-payment" ? (
-        <div>{title || "Comprobante de pago recibido exitosamente"}</div>
-      ) : (
-        <div>Orden procesada exitosamente</div>
-      )}
-      <SuccessSVG />
-      <div>
-        {type !== "inner-payment"
-          ? "Estamos confirmando el pago y en breve será notificado"
-          : "Tu pedido está siendo confirmado con la tienda"}
-      </div>
-
-      {redirect && (
-        <RedirectionDisclaimer>
-          En segundos será redirigido
-        </RedirectionDisclaimer>
-      )}
+      
     </SuccessWrapper>
   );
 };

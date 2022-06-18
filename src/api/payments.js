@@ -1,8 +1,8 @@
 import { PAYMENT_GATEWAY_URL } from "../config/constants";
 
 class Payments {
-  static payWithCreditCard = async ({ card, amount, bill }) => {
-    return fetch(`${PAYMENT_GATEWAY_URL}/payment-checkout`, {
+  static payWithCreditCard = async ({ card, amount, bill, cardType }) => {
+    return fetch(`${PAYMENT_GATEWAY_URL}/pay-piiddo/payment-checkout`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -11,6 +11,7 @@ class Payments {
         card,
         amount,
         bill,
+        cardType,
       }),
     }).then((res) => res.json());
   };

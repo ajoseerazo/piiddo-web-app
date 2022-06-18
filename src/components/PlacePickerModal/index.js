@@ -1,4 +1,4 @@
-import { useState, useEffect, Suspense, useCallback } from "react";
+import React, { useState, useEffect, Suspense, useCallback } from "react";
 import {
   ModalStyled,
   ModalBodyStyled,
@@ -20,10 +20,13 @@ import Autocomplete from "../Autocomplete";
 import MyPositionButton from "../MyPositionButton";
 import { useSelector } from "react-redux";
 import useCity from "../../hooks/useCity";
+import dynamic from "next/dynamic";
 
 library.add([faTimes, faMapMarkerAlt]);
 
-const LocationPicker = React.lazy(() => import("react-location-picker"));
+const LocationPicker = dynamic(() => import("react-location-picker"), {
+  ssr: false
+});
 
 const PlacePickerModal = ({
   isOpen,

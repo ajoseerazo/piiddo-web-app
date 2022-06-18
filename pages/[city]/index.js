@@ -161,7 +161,7 @@ class Shop extends Component {
                   : "auto",
             }}
           >
-            <AdBanner />
+            {/*<AdBanner />*/}
 
             <GlobalSearch
               address={address}

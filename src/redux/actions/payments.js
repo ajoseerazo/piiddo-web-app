@@ -21,7 +21,7 @@ const paymentsActions = {
       error,
     };
   },
-  doPayment: ({ card, amount, bill }) => {
+  doPayment: ({ card, amount, bill, cardType }) => {
     return async (dispatch) => {
       try {
         dispatch(paymentsActions.doingPayment());
@@ -30,6 +30,7 @@ const paymentsActions = {
           card,
           amount,
           bill,
+          cardType
         });
 
         dispatch(paymentsActions.doPaymentSuccess(payment));

@@ -55,6 +55,7 @@ import { useToasts } from "react-toast-notifications";
 import { useRouter } from "next/router";
 import Payment from "@remepagos/pay-button";
 import AxieSupportModal from "../../components/AxieSupportModal";
+import PrettyRadioButton from "../../components/PrettyRadioButton";
 
 const { createOrder, setOrderPaymentSupport } = ordersActions;
 const { doPayment } = paymentsActions;
@@ -115,6 +116,7 @@ const CheckoutPage = ({
   const user = useUser();
   const router = useRouter();
   const [dashDiscount, setDashdiscount] = useState(false);
+  const [typeOfCard, setTypeOfCard] = useState("tdd");
 
   const { type } = router.query;
 
@@ -249,7 +251,8 @@ const CheckoutPage = ({
           documentType: "DNI",
           documentNumber: billDNI,
         },
-        amount: finalAmount,
+        amount: finalAmount * DOLLAR_PRICE,
+        cardType: typeOfCard,
       });
 
       if (result && result.success) {
@@ -296,6 +299,7 @@ const CheckoutPage = ({
     type,
     extraFromAddress,
     extraToAddress,
+    typeOfCard,
   ]);
 
   useEffect(() => {
@@ -500,7 +504,13 @@ const CheckoutPage = ({
             }
           case "credit-card":
           case "debit-card":
-            if (!creditCard) {
+            if (
+              !creditCard ||
+              !billAddress ||
+              !billDNI ||
+              !billName ||
+              !billLastName
+            ) {
               return true;
             }
           default:
@@ -545,6 +555,10 @@ const CheckoutPage = ({
     vuelto,
     creditCard,
     rideRequest,
+    billAddress,
+    billDNI,
+    billName,
+    billLastName,
   ]);
 
   const closeQRModal = useCallback(() => {
@@ -692,6 +706,10 @@ const CheckoutPage = ({
   const onCloseModalAxie = useCallback(() => {
     setShouldOpenSupportModal(false);
   });
+
+  const onSelectOptionTypeOfCard = useCallback((type) => {
+    setTypeOfCard(type);
+  }, []);
 
   return (
     <>
@@ -954,6 +972,38 @@ const CheckoutPage = ({
                               </CheckoutBoxTitle>
 
                               <CheckoutPersonalDataGroup>
+                                <label>Tipo de tarjeta *</label>
+                                <>
+                                  <div
+                                    style={{
+                                      paddingTop: 10,
+                                      paddingBottom: 10,
+                                    }}
+                                  >
+                                    <PrettyRadioButton
+                                      label={"Tarjeta de Débito"}
+                                      onChange={onSelectOptionTypeOfCard.bind(
+                                        this,
+                                        "tdd"
+                                      )}
+                                      checked={typeOfCard === "tdd"}
+                                    />
+                                  </div>
+
+                                  <div style={{ paddingBottom: 10 }}>
+                                    <PrettyRadioButton
+                                      label={"Tarjeta de Crédito"}
+                                      onChange={onSelectOptionTypeOfCard.bind(
+                                        this,
+                                        "tdc"
+                                      )}
+                                      checked={typeOfCard === "tdc"}
+                                    />
+                                  </div>
+                                </>
+                              </CheckoutPersonalDataGroup>
+
+                              <CheckoutPersonalDataGroup>
                                 <label>Nombre *</label>
                                 <CheckoutInput
                                   placeholder="Nombre"
@@ -1068,7 +1118,9 @@ const CheckoutPage = ({
                     <CheckoutTotalPrice>
                       Bs{" "}
                       {`${new Intl.NumberFormat("es").format(
-                        finalAmount * DOLLAR_PRICE
+                        parseFloat(
+                          parseFloat(finalAmount * DOLLAR_PRICE).toFixed(2)
+                        )
                       )}`}
                     </CheckoutTotalPrice>
                   </div>

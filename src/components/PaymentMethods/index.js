@@ -20,9 +20,9 @@ const paymentMethods = [
     disabled: true,
   },
   {
-    name: "Tarjeta de crédito/débito internacional",
+    name: "Tarjeta de crédito/débito",
     value: "credit-card",
-    disabled: true,
+    disabled: false,
   },
   {
     name: "Bolívares en efectivo",

@@ -21,9 +21,8 @@ const AddressSelector = ({
   onSetAddress,
   disabled = false,
 }) => {
-  const [isPlacePickerModalOpened, setIsPlacePickerModalOpened] = useState(
-    false
-  );
+  const [isPlacePickerModalOpened, setIsPlacePickerModalOpened] =
+    useState(false);
 
   const [address, setAddress] = useState();
 
@@ -51,7 +50,9 @@ const AddressSelector = ({
     <>
       <AddressSelectorWrapper onClick={disabled ? null : onClick}>
         <LeftContent>
-          <FontAwesomeIcon icon="map-marker-alt" color="#f74342" />
+          <div style={{ width: 16 }}>
+            <FontAwesomeIcon icon="map-marker-alt" color="#f74342" />
+          </div>
 
           <span>{address ? address : "Ingresa dirección"}</span>
         </LeftContent>

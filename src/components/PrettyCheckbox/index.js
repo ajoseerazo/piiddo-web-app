@@ -3,7 +3,6 @@ import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import { CheckboxStyled } from "./styled";
-import 'pretty-checkbox/src/pretty-checkbox.scss';
 
 library.add([faCheck]);
 

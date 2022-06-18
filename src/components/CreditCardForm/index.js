@@ -7,7 +7,6 @@ import {
 import Cards from "react-credit-cards";
 import InputStyled from "../InputStyled";
 import { FormStyled, CreditCardFormWrapper } from "./styled";
-import "./styles.scss";
 
 const CreditCardForm = ({ onChange }) => {
   const [cvc, setCVC] = useState("");

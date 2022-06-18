@@ -1,4 +1,4 @@
-import { useEffect, useCallback, useState, Suspense } from "react";
+import React, { useEffect, useCallback, useState, Suspense } from "react";
 import { ToolbarWrapper, MenuItemWrapper } from "./styled";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

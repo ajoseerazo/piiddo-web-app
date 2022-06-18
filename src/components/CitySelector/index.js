@@ -57,11 +57,17 @@ const CitySelector = ({ disabled }) => {
   return (
     <>
       <CitySelectorWrapper onClick={!disabled ? toggleModal : undefined}>
-        <FontAwesomeIcon icon="city" color="#f74342" />
+        <div style={{ width: 16 }}>
+          <FontAwesomeIcon icon="city" color="#f74342" />
+        </div>
 
         <span>{!city ? "Selecciona tu ciudad" : CITIES_LABELS[city].name}</span>
 
-        {!disabled && <FontAwesomeIcon className="chevron-icon" icon="chevron-down" />}
+        {!disabled && (
+          <div style={{ width: 12 }}>
+            <FontAwesomeIcon className="chevron-icon" icon="chevron-down" />
+          </div>
+        )}
       </CitySelectorWrapper>
 
       <CityModal

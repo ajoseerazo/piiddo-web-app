@@ -9,6 +9,13 @@ import "bootstrap/dist/css/bootstrap.css";
 import { ToastProvider } from "react-toast-notifications";
 import { askForPermissionToReceiveNotifications } from "../src/utils";
 import { MixpanelProvider } from "react-mixpanel-browser";
+import "pretty-checkbox/src/pretty-checkbox.scss";
+import "../styles/credit-card-form.css";
+
+import '@fortawesome/fontawesome-svg-core/styles.css';
+// Prevent fontawesome from adding its CSS since we did it manually above:
+import { config } from '@fortawesome/fontawesome-svg-core';
+config.autoAddCss = false; 
 
 Router.events.on("routeChangeStart", (url) => {
   console.log(`Loading: ${url}`);

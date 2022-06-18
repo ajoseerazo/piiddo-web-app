@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import Slider from "react-slick";
 import ProductItemResult from "../ProductItemResult";
-import "slick-carousel/slick/slick.scss";
-import "slick-carousel/slick/slick-theme.scss";
 import {
   StoreWrapper,
   ProductsWrapper,

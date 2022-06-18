@@ -11,6 +11,8 @@ import { askForPermissionToReceiveNotifications } from "../src/utils";
 import { MixpanelProvider } from "react-mixpanel-browser";
 import "pretty-checkbox/src/pretty-checkbox.scss";
 import "../styles/credit-card-form.css";
+import "slick-carousel/slick/slick.scss";
+import "slick-carousel/slick/slick-theme.scss";
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 // Prevent fontawesome from adding its CSS since we did it manually above:
